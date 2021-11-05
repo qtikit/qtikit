@@ -1,8 +1,9 @@
 {
+  "private": true,
   "name": "qtikit",
   "description": "qti toolkit",
   "repository": "git@github.com:riiid/qtikit.git",
   "author": "Riiid",
   "license": "(MIT OR Apache-2.0)",
-  "workspaces": []
+  "packageManager": "yarn@3.1.0"
 }
