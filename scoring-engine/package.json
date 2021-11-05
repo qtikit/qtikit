@@ -1,0 +1,10 @@
+{
+  "name": "@qtikit/scoring-engine",
+  "packageManager": "yarn@3.1.0",
+  "dependencies": {
+    "@qtikit/model": "workspace:^"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  }
+}

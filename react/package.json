@@ -1,0 +1,14 @@
+{
+  "name": "@qtikit/react",
+  "packageManager": "yarn@3.1.0",
+  "dependencies": {
+    "@qtikit/model": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.34",
+    "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}
