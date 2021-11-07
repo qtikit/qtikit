@@ -4295,6 +4295,8 @@ __metadata:
 "qtikit@workspace:.":
   version: 0.0.0-use.local
   resolution: "qtikit@workspace:."
+  dependencies:
+    typescript: ^4.4.4
   languageName: unknown
   linkType: soft
 

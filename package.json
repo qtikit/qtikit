@@ -11,5 +11,8 @@
     "model/test",
     "react",
     "scoring-engine"
-  ]
+  ],
+  "dependencies": {
+    "typescript": "^4.4.4"
+  }
 }
