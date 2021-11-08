@@ -1559,7 +1559,10 @@ __metadata:
   resolution: "@qtikit/react@workspace:react"
   dependencies:
     "@qtikit/model": "workspace:^"
+    "@types/node": ^16.11.6
     "@types/react": ^17.0.34
+    "@types/react-dom": ^17.0.11
+    "@xmldom/xmldom": ^0.7.5
     typescript: ^4.4.4
   peerDependencies:
     react: "*"
@@ -1685,7 +1688,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:^16.11.6":
   version: 16.11.6
   resolution: "@types/node@npm:16.11.6"
   checksum: 6e19634766ff589d3d2f361c2196b671f8f133cdadc5ad347a621c360d8994b6c4fbccfb2ad9c60c588c593831a96497c9c6b77d2b7e91be723384b94f6368e7
@@ -1706,7 +1709,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.34":
+"@types/react-dom@npm:^17.0.11":
+  version: 17.0.11
+  resolution: "@types/react-dom@npm:17.0.11"
+  dependencies:
+    "@types/react": "*"
+  checksum: 4d5730dffbef86c887cecad7e3cecda424ce6a64d0b5441c63b5b015d48219868660a2bb1aa15e897e565ad8867fa6b885d4358b04e1c4e589ba4c07c3fda55c
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*, @types/react@npm:^17.0.34":
   version: 17.0.34
   resolution: "@types/react@npm:17.0.34"
   dependencies:
@@ -4296,6 +4308,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "qtikit@workspace:."
   dependencies:
+    "@xmldom/xmldom": ^0.7.5
     typescript: ^4.4.4
   languageName: unknown
   linkType: soft
