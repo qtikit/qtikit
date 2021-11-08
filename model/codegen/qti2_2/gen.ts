@@ -68,8 +68,10 @@ function genClass(def: Class): string {
         multiplicity: "[1]",
       });
     }
-    const children = genSelectionOrChildren(attrFields);
-    classFieldCodes.push(`  $children: ${children}[];\n`);
+    if (attrFields.length) {
+      const children = genSelectionOrChildren(attrFields);
+      classFieldCodes.push(`  $children: (${children})[];\n`);
+    }
   } else {
     if (attrFields.length) {
       extendTypes.push(`${name}Attributes`);

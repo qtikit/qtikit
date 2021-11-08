@@ -5,7 +5,7 @@
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabRootClass_DataModel_AssessmentItem
  */
 export interface AssessmentItem extends AssessmentItemCharacteristics {
-  $children: ["responseDeclaration", ResponseDeclaration] | ["outcomeDeclaration", OutcomeDeclaration] | ["templateDeclaration", TemplateDeclaration] | ["templateProcessing", TemplateProcessing] | ["assessmentStimulusRef", AssessmentStimulusRef] | ["stylesheet", StyleSheet] | ["itemBody", ItemBody] | ["responseProcessing", ResponseProcessing] | ["modalFeedback", ModalFeedback] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["responseDeclaration", ResponseDeclaration] | ["outcomeDeclaration", OutcomeDeclaration] | ["templateDeclaration", TemplateDeclaration] | ["templateProcessing", TemplateProcessing] | ["assessmentStimulusRef", AssessmentStimulusRef] | ["stylesheet", StyleSheet] | ["itemBody", ItemBody] | ["responseProcessing", ResponseProcessing] | ["modalFeedback", ModalFeedback] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface AssessmentItemCharacteristics {
   identifier: NormalizedString;
@@ -23,7 +23,7 @@ export interface AssessmentItemCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabRootClass_DataModel_AssessmentSection
  */
 export interface AssessmentSection extends AssessmentSectionCharacteristics {
-  $children: ["preCondition", LogicSingle] | ["branchRule", BranchRule] | ["itemSessionControl", ItemSessionControl] | ["timeLimits", TimeLimits] | ["selection", Selection] | ["ordering", Ordering] | ["rubricBlock", RubricBlock] | ["sectionPart", SectionPart][];
+  $children: (["preCondition", LogicSingle] | ["branchRule", BranchRule] | ["itemSessionControl", ItemSessionControl] | ["timeLimits", TimeLimits] | ["selection", Selection] | ["ordering", Ordering] | ["rubricBlock", RubricBlock] | ["sectionPart", SectionPart])[];
 }
 export interface AssessmentSectionCharacteristics {
   identifier: NormalizedString;
@@ -39,7 +39,7 @@ export interface AssessmentSectionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabRootClass_DataModel_AssessmentStimulus
  */
 export interface AssessmentStimulus extends AssessmentStimulusCharacteristics {
-  $children: ["stylesheet", StyleSheet] | ["stimulusBody", StimulusBody] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["stylesheet", StyleSheet] | ["stimulusBody", StimulusBody] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface AssessmentStimulusCharacteristics {
   identifier: NormalizedString;
@@ -55,7 +55,7 @@ export interface AssessmentStimulusCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabRootClass_DataModel_AssessmentTest
  */
 export interface AssessmentTest extends AssessmentTestCharacteristics {
-  $children: ["outcomeDeclaration", OutcomeDeclaration] | ["timeLimits", TimeLimits] | ["stylesheet", StyleSheet] | ["testPart", TestPart] | ["outcomeProcessing", OutcomeProcessing] | ["testFeedback", TestFeedback][];
+  $children: (["outcomeDeclaration", OutcomeDeclaration] | ["timeLimits", TimeLimits] | ["stylesheet", StyleSheet] | ["testPart", TestPart] | ["outcomeProcessing", OutcomeProcessing] | ["testFeedback", TestFeedback])[];
 }
 export interface AssessmentTestCharacteristics {
   identifier: NormalizedString;
@@ -69,7 +69,7 @@ export interface AssessmentTestCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabRootClass_DataModel_OutcomeDeclaration
  */
 export interface OutcomeDeclaration extends OutcomeDeclarationCharacteristics {
-  $children: ["defaultValue", DefaultValue] | ["lookupTable", LookupTable][];
+  $children: (["defaultValue", DefaultValue] | ["lookupTable", LookupTable])[];
 }
 export interface OutcomeDeclarationCharacteristics {
   identifier: Identifier;
@@ -90,7 +90,7 @@ export interface OutcomeDeclarationCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabRootClass_DataModel_ResponseProcessing
  */
 export interface ResponseProcessing extends ResponseProcessingCharacteristics {
-  $children: ["responseRuleGroup", ResponseRuleGroup][];
+  $children: (["responseRuleGroup", ResponseRuleGroup])[];
 }
 export interface ResponseProcessingCharacteristics {
   template?: AnyURI;
@@ -102,7 +102,7 @@ export interface ResponseProcessingCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_A
  */
 export interface A extends ACharacteristics {
-  $children: ["$text", String] | ["inlineGroup", InlineGroup][];
+  $children: (["$text", String] | ["inlineGroup", InlineGroup])[];
 }
 export interface ACharacteristics {
   href: AnyURI;
@@ -114,7 +114,7 @@ export interface ACharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_AnyN
  */
 export interface AnyN extends AnyNCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface AnyNCharacteristics {
   min: IntegerOrVariableRef;
@@ -126,7 +126,7 @@ export interface AnyNCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_AreaMapping
  */
 export interface AreaMapping extends AreaMappingCharacteristics {
-  $children: ["areaMapEntry", AreaMapEntry][];
+  $children: (["areaMapEntry", AreaMapEntry])[];
 }
 export interface AreaMappingCharacteristics {
   lowerBound?: Double;
@@ -139,7 +139,7 @@ export interface AreaMappingCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_AssessmentItemRef
  */
 export interface AssessmentItemRef extends AssessmentItemRefCharacteristics {
-  $children: ["preCondition", LogicSingle] | ["branchRule", BranchRule] | ["itemSessionControl", ItemSessionControl] | ["timeLimits", TimeLimits] | ["variableMapping", VariableMapping] | ["weight", Weight] | ["templateDefault", TemplateDefault][];
+  $children: (["preCondition", LogicSingle] | ["branchRule", BranchRule] | ["itemSessionControl", ItemSessionControl] | ["timeLimits", TimeLimits] | ["variableMapping", VariableMapping] | ["weight", Weight] | ["templateDefault", TemplateDefault])[];
 }
 export interface AssessmentItemRefCharacteristics {
   identifier: NormalizedString;
@@ -153,9 +153,7 @@ export interface AssessmentItemRefCharacteristics {
  * # 5.5
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_AssociableHotspot
  */
-export interface AssociableHotspot extends AssociableHotspotCharacteristics {
-  $children: [];
-}
+export interface AssociableHotspot extends AssociableHotspotCharacteristics {}
 export interface AssociableHotspotCharacteristics {
   identifier: Identifier;
   templateIdentifier?: Identifier;
@@ -173,7 +171,7 @@ export interface AssociableHotspotCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_AssociateInteraction
  */
 export interface AssociateInteraction extends AssociateInteractionCharacteristics {
-  $children: ["simpleAssociableChoice", SimpleAssociableChoice][];
+  $children: (["simpleAssociableChoice", SimpleAssociableChoice])[];
 }
 export interface AssociateInteractionCharacteristics {
   shuffle?: Boolean;
@@ -186,7 +184,7 @@ export interface AssociateInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BDO
  */
 export interface BDO extends BDOCharacteristics {
-  $children: ["$text", String] | ["inlineContentModel", InlineContentModel][];
+  $children: (["$text", String] | ["inlineContentModel", InlineContentModel])[];
 }
 export interface BDOCharacteristics {
   title?: String;
@@ -196,9 +194,7 @@ export interface BDOCharacteristics {
  * # 5.8
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BR
  */
-export interface BR extends BRCharacteristics {
-  $children: [];
-}
+export interface BR extends BRCharacteristics {}
 export interface BRCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -224,7 +220,7 @@ export interface BRCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BasePromptInteraction
  */
 export interface BasePromptInteraction extends BasePromptInteractionCharacteristics {
-  $children: ["prompt", Prompt][];
+  $children: (["prompt", Prompt])[];
 }
 export interface BasePromptInteractionCharacteristics {
   id?: UniqueIdentifier;
@@ -251,9 +247,7 @@ export interface BasePromptInteractionCharacteristics {
  * # 5.10
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BaseSequence
  */
-export interface BaseSequence extends BaseSequenceCharacteristics {
-  $children: [];
-}
+export interface BaseSequence extends BaseSequenceCharacteristics {}
 export interface BaseSequenceCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -277,9 +271,7 @@ export interface BaseSequenceCharacteristics {
  * # 5.11
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BaseSequenceFull
  */
-export interface BaseSequenceFull extends BaseSequenceFullCharacteristics {
-  $children: [];
-}
+export interface BaseSequenceFull extends BaseSequenceFullCharacteristics {}
 export interface BaseSequenceFullCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -305,9 +297,7 @@ export interface BaseSequenceFullCharacteristics {
  * # 5.12
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BaseSequenceRIdent
  */
-export interface BaseSequenceRIdent extends BaseSequenceRIdentCharacteristics {
-  $children: [];
-}
+export interface BaseSequenceRIdent extends BaseSequenceRIdentCharacteristics {}
 export interface BaseSequenceRIdentCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -332,9 +322,7 @@ export interface BaseSequenceRIdentCharacteristics {
  * # 5.13
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BaseSequenceXBase
  */
-export interface BaseSequenceXBase extends BaseSequenceXBaseCharacteristics {
-  $children: [];
-}
+export interface BaseSequenceXBase extends BaseSequenceXBaseCharacteristics {}
 export interface BaseSequenceXBaseCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -360,7 +348,7 @@ export interface BaseSequenceXBaseCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BlockQuote
  */
 export interface BlockQuote extends BlockQuoteCharacteristics {
-  $children: ["blockGroup", BlockGroup][];
+  $children: (["blockGroup", BlockGroup])[];
 }
 export interface BlockQuoteCharacteristics {
   cite?: AnyURI;
@@ -371,7 +359,7 @@ export interface BlockQuoteCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BranchRule
  */
 export interface BranchRule extends BranchRuleCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface BranchRuleCharacteristics {
   target: Identifier;
@@ -382,7 +370,7 @@ export interface BranchRuleCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Caption
  */
 export interface Caption extends CaptionCharacteristics {
-  $children: ["$text", String] | ["inlineGroup", InlineGroup][];
+  $children: (["$text", String] | ["inlineGroup", InlineGroup])[];
 }
 export interface CaptionCharacteristics {
   id?: UniqueIdentifier;
@@ -408,7 +396,7 @@ export interface CaptionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ChoiceInteraction
  */
 export interface ChoiceInteraction extends ChoiceInteractionCharacteristics {
-  $children: ["simpleChoice", SimpleChoice][];
+  $children: (["simpleChoice", SimpleChoice])[];
 }
 export interface ChoiceInteractionCharacteristics {
   shuffle?: Boolean;
@@ -421,9 +409,7 @@ export interface ChoiceInteractionCharacteristics {
  * # 5.18
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Col
  */
-export interface Col extends ColCharacteristics {
-  $children: [];
-}
+export interface Col extends ColCharacteristics {}
 export interface ColCharacteristics {
   span?: Int;
 }
@@ -433,7 +419,7 @@ export interface ColCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ColGroup
  */
 export interface ColGroup extends ColGroupCharacteristics {
-  $children: ["col", Col][];
+  $children: (["col", Col])[];
 }
 export interface ColGroupCharacteristics {
   span?: Int;
@@ -444,7 +430,7 @@ export interface ColGroupCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_CorrectResponse
  */
 export interface CorrectResponse extends CorrectResponseCharacteristics {
-  $children: ["value", Value][];
+  $children: (["value", Value])[];
 }
 export interface CorrectResponseCharacteristics {
   interpretation?: String;
@@ -455,7 +441,7 @@ export interface CorrectResponseCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_CustomInteraction
  */
 export interface CustomInteraction extends CustomInteractionCharacteristics {
-  $children: ["extension", AnyTypeLax][];
+  $children: (["extension", AnyTypeLax])[];
 }
 export interface CustomInteractionCharacteristics {
   extension: NamespaceLax[];
@@ -466,7 +452,7 @@ export interface CustomInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_CustomOperator
  */
 export interface CustomOperator extends CustomOperatorCharacteristics {
-  $children: ["logic", ExpressionGroup] | ["extension", NamespaceLax][];
+  $children: (["logic", ExpressionGroup] | ["extension", NamespaceLax])[];
 }
 export interface CustomOperatorCharacteristics {
   class?: Identifier;
@@ -479,7 +465,7 @@ export interface CustomOperatorCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_DD
  */
 export interface DD extends DDCharacteristics {
-  $children: ["$text", String] | ["flowGroup", FlowGroup][];
+  $children: (["$text", String] | ["flowGroup", FlowGroup])[];
 }
 export interface DDCharacteristics {
   id?: UniqueIdentifier;
@@ -506,7 +492,7 @@ export interface DDCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_DL
  */
 export interface DL extends DLCharacteristics {
-  $children: ["dlSelection", DLSelection][];
+  $children: (["dlSelection", DLSelection])[];
 }
 export interface DLCharacteristics {
   id?: UniqueIdentifier;
@@ -533,7 +519,7 @@ export interface DLCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_DT
  */
 export interface DT extends DTCharacteristics {
-  $children: ["$text", String] | ["inlineGroup", InlineGroup][];
+  $children: (["$text", String] | ["inlineGroup", InlineGroup])[];
 }
 export interface DTCharacteristics {
   id?: UniqueIdentifier;
@@ -560,7 +546,7 @@ export interface DTCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_DefaultValue
  */
 export interface DefaultValue extends DefaultValueCharacteristics {
-  $children: ["value", Value][];
+  $children: (["value", Value])[];
 }
 export interface DefaultValueCharacteristics {
   interpretation?: NormalizedString;
@@ -571,7 +557,7 @@ export interface DefaultValueCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Div
  */
 export interface Div extends DivCharacteristics {
-  $children: ["$text", String] | ["divSelection", DivSelection][];
+  $children: (["$text", String] | ["divSelection", DivSelection])[];
 }
 export interface DivCharacteristics {
   id?: UniqueIdentifier;
@@ -598,7 +584,7 @@ export interface DivCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_DrawingInteraction
  */
 export interface DrawingInteraction extends DrawingInteractionCharacteristics {
-  $children: ["object", Object][];
+  $children: (["object", Object])[];
 }
 export interface DrawingInteractionCharacteristics {
   id?: UniqueIdentifier;
@@ -625,9 +611,7 @@ export interface DrawingInteractionCharacteristics {
  * # 5.29
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_EndAttemptInteraction
  */
-export interface EndAttemptInteraction extends EndAttemptInteractionCharacteristics {
-  $children: [];
-}
+export interface EndAttemptInteraction extends EndAttemptInteractionCharacteristics {}
 export interface EndAttemptInteractionCharacteristics {
   responseIdentifier: Identifier;
   title: String;
@@ -639,7 +623,7 @@ export interface EndAttemptInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Equal
  */
 export interface Equal extends EqualCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface EqualCharacteristics {
   toleranceMode?: ToleranceMode;
@@ -653,7 +637,7 @@ export interface EqualCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_EqualRounded
  */
 export interface EqualRounded extends EqualRoundedCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface EqualRoundedCharacteristics {
   roundingMode?: RoundingMode;
@@ -665,7 +649,7 @@ export interface EqualRoundedCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ExtendedTextInteraction
  */
 export interface ExtendedTextInteraction extends ExtendedTextInteractionCharacteristics {
-  $children: ["prompt", Prompt][];
+  $children: (["prompt", Prompt])[];
 }
 export interface ExtendedTextInteractionCharacteristics {
   base?: Int;
@@ -684,7 +668,7 @@ export interface ExtendedTextInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_FeedbackBlock
  */
 export interface FeedbackBlock extends FeedbackBlockCharacteristics {
-  $children: ["$text", String] | ["feedbackBlockStatic", FeedbackBlockStatic] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["$text", String] | ["feedbackBlockStatic", FeedbackBlockStatic] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface FeedbackBlockCharacteristics {
   outcomeIdentifier: Identifier;
@@ -697,7 +681,7 @@ export interface FeedbackBlockCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_FeedbackInline
  */
 export interface FeedbackInline extends FeedbackInlineCharacteristics {
-  $children: ["$text", String] | ["feedbackInlineGroup", FeedbackInlineGroup][];
+  $children: (["$text", String] | ["feedbackInlineGroup", FeedbackInlineGroup])[];
 }
 export interface FeedbackInlineCharacteristics {
   outcomeIdentifier: Identifier;
@@ -710,7 +694,7 @@ export interface FeedbackInlineCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_FieldValue
  */
 export interface FieldValue extends FieldValueCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface FieldValueCharacteristics {
   fieldIdentifier: Identifier;
@@ -720,9 +704,7 @@ export interface FieldValueCharacteristics {
  * # 5.36
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Gap
  */
-export interface Gap extends GapCharacteristics {
-  $children: [];
-}
+export interface Gap extends GapCharacteristics {}
 export interface GapCharacteristics {
   identifier: Identifier;
   templateIdentifier?: Identifier;
@@ -736,7 +718,7 @@ export interface GapCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_GapImg
  */
 export interface GapImg extends GapImgCharacteristics {
-  $children: ["object", Object][];
+  $children: (["object", Object])[];
 }
 export interface GapImgCharacteristics {
   identifier: Identifier;
@@ -755,7 +737,7 @@ export interface GapImgCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_GapMatchInteraction
  */
 export interface GapMatchInteraction extends GapMatchInteractionCharacteristics {
-  $children: ["gapChoice", GapChoice] | ["blockStaticGroup", BlockStaticGroup][];
+  $children: (["gapChoice", GapChoice] | ["blockStaticGroup", BlockStaticGroup])[];
 }
 export interface GapMatchInteractionCharacteristics {
   shuffle?: Boolean;
@@ -768,7 +750,7 @@ export interface GapMatchInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_GapText
  */
 export interface GapText extends GapTextCharacteristics {
-  $children: ["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup][];
+  $children: (["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup])[];
 }
 export interface GapTextCharacteristics {
   identifier: Identifier;
@@ -784,7 +766,7 @@ export interface GapTextCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_GraphicAssociateInteraction
  */
 export interface GraphicAssociateInteraction extends GraphicAssociateInteractionCharacteristics {
-  $children: ["object", Object] | ["associableHotspot", AssociableHotspot][];
+  $children: (["object", Object] | ["associableHotspot", AssociableHotspot])[];
 }
 export interface GraphicAssociateInteractionCharacteristics {
   minAssociations?: NonNegativeInteger;
@@ -796,7 +778,7 @@ export interface GraphicAssociateInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_GraphicGapMatchInteraction
  */
 export interface GraphicGapMatchInteraction extends GraphicGapMatchInteractionCharacteristics {
-  $children: ["prompt", Prompt] | ["object", Object] | ["gapChoice", GapChoice] | ["associableHotspot", AssociableHotspot][];
+  $children: (["prompt", Prompt] | ["object", Object] | ["gapChoice", GapChoice] | ["associableHotspot", AssociableHotspot])[];
 }
 export interface GraphicGapMatchInteractionCharacteristics {
   minAssociations?: NonNegativeInteger;
@@ -808,7 +790,7 @@ export interface GraphicGapMatchInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_GraphicOrderInteraction
  */
 export interface GraphicOrderInteraction extends GraphicOrderInteractionCharacteristics {
-  $children: ["prompt", Prompt] | ["object", Object] | ["hotspotChoice", HotspotChoice][];
+  $children: (["prompt", Prompt] | ["object", Object] | ["hotspotChoice", HotspotChoice])[];
 }
 export interface GraphicOrderInteractionCharacteristics {
   minChoices?: NonNegativeInteger;
@@ -819,9 +801,7 @@ export interface GraphicOrderInteractionCharacteristics {
  * # 5.43
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HR
  */
-export interface HR extends HRCharacteristics {
-  $children: [];
-}
+export interface HR extends HRCharacteristics {}
 export interface HRCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -847,7 +827,7 @@ export interface HRCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HTMLText
  */
 export interface HTMLText extends HTMLTextCharacteristics {
-  $children: ["$text", String] | ["inlineGroup", InlineGroup][];
+  $children: (["$text", String] | ["inlineGroup", InlineGroup])[];
 }
 export interface HTMLTextCharacteristics {
   id?: UniqueIdentifier;
@@ -874,7 +854,7 @@ export interface HTMLTextCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HotText
  */
 export interface HotText extends HotTextCharacteristics {
-  $children: ["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup][];
+  $children: (["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup])[];
 }
 export interface HotTextCharacteristics {
   identifier: Identifier;
@@ -887,7 +867,7 @@ export interface HotTextCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HotTextInteraction
  */
 export interface HotTextInteraction extends HotTextInteractionCharacteristics {
-  $children: ["blockStaticGroup", BlockStaticGroup][];
+  $children: (["blockStaticGroup", BlockStaticGroup])[];
 }
 export interface HotTextInteractionCharacteristics {
   maxChoices?: NonNegativeInteger;
@@ -898,9 +878,7 @@ export interface HotTextInteractionCharacteristics {
  * # 5.47
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HotspotChoice
  */
-export interface HotspotChoice extends HotspotChoiceCharacteristics {
-  $children: [];
-}
+export interface HotspotChoice extends HotspotChoiceCharacteristics {}
 export interface HotspotChoiceCharacteristics {
   identifier: Identifier;
   templateIdentifier?: Identifier;
@@ -915,7 +893,7 @@ export interface HotspotChoiceCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HotspotInteraction
  */
 export interface HotspotInteraction extends HotspotInteractionCharacteristics {
-  $children: ["object", Object] | ["hotspotChoice", HotspotChoice][];
+  $children: (["object", Object] | ["hotspotChoice", HotspotChoice])[];
 }
 export interface HotspotInteractionCharacteristics {
   minChoices?: NonNegativeInteger;
@@ -926,9 +904,7 @@ export interface HotspotInteractionCharacteristics {
  * # 5.49
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Img
  */
-export interface Img extends ImgCharacteristics {
-  $children: [];
-}
+export interface Img extends ImgCharacteristics {}
 export interface ImgCharacteristics {
   src: AnyURI;
   alt: String;
@@ -942,7 +918,7 @@ export interface ImgCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Index
  */
 export interface Index extends IndexCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface IndexCharacteristics {
   n: IntOrIdentifier;
@@ -953,7 +929,7 @@ export interface IndexCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_InfoControl
  */
 export interface InfoControl extends InfoControlCharacteristics {
-  $children: ["$text", String] | ["flowStaticGroup", FlowStaticGroup][];
+  $children: (["$text", String] | ["flowStaticGroup", FlowStaticGroup])[];
 }
 export interface InfoControlCharacteristics {
   title: NormalizedString;
@@ -964,7 +940,7 @@ export interface InfoControlCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_InlineChoice
  */
 export interface InlineChoice extends InlineChoiceCharacteristics {
-  $children: ["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup][];
+  $children: (["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup])[];
 }
 export interface InlineChoiceCharacteristics {
   identifier: Identifier;
@@ -978,7 +954,7 @@ export interface InlineChoiceCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_InlineChoiceInteraction
  */
 export interface InlineChoiceInteraction extends InlineChoiceInteractionCharacteristics {
-  $children: ["label", Label] | ["inlineChoice", InlineChoice][];
+  $children: (["label", Label] | ["inlineChoice", InlineChoice])[];
 }
 export interface InlineChoiceInteractionCharacteristics {
   shuffle?: Boolean;
@@ -990,7 +966,7 @@ export interface InlineChoiceInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Inside
  */
 export interface Inside extends InsideCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface InsideCharacteristics {
   shape: Shape;
@@ -1002,7 +978,7 @@ export interface InsideCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_InterpolationTable
  */
 export interface InterpolationTable extends InterpolationTableCharacteristics {
-  $children: ["interpolationTableEntry", InterpolationTableEntry][];
+  $children: (["interpolationTableEntry", InterpolationTableEntry])[];
 }
 export interface InterpolationTableCharacteristics {
   defaultValue?: String;
@@ -1013,7 +989,7 @@ export interface InterpolationTableCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ItemBody
  */
 export interface ItemBody extends ItemBodyCharacteristics {
-  $children: ["itemBodySelect", ItemBodySelect][];
+  $children: (["itemBodySelect", ItemBodySelect])[];
 }
 export interface ItemBodyCharacteristics {
   id?: UniqueIdentifier;
@@ -1028,7 +1004,7 @@ export interface ItemBodyCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_LI
  */
 export interface LI extends LICharacteristics {
-  $children: ["$text", String] | ["flowGroup", FlowGroup][];
+  $children: (["$text", String] | ["flowGroup", FlowGroup])[];
 }
 export interface LICharacteristics {
   id?: UniqueIdentifier;
@@ -1054,7 +1030,7 @@ export interface LICharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Label
  */
 export interface Label extends LabelCharacteristics {
-  $children: ["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup][];
+  $children: (["$text", String] | ["inlineChoiceGroup", InlineChoiceGroup])[];
 }
 export interface LabelCharacteristics {
   id?: UniqueIdentifier;
@@ -1081,7 +1057,7 @@ export interface LabelCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Logic0toMany
  */
 export interface Logic0toMany {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 
 /**
@@ -1089,7 +1065,7 @@ export interface Logic0toMany {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Logic1toMany
  */
 export interface Logic1toMany {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 
 /**
@@ -1097,7 +1073,7 @@ export interface Logic1toMany {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_LogicPair
  */
 export interface LogicPair {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 
 /**
@@ -1105,7 +1081,7 @@ export interface LogicPair {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_LogicSingle
  */
 export interface LogicSingle {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 
 /**
@@ -1113,7 +1089,7 @@ export interface LogicSingle {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_LookupOutcomeValue
  */
 export interface LookupOutcomeValue extends LookupOutcomeValueCharacteristics {
-  $children: ["expressionGroup", ExpressionGroup][];
+  $children: (["expressionGroup", ExpressionGroup])[];
 }
 export interface LookupOutcomeValueCharacteristics {
   identifier: Identifier;
@@ -1124,7 +1100,7 @@ export interface LookupOutcomeValueCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Mapping
  */
 export interface Mapping extends MappingCharacteristics {
-  $children: ["mapEntry", MapEntry][];
+  $children: (["mapEntry", MapEntry])[];
 }
 export interface MappingCharacteristics {
   lowerBound?: Double;
@@ -1137,7 +1113,7 @@ export interface MappingCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_MatchInteraction
  */
 export interface MatchInteraction extends MatchInteractionCharacteristics {
-  $children: ["simpleMatchSet", SimpleMatchSet][];
+  $children: (["simpleMatchSet", SimpleMatchSet])[];
 }
 export interface MatchInteractionCharacteristics {
   shuffle?: Boolean;
@@ -1150,7 +1126,7 @@ export interface MatchInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_MatchTable
  */
 export interface MatchTable extends MatchTableCharacteristics {
-  $children: ["matchTableEntry", MatchTableEntry][];
+  $children: (["matchTableEntry", MatchTableEntry])[];
 }
 export interface MatchTableCharacteristics {
   defaultValue?: String;
@@ -1161,7 +1137,7 @@ export interface MatchTableCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_MathOperator
  */
 export interface MathOperator extends MathOperatorCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface MathOperatorCharacteristics {
   name: MathOperatorName;
@@ -1187,7 +1163,7 @@ export interface MediaInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ModalFeedback
  */
 export interface ModalFeedback extends ModalFeedbackCharacteristics {
-  $children: ["$text", String] | ["feedbackFlowStaticGroup", FeedbackFlowStaticGroup] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["$text", String] | ["feedbackFlowStaticGroup", FeedbackFlowStaticGroup] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface ModalFeedbackCharacteristics {
   outcomeIdentifier: Identifier;
@@ -1201,7 +1177,7 @@ export interface ModalFeedbackCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_NumericLogic1toMany
  */
 export interface NumericLogic1toMany {
-  $children: ["logic", NumericExpressionGroup][];
+  $children: (["logic", NumericExpressionGroup])[];
 }
 
 /**
@@ -1209,7 +1185,7 @@ export interface NumericLogic1toMany {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_OUL
  */
 export interface OUL extends OULCharacteristics {
-  $children: ["li", LI][];
+  $children: (["li", LI])[];
 }
 export interface OULCharacteristics {
   id?: UniqueIdentifier;
@@ -1236,7 +1212,7 @@ export interface OULCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Object
  */
 export interface Object extends ObjectCharacteristics {
-  $children: ["$text", String] | ["objectFlowGroup", ObjectFlowGroup][];
+  $children: (["$text", String] | ["objectFlowGroup", ObjectFlowGroup])[];
 }
 export interface ObjectCharacteristics {
   data: String;
@@ -1250,7 +1226,7 @@ export interface ObjectCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_OrderInteraction
  */
 export interface OrderInteraction extends OrderInteractionCharacteristics {
-  $children: ["simpleChoice", SimpleChoice][];
+  $children: (["simpleChoice", SimpleChoice])[];
 }
 export interface OrderInteractionCharacteristics {
   shuffle?: Boolean;
@@ -1264,7 +1240,7 @@ export interface OrderInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Ordering
  */
 export interface Ordering extends OrderingCharacteristics {
-  $children: ["extensions", NamespaceLax][];
+  $children: (["extensions", NamespaceLax])[];
 }
 export interface OrderingCharacteristics {
   shuffle?: Boolean;
@@ -1276,7 +1252,7 @@ export interface OrderingCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_OutcomeCondition
  */
 export interface OutcomeCondition {
-  $children: ["outcomeIf", OutcomeIf] | ["outcomeElseIf", OutcomeIf] | ["outcomeElse", OutcomeElse][];
+  $children: (["outcomeIf", OutcomeIf] | ["outcomeElseIf", OutcomeIf] | ["outcomeElse", OutcomeElse])[];
 }
 
 /**
@@ -1284,7 +1260,7 @@ export interface OutcomeCondition {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_OutcomeElse
  */
 export interface OutcomeElse {
-  $children: ["outcomeRule", OutcomeRule][];
+  $children: (["outcomeRule", OutcomeRule])[];
 }
 
 /**
@@ -1292,7 +1268,7 @@ export interface OutcomeElse {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_OutcomeIf
  */
 export interface OutcomeIf {
-  $children: ["expressionGroup", ExpressionGroup] | ["outcomeRule", OutcomeRule][];
+  $children: (["expressionGroup", ExpressionGroup] | ["outcomeRule", OutcomeRule])[];
 }
 
 /**
@@ -1300,7 +1276,7 @@ export interface OutcomeIf {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_OutcomeProcessing
  */
 export interface OutcomeProcessing {
-  $children: ["outcomeRule", OutcomeRule][];
+  $children: (["outcomeRule", OutcomeRule])[];
 }
 
 /**
@@ -1308,7 +1284,7 @@ export interface OutcomeProcessing {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_OutcomeProcessingFragment
  */
 export interface OutcomeProcessingFragment {
-  $children: ["outcomeRule", OutcomeRule][];
+  $children: (["outcomeRule", OutcomeRule])[];
 }
 
 /**
@@ -1316,7 +1292,7 @@ export interface OutcomeProcessingFragment {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_PatternMatch
  */
 export interface PatternMatch extends PatternMatchCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface PatternMatchCharacteristics {
   pattern: StringOrVariableRef;
@@ -1327,7 +1303,7 @@ export interface PatternMatchCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_PositionObjectInteraction
  */
 export interface PositionObjectInteraction extends PositionObjectInteractionCharacteristics {
-  $children: ["object", Object][];
+  $children: (["object", Object])[];
 }
 export interface PositionObjectInteractionCharacteristics {
   centerPoint?: IntegerList;
@@ -1340,7 +1316,7 @@ export interface PositionObjectInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_PositionObjectStage
  */
 export interface PositionObjectStage extends PositionObjectStageCharacteristics {
-  $children: ["object", Object] | ["positionObjectInteraction", PositionObjectInteraction][];
+  $children: (["object", Object] | ["positionObjectInteraction", PositionObjectInteraction])[];
 }
 export interface PositionObjectStageCharacteristics {
   id?: UniqueIdentifier;
@@ -1351,7 +1327,7 @@ export interface PositionObjectStageCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Prompt
  */
 export interface Prompt extends PromptCharacteristics {
-  $children: ["$text", String] | ["promptStaticGroup", PromptStaticGroup][];
+  $children: (["$text", String] | ["promptStaticGroup", PromptStaticGroup])[];
 }
 export interface PromptCharacteristics {
   id?: UniqueIdentifier;
@@ -1377,7 +1353,7 @@ export interface PromptCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Q
  */
 export interface Q extends QCharacteristics {
-  $children: ["$text", String] | ["inlineGroup", InlineGroup][];
+  $children: (["$text", String] | ["inlineGroup", InlineGroup])[];
 }
 export interface QCharacteristics {
   cite?: AnyURI;
@@ -1388,7 +1364,7 @@ export interface QCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Repeat
  */
 export interface Repeat extends RepeatCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface RepeatCharacteristics {
   numberRepeats: IntOrIdentifier;
@@ -1399,7 +1375,7 @@ export interface RepeatCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ResponseCondition
  */
 export interface ResponseCondition {
-  $children: ["responseIf", ResponseIf] | ["responseElseIf", ResponseIf] | ["responseElse", ResponseElse][];
+  $children: (["responseIf", ResponseIf] | ["responseElseIf", ResponseIf] | ["responseElse", ResponseElse])[];
 }
 
 /**
@@ -1407,7 +1383,7 @@ export interface ResponseCondition {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ResponseDeclaration
  */
 export interface ResponseDeclaration extends ResponseDeclarationCharacteristics {
-  $children: ["defaultValue", DefaultValue] | ["correctResponse", CorrectResponse] | ["mapping", Mapping] | ["areaMapping", AreaMapping][];
+  $children: (["defaultValue", DefaultValue] | ["correctResponse", CorrectResponse] | ["mapping", Mapping] | ["areaMapping", AreaMapping])[];
 }
 export interface ResponseDeclarationCharacteristics {
   identifier: UniqueIdentifier;
@@ -1420,7 +1396,7 @@ export interface ResponseDeclarationCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ResponseElse
  */
 export interface ResponseElse {
-  $children: ["responseRuleGroup", ResponseRuleGroup][];
+  $children: (["responseRuleGroup", ResponseRuleGroup])[];
 }
 
 /**
@@ -1428,7 +1404,7 @@ export interface ResponseElse {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ResponseIf
  */
 export interface ResponseIf {
-  $children: ["expressionGroup", ExpressionGroup] | ["responseRuleGroup", ResponseRuleGroup][];
+  $children: (["expressionGroup", ExpressionGroup] | ["responseRuleGroup", ResponseRuleGroup])[];
 }
 
 /**
@@ -1436,7 +1412,7 @@ export interface ResponseIf {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_ResponseProcessingFragment
  */
 export interface ResponseProcessingFragment {
-  $children: ["responseRuleGroup", ResponseRuleGroup][];
+  $children: (["responseRuleGroup", ResponseRuleGroup])[];
 }
 
 /**
@@ -1444,7 +1420,7 @@ export interface ResponseProcessingFragment {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_RoundTo
  */
 export interface RoundTo extends RoundToCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface RoundToCharacteristics {
   roundingMode: RoundingMode;
@@ -1456,7 +1432,7 @@ export interface RoundToCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_RubricBlock
  */
 export interface RubricBlock extends RubricBlockCharacteristics {
-  $children: ["$text", String] | ["contentModel", RubricBlockContentModel] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["$text", String] | ["contentModel", RubricBlockContentModel] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface RubricBlockCharacteristics {
   use?: NormalizedString;
@@ -1468,7 +1444,7 @@ export interface RubricBlockCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_RubricBlockTemplateBlock
  */
 export interface RubricBlockTemplateBlock extends RubricBlockTemplateBlockCharacteristics {
-  $children: ["$text", String] | ["rtBlockContentModel", RubricTemplateBlockContentModel] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["$text", String] | ["rtBlockContentModel", RubricTemplateBlockContentModel] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface RubricBlockTemplateBlockCharacteristics {
   templateIdentifier: Identifier;
@@ -1481,7 +1457,7 @@ export interface RubricBlockTemplateBlockCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_RubricBlockTemplateInline
  */
 export interface RubricBlockTemplateInline extends RubricBlockTemplateInlineCharacteristics {
-  $children: ["$text", String] | ["rtInlineStaticGroup", RubricTemplateInlineStaticGroup][];
+  $children: (["$text", String] | ["rtInlineStaticGroup", RubricTemplateInlineStaticGroup])[];
 }
 export interface RubricBlockTemplateInlineCharacteristics {
   templateIdentifier: Identifier;
@@ -1494,7 +1470,7 @@ export interface RubricBlockTemplateInlineCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_SelectPointInteraction
  */
 export interface SelectPointInteraction extends SelectPointInteractionCharacteristics {
-  $children: ["object", Object][];
+  $children: (["object", Object])[];
 }
 export interface SelectPointInteractionCharacteristics {
   minChoices?: NonNegativeInteger;
@@ -1506,7 +1482,7 @@ export interface SelectPointInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Selection
  */
 export interface Selection extends SelectionCharacteristics {
-  $children: ["extensions", NamespaceLax][];
+  $children: (["extensions", NamespaceLax])[];
 }
 export interface SelectionCharacteristics {
   select: Int;
@@ -1519,7 +1495,7 @@ export interface SelectionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_SetValue
  */
 export interface SetValue extends SetValueCharacteristics {
-  $children: ["expressionGroup", ExpressionGroup][];
+  $children: (["expressionGroup", ExpressionGroup])[];
 }
 export interface SetValueCharacteristics {
   identifier: Identifier;
@@ -1530,7 +1506,7 @@ export interface SetValueCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_SimpleAssociableChoice
  */
 export interface SimpleAssociableChoice extends SimpleAssociableChoiceCharacteristics {
-  $children: ["$text", String] | ["flowStaticGroup", FlowStaticGroup][];
+  $children: (["$text", String] | ["flowStaticGroup", FlowStaticGroup])[];
 }
 export interface SimpleAssociableChoiceCharacteristics {
   identifier: Identifier;
@@ -1547,7 +1523,7 @@ export interface SimpleAssociableChoiceCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_SimpleChoice
  */
 export interface SimpleChoice extends SimpleChoiceCharacteristics {
-  $children: ["$text", String] | ["flowStaticGroup", FlowStaticGroup][];
+  $children: (["$text", String] | ["flowStaticGroup", FlowStaticGroup])[];
 }
 export interface SimpleChoiceCharacteristics {
   identifier: Identifier;
@@ -1561,7 +1537,7 @@ export interface SimpleChoiceCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_SimpleMatchSet
  */
 export interface SimpleMatchSet extends SimpleMatchSetCharacteristics {
-  $children: ["simpleAssociableChoice", SimpleAssociableChoice][];
+  $children: (["simpleAssociableChoice", SimpleAssociableChoice])[];
 }
 export interface SimpleMatchSetCharacteristics {
   id?: UniqueIdentifier;
@@ -1572,7 +1548,7 @@ export interface SimpleMatchSetCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_SliderInteraction
  */
 export interface SliderInteraction extends SliderInteractionCharacteristics {
-  $children: ["prompt", Prompt][];
+  $children: (["prompt", Prompt])[];
 }
 export interface SliderInteractionCharacteristics {
   lowerBound: NonNegativeDouble;
@@ -1588,7 +1564,7 @@ export interface SliderInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_StatsOperator
  */
 export interface StatsOperator extends StatsOperatorCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface StatsOperatorCharacteristics {
   name: StatsOperatorName;
@@ -1599,7 +1575,7 @@ export interface StatsOperatorCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_StimulusBody
  */
 export interface StimulusBody extends StimulusBodyCharacteristics {
-  $children: ["blockGroup", BlockGroup][];
+  $children: (["blockGroup", BlockGroup])[];
 }
 export interface StimulusBodyCharacteristics {
   id?: UniqueIdentifier;
@@ -1625,7 +1601,7 @@ export interface StimulusBodyCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_StringMatch
  */
 export interface StringMatch extends StringMatchCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface StringMatchCharacteristics {
   caseSensitive: Boolean;
@@ -1637,7 +1613,7 @@ export interface StringMatchCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Substring
  */
 export interface Substring extends SubstringCharacteristics {
-  $children: ["logic", ExpressionGroup][];
+  $children: (["logic", ExpressionGroup])[];
 }
 export interface SubstringCharacteristics {
   caseSensitive: Boolean;
@@ -1648,7 +1624,7 @@ export interface SubstringCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TDH
  */
 export interface TDH extends TDHCharacteristics {
-  $children: ["$text", String] | ["flowGroup", FlowGroup][];
+  $children: (["$text", String] | ["flowGroup", FlowGroup])[];
 }
 export interface TDHCharacteristics {
   headers?: IdentifierList;
@@ -1666,7 +1642,7 @@ export interface TDHCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TR
  */
 export interface TR extends TRCharacteristics {
-  $children: ["tableCellGroup", TableCellGroup][];
+  $children: (["tableCellGroup", TableCellGroup])[];
 }
 export interface TRCharacteristics {
   id?: UniqueIdentifier;
@@ -1692,7 +1668,7 @@ export interface TRCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Table
  */
 export interface Table extends TableCharacteristics {
-  $children: ["caption", Caption] | ["col", Col] | ["colgroup", ColGroup] | ["thead", TablePart] | ["tfoot", TablePart] | ["tbody", TablePart][];
+  $children: (["caption", Caption] | ["col", Col] | ["colgroup", ColGroup] | ["thead", TablePart] | ["tfoot", TablePart] | ["tbody", TablePart])[];
 }
 export interface TableCharacteristics {
   summary?: String;
@@ -1703,7 +1679,7 @@ export interface TableCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TablePart
  */
 export interface TablePart extends TablePartCharacteristics {
-  $children: ["tr", TR][];
+  $children: (["tr", TR])[];
 }
 export interface TablePartCharacteristics {
   id?: UniqueIdentifier;
@@ -1729,7 +1705,7 @@ export interface TablePartCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateBlock
  */
 export interface TemplateBlock extends TemplateBlockCharacteristics {
-  $children: ["$text", String] | ["fatBlockStatic", FeedandTempBlockStatic] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["$text", String] | ["fatBlockStatic", FeedandTempBlockStatic] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface TemplateBlockCharacteristics {
   templateIdentifier: Identifier;
@@ -1742,7 +1718,7 @@ export interface TemplateBlockCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateBlockFeedbackBlock
  */
 export interface TemplateBlockFeedbackBlock extends TemplateBlockFeedbackBlockCharacteristics {
-  $children: ["$text", String] | ["fatBlockStatic", FeedandTempBlockStatic] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["$text", String] | ["fatBlockStatic", FeedandTempBlockStatic] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface TemplateBlockFeedbackBlockCharacteristics {
   outcomeIdentifier: Identifier;
@@ -1755,7 +1731,7 @@ export interface TemplateBlockFeedbackBlockCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateCondition
  */
 export interface TemplateCondition {
-  $children: ["templateIf", TemplateIf] | ["templateElseIf", TemplateIf] | ["templateElse", TemplateElse][];
+  $children: (["templateIf", TemplateIf] | ["templateElseIf", TemplateIf] | ["templateElse", TemplateElse])[];
 }
 
 /**
@@ -1763,7 +1739,7 @@ export interface TemplateCondition {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateConstraint
  */
 export interface TemplateConstraint {
-  $children: ["expressionGroup", ExpressionGroup][];
+  $children: (["expressionGroup", ExpressionGroup])[];
 }
 
 /**
@@ -1771,7 +1747,7 @@ export interface TemplateConstraint {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateDeclaration
  */
 export interface TemplateDeclaration extends TemplateDeclarationCharacteristics {
-  $children: ["defaultValue", DefaultValue][];
+  $children: (["defaultValue", DefaultValue])[];
 }
 export interface TemplateDeclarationCharacteristics {
   identifier: Identifier;
@@ -1786,7 +1762,7 @@ export interface TemplateDeclarationCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateDefault
  */
 export interface TemplateDefault extends TemplateDefaultCharacteristics {
-  $children: ["expressionGroup", ExpressionGroup][];
+  $children: (["expressionGroup", ExpressionGroup])[];
 }
 export interface TemplateDefaultCharacteristics {
   templateIdentifier: Identifier;
@@ -1797,7 +1773,7 @@ export interface TemplateDefaultCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateElse
  */
 export interface TemplateElse {
-  $children: ["templateRuleGroup", TemplateRuleGroup][];
+  $children: (["templateRuleGroup", TemplateRuleGroup])[];
 }
 
 /**
@@ -1805,7 +1781,7 @@ export interface TemplateElse {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateIf
  */
 export interface TemplateIf {
-  $children: ["expressionGroup", ExpressionGroup] | ["templateRuleGroup", TemplateRuleGroup][];
+  $children: (["expressionGroup", ExpressionGroup] | ["templateRuleGroup", TemplateRuleGroup])[];
 }
 
 /**
@@ -1813,7 +1789,7 @@ export interface TemplateIf {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateInline
  */
 export interface TemplateInline extends TemplateInlineCharacteristics {
-  $children: ["$text", String] | ["inlineStaticGroup", InlineStaticGroup][];
+  $children: (["$text", String] | ["inlineStaticGroup", InlineStaticGroup])[];
 }
 export interface TemplateInlineCharacteristics {
   templateIdentifier: Identifier;
@@ -1826,7 +1802,7 @@ export interface TemplateInlineCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TemplateProcessing
  */
 export interface TemplateProcessing {
-  $children: ["templateRuleGroup", TemplateRuleGroup][];
+  $children: (["templateRuleGroup", TemplateRuleGroup])[];
 }
 
 /**
@@ -1834,7 +1810,7 @@ export interface TemplateProcessing {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TestFeedback
  */
 export interface TestFeedback extends TestFeedbackCharacteristics {
-  $children: ["$text", String] | ["feedbackFlowStaticGroup", FeedbackFlowStaticGroup] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility][];
+  $children: (["$text", String] | ["feedbackFlowStaticGroup", FeedbackFlowStaticGroup] | ["stylesheet", StyleSheet] | ["apipAccessibility", APIPAccessibility])[];
 }
 export interface TestFeedbackCharacteristics {
   access: TestFeedbackAccess;
@@ -1849,7 +1825,7 @@ export interface TestFeedbackCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TestPart
  */
 export interface TestPart extends TestPartCharacteristics {
-  $children: ["preCondition", LogicSingle] | ["branchRule", BranchRule] | ["itemSessionControl", ItemSessionControl] | ["timeLimits", TimeLimits] | ["assessmentSectionSelection", AssessmentSectionSelection] | ["testFeedback", TestFeedback][];
+  $children: (["preCondition", LogicSingle] | ["branchRule", BranchRule] | ["itemSessionControl", ItemSessionControl] | ["timeLimits", TimeLimits] | ["assessmentSectionSelection", AssessmentSectionSelection] | ["testFeedback", TestFeedback])[];
 }
 export interface TestPartCharacteristics {
   identifier: NormalizedString;
@@ -1861,9 +1837,7 @@ export interface TestPartCharacteristics {
  * # 5.122
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TextEntryInteraction
  */
-export interface TextEntryInteraction extends TextEntryInteractionCharacteristics {
-  $children: [];
-}
+export interface TextEntryInteraction extends TextEntryInteractionCharacteristics {}
 export interface TextEntryInteractionCharacteristics {
   responseIdentifier: UniqueIdentifierRef;
   base?: Int;
@@ -1879,7 +1853,7 @@ export interface TextEntryInteractionCharacteristics {
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_UploadInteraction
  */
 export interface UploadInteraction extends UploadInteractionCharacteristics {
-  $children: ["prompt", Prompt][];
+  $children: (["prompt", Prompt])[];
 }
 export interface UploadInteractionCharacteristics {
   type?: MimeTypeList;
