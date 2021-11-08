@@ -137,6 +137,12 @@ function genClass(link: TableLink): string {
     const fields = [...iterFields(attributesUl)].filter(
       ({ type }) => type === "ok",
     ).map((entry) => (entry as IterFieldsEntryOk).field);
+    const selection = genSelectionOrChildren(fields);
+    classFieldCodes.push(`  $selection: ${selection};\n`);
+  } else if (attributesUl && classType.includes("Sequence")) {
+    const fields = [...iterFields(attributesUl!)].filter(
+      ({ type }) => type === "ok",
+    ).map((entry) => (entry as IterFieldsEntryOk).field);
     if (classType.includes("Mixed")) {
       fields.unshift({
         name: "$text",
@@ -144,12 +150,6 @@ function genClass(link: TableLink): string {
         multiplicity: "[1]",
       });
     }
-    const selection = genSelectionOrChildren(fields);
-    classFieldCodes.push(`  $selection: ${selection};\n`);
-  } else if (attributesUl && classType.includes("Sequence")) {
-    const fields = [...iterFields(attributesUl!)].filter(
-      ({ type }) => type === "ok",
-    ).map((entry) => (entry as IterFieldsEntryOk).field);
     const children = genSelectionOrChildren(fields);
     classFieldCodes.push(`  $children: ${children}[];\n`);
   } else {
@@ -204,7 +204,7 @@ function genField({ name, dataType, multiplicity }: Field): string {
   const _name = name.includes("-") ? `"${name}"` : name;
   if (multiplicity === "[1]") return `  ${_name}: ${dataType};\n`;
   if (multiplicity === "[0..1]") return `  ${_name}?: ${dataType};\n`;
-  return `  ${_name}:  ${dataType}[];\n`;
+  return `  ${_name}: ${dataType}[];\n`;
 }
 
 type IterFieldsEntry = IterFieldsEntryOk | IterFieldsEntryFail;
