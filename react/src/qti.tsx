@@ -129,7 +129,7 @@ namespace QTI {
 
   export function createComponent(itemBodyXML: string): React.ReactElement[] {
     const root = new DOMParser().parseFromString(itemBodyXML, "text/xml");
-    const itemBody = root.documentElement.getElementsByTagName("itemBody")[0];
+    const itemBody = root.childNodes[0];
 
     if (!itemBody) {
       throw new Error("QTI itemBody is not found");
