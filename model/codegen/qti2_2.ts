@@ -2,11 +2,11 @@ import {
   DOMParser,
   Element,
 } from "https://deno.land/x/deno_dom@v0.1.17-alpha/deno-dom-wasm.ts";
+import { getModelSpec, qtiModelSpecUrls } from "./spec.ts";
 
-const qtiSpecUrl = (
-  "https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html"
-);
-const qtiSpecText = await fetch(qtiSpecUrl).then((res) => res.text());
+const qtiSpecVersion = "2.2.4";
+const qtiSpecUrl = qtiModelSpecUrls[qtiSpecVersion];
+const qtiSpecText = await getModelSpec(qtiSpecVersion);
 const qtiSpecDoc = new DOMParser().parseFromString(qtiSpecText, "text/html")!;
 const qtiSpecLinkErrors: Set<string> = new Set();
 
