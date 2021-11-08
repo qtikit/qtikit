@@ -1,4 +1,4 @@
-import { ensureDir } from "https://deno.land/std@0.113.0/fs/mod.ts";
+import cacheAsFile from "./misc/cacheAsFile.ts";
 
 export type QtiSpecVersion = keyof typeof qtiModelSpecUrls;
 
@@ -13,14 +13,12 @@ export async function fetchModelSpec(version: QtiSpecVersion): Promise<string> {
   return await fetch(qtiSpecUrl).then((res) => res.text());
 }
 
+const id = <T>(x: T): T => x;
 export async function getModelSpec(version: QtiSpecVersion): Promise<string> {
-  const specFilePath = `spec/${version}.html`;
-  try {
-    return await Deno.readTextFile(specFilePath);
-  } catch {
-    const qtiSpecText = await fetchModelSpec(version);
-    await ensureDir("spec");
-    await Deno.writeTextFile(specFilePath, qtiSpecText);
-    return qtiSpecText;
-  }
+  return await cacheAsFile(
+    `spec/${version}.html`,
+    () => fetchModelSpec(version),
+    id,
+    id,
+  );
 }
