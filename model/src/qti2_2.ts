@@ -153,7 +153,9 @@ export interface AssessmentItemRefCharacteristics {
  * # 5.5
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_AssociableHotspot
  */
-export interface AssociableHotspot extends AssociableHotspotCharacteristics {}
+export interface AssociableHotspot extends AssociableHotspotCharacteristics {
+  $value: Empty;
+}
 export interface AssociableHotspotCharacteristics {
   identifier: Identifier;
   templateIdentifier?: Identifier;
@@ -194,7 +196,9 @@ export interface BDOCharacteristics {
  * # 5.8
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_BR
  */
-export interface BR extends BRCharacteristics {}
+export interface BR extends BRCharacteristics {
+  $value: Empty;
+}
 export interface BRCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -409,7 +413,9 @@ export interface ChoiceInteractionCharacteristics {
  * # 5.18
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Col
  */
-export interface Col extends ColCharacteristics {}
+export interface Col extends ColCharacteristics {
+  $value: Empty;
+}
 export interface ColCharacteristics {
   span?: Int;
 }
@@ -611,7 +617,9 @@ export interface DrawingInteractionCharacteristics {
  * # 5.29
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_EndAttemptInteraction
  */
-export interface EndAttemptInteraction extends EndAttemptInteractionCharacteristics {}
+export interface EndAttemptInteraction extends EndAttemptInteractionCharacteristics {
+  $value: Empty;
+}
 export interface EndAttemptInteractionCharacteristics {
   responseIdentifier: Identifier;
   title: String;
@@ -704,7 +712,9 @@ export interface FieldValueCharacteristics {
  * # 5.36
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Gap
  */
-export interface Gap extends GapCharacteristics {}
+export interface Gap extends GapCharacteristics {
+  $value: Empty;
+}
 export interface GapCharacteristics {
   identifier: Identifier;
   templateIdentifier?: Identifier;
@@ -801,7 +811,9 @@ export interface GraphicOrderInteractionCharacteristics {
  * # 5.43
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HR
  */
-export interface HR extends HRCharacteristics {}
+export interface HR extends HRCharacteristics {
+  $value: Empty;
+}
 export interface HRCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -878,7 +890,9 @@ export interface HotTextInteractionCharacteristics {
  * # 5.47
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_HotspotChoice
  */
-export interface HotspotChoice extends HotspotChoiceCharacteristics {}
+export interface HotspotChoice extends HotspotChoiceCharacteristics {
+  $value: Empty;
+}
 export interface HotspotChoiceCharacteristics {
   identifier: Identifier;
   templateIdentifier?: Identifier;
@@ -904,7 +918,9 @@ export interface HotspotInteractionCharacteristics {
  * # 5.49
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_Img
  */
-export interface Img extends ImgCharacteristics {}
+export interface Img extends ImgCharacteristics {
+  $value: Empty;
+}
 export interface ImgCharacteristics {
   src: AnyURI;
   alt: String;
@@ -1837,7 +1853,9 @@ export interface TestPartCharacteristics {
  * # 5.122
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabCoreClass_DataModel_TextEntryInteraction
  */
-export interface TextEntryInteraction extends TextEntryInteractionCharacteristics {}
+export interface TextEntryInteraction extends TextEntryInteractionCharacteristics {
+  $value: Empty;
+}
 export interface TextEntryInteractionCharacteristics {
   responseIdentifier: UniqueIdentifierRef;
   base?: Int;
@@ -2127,7 +2145,9 @@ export interface TemplateRuleGroup {
  * # 7.1
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_ARIALevelInteger
  */
-export interface ARIALevelInteger extends ARIALevelIntegerAttributes {}
+export interface ARIALevelInteger extends ARIALevelIntegerAttributes {
+  $value: Integer;
+}
 export interface ARIALevelIntegerAttributes {
   minInclusive: Integer;
 }
@@ -2136,7 +2156,9 @@ export interface ARIALevelIntegerAttributes {
  * # 7.2
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_AreaMapEntry
  */
-export interface AreaMapEntry extends AreaMapEntryCharacteristics {}
+export interface AreaMapEntry extends AreaMapEntryCharacteristics {
+  $value: Empty;
+}
 export interface AreaMapEntryCharacteristics {
   shape: Shape;
   coords: Coords;
@@ -2147,7 +2169,9 @@ export interface AreaMapEntryCharacteristics {
  * # 7.3
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_AssessmentSectionRef
  */
-export interface AssessmentSectionRef extends AssessmentSectionRefCharacteristics {}
+export interface AssessmentSectionRef extends AssessmentSectionRefCharacteristics {
+  $value: Empty;
+}
 export interface AssessmentSectionRefCharacteristics {
   identifier: NormalizedString;
   href: AnyURI;
@@ -2157,7 +2181,9 @@ export interface AssessmentSectionRefCharacteristics {
  * # 7.4
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_AssessmentStimulusRef
  */
-export interface AssessmentStimulusRef extends AssessmentStimulusRefCharacteristics {}
+export interface AssessmentStimulusRef extends AssessmentStimulusRefCharacteristics {
+  $value: Empty;
+}
 export interface AssessmentStimulusRefCharacteristics {
   identifier: NormalizedString;
   href: AnyURI;
@@ -2167,7 +2193,9 @@ export interface AssessmentStimulusRefCharacteristics {
  * # 7.5
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_BaseSequenceXBaseEmpty
  */
-export interface BaseSequenceXBaseEmpty extends BaseSequenceXBaseEmptyCharacteristics {}
+export interface BaseSequenceXBaseEmpty extends BaseSequenceXBaseEmptyCharacteristics {
+  $value: Empty;
+}
 export interface BaseSequenceXBaseEmptyCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -2192,7 +2220,9 @@ export interface BaseSequenceXBaseEmptyCharacteristics {
  * # 7.6
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_BaseValue
  */
-export interface BaseValue extends BaseValueCharacteristics {}
+export interface BaseValue extends BaseValueCharacteristics {
+  $value: String;
+}
 export interface BaseValueCharacteristics {
   baseType: BaseType;
 }
@@ -2201,7 +2231,9 @@ export interface BaseValueCharacteristics {
  * # 7.7
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Coords
  */
-export interface Coords extends CoordsAttributes {}
+export interface Coords extends CoordsAttributes {
+  $value: NormalizedString;
+}
 export interface CoordsAttributes {
   pattern: String;
 }
@@ -2210,7 +2242,9 @@ export interface CoordsAttributes {
  * # 7.8
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Correct
  */
-export interface Correct extends CorrectCharacteristics {}
+export interface Correct extends CorrectCharacteristics {
+  $value: Empty;
+}
 export interface CorrectCharacteristics {
   identifier: Identifier;
 }
@@ -2219,7 +2253,9 @@ export interface CorrectCharacteristics {
  * # 7.9
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_DataHTML5Extension
  */
-export interface DataHTML5Extension extends DataHTML5ExtensionAttributes {}
+export interface DataHTML5Extension extends DataHTML5ExtensionAttributes {
+  $value: AnyTypeLax;
+}
 export interface DataHTML5ExtensionAttributes {
   pattern: String;
 }
@@ -2228,7 +2264,9 @@ export interface DataHTML5ExtensionAttributes {
  * # 7.10
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Default
  */
-export interface Default extends DefaultCharacteristics {}
+export interface Default extends DefaultCharacteristics {
+  $value: Empty;
+}
 export interface DefaultCharacteristics {
   identifier: Identifier;
 }
@@ -2237,7 +2275,9 @@ export interface DefaultCharacteristics {
  * # 7.11
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_EncVariableString
  */
-export interface EncVariableString extends EncVariableStringAttributes {}
+export interface EncVariableString extends EncVariableStringAttributes {
+  $value: String;
+}
 export interface EncVariableStringAttributes {
   pattern: String;
 }
@@ -2246,13 +2286,17 @@ export interface EncVariableStringAttributes {
  * # 7.12
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Identifier
  */
-export interface Identifier {}
+export interface Identifier {
+  $value: NCName;
+}
 
 /**
  * # 7.13
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_InterpolationTableEntry
  */
-export interface InterpolationTableEntry extends InterpolationTableEntryCharacteristics {}
+export interface InterpolationTableEntry extends InterpolationTableEntryCharacteristics {
+  $value: Empty;
+}
 export interface InterpolationTableEntryCharacteristics {
   sourceValue: Double;
   includeBoundary?: Boolean;
@@ -2263,7 +2307,9 @@ export interface InterpolationTableEntryCharacteristics {
  * # 7.14
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_ItemSessionControl
  */
-export interface ItemSessionControl extends ItemSessionControlCharacteristics {}
+export interface ItemSessionControl extends ItemSessionControlCharacteristics {
+  $value: Empty;
+}
 export interface ItemSessionControlCharacteristics {
   maxAttempts?: Int;
   showFeedback?: Boolean;
@@ -2278,7 +2324,9 @@ export interface ItemSessionControlCharacteristics {
  * # 7.15
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Length
  */
-export interface Length extends LengthAttributes {}
+export interface Length extends LengthAttributes {
+  $value: String;
+}
 export interface LengthAttributes {
   pattern: String;
 }
@@ -2287,7 +2335,9 @@ export interface LengthAttributes {
  * # 7.16
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_MapEntry
  */
-export interface MapEntry extends MapEntryCharacteristics {}
+export interface MapEntry extends MapEntryCharacteristics {
+  $value: Empty;
+}
 export interface MapEntryCharacteristics {
   mapKey: NormalizedString;
   mappedValue: Double;
@@ -2298,7 +2348,9 @@ export interface MapEntryCharacteristics {
  * # 7.17
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_MapResponse
  */
-export interface MapResponse extends MapResponseCharacteristics {}
+export interface MapResponse extends MapResponseCharacteristics {
+  $value: Empty;
+}
 export interface MapResponseCharacteristics {
   identifier: Identifier;
 }
@@ -2307,7 +2359,9 @@ export interface MapResponseCharacteristics {
  * # 7.18
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_MatchTableEntry
  */
-export interface MatchTableEntry extends MatchTableEntryCharacteristics {}
+export interface MatchTableEntry extends MatchTableEntryCharacteristics {
+  $value: Empty;
+}
 export interface MatchTableEntryCharacteristics {
   sourceValue: Int;
   targetValue: BaseType;
@@ -2317,7 +2371,9 @@ export interface MatchTableEntryCharacteristics {
  * # 7.19
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_MathConstant
  */
-export interface MathConstant extends MathConstantCharacteristics {}
+export interface MathConstant extends MathConstantCharacteristics {
+  $value: Empty;
+}
 export interface MathConstantCharacteristics {
   name: MathConstantNames;
 }
@@ -2326,7 +2382,9 @@ export interface MathConstantCharacteristics {
  * # 7.20
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_MimeType
  */
-export interface MimeType extends MimeTypeAttributes {}
+export interface MimeType extends MimeTypeAttributes {
+  $value: NormalizedString;
+}
 export interface MimeTypeAttributes {
   pattern: String;
 }
@@ -2335,7 +2393,9 @@ export interface MimeTypeAttributes {
  * # 7.21
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_NonNegativeDouble
  */
-export interface NonNegativeDouble extends NonNegativeDoubleAttributes {}
+export interface NonNegativeDouble extends NonNegativeDoubleAttributes {
+  $value: Double;
+}
 export interface NonNegativeDoubleAttributes {
   minInclusive: Double;
 }
@@ -2344,7 +2404,9 @@ export interface NonNegativeDoubleAttributes {
  * # 7.22
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Number
  */
-export interface Number extends NumberCharacteristics {}
+export interface Number extends NumberCharacteristics {
+  $value: Empty;
+}
 export interface NumberCharacteristics {
   sectionIdentifier?: Identifier;
   includeCategory?: IdentifierList;
@@ -2355,7 +2417,9 @@ export interface NumberCharacteristics {
  * # 7.23
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_OutcomeMinMax
  */
-export interface OutcomeMinMax extends OutcomeMinMaxCharacteristics {}
+export interface OutcomeMinMax extends OutcomeMinMaxCharacteristics {
+  $value: Empty;
+}
 export interface OutcomeMinMaxCharacteristics {
   sectionIdentifier?: Identifier;
   includeCategory?: IdentifierList;
@@ -2368,7 +2432,9 @@ export interface OutcomeMinMaxCharacteristics {
  * # 7.24
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Param
  */
-export interface Param extends ParamCharacteristics {}
+export interface Param extends ParamCharacteristics {
+  $value: Empty;
+}
 export interface ParamCharacteristics {
   name: String;
   value: String;
@@ -2380,7 +2446,9 @@ export interface ParamCharacteristics {
  * # 7.25
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_PrintedVariable
  */
-export interface PrintedVariable extends PrintedVariableCharacteristics {}
+export interface PrintedVariable extends PrintedVariableCharacteristics {
+  $value: Empty;
+}
 export interface PrintedVariableCharacteristics {
   id?: UniqueIdentifier;
   class?: StringList;
@@ -2401,7 +2469,9 @@ export interface PrintedVariableCharacteristics {
  * # 7.26
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_RandomFloat
  */
-export interface RandomFloat extends RandomFloatCharacteristics {}
+export interface RandomFloat extends RandomFloatCharacteristics {
+  $value: Empty;
+}
 export interface RandomFloatCharacteristics {
   min?: FloatOrVariableRef;
   max: FloatOrVariableRef;
@@ -2411,7 +2481,9 @@ export interface RandomFloatCharacteristics {
  * # 7.27
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_RandomInteger
  */
-export interface RandomInteger extends RandomIntegerCharacteristics {}
+export interface RandomInteger extends RandomIntegerCharacteristics {
+  $value: Empty;
+}
 export interface RandomIntegerCharacteristics {
   min?: IntegerOrVariableRef;
   max: IntegerOrVariableRef;
@@ -2422,7 +2494,9 @@ export interface RandomIntegerCharacteristics {
  * # 7.28
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_StyleSheet
  */
-export interface StyleSheet extends StyleSheetCharacteristics {}
+export interface StyleSheet extends StyleSheetCharacteristics {
+  $value: Empty;
+}
 export interface StyleSheetCharacteristics {
   href: AnyURI;
   type: MimeType;
@@ -2434,7 +2508,9 @@ export interface StyleSheetCharacteristics {
  * # 7.29
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_TestVariables
  */
-export interface TestVariables extends TestVariablesCharacteristics {}
+export interface TestVariables extends TestVariablesCharacteristics {
+  $value: Empty;
+}
 export interface TestVariablesCharacteristics {
   sectionIdentifier?: Identifier;
   includeCategory?: IdentifierList;
@@ -2448,7 +2524,9 @@ export interface TestVariablesCharacteristics {
  * # 7.30
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_TimeLimits
  */
-export interface TimeLimits extends TimeLimitsCharacteristics {}
+export interface TimeLimits extends TimeLimitsCharacteristics {
+  $value: Empty;
+}
 export interface TimeLimitsCharacteristics {
   minTime?: NonNegativeDouble;
   maxTime?: NonNegativeDouble;
@@ -2459,19 +2537,25 @@ export interface TimeLimitsCharacteristics {
  * # 7.31
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_UniqueIdentifier
  */
-export interface UniqueIdentifier {}
+export interface UniqueIdentifier {
+  $value: ID;
+}
 
 /**
  * # 7.32
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_UniqueIdentifierRef
  */
-export interface UniqueIdentifierRef {}
+export interface UniqueIdentifierRef {
+  $value: IDREF;
+}
 
 /**
  * # 7.33
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Value
  */
-export interface Value extends ValueCharacteristics {}
+export interface Value extends ValueCharacteristics {
+  $value: NormalizedString;
+}
 export interface ValueCharacteristics {
   fieldIdentifier?: Identifier;
   baseType?: BaseType;
@@ -2481,7 +2565,9 @@ export interface ValueCharacteristics {
  * # 7.34
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Variable
  */
-export interface Variable extends VariableCharacteristics {}
+export interface Variable extends VariableCharacteristics {
+  $value: Empty;
+}
 export interface VariableCharacteristics {
   identifier: Identifier;
   weightIdentifier?: Identifier;
@@ -2491,7 +2577,9 @@ export interface VariableCharacteristics {
  * # 7.35
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_VariableMapping
  */
-export interface VariableMapping extends VariableMappingCharacteristics {}
+export interface VariableMapping extends VariableMappingCharacteristics {
+  $value: Empty;
+}
 export interface VariableMappingCharacteristics {
   sourceIdentifier: Identifier;
   targetIdentifier: Identifier;
@@ -2501,7 +2589,9 @@ export interface VariableMappingCharacteristics {
  * # 7.36
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_VariableString
  */
-export interface VariableString extends VariableStringAttributes {}
+export interface VariableString extends VariableStringAttributes {
+  $value: String;
+}
 export interface VariableStringAttributes {
   pattern: String;
 }
@@ -2510,7 +2600,9 @@ export interface VariableStringAttributes {
  * # 7.37
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabDerivedClass_DataModel_Weight
  */
-export interface Weight extends WeightCharacteristics {}
+export interface Weight extends WeightCharacteristics {
+  $value: Empty;
+}
 export interface WeightCharacteristics {
   identifier: Identifier;
   value: Double;
@@ -2664,34 +2756,31 @@ export type Valign = "baseline" | "bottom" | "middle" | "top";
  * # 9.1.1
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabListClass_DataModel_IdentifierList
  */
-export interface IdentifierList {}
+export type IdentifierList = (NCName)[];
 
 /**
  * # 9.1.2
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabListClass_DataModel_IntegerList
  */
-export interface IntegerList {}
+export type IntegerList = (Int)[];
 
 /**
  * # 9.1.3
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabListClass_DataModel_MimeTypeList
  */
-export interface MimeTypeList extends MimeTypeListAttributes {}
-export interface MimeTypeListAttributes {
-  pattern: String;
-}
+export type MimeTypeList = (MimeType)[];
 
 /**
  * # 9.1.4
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabListClass_DataModel_StringList
  */
-export interface StringList {}
+export type StringList = (String)[];
 
 /**
  * # 9.1.5
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabListClass_DataModel_ToleranceList
  */
-export interface ToleranceList {}
+export type ToleranceList = (String | Double)[];
 
 /**
  * # 9.2.1
@@ -2703,34 +2792,25 @@ export interface View {}
  * # 9.3.1
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabUnionClass_DataModel_FloatOrVariableRef
  */
-export interface FloatOrVariableRef extends FloatOrVariableRefAttributes {}
-export interface FloatOrVariableRefAttributes {
-  pattern: String;
-}
+export type FloatOrVariableRef = Double | VariableString;
 
 /**
  * # 9.3.2
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabUnionClass_DataModel_IntOrIdentifier
  */
-export interface IntOrIdentifier {}
+export type IntOrIdentifier = NCName | Int;
 
 /**
  * # 9.3.3
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabUnionClass_DataModel_IntegerOrVariableRef
  */
-export interface IntegerOrVariableRef extends IntegerOrVariableRefAttributes {}
-export interface IntegerOrVariableRefAttributes {
-  pattern: String;
-}
+export type IntegerOrVariableRef = Integer | VariableString;
 
 /**
  * # 9.3.4
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabUnionClass_DataModel_StringOrVariableRef
  */
-export interface StringOrVariableRef extends StringOrVariableRefAttributes {}
-export interface StringOrVariableRefAttributes {
-  pattern: String;
-}
+export type StringOrVariableRef = String | EncVariableString;
 
 /**
  * # 9.4.1

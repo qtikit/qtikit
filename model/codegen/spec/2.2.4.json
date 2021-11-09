@@ -9560,7 +9560,7 @@
       "specNumber": "9.1.1",
       "specHash": "TabListClass_DataModel_IdentifierList",
       "name": "IdentifierList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "NCName"
       ],
@@ -9572,7 +9572,7 @@
       "specNumber": "9.1.2",
       "specHash": "TabListClass_DataModel_IntegerList",
       "name": "IntegerList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "Int"
       ],
@@ -9584,7 +9584,7 @@
       "specNumber": "9.1.3",
       "specHash": "TabListClass_DataModel_MimeTypeList",
       "name": "MimeTypeList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "MimeType"
       ],
@@ -9602,7 +9602,7 @@
       "specNumber": "9.1.4",
       "specHash": "TabListClass_DataModel_StringList",
       "name": "StringList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "String"
       ],
@@ -9614,7 +9614,7 @@
       "specNumber": "9.1.5",
       "specHash": "TabListClass_DataModel_ToleranceList",
       "name": "ToleranceList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "String",
         "Double"
@@ -19324,7 +19324,7 @@
       "specNumber": "9.1.1",
       "specHash": "TabListClass_DataModel_IdentifierList",
       "name": "IdentifierList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "NCName"
       ],
@@ -19336,7 +19336,7 @@
       "specNumber": "9.1.2",
       "specHash": "TabListClass_DataModel_IntegerList",
       "name": "IntegerList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "Int"
       ],
@@ -19348,7 +19348,7 @@
       "specNumber": "9.1.3",
       "specHash": "TabListClass_DataModel_MimeTypeList",
       "name": "MimeTypeList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "MimeType"
       ],
@@ -19366,7 +19366,7 @@
       "specNumber": "9.1.4",
       "specHash": "TabListClass_DataModel_StringList",
       "name": "StringList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "String"
       ],
@@ -19378,7 +19378,7 @@
       "specNumber": "9.1.5",
       "specHash": "TabListClass_DataModel_ToleranceList",
       "name": "ToleranceList",
-      "classType": "",
+      "classType": "list",
       "superClasses": [
         "String",
         "Double"
