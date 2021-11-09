@@ -3852,6 +3852,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-loader", "virtual:c40dc2e0423f9a2c6f59e5ead89466fa2d3f8e1cd41918205ecac235feae325e48b2bdbf94daa99933cf1ef5c69451f817bd6b4acdbcef3d3001e2b1493238b1#npm:8.2.3"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:c40dc2e0423f9a2c6f59e5ead89466fa2d3f8e1cd41918205ecac235feae325e48b2bdbf94daa99933cf1ef5c69451f817bd6b4acdbcef3d3001e2b1493238b1#npm:17.0.2"],
+            ["tsconfig-paths-webpack-plugin", "npm:3.5.1"],
             ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=ddd1e8"],
             ["webpack", "virtual:c40dc2e0423f9a2c6f59e5ead89466fa2d3f8e1cd41918205ecac235feae325e48b2bdbf94daa99933cf1ef5c69451f817bd6b4acdbcef3d3001e2b1493238b1#npm:5.62.1"]
           ],
@@ -6306,6 +6307,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-json-schema-npm-7.0.9-361918cff3-259d0e25f1.zip/node_modules/@types/json-schema/",
           "packageDependencies": [
             ["@types/json-schema", "npm:7.0.9"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/json5", [
+        ["npm:0.0.29", {
+          "packageLocation": "./.yarn/cache/@types-json5-npm-0.0.29-f63a7916bd-e60b153664.zip/node_modules/@types/json5/",
+          "packageDependencies": [
+            ["@types/json5", "npm:0.0.29"]
           ],
           "linkType": "HARD",
         }]
@@ -18061,6 +18071,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["strip-bom", [
+        ["npm:3.0.0", {
+          "packageLocation": "./.yarn/cache/strip-bom-npm-3.0.0-71e8f81ff9-8d50ff27b7.zip/node_modules/strip-bom/",
+          "packageDependencies": [
+            ["strip-bom", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:4.0.0", {
           "packageLocation": "./.yarn/cache/strip-bom-npm-4.0.0-97d367a64d-9dbcfbaf50.zip/node_modules/strip-bom/",
           "packageDependencies": [
@@ -18617,6 +18634,31 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [
             "@types/typescript",
             "typescript"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["tsconfig-paths", [
+        ["npm:3.11.0", {
+          "packageLocation": "./.yarn/cache/tsconfig-paths-npm-3.11.0-c94f1e17fb-e14aaa6883.zip/node_modules/tsconfig-paths/",
+          "packageDependencies": [
+            ["tsconfig-paths", "npm:3.11.0"],
+            ["@types/json5", "npm:0.0.29"],
+            ["json5", "npm:1.0.1"],
+            ["minimist", "npm:1.2.5"],
+            ["strip-bom", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["tsconfig-paths-webpack-plugin", [
+        ["npm:3.5.1", {
+          "packageLocation": "./.yarn/cache/tsconfig-paths-webpack-plugin-npm-3.5.1-f1a5ca3b27-86a58fc9ab.zip/node_modules/tsconfig-paths-webpack-plugin/",
+          "packageDependencies": [
+            ["tsconfig-paths-webpack-plugin", "npm:3.5.1"],
+            ["chalk", "npm:4.1.2"],
+            ["enhanced-resolve", "npm:5.8.3"],
+            ["tsconfig-paths", "npm:3.11.0"]
           ],
           "linkType": "HARD",
         }]
