@@ -1,13 +1,13 @@
 import React from "react";
 
-import QTI from "./qti";
+import * as Qti from "./qti";
 
-export default class QTIViewer extends React.Component<{ xml: string }> {
+export default class QtiViewer extends React.Component<{ xml: string }> {
   component: React.ReactElement[] | null;
 
   constructor(props: { xml: string }) {
     super(props);
-    this.component = QTI.createComponent(props.xml);
+    this.component = Qti.createComponent(props.xml);
   }
 
   public render(): JSX.Element {
