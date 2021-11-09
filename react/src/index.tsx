@@ -1,16 +1,16 @@
 import React from "react";
 
 import * as Qti from "./qti";
+import { UserInput } from "@qtikit/model/src/user-input";
 
-export default class QtiViewer extends React.Component<{ xml: string }> {
-  component: React.ReactElement[] | null;
-
-  constructor(props: { xml: string }) {
-    super(props);
-    this.component = Qti.createComponent(props.xml);
-  }
-
-  public render(): JSX.Element {
-    return <>{this.component}</>;
-  }
+export interface QtiViewerProps {
+  xml: string;
+  inputState: UserInput;
+  onChange: (newState: UserInput) => void;
 }
+
+const QtiViewer: React.FC<QtiViewerProps> = (props) => {
+  return <>{Qti.createComponent(props.xml)}</>;
+};
+
+export default QtiViewer;
