@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as Qti from "./qti";
+import * as Qti from "@src/qti";
 import { UserInput } from "@qtikit/model/src/user-input";
 
 export interface QtiViewerProps {

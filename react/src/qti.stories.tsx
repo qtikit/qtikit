@@ -41,8 +41,7 @@ Choice.args = {
         <img src="images/sign.png" alt="NEVER LEAVE LUGGAGE UNATTENDED"/>
       </p>
 
-      <choiceInteraction
-        responseIdentifier="RESPONSE">
+      <choiceInteraction responseIdentifier="RESPONSE">
         <prompt>What does it say?</prompt>
         <simpleChoice identifier="ChoiceA">
           You must stay with your luggage at all times.
