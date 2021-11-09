@@ -1,6 +1,6 @@
 import cacheAsFile from "../misc/cacheAsFile.ts";
 import { getModelSpec, qtiModelSpecUrls } from "../spec.ts";
-import { Class, Enum, Field, Spec } from "./schema.ts";
+import { Class, Enum, expandClass, Field, Spec } from "./schema.ts";
 import { getPrimitiveDataTypeCodes } from "./primitive-types.ts";
 import build, { parseHtml } from "./build.ts";
 
@@ -33,7 +33,7 @@ export default function gen(spec: Spec): string {
         codes.push(genEnum(def), "\n");
         break;
       case "class":
-        codes.push(genClass(def), "\n");
+        codes.push(genClass(spec, def), "\n");
         break;
     }
   }
@@ -46,11 +46,25 @@ function genEnum(def: Enum): string {
   return `export type ${def.name} = ${itemsCode};\n`;
 }
 
-function genClass(def: Class): string {
+function genClass(spec: Spec, def: Class): string {
   const codes: string[] = [];
   const classFieldCodes: string[] = [];
   const extendTypes: string[] = [];
-  const { name, classType, attributes, characteristics } = def;
+  const { name, classType } = def;
+  if (classType === "union") {
+    return `export type ${name} = ${def.superClasses.join(" | ")};\n`;
+  }
+  if (classType === "list") {
+    return `export type ${name} = (${def.superClasses.join(" | ")})[];\n`;
+  }
+  const {
+    primitiveAncestors,
+    characteristics,
+    attributes,
+  } = expandClass(spec, def);
+  if (primitiveAncestors.length) {
+    classFieldCodes.push(`  $value: ${primitiveAncestors.join(" | ")};\n`);
+  }
   const charFields = Object.values(characteristics);
   const attrFields = Object.values(attributes);
   if (charFields.length) {

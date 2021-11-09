@@ -103,7 +103,9 @@ function getClass(
     : {};
   const attributes = attributesUl ? getFields(doc, attributesUl, errors) : {};
   let classType: Class["classType"] = "";
-  if (_classType.includes("Union")) {
+  if (_classType.includes("List")) {
+    classType = "list";
+  } else if (_classType.includes("Union")) {
     classType = "union";
   } else if (_classType.includes("Selection")) {
     classType = "selection";
