@@ -1,74 +1,87 @@
 import React from "react";
 
-import createCustomInteraction from "./custom-interaction";
-import createDrawingInteraction from "./drawing-interaction";
-import createGapMatchInteraction from "./gap-match-interaction";
-import createMatchInteraction from "./match-interaction";
-import createGraphicGapMatchInteraction from "./gap-match-interaction";
-import createHotspotInteraction from "./hotspot-interaction";
-import createGraphicOrderInteraction from "./graphic-order-interaction";
-import createSelectPointInteraction from "./select-point-interaction";
-import createGraphicAssociateInteraction from "./graphic-associate-interaction";
-import createSliderInteraction from "./slider-interaction";
-import createChoiceInteraction from "./choice-interaction";
-import createMediaInteraction from "./media-interaction";
-import createHottextInteraction from "./hottext-interaction";
-import createOrderInteraction from "./order-interaction";
-import createExtendedTextInteraction from "./extended-text-interaction";
-import createUploadInteraction from "./upload-interaction";
-import createAssociateInteraction from "./associate-interaction";
-import createFeedbackBlock from "./feedback-block";
-import createTemplateBlock from "./template-block";
-import createInfoControl from "./info-control";
-import createMath from "./math";
+import { Props } from '@src/types/component';
+import { getPropsByElement } from '@src/utils/node';
+import AssociateInteraction from "@src/interactions/AssociateInteraction";
+import ChoiceInteraction from "@src/interactions/ChoiceInteraction";
+import CustomInteraction from "@src/interactions/CustomInteraction";
+import DrawingInteraction from "@src/interactions/DrawingInteraction";
+import ExtendedTextInteraction from "@src/interactions/ExtendedTextInteraction";
+import FeedbackBlock from "@src/interactions/FeedbackBlock";
+import GapMatchInteraction from "@src/interactions/GapMatchInteraction";
+import GraphicAssociateInteraction from "@src/interactions/GraphicAssociateInteraction";
+import GraphicGapMatchInteraction from "@src/interactions/GraphicGapMatchInteraction";
+import GraphicOrderInteraction from "@src/interactions/GraphicOrderInteraction";
+import HotspotInteraction from "@src/interactions/HotspotInteraction";
+import HottextInteraction from "@src/interactions/HottextInteraction";
+import InfoControl from "@src/interactions/InfoControl";
+import MatchInteraction from "@src/interactions/MatchInteraction";
+import MediaInteraction from "@src/interactions/MediaInteraction";
+import OrderInteraction from "@src/interactions/OrderInteraction";
+import SelectPointInteraction from "@src/interactions/SelectPointInteraction";
+import SliderInteraction from "@src/interactions/SliderInteraction";
+import TemplateBlock from "@src/interactions/TemplateBlock";
+import UploadInteraction from "@src/interactions/UploadInteraction";
+
+export const interactionElementNames = [
+  "associateInteraction",
+  "choiceInteraction",
+  "customInteraction",
+  "drawingInteraction",
+  "extendedTextInteraction",
+  "feedbackBlock",
+  "gapMatchInteraction",
+  "graphicAssociateInteraction",
+  "graphicGapMatchInteraction",
+  "graphicOrderInteraction",
+  "hotspotInteraction",
+  "hottextInteraction",
+  "infoControl",
+  "matchInteraction",
+  "mediaInteraction",
+  "orderInteraction",
+  "selectPointInteraction",
+  "sliderInteraction",
+  "templateBlock",
+  "uploadInteraction",
+] as const;
+
+export type InteractionElementName = typeof interactionElementNames[number];
+
+export function isInteractionElement(node: Node): boolean {
+  return interactionElementNames.includes(node.nodeName as any);
+}
 
 export function createInteractionComponent(
-  node: Node | Element
+  element: Element,
+  defaultProps: Props,
+  children: React.ReactNode[]
 ): React.ReactElement | null {
-  switch (node.nodeName) {
-    case "customInteraction":
-      return createCustomInteraction(node);
-    case "drawingInteraction":
-      return createDrawingInteraction(node);
-    case "gapMatchInteraction":
-      return createGapMatchInteraction(node);
-    case "matchInteraction":
-      return createMatchInteraction(node);
-    case "graphicGapMatchInteraction":
-      return createGraphicGapMatchInteraction(node);
-    case "hotspotInteraction":
-      return createHotspotInteraction(node);
-    case "graphicOrderInteraction":
-      return createGraphicOrderInteraction(node);
-    case "selectPointInteraction":
-      return createSelectPointInteraction(node);
-    case "graphicAssociateInteraction":
-      return createGraphicAssociateInteraction(node);
-    case "sliderInteraction":
-      return createSliderInteraction(node);
-    case "choiceInteraction":
-      return createChoiceInteraction(node);
-    case "mediaInteraction":
-      return createMediaInteraction(node);
-    case "hottextInteraction":
-      return createHottextInteraction(node);
-    case "orderInteraction":
-      return createOrderInteraction(node);
-    case "extendedTextInteraction":
-      return createExtendedTextInteraction(node);
-    case "uploadInteraction":
-      return createUploadInteraction(node);
-    case "associateInteraction":
-      return createAssociateInteraction(node);
-    case "feedbackBlock":
-      return createFeedbackBlock(node);
-    case "templateBlock":
-      return createTemplateBlock(node);
-    case "infoControl":
-      return createInfoControl(node);
-    case "math":
-      return createMath(node);
-    default:
-      return null;
-  }
+  const props = { ...defaultProps, ...getPropsByElement(element) };
+
+  const InteractionComponentMap: Record<InteractionElementName, React.FC> = {
+    associateInteraction: AssociateInteraction,
+    choiceInteraction: ChoiceInteraction,
+    customInteraction: CustomInteraction,
+    drawingInteraction: DrawingInteraction,
+    extendedTextInteraction: ExtendedTextInteraction,
+    feedbackBlock: FeedbackBlock,
+    gapMatchInteraction: GapMatchInteraction,
+    graphicAssociateInteraction: GraphicAssociateInteraction,
+    graphicGapMatchInteraction: GraphicGapMatchInteraction,
+    graphicOrderInteraction: GraphicOrderInteraction,
+    hotspotInteraction: HotspotInteraction,
+    hottextInteraction: HottextInteraction,
+    infoControl: InfoControl,
+    matchInteraction: MatchInteraction,
+    mediaInteraction: MediaInteraction,
+    orderInteraction: OrderInteraction,
+    selectPointInteraction: SelectPointInteraction,
+    sliderInteraction: SliderInteraction,
+    templateBlock: TemplateBlock,
+    uploadInteraction: UploadInteraction,
+  };
+  const InteractionComponent = InteractionComponentMap[element.nodeName as InteractionElementName];
+
+  return InteractionComponent ? React.createElement(InteractionComponent, props, children) : null;
 }
