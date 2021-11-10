@@ -1,8 +1,16 @@
 import React from "react";
 import { DOMParser } from "@xmldom/xmldom";
 
-import { createHTMLComponent, createInteractionChildComponent, isHTMLElement, isInteractionChildElement } from "@src/components";
-import { createInteractionComponent, isInteractionElement } from "@src/interactions";
+import {
+  createHTMLComponent,
+  createInteractionChildComponent,
+  isHTMLElement,
+  isInteractionChildElement,
+} from "@src/components";
+import {
+  createInteractionComponent,
+  isInteractionElement,
+} from "@src/interactions";
 
 const NodeType = {
   ELEMENT_NODE: 1,
@@ -15,7 +23,7 @@ const NodeType = {
 
 type NodeType = typeof NodeType[keyof typeof NodeType];
 
-const ROOT_ELEMENT_NAME = 'itemBody';
+const ROOT_ELEMENT_NAME = "itemBody";
 
 function isTextNode(node: Node): node is Text {
   return node.nodeType === NodeType.TEXT_NODE;
@@ -29,10 +37,7 @@ function isRootElement(node: Node): boolean {
   return node.nodeName === ROOT_ELEMENT_NAME;
 }
 
-function parseXml(
-  node: Node | Element,
-  index = 0
-): React.ReactNode {
+function parseXml(node: Node | Element, index = 0): React.ReactNode {
   const { childNodes } = node;
 
   const defaultProps = {
@@ -42,7 +47,9 @@ function parseXml(
   if (isTextNode(node)) {
     return node.nodeValue;
   } else if (isElementNode(node)) {
-    const children = node.childNodes ? Array.from(childNodes).map(childNode => parseXml(childNode, ++index)) : [];
+    const children = node.childNodes
+      ? Array.from(childNodes).map((childNode) => parseXml(childNode, ++index))
+      : [];
 
     if (isHTMLElement(node)) {
       return createHTMLComponent(node, defaultProps, children);

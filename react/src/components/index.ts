@@ -4,6 +4,7 @@ import { Props } from "@src/types/component";
 import { getPropsByElement } from "@src/utils/node";
 import Prompt from "@src/components/Prompt";
 import SimpleChoice from "@src/components/SimpleChoice";
+import Image from "@src/components/Image";
 
 export const htmlElementNames = [
   "pre",
@@ -55,6 +56,10 @@ export function isHTMLElement(node: Node): boolean {
   return htmlElementNames.includes(node.nodeName as any);
 }
 
+export const htmlComponetNames = ["img"] as const;
+
+export type HtmlComponetName = typeof htmlComponetNames[number];
+
 export const interactionChildElementNames = ["prompt", "simpleChoice"] as const;
 
 export type InteractionChildElementName =
@@ -93,12 +98,14 @@ export function createHTMLComponent(
   defaultProps: Props,
   children: React.ReactNode[]
 ): React.ReactElement {
-  return React.createElement(
-    element.nodeName,
-    {
-      ...defaultProps,
-      ...getPropsByElement(element),
-    },
-    ...children
-  );
+  const props = { ...defaultProps, ...getPropsByElement(element) };
+
+  const HtmlComponentMap: Record<HtmlComponetName, React.FC> = {
+    img: Image,
+  };
+
+  const htmlComponent = HtmlComponentMap[element.nodeName as HtmlComponetName];
+  return htmlComponent
+    ? React.createElement(htmlComponent, props, children)
+    : React.createElement(element.nodeName, props, ...children);
 }
