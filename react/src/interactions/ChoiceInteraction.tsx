@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { ChoiceInteractionCharacteristics as ChoiceInteractionProps } from '@qtikit/model/src/qti2_2';
+import { ChoiceInteractionCharacteristics as ChoiceInteractionProps } from "@qtikit/model/src/qti2_2";
+import {
+  InteractionResponse,
+  InteractionResponseContext,
+} from "./InteractionResponseContext";
 
-const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = props => {
+const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = (props) => {
+  const [response, setResponse] = React.useState<InteractionResponse>({});
+
+  useEffect(() => {
+    console.log("response", response);
+  }, [response]);
+
   return (
-    <div>
-      <h3>Choice Interaction</h3>
-      {props.children}
-    </div>
+    <InteractionResponseContext.Provider value={{ setResponse, response }}>
+      <div>{props.children}</div>
+    </InteractionResponseContext.Provider>
   );
 };
 
