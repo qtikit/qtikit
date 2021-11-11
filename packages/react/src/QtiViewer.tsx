@@ -25,7 +25,7 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
     };
 
     loadXml();
-  }, []);
+  }, [props.assessmentItemSrc]);
 
   return (
     <QtiViewerContext.Provider value={{baseUrl: getBaseUrl(props.assessmentItemSrc)}}>

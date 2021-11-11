@@ -4,7 +4,8 @@ import {Props} from '@src/types/component';
 import {getPropsByElement} from '@src/utils/node';
 import Prompt from '@src/components/Prompt';
 import SimpleChoice from '@src/components/SimpleChoice';
-import Image from '@src/components/Image';
+import ImageHtml from '@src/components/ImageHtml';
+import ObjectHtml from '@src/components/ObjectHtml';
 
 export const htmlElementNames = [
   'pre',
@@ -48,6 +49,10 @@ export const htmlElementNames = [
   'q',
   'i',
   'sup',
+  'li',
+  'b',
+  'br',
+  'object',
 ] as const;
 
 export type HTMLElementName = typeof htmlElementNames[number];
@@ -56,7 +61,7 @@ export function isHTMLElement(node: Node): boolean {
   return htmlElementNames.includes(node.nodeName as any);
 }
 
-export const htmlComponetNames = ['img'] as const;
+export const htmlComponetNames = ['img', 'object'] as const;
 
 export type HtmlComponetName = typeof htmlComponetNames[number];
 
@@ -92,7 +97,8 @@ export function createHTMLComponent(
   const props = {...defaultProps, ...getPropsByElement(element)};
 
   const HtmlComponentMap: Record<HtmlComponetName, React.FC> = {
-    img: Image,
+    img: ImageHtml,
+    object: ObjectHtml,
   };
 
   const htmlComponent = HtmlComponentMap[element.nodeName as HtmlComponetName];

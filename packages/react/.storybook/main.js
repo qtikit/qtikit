@@ -5,7 +5,7 @@ module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
   framework: "@storybook/react",
-  staticDirs: ["../src/stories/public"],
+  staticDirs: ["./public"],
   webpackFinal: async (config) => {
     config.resolve.plugins = [
       ...(config.resolve.plugins || []),
