@@ -7,12 +7,18 @@
   "license": "(MIT OR Apache-2.0)",
   "packageManager": "yarn@3.1.0",
   "workspaces": [
-    "model",
-    "model/test",
-    "react",
-    "scoring-engine"
+    "packages/**/*"
   ],
+  "scripts": {
+    "lint": "eslint packages --ext .ts,.tsx",
+    "lint:fix": "yarn lint --fix"
+  },
   "dependencies": {
     "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "@riiid/eslint-config": "^2.0.0-beta",
+    "eslint": "^7.0.0",
+    "prettier": "^2.0.0"
   }
 }

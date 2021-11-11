@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "@qtikit/model-test",
+  "packageManager": "yarn@3.1.0",
+  "version": "1.0.0",
+  "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@qtikit/model": "workspace:^",
+    "@types/jest": "^27.0.2",
+    "@xmldom/xmldom": "^0.7.5",
+    "babel-jest": "^27.3.1",
+    "jest": "^27.3.1"
+  }
+}

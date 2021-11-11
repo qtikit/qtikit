@@ -1,0 +1,6 @@
+{
+  "extends": "@riiid/eslint-config",
+  "rules": {
+    "import/no-unresolved": "off"
+  }
+}
