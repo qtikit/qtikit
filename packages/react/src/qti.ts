@@ -55,8 +55,7 @@ function parseXml(node: Node | Element, index = 0): React.ReactNode {
     } else if (isRootElement(node)) {
       return React.createElement(React.Fragment, defaultProps, children);
     } else {
-      // MAYBE createCustomComponent
-      throw new Error(`Unsupported node type: ${node.nodeName}`);
+      console.warn(`Unsupported node type: ${node.nodeName}`);
     }
   }
 }
