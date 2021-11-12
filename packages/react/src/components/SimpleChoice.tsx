@@ -1,10 +1,10 @@
 import React from 'react';
 import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/src/qti2_2';
 
-import {InteractionResponse, InteractionResponseContext} from '../interactions/InteractionResponseContext';
+import {InteractionResponse, useInteractionResponseContext} from '../interactions/InteractionResponseContext';
 
 const SimpleChoice: React.FC<SimpleChoiceProps | any> = props => {
-  const {response, setResponse} = React.useContext(InteractionResponseContext);
+  const {response, setResponse} = useInteractionResponseContext();
 
   const onChange = () => {
     const response: InteractionResponse = {};

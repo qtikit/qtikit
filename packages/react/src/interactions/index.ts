@@ -1,25 +1,26 @@
 import React from 'react';
 
-import {Props} from '@src/types/component';
-import {getPropsByElement} from '@src/utils/node';
-import AssociateInteraction from '@src/interactions/AssociateInteraction';
-import ChoiceInteraction from '@src/interactions/ChoiceInteraction';
-import CustomInteraction from '@src/interactions/CustomInteraction';
-import DrawingInteraction from '@src/interactions/DrawingInteraction';
-import ExtendedTextInteraction from '@src/interactions/ExtendedTextInteraction';
-import GapMatchInteraction from '@src/interactions/GapMatchInteraction';
-import GraphicAssociateInteraction from '@src/interactions/GraphicAssociateInteraction';
-import GraphicGapMatchInteraction from '@src/interactions/GraphicGapMatchInteraction';
-import GraphicOrderInteraction from '@src/interactions/GraphicOrderInteraction';
-import HotspotInteraction from '@src/interactions/HotspotInteraction';
-import HottextInteraction from '@src/interactions/HottextInteraction';
-import MatchInteraction from '@src/interactions/MatchInteraction';
-import MediaInteraction from '@src/interactions/MediaInteraction';
-import OrderInteraction from '@src/interactions/OrderInteraction';
-import SelectPointInteraction from '@src/interactions/SelectPointInteraction';
-import SliderInteraction from '@src/interactions/SliderInteraction';
-import TextEntryInteraction from '@src/interactions/TextEntryInteraction';
-import InlineChoiceInteraction from '@src/interactions/InlineChoiceInteraction';
+import {Props} from '../types/component';
+import {getPropsByElement} from '../utils/node';
+import {InteractionResponseContextProvider} from './InteractionResponseContext';
+import AssociateInteraction from './AssociateInteraction';
+import ChoiceInteraction from './ChoiceInteraction';
+import CustomInteraction from './CustomInteraction';
+import DrawingInteraction from './DrawingInteraction';
+import ExtendedTextInteraction from './ExtendedTextInteraction';
+import GapMatchInteraction from './GapMatchInteraction';
+import GraphicAssociateInteraction from './GraphicAssociateInteraction';
+import GraphicGapMatchInteraction from './GraphicGapMatchInteraction';
+import GraphicOrderInteraction from './GraphicOrderInteraction';
+import HotspotInteraction from './HotspotInteraction';
+import HottextInteraction from './HottextInteraction';
+import MatchInteraction from './MatchInteraction';
+import MediaInteraction from './MediaInteraction';
+import OrderInteraction from './OrderInteraction';
+import SelectPointInteraction from './SelectPointInteraction';
+import SliderInteraction from './SliderInteraction';
+import TextEntryInteraction from './TextEntryInteraction';
+import InlineChoiceInteraction from './InlineChoiceInteraction';
 
 export const interactionElementNames = [
   'associateInteraction',
@@ -77,5 +78,11 @@ export function createInteractionComponent(
   };
   const InteractionComponent = InteractionComponentMap[element.nodeName as InteractionElementName];
 
-  return InteractionComponent ? React.createElement(InteractionComponent, props, children) : null;
+  return InteractionComponent
+    ? React.createElement(
+        InteractionResponseContextProvider,
+        {},
+        React.createElement(InteractionComponent, props, children)
+      )
+    : null;
 }
