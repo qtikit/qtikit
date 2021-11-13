@@ -1,8 +1,9 @@
 {
   "name": "@qtikit/react",
   "packageManager": "yarn@3.1.0",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "scripts": {
+    "build": "tsc",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

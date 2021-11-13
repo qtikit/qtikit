@@ -1,5 +1,5 @@
 import React from 'react';
-import {SliderInteractionCharacteristics as SliderInteractionProps} from '@qtikit/model/src/qti2_2';
+import {SliderInteractionCharacteristics as SliderInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const SliderInteraction: React.FC<SliderInteractionProps | any> = props => {
   return (

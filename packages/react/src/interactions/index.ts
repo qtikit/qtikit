@@ -1,25 +1,25 @@
 import React from 'react';
 
-import {Props} from '@src/types/component';
-import {getPropsByElement} from '@src/utils/node';
-import AssociateInteraction from '@src/interactions/AssociateInteraction';
-import ChoiceInteraction from '@src/interactions/ChoiceInteraction';
-import CustomInteraction from '@src/interactions/CustomInteraction';
-import DrawingInteraction from '@src/interactions/DrawingInteraction';
-import ExtendedTextInteraction from '@src/interactions/ExtendedTextInteraction';
-import GapMatchInteraction from '@src/interactions/GapMatchInteraction';
-import GraphicAssociateInteraction from '@src/interactions/GraphicAssociateInteraction';
-import GraphicGapMatchInteraction from '@src/interactions/GraphicGapMatchInteraction';
-import GraphicOrderInteraction from '@src/interactions/GraphicOrderInteraction';
-import HotspotInteraction from '@src/interactions/HotspotInteraction';
-import HottextInteraction from '@src/interactions/HottextInteraction';
-import MatchInteraction from '@src/interactions/MatchInteraction';
-import MediaInteraction from '@src/interactions/MediaInteraction';
-import OrderInteraction from '@src/interactions/OrderInteraction';
-import SelectPointInteraction from '@src/interactions/SelectPointInteraction';
-import SliderInteraction from '@src/interactions/SliderInteraction';
-import TextEntryInteraction from '@src/interactions/TextEntryInteraction';
-import InlineChoiceInteraction from '@src/interactions/InlineChoiceInteraction';
+import {Props} from '../types/component';
+import {getPropsByElement} from '../utils/node';
+import AssociateInteraction from '../interactions/AssociateInteraction';
+import ChoiceInteraction from '../interactions/ChoiceInteraction';
+import CustomInteraction from '../interactions/CustomInteraction';
+import DrawingInteraction from '../interactions/DrawingInteraction';
+import ExtendedTextInteraction from '../interactions/ExtendedTextInteraction';
+import GapMatchInteraction from '../interactions/GapMatchInteraction';
+import GraphicAssociateInteraction from '../interactions/GraphicAssociateInteraction';
+import GraphicGapMatchInteraction from '../interactions/GraphicGapMatchInteraction';
+import GraphicOrderInteraction from '../interactions/GraphicOrderInteraction';
+import HotspotInteraction from '../interactions/HotspotInteraction';
+import HottextInteraction from '../interactions/HottextInteraction';
+import MatchInteraction from '../interactions/MatchInteraction';
+import MediaInteraction from '../interactions/MediaInteraction';
+import OrderInteraction from '../interactions/OrderInteraction';
+import SelectPointInteraction from '../interactions/SelectPointInteraction';
+import SliderInteraction from '../interactions/SliderInteraction';
+import TextEntryInteraction from '../interactions/TextEntryInteraction';
+import InlineChoiceInteraction from '../interactions/InlineChoiceInteraction';
 
 export const interactionElementNames = [
   'associateInteraction',

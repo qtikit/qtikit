@@ -1,5 +1,5 @@
 import React from 'react';
-import {GraphicGapMatchInteractionCharacteristics as GraphicGapMatchInteractionProps} from '@qtikit/model/src/qti2_2';
+import {GraphicGapMatchInteractionCharacteristics as GraphicGapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any> = props => {
   return (

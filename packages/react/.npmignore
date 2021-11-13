@@ -1,0 +1,5 @@
+node_modules
+/src
+/.storybook
+/tsconfig.json
+/.gitignore

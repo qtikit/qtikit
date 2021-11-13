@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
-import {UserInput} from '@qtikit/model/src/user-input';
+import {UserInput} from '@qtikit/model/lib/user-input';
 
-import * as Qti from '@src/qti';
-
+import * as Qti from './qti';
 import {getBaseUrl} from './utils/url';
 
 export const QtiViewerContext = React.createContext<{

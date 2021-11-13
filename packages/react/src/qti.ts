@@ -6,8 +6,8 @@ import {
   createInteractionChildComponent,
   isHTMLElement,
   isInteractionChildElement,
-} from '@src/components';
-import {createInteractionComponent, isInteractionElement} from '@src/interactions';
+} from './components';
+import {createInteractionComponent, isInteractionElement} from './interactions';
 
 const NodeType = {
   ELEMENT_NODE: 1,

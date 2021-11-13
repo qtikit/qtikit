@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ChoiceInteractionCharacteristics as ChoiceInteractionProps} from '@qtikit/model/src/qti2_2';
+import {ChoiceInteractionCharacteristics as ChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {InteractionResponse, InteractionResponseContext} from '../InteractionResponseContext';
 

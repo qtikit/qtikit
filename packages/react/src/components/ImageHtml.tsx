@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import {QtiViewerContext} from '@src/QtiViewer';
+import {QtiViewerContext} from '../QtiViewer';
 
 type ImageHtmlProps = React.ImgHTMLAttributes<HTMLImageElement>;
 

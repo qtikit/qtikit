@@ -1,5 +1,5 @@
 import React from 'react';
-import {GraphicAssociateInteractionCharacteristics as GraphicAssociateInteractionProps} from '@qtikit/model/src/qti2_2';
+import {GraphicAssociateInteractionCharacteristics as GraphicAssociateInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const GraphicAssociateInteraction: React.FC<GraphicAssociateInteractionProps | any> = props => {
   return (

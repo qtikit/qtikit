@@ -1,5 +1,5 @@
 import React from 'react';
-import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/src/qti2_2';
+import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/lib/qti2_2';
 
 import {InteractionResponse, InteractionResponseContext} from '../interactions/InteractionResponseContext';
 

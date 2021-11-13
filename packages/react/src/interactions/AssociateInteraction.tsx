@@ -1,5 +1,5 @@
 import React from 'react';
-import {AssociateInteractionCharacteristics as AssociateInteractionProps} from '@qtikit/model/src/qti2_2';
+import {AssociateInteractionCharacteristics as AssociateInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const AssociateInteraction: React.FC<AssociateInteractionProps | any> = props => {
   return (

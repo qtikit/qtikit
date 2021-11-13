@@ -1,5 +1,5 @@
 import React from 'react';
-import {GapMatchInteractionCharacteristics as GapMatchInteractionProps} from '@qtikit/model/src/qti2_2';
+import {GapMatchInteractionCharacteristics as GapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const GapMatchInteraction: React.FC<GapMatchInteractionProps | any> = props => {
   return (

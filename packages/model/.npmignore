@@ -1,0 +1,5 @@
+node_modules
+/codegen
+/src
+/tsconfig.json
+/.gitignore

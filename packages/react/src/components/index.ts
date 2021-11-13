@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {Props} from '@src/types/component';
-import {getPropsByElement} from '@src/utils/node';
-import Prompt from '@src/components/Prompt';
-import SimpleChoice from '@src/components/SimpleChoice';
-import ImageHtml from '@src/components/ImageHtml';
-import ObjectHtml from '@src/components/ObjectHtml';
+import {Props} from '../types/component';
+import {getPropsByElement} from '../utils/node';
+import Prompt from '../components/Prompt';
+import SimpleChoice from '../components/SimpleChoice';
+import ImageHtml from '../components/ImageHtml';
+import ObjectHtml from '../components/ObjectHtml';
 
 export const htmlElementNames = [
   'pre',

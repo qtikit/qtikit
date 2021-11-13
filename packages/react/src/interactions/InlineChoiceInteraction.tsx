@@ -1,5 +1,5 @@
 import React from 'react';
-import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/src/qti2_2';
+import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = props => {
   return (

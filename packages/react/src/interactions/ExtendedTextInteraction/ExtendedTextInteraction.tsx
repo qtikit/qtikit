@@ -1,5 +1,5 @@
 import React from 'react';
-import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/src/qti2_2';
+import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {InteractionResponse} from '../InteractionResponseContext';
 
