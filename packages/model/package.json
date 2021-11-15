@@ -1,9 +1,11 @@
 {
   "name": "@qtikit/model",
   "packageManager": "yarn@3.1.0",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
-    "build": "tsc"
+    "clean": "rm -rf lib",
+    "build": "tsc",
+    "prepublishOnly": "yarn clean && yarn build"
   },
   "devDependencies": {
     "typescript": "^4.4.4"
