@@ -14,11 +14,9 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
-    "typescript": "^4.4.4"
-  },
-  "devDependencies": {
     "@riiid/eslint-config": "^2.0.0-beta",
     "eslint": "^7.0.0",
-    "prettier": "^2.0.0"
+    "prettier": "^2.0.0",
+    "typescript": "^4.4.4"
   }
 }
