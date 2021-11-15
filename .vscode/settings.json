@@ -6,7 +6,10 @@
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "eslint.workingDirectories": [
-		"packages/**/*",
-	],
+    "packages/**/*",
+  ],
 }
