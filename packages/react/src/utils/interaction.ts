@@ -1,7 +1,7 @@
 import {
   TextEntryInteractionCharacteristics as TextEntryInteractionProps,
   ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps,
-} from '@qtikit/model/src/qti2_2';
+} from '@qtikit/model/lib/qti2_2';
 
 type PlaceHolderProps = TextEntryInteractionProps & ExtendedTextInteractionProps;
 

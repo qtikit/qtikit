@@ -1,13 +1,15 @@
 import React from 'react';
 
 import {Props} from '../types/component';
-import {getPropsByElement} from '../utils/node';
+import {getOuterXmlWithoutNs, getPropsByElement} from '../utils/node';
 import Gap from './Gap';
 import GapText from './GapText';
-import ImageHtml from './ImageHtml';
-import ObjectHtml from './ObjectHtml';
 import Prompt from './Prompt';
 import SimpleChoice from './SimpleChoice';
+import InlineChoice from './InlineChoice';
+import ImageHtml from './ImageHtml';
+import ObjectHtml from './ObjectHtml';
+import Mathjax from './Mathjax';
 
 export const htmlElementNames = [
   'pre',
@@ -67,7 +69,7 @@ export const htmlComponetNames = ['img', 'object'] as const;
 
 export type HtmlComponetName = typeof htmlComponetNames[number];
 
-export const interactionChildElementNames = ['gap', 'gapText', 'prompt', 'simpleChoice'] as const;
+export const interactionChildElementNames = ['gap', 'gapText', 'prompt', 'simpleChoice', 'inlineChoice'] as const;
 
 export type InteractionChildElementName = typeof interactionChildElementNames[number];
 
@@ -87,6 +89,7 @@ export function createInteractionChildComponent(
     gapText: GapText,
     prompt: Prompt,
     simpleChoice: SimpleChoice,
+    inlineChoice: InlineChoice,
   };
   const InteractionChildComponent = InteractionChildComponentMap[element.nodeName as InteractionChildElementName];
 
@@ -109,4 +112,16 @@ export function createHTMLComponent(
   return htmlComponent
     ? React.createElement(htmlComponent, props, children)
     : React.createElement(element.nodeName, props, ...children);
+}
+
+export function createMathComponent(element: Element, defaultProps: Props): React.ReactNode {
+  if (element.parentNode?.nodeName === 'inlineChoice') {
+    return getOuterXmlWithoutNs(element);
+  } else {
+    return React.createElement(Mathjax, {
+      ...defaultProps,
+      ...getPropsByElement(element),
+      mathHtml: getOuterXmlWithoutNs(element),
+    });
+  }
 }
