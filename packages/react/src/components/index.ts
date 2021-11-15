@@ -1,11 +1,13 @@
 import React from 'react';
 
 import {Props} from '@src/types/component';
-import {getPropsByElement} from '@src/utils/node';
+import {getPropsByElement, isElementNode, isTextNode} from '@src/utils/node';
 import Prompt from '@src/components/Prompt';
 import SimpleChoice from '@src/components/SimpleChoice';
+import InlineChoice from '@src/components/InlineChoice';
 import ImageHtml from '@src/components/ImageHtml';
 import ObjectHtml from '@src/components/ObjectHtml';
+import Mathjax from '@src/components/Mathjax';
 
 export const htmlElementNames = [
   'pre',
@@ -65,7 +67,7 @@ export const htmlComponetNames = ['img', 'object'] as const;
 
 export type HtmlComponetName = typeof htmlComponetNames[number];
 
-export const interactionChildElementNames = ['prompt', 'simpleChoice'] as const;
+export const interactionChildElementNames = ['prompt', 'simpleChoice', 'inlineChoice'] as const;
 
 export type InteractionChildElementName = typeof interactionChildElementNames[number];
 
@@ -83,6 +85,7 @@ export function createInteractionChildComponent(
   const InteractionChildComponentMap: Record<InteractionChildElementName, React.FC> = {
     prompt: Prompt,
     simpleChoice: SimpleChoice,
+    inlineChoice: InlineChoice,
   };
   const InteractionChildComponent = InteractionChildComponentMap[element.nodeName as InteractionChildElementName];
 
@@ -105,4 +108,29 @@ export function createHTMLComponent(
   return htmlComponent
     ? React.createElement(htmlComponent, props, children)
     : React.createElement(element.nodeName, props, ...children);
+}
+
+export function parseMathML(node: Node | Element): string {
+  if (isTextNode(node)) {
+    return node.nodeValue || '';
+  } else if (isElementNode(node) && node.childNodes) {
+    const children = Array.from(node.childNodes)
+      .map(childNode => parseMathML(childNode))
+      .join('');
+    return `<${node.nodeName}>${children}</${node.nodeName}>`;
+  }
+
+  return '';
+}
+
+export function createMathComponent(element: Element, defaultProps: Props): React.ReactNode {
+  if (element.parentNode?.nodeName === 'inlineChoice') {
+    return parseMathML(element);
+  } else {
+    return React.createElement(Mathjax, {
+      ...defaultProps,
+      ...getPropsByElement(element),
+      mathHtml: parseMathML(element),
+    });
+  }
 }

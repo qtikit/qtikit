@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@qtikit/model": "workspace:^",
-    "@xmldom/xmldom": "^0.7.5"
+    "mathjax-react": "^1.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
