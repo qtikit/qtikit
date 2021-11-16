@@ -11,7 +11,11 @@
   ],
   "scripts": {
     "lint": "eslint packages --ext .ts,.tsx",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "clean": "yarn clean:yarn-build-cache && yarn clean:packages",
+    "clean:yarn-build-cache": "rm -f .yarn/yarn.build.json",
+    "clean:packages": "yarn workspaces foreach --exclude=qtikit -pv run clean",
+    "clean-build": "yarn clean && yarn build"
   },
   "dependencies": {
     "@changesets/cli": "^2.18.0",

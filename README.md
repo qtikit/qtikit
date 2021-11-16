@@ -15,7 +15,7 @@ for the detail, see [`atlassian/changesets` workflow document][changesets]
 
 ```sh
 yarn changeset version # flush the change logs
-git commit -m 'release 2021-11-16' # commit for release
-yarn workspaces foreach -pt run prepublishOnly # clean build for each packages
+git add . && git commit -m 'release 2021-11-16' # commit for release
+yarn clean-build # clean build for each packages
 yarn changeset publish # publish to npm
 ```
