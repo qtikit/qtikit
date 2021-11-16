@@ -4,15 +4,24 @@ import {UserInput} from '@qtikit/model/lib/user-input';
 import * as Qti from './qti';
 import {getBaseUrl} from './utils/url';
 
-export const QtiViewerContext = React.createContext<{
-  baseUrl: string;
-}>(null as any);
-
 export interface QtiViewerProps {
   assessmentItemSrc: string;
   inputState: UserInput;
   onChange: (newState: UserInput) => void;
 }
+
+interface QtiViewerContextValue extends QtiViewerProps {
+  baseUrl: string;
+}
+
+export const QtiViewerContext = React.createContext<QtiViewerContextValue>(null as any);
+
+const defaultValue: QtiViewerContextValue = {
+  baseUrl: '',
+  assessmentItemSrc: '',
+  inputState: {},
+  onChange: () => {},
+};
 
 const QtiViewer: React.FC<QtiViewerProps> = props => {
   const [xml, setXml] = React.useState<string>('');
@@ -27,7 +36,12 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
   }, [props.assessmentItemSrc]);
 
   return (
-    <QtiViewerContext.Provider value={{baseUrl: getBaseUrl(props.assessmentItemSrc)}}>
+    <QtiViewerContext.Provider
+      value={{
+        ...defaultValue,
+        baseUrl: getBaseUrl(props.assessmentItemSrc),
+        ...props,
+      }}>
       {xml && Qti.createComponent(xml)}
     </QtiViewerContext.Provider>
   );
