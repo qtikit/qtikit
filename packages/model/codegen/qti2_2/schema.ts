@@ -1,8 +1,8 @@
-import {table as primitiveTypes} from './primitive-types.ts';
+import { table as primitiveTypes } from "./primitive-types.ts";
 
 export interface Spec {
   defs: Def[];
-  defByNames: {[name: string]: Def};
+  defByNames: { [name: string]: Def };
 }
 
 export type Def = Enum | Class;
@@ -14,20 +14,30 @@ interface DefBase<T> {
   name: string;
 }
 
-export interface Enum extends DefBase<'enum'> {
+export interface Enum extends DefBase<"enum"> {
   items: string[];
 }
 
-export type ClassType = '' | 'list' | 'union' | 'selection' | 'sequence' | 'sequence-mixed';
+export type ClassType =
+  | ""
+  | "list"
+  | "union"
+  | "selection"
+  | "sequence"
+  | "sequence-mixed";
 
-export interface Class extends DefBase<'class'> {
+export interface Class extends DefBase<"class"> {
   classType: ClassType;
   superClasses: string[];
-  characteristics: {[characteristic: string]: Field};
-  attributes: {[attribute: string]: Field};
+  characteristics: { [characteristic: string]: Field };
+  attributes: { [attribute: string]: Field };
 }
 
-export type Multiplicity = '[1]' | '[0..1]' | '[0..unbounded]' | '[1..unbounded]';
+export type Multiplicity =
+  | "[1]"
+  | "[0..1]"
+  | "[0..unbounded]"
+  | "[1..unbounded]";
 
 export interface Field {
   name: string;
@@ -55,7 +65,7 @@ export function getAncestors(spec: Spec, def: Class): GetAncestorsResult {
       continue;
     }
     const def = spec.defByNames[superClass];
-    if (def.defType !== 'class') continue;
+    if (def.defType !== "class") continue;
     superClasses = superClasses.concat(def.superClasses);
   }
   return result;
@@ -63,15 +73,15 @@ export function getAncestors(spec: Spec, def: Class): GetAncestorsResult {
 
 export interface ExpandClassResult {
   primitiveAncestors: string[];
-  characteristics: {[characteristic: string]: Field};
-  attributes: {[attribute: string]: Field};
+  characteristics: { [characteristic: string]: Field };
+  attributes: { [attribute: string]: Field };
 }
 export function expandClass(spec: Spec, def: Class): ExpandClassResult {
-  const {ancestors, primitiveAncestors} = getAncestors(spec, def);
+  const { ancestors, primitiveAncestors } = getAncestors(spec, def);
   const result: ExpandClassResult = {
     primitiveAncestors: primitiveAncestors,
-    characteristics: {...def.characteristics},
-    attributes: {...def.attributes},
+    characteristics: { ...def.characteristics },
+    attributes: { ...def.attributes },
   };
   for (const ancestor of ancestors) {
     Object.assign(result.characteristics, ancestor.characteristics);

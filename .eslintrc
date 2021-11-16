@@ -3,5 +3,10 @@
   "rules": {
     "import/no-unresolved": "off",
     "no-restricted-imports": "off"
-  }
+  },
+  "ignorePatterns": [
+    "packages/**/lib/**/*",
+    "packages/model/codegen/**/*",
+    "packages/model/src/qti2_2.ts"
+  ]
 }
