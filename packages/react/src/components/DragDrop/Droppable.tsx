@@ -6,7 +6,7 @@ const droppableStyle = {
   display: 'inline-block',
 };
 
-interface DroppableProps {
+export interface DroppableProps {
   onDrop: (current: Current) => void;
 }
 

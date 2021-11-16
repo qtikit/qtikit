@@ -2,10 +2,12 @@ import React from 'react';
 
 import {Props} from '../types/component';
 import {getPropsByElement} from '../utils/node';
-import Prompt from '../components/Prompt';
-import SimpleChoice from '../components/SimpleChoice';
-import ImageHtml from '../components/ImageHtml';
-import ObjectHtml from '../components/ObjectHtml';
+import Gap from './Gap';
+import GapText from './GapText';
+import ImageHtml from './ImageHtml';
+import ObjectHtml from './ObjectHtml';
+import Prompt from './Prompt';
+import SimpleChoice from './SimpleChoice';
 
 export const htmlElementNames = [
   'pre',
@@ -65,7 +67,7 @@ export const htmlComponetNames = ['img', 'object'] as const;
 
 export type HtmlComponetName = typeof htmlComponetNames[number];
 
-export const interactionChildElementNames = ['prompt', 'simpleChoice'] as const;
+export const interactionChildElementNames = ['gap', 'gapText', 'prompt', 'simpleChoice'] as const;
 
 export type InteractionChildElementName = typeof interactionChildElementNames[number];
 
@@ -81,6 +83,8 @@ export function createInteractionChildComponent(
   const props = {...defaultProps, ...getPropsByElement(element)};
 
   const InteractionChildComponentMap: Record<InteractionChildElementName, React.FC> = {
+    gap: Gap,
+    gapText: GapText,
     prompt: Prompt,
     simpleChoice: SimpleChoice,
   };
