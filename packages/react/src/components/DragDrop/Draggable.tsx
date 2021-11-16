@@ -7,7 +7,7 @@ const draggableStyle = {
   display: 'inline-block',
 };
 
-interface DraggableProps {
+export interface DraggableProps {
   current: Current;
 }
 
@@ -26,4 +26,3 @@ const Draggable: React.FC<DraggableProps> = ({current, children}) => {
 };
 
 export default Draggable;
-export {DraggableProps};

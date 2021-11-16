@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Current {
+export interface Current {
   name: string;
   value: string;
 }
@@ -12,13 +12,13 @@ interface DragDropValue {
 
 const DragDropContext = React.createContext<DragDropValue | null>(null);
 
-const DragDropContextProvider: React.FC = ({children}) => {
+export const DragDropContextProvider: React.FC = ({children}) => {
   const [current, setCurrent] = React.useState<Current | null>(null);
 
   return <DragDropContext.Provider value={{current, setCurrent}}>{children}</DragDropContext.Provider>;
 };
 
-const useDragDropContext = () => {
+export const useDragDropContext = () => {
   const context = React.useContext(DragDropContext);
 
   if (!context) {
@@ -29,4 +29,3 @@ const useDragDropContext = () => {
 };
 
 export default DragDropContext;
-export {Current, DragDropContextProvider, useDragDropContext};
