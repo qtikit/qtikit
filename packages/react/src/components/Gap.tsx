@@ -1,5 +1,5 @@
 import React from 'react';
-import {GapCharacteristics as GapProps} from '@qtikit/model/src/qti2_2';
+import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
 
 import {useInteractionResponseContext} from '../interactions/InteractionResponseContext';
 import {Current, Droppable} from './DragDrop';
