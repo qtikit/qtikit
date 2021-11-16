@@ -8,6 +8,7 @@ import {
   isInteractionChildElement,
 } from './components';
 import {createInteractionComponent, isInteractionElement} from './interactions';
+import {trimXml} from './utils/xml';
 
 const NodeType = {
   ELEMENT_NODE: 1,
@@ -61,7 +62,7 @@ function parseXml(node: Node | Element, index = 0): React.ReactNode {
 }
 
 export function createComponent(xml: string): React.ReactNode {
-  const root = new DOMParser().parseFromString(xml, 'text/xml');
+  const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
   const itemBody = root.documentElement.getElementsByTagName('itemBody')[0];
 
   if (!itemBody) {
