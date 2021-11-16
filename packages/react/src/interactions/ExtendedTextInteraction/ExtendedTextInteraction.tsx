@@ -2,14 +2,7 @@ import React from 'react';
 import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {InteractionResponse} from '../InteractionResponseContext';
-
-const getPlaceHolder = (props: ExtendedTextInteractionProps) => {
-  const {placeholderText, expectedLength, expectedLines} = props;
-  const expectedLengthText = expectedLength ? ` ${expectedLength} length expected` : '';
-  const expectedLineText = expectedLines ? ` ${expectedLines} line expected` : '';
-
-  return `${placeholderText || ''}${expectedLengthText}${expectedLineText}`;
-};
+import {getPlaceHolder} from '../../utils/interaction';
 
 const validate = (value: string) => {
   return value;
