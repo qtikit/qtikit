@@ -4,6 +4,15 @@ import {GapCharacteristics as GapProps} from '@qtikit/model/src/qti2_2';
 import {useInteractionResponseContext} from '../interactions/InteractionResponseContext';
 import {Current, Droppable} from './DragDrop';
 
+const gapStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '80px',
+  height: '15px',
+  backgroundColor: '#ddd',
+};
+
 const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
   const {response, setResponse} = useInteractionResponseContext();
 
@@ -19,15 +28,7 @@ const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
 
   return (
     <Droppable onDrop={handleDrop}>
-      <span
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '80px',
-          height: '15px',
-          backgroundColor: '#ddd',
-        }}>
+      <span style={gapStyle}>
         {dropped}
         {children}
       </span>
