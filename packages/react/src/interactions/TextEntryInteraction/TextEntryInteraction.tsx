@@ -15,7 +15,7 @@ const textStyle = {
 const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0]}),
+    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
     interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
   });
 
