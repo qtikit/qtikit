@@ -21,7 +21,7 @@ const textareaStyle = {
   height: '14em',
 };
 
-const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
+const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput[0]});
 const decodeResponse: InteractionStateDecoder = interactionState => [interactionState[IDENTIFIER] as string];
 
 const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {

@@ -6,7 +6,7 @@ import {InteractionState, InteractionStateEncoder, InteractionStateDecoder} from
 
 const IDENTIFIER = 'select';
 
-const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
+const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput[0]});
 const decodeResponse: InteractionStateDecoder = interactionState => [interactionState[IDENTIFIER] as string];
 
 const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
