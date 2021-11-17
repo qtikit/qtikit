@@ -1,8 +1,17 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {QtiViewerContext} from '../../QtiViewer';
+import {
+  InteractionResponse,
+  InteractionResponseEncoder,
+  InteractionResponseDecoder,
+} from '../InteractionResponseContext';
+
+const IDENTIFIER = 'select';
+
+const encodeResponse: InteractionResponseEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
+const decodeResponse: InteractionResponseDecoder = interactionResponse => [interactionResponse[IDENTIFIER] as string];
 
 const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   responseIdentifier,
@@ -10,21 +19,27 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   required,
   ...props
 }) => {
-  const {onChange} = useContext(QtiViewerContext);
-  const [value, setValue] = React.useState('');
+  const {inputState, onChange} = React.useContext(QtiViewerContext);
 
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = event => {
-    const choice = event.target.value;
-    const userInput: UserInput = {};
+  const [interactionResponse, setInteractionResponse] = [
+    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
+    React.useCallback(
+      (newInteractionResponse: InteractionResponse) => {
+        onChange({
+          ...inputState,
+          [responseIdentifier]: decodeResponse(newInteractionResponse),
+        });
+      },
+      [inputState, onChange, responseIdentifier]
+    ),
+  ];
 
-    userInput[responseIdentifier] = [choice];
-    onChange(userInput);
-
-    setValue(choice);
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = ({target: {value}}) => {
+    setInteractionResponse({[IDENTIFIER]: value});
   };
 
   return (
-    <select value={value} onChange={handleChange}>
+    <select value={interactionResponse[IDENTIFIER] as string} onChange={handleChange}>
       <option value="">Choose...</option>
       {props.children}
     </select>

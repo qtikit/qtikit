@@ -14,13 +14,13 @@ const gapStyle = {
 };
 
 const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
-  const {response, setResponse} = useInteractionResponseContext();
+  const {interactionResponse, setInteractionResponse} = useInteractionResponseContext();
 
   const [dropped, setDropped] = React.useState('');
 
   const handleDrop = (current: Current) => {
-    setResponse({
-      ...response,
+    setInteractionResponse({
+      ...interactionResponse,
       [identifier]: current.value,
     });
     setDropped(current.name);

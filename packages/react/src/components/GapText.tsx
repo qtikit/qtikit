@@ -13,9 +13,9 @@ const gapTextStyle = {
 };
 
 const GapText: React.FC<GapTextProps | any> = ({identifier, children}) => {
-  const {response} = useInteractionResponseContext();
+  const {interactionResponse} = useInteractionResponseContext();
 
-  if (Object.values(response).includes(identifier)) {
+  if (Object.values(interactionResponse).includes(identifier)) {
     return null;
   }
 

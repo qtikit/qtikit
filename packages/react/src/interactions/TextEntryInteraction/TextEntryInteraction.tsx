@@ -1,9 +1,18 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {TextEntryInteractionCharacteristics as TextEntryInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {getPlaceHolder} from '../../utils/interaction';
 import {QtiViewerContext} from '../../QtiViewer';
+import {
+  InteractionResponse,
+  InteractionResponseEncoder,
+  InteractionResponseDecoder,
+} from '../InteractionResponseContext';
+
+const IDENTIFIER = 'text';
+
+const encodeResponse: InteractionResponseEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
+const decodeResponse: InteractionResponseDecoder = interactionResponse => [interactionResponse[IDENTIFIER] as string];
 
 const textStyle = {
   fontSize: '1em',
@@ -12,17 +21,34 @@ const textStyle = {
 };
 
 const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {onChange} = useContext(QtiViewerContext);
+  const {inputState, onChange} = React.useContext(QtiViewerContext);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const userInput: UserInput = {};
-    userInput[responseIdentifier] = [event.target.value];
-    onChange(userInput);
+  const [interactionResponse, setInteractionResponse] = [
+    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
+    React.useCallback(
+      (newInteractionResponse: InteractionResponse) => {
+        onChange({
+          ...inputState,
+          [responseIdentifier]: decodeResponse(newInteractionResponse),
+        });
+      },
+      [inputState, onChange, responseIdentifier]
+    ),
+  ];
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({target: {value}}) => {
+    setInteractionResponse({[IDENTIFIER]: value});
   };
 
   return (
     <span>
-      <input type="text" style={textStyle} placeholder={getPlaceHolder(props)} onChange={handleChange} />
+      <input
+        type="text"
+        style={textStyle}
+        placeholder={getPlaceHolder(props)}
+        value={interactionResponse.text as string}
+        onChange={handleChange}
+      />
       {props.children}
     </span>
   );

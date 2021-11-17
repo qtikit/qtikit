@@ -1,23 +1,16 @@
 import * as React from 'react';
-
+import {UserInput} from '@qtikit/model/lib/user-input';
 interface InteractionResponse {
   [identifier: string]: string | number | boolean | undefined;
 }
 
+type InteractionResponseEncoder = (userInput: UserInput[string]) => InteractionResponse;
+type InteractionResponseDecoder = (interactionResponse: InteractionResponse) => UserInput[string];
+
 const InteractionResponseContext = React.createContext<{
-  response: InteractionResponse;
-  setResponse: React.Dispatch<React.SetStateAction<InteractionResponse>>;
+  interactionResponse: InteractionResponse;
+  setInteractionResponse: (interactionResponse: InteractionResponse) => void;
 }>(null as any);
-
-const InteractionResponseContextProvider: React.FC = ({children}) => {
-  const [response, setResponse] = React.useState<InteractionResponse>({});
-
-  return (
-    <InteractionResponseContext.Provider value={{response, setResponse}}>
-      {children}
-    </InteractionResponseContext.Provider>
-  );
-};
 
 const useInteractionResponseContext = () => {
   const context = React.useContext(InteractionResponseContext);
@@ -30,4 +23,4 @@ const useInteractionResponseContext = () => {
 };
 
 export default InteractionResponseContext;
-export {InteractionResponse, InteractionResponseContextProvider, useInteractionResponseContext};
+export {InteractionResponse, InteractionResponseEncoder, InteractionResponseDecoder, useInteractionResponseContext};

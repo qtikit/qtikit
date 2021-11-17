@@ -1,24 +1,42 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {ChoiceInteractionCharacteristics as ChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {QtiViewerContext} from '../../QtiViewer';
-import {useInteractionResponseContext} from '../InteractionResponseContext';
+import InteractionResponseContext, {
+  InteractionResponse,
+  InteractionResponseEncoder,
+  InteractionResponseDecoder,
+} from '../InteractionResponseContext';
+
+const encodeResponse: InteractionResponseEncoder = userInput =>
+  userInput.reduce((interactionResponse, identifier) => ({...interactionResponse, [identifier]: true}), {});
+const decodeResponse: InteractionResponseDecoder = interactionResponse => Object.keys(interactionResponse);
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {onChange} = useContext(QtiViewerContext);
-  const {response} = useInteractionResponseContext();
+  const {inputState, onChange} = React.useContext(QtiViewerContext);
 
-  useEffect(() => {
-    const choice = Object.keys(response);
-    if (choice.length > 0) {
-      const userInput: UserInput = {};
-      userInput[responseIdentifier] = choice;
-      onChange(userInput);
-    }
-  }, [onChange, response, responseIdentifier]);
+  const [interactionResponse, setInteractionResponse] = [
+    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
+    React.useCallback(
+      (newInteractionResponse: InteractionResponse) => {
+        const choice = decodeResponse(newInteractionResponse);
 
-  return <div>{props.children}</div>;
+        if (choice.length > 0) {
+          onChange({
+            ...inputState,
+            [responseIdentifier]: choice,
+          });
+        }
+      },
+      [inputState, onChange, responseIdentifier]
+    ),
+  ];
+
+  return (
+    <InteractionResponseContext.Provider value={{interactionResponse, setInteractionResponse}}>
+      {props.children}
+    </InteractionResponseContext.Provider>
+  );
 };
 
 export default ChoiceInteraction;

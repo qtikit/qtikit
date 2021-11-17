@@ -1,9 +1,15 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {getPlaceHolder} from '../../utils/interaction';
 import {QtiViewerContext} from '../../QtiViewer';
+import {
+  InteractionResponse,
+  InteractionResponseEncoder,
+  InteractionResponseDecoder,
+} from '../InteractionResponseContext';
+
+const IDENTIFIER = 'textarea';
 
 const validate = (value: string) => {
   return value;
@@ -19,22 +25,40 @@ const textareaStyle = {
   height: '14em',
 };
 
-const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {onChange} = useContext(QtiViewerContext);
+const encodeResponse: InteractionResponseEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
+const decodeResponse: InteractionResponseDecoder = interactionResponse => [interactionResponse[IDENTIFIER] as string];
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const userInput: UserInput = {};
-    userInput[responseIdentifier] = [validate(event.target.value)];
-    onChange(userInput);
+const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {
+  const {inputState, onChange} = React.useContext(QtiViewerContext);
+
+  const [interactionResponse, setInteractionResponse] = [
+    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
+    React.useCallback(
+      (newInteractionResponse: InteractionResponse) => {
+        onChange({
+          ...inputState,
+          [responseIdentifier]: decodeResponse(newInteractionResponse),
+        });
+      },
+      [inputState, onChange, responseIdentifier]
+    ),
+  ];
+
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = ({target: {value}}) => {
+    setInteractionResponse({[IDENTIFIER]: validate(value)});
   };
 
   return (
-    <div>
+    <>
       {props.children}
       <div style={textareaBlockStyle}>
-        <textarea placeholder={getPlaceHolder(props)} style={textareaStyle} onChange={handleChange}></textarea>
+        <textarea
+          placeholder={getPlaceHolder(props)}
+          style={textareaStyle}
+          onChange={handleChange}
+          value={interactionResponse[IDENTIFIER] as string}></textarea>
       </div>
-    </div>
+    </>
   );
 };
 
