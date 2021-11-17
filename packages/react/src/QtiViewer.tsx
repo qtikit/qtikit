@@ -1,8 +1,25 @@
 import React, {useEffect} from 'react';
+import {DOMParser} from '@xmldom/xmldom';
 import {UserInput} from '@qtikit/model/lib/user-input';
 
 import * as Qti from './qti';
 import {getBaseUrl} from './utils/url';
+import {trimXml} from './utils/xml';
+
+interface ViewerProps {
+  xml: string;
+}
+
+const Viewer = React.memo<ViewerProps>(({xml}) => {
+  const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
+  const itemBody = root.documentElement.getElementsByTagName('itemBody')[0];
+
+  if (!itemBody) {
+    throw new Error('QTI itemBody is not found');
+  }
+
+  return <>{Qti.parseXml(itemBody)}</>;
+});
 
 export interface QtiViewerProps {
   assessmentItemSrc: string;
@@ -42,7 +59,7 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
         baseUrl: getBaseUrl(props.assessmentItemSrc),
         ...props,
       }}>
-      {xml && Qti.createComponent(xml)}
+      {xml && <Viewer xml={xml} />}
     </QtiViewerContext.Provider>
   );
 };
