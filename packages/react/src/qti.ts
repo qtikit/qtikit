@@ -1,5 +1,4 @@
 import React from 'react';
-import {DOMParser} from '@xmldom/xmldom';
 
 import {
   createHTMLComponent,
