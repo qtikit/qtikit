@@ -2,24 +2,24 @@ import React from 'react';
 import {ChoiceInteractionCharacteristics as ChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {QtiViewerContext} from '../../QtiViewer';
-import InteractionResponseContext, {
-  InteractionResponse,
-  InteractionResponseEncoder,
-  InteractionResponseDecoder,
-} from '../InteractionResponseContext';
+import InteractionStateContext, {
+  InteractionState,
+  InteractionStateEncoder,
+  InteractionStateDecoder,
+} from '../InteractionStateContext';
 
-const encodeResponse: InteractionResponseEncoder = userInput =>
-  userInput.reduce((interactionResponse, identifier) => ({...interactionResponse, [identifier]: true}), {});
-const decodeResponse: InteractionResponseDecoder = interactionResponse => Object.keys(interactionResponse);
+const encodeResponse: InteractionStateEncoder = userInput =>
+  userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {});
+const decodeResponse: InteractionStateDecoder = interactionState => Object.keys(interactionState);
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const {inputState, onChange} = React.useContext(QtiViewerContext);
 
-  const [interactionResponse, setInteractionResponse] = [
+  const [interactionState, setInteractionState] = [
     React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
     React.useCallback(
-      (newInteractionResponse: InteractionResponse) => {
-        const choice = decodeResponse(newInteractionResponse);
+      (newInteractionState: InteractionState) => {
+        const choice = decodeResponse(newInteractionState);
 
         if (choice.length > 0) {
           onChange({
@@ -33,9 +33,9 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIden
   ];
 
   return (
-    <InteractionResponseContext.Provider value={{interactionResponse, setInteractionResponse}}>
+    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
       {props.children}
-    </InteractionResponseContext.Provider>
+    </InteractionStateContext.Provider>
   );
 };
 

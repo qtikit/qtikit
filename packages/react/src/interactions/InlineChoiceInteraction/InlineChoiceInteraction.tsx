@@ -2,16 +2,12 @@ import React from 'react';
 import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {QtiViewerContext} from '../../QtiViewer';
-import {
-  InteractionResponse,
-  InteractionResponseEncoder,
-  InteractionResponseDecoder,
-} from '../InteractionResponseContext';
+import {InteractionState, InteractionStateEncoder, InteractionStateDecoder} from '../InteractionStateContext';
 
 const IDENTIFIER = 'select';
 
-const encodeResponse: InteractionResponseEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
-const decodeResponse: InteractionResponseDecoder = interactionResponse => [interactionResponse[IDENTIFIER] as string];
+const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
+const decodeResponse: InteractionStateDecoder = interactionState => [interactionState[IDENTIFIER] as string];
 
 const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   responseIdentifier,
@@ -21,13 +17,13 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
 }) => {
   const {inputState, onChange} = React.useContext(QtiViewerContext);
 
-  const [interactionResponse, setInteractionResponse] = [
+  const [interactionState, setInteractionState] = [
     React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
     React.useCallback(
-      (newInteractionResponse: InteractionResponse) => {
+      (newInteractionState: InteractionState) => {
         onChange({
           ...inputState,
-          [responseIdentifier]: decodeResponse(newInteractionResponse),
+          [responseIdentifier]: decodeResponse(newInteractionState),
         });
       },
       [inputState, onChange, responseIdentifier]
@@ -35,11 +31,11 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   ];
 
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = ({target: {value}}) => {
-    setInteractionResponse({[IDENTIFIER]: value});
+    setInteractionState({[IDENTIFIER]: value});
   };
 
   return (
-    <select value={interactionResponse[IDENTIFIER] as string} onChange={handleChange}>
+    <select value={interactionState[IDENTIFIER] as string} onChange={handleChange}>
       <option value="">Choose...</option>
       {props.children}
     </select>

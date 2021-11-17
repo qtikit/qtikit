@@ -3,16 +3,12 @@ import {TextEntryInteractionCharacteristics as TextEntryInteractionProps} from '
 
 import {getPlaceHolder} from '../../utils/interaction';
 import {QtiViewerContext} from '../../QtiViewer';
-import {
-  InteractionResponse,
-  InteractionResponseEncoder,
-  InteractionResponseDecoder,
-} from '../InteractionResponseContext';
+import {InteractionState, InteractionStateEncoder, InteractionStateDecoder} from '../InteractionStateContext';
 
 const IDENTIFIER = 'text';
 
-const encodeResponse: InteractionResponseEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
-const decodeResponse: InteractionResponseDecoder = interactionResponse => [interactionResponse[IDENTIFIER] as string];
+const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput.join()});
+const decodeResponse: InteractionStateDecoder = interactionState => [interactionState[IDENTIFIER] as string];
 
 const textStyle = {
   fontSize: '1em',
@@ -23,13 +19,13 @@ const textStyle = {
 const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const {inputState, onChange} = React.useContext(QtiViewerContext);
 
-  const [interactionResponse, setInteractionResponse] = [
+  const [interactionState, setInteractionState] = [
     React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
     React.useCallback(
-      (newInteractionResponse: InteractionResponse) => {
+      (newInteractionState: InteractionState) => {
         onChange({
           ...inputState,
-          [responseIdentifier]: decodeResponse(newInteractionResponse),
+          [responseIdentifier]: decodeResponse(newInteractionState),
         });
       },
       [inputState, onChange, responseIdentifier]
@@ -37,7 +33,7 @@ const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({respon
   ];
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({target: {value}}) => {
-    setInteractionResponse({[IDENTIFIER]: value});
+    setInteractionState({[IDENTIFIER]: value});
   };
 
   return (
@@ -46,7 +42,7 @@ const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({respon
         type="text"
         style={textStyle}
         placeholder={getPlaceHolder(props)}
-        value={interactionResponse.text as string}
+        value={interactionState.text as string}
         onChange={handleChange}
       />
       {props.children}

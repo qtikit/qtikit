@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
 
-import {useInteractionResponseContext} from '../interactions/InteractionResponseContext';
+import {useInteractionStateContext} from '../interactions/InteractionStateContext';
 import {Current, Droppable} from './DragDrop';
 
 const gapStyle = {
@@ -14,13 +14,13 @@ const gapStyle = {
 };
 
 const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
-  const {interactionResponse, setInteractionResponse} = useInteractionResponseContext();
+  const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const [dropped, setDropped] = React.useState('');
 
   const handleDrop = (current: Current) => {
-    setInteractionResponse({
-      ...interactionResponse,
+    setInteractionState({
+      ...interactionState,
       [identifier]: current.value,
     });
     setDropped(current.name);

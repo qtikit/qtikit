@@ -2,7 +2,7 @@ import * as React from 'react';
 import {GapTextCharacteristics as GapTextProps} from '@qtikit/model/lib/qti2_2';
 
 import {Draggable} from './DragDrop';
-import {useInteractionResponseContext} from '../interactions/InteractionResponseContext';
+import {useInteractionStateContext} from '../interactions/InteractionStateContext';
 
 const gapTextStyle = {
   width: '120px',
@@ -13,9 +13,9 @@ const gapTextStyle = {
 };
 
 const GapText: React.FC<GapTextProps | any> = ({identifier, children}) => {
-  const {interactionResponse} = useInteractionResponseContext();
+  const {interactionState} = useInteractionStateContext();
 
-  if (Object.values(interactionResponse).includes(identifier)) {
+  if (Object.values(interactionState).includes(identifier)) {
     return null;
   }
 
