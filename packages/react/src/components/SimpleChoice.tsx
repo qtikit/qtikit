@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/lib/qti2_2';
 
-import {useInteractionStateContext} from '../interactions/InteractionStateContext';
+import {useInteractionStateContext} from '../interactions/InteractionState';
 
 const SimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

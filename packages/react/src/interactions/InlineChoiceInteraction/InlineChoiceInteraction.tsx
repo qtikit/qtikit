@@ -1,13 +1,9 @@
 import React from 'react';
 import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
-import {QtiViewerContext} from '../../QtiViewer';
-import {InteractionState, InteractionStateEncoder, InteractionStateDecoder} from '../InteractionStateContext';
+import {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'select';
-
-const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput[0]});
-const decodeResponse: InteractionStateDecoder = interactionState => [interactionState[IDENTIFIER] as string];
 
 const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   responseIdentifier,
@@ -15,20 +11,11 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   required,
   ...props
 }) => {
-  const {inputState, onChange} = React.useContext(QtiViewerContext);
-
-  const [interactionState, setInteractionState] = [
-    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
-    React.useCallback(
-      (newInteractionState: InteractionState) => {
-        onChange({
-          ...inputState,
-          [responseIdentifier]: decodeResponse(newInteractionState),
-        });
-      },
-      [inputState, onChange, responseIdentifier]
-    ),
-  ];
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0]}),
+    interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
+  });
 
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = ({target: {value}}) => {
     setInteractionState({[IDENTIFIER]: value});

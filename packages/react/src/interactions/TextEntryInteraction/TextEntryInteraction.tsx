@@ -2,13 +2,9 @@ import React from 'react';
 import {TextEntryInteractionCharacteristics as TextEntryInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {getPlaceHolder} from '../../utils/interaction';
-import {QtiViewerContext} from '../../QtiViewer';
-import {InteractionState, InteractionStateEncoder, InteractionStateDecoder} from '../InteractionStateContext';
+import {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'text';
-
-const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput[0]});
-const decodeResponse: InteractionStateDecoder = interactionState => [interactionState[IDENTIFIER] as string];
 
 const textStyle = {
   fontSize: '1em',
@@ -17,20 +13,11 @@ const textStyle = {
 };
 
 const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {inputState, onChange} = React.useContext(QtiViewerContext);
-
-  const [interactionState, setInteractionState] = [
-    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
-    React.useCallback(
-      (newInteractionState: InteractionState) => {
-        onChange({
-          ...inputState,
-          [responseIdentifier]: decodeResponse(newInteractionState),
-        });
-      },
-      [inputState, onChange, responseIdentifier]
-    ),
-  ];
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0]}),
+    interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
+  });
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({target: {value}}) => {
     setInteractionState({[IDENTIFIER]: value});

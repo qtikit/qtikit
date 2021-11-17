@@ -2,8 +2,7 @@ import React from 'react';
 import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {getPlaceHolder} from '../../utils/interaction';
-import {QtiViewerContext} from '../../QtiViewer';
-import {InteractionState, InteractionStateEncoder, InteractionStateDecoder} from '../InteractionStateContext';
+import {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'textarea';
 
@@ -21,24 +20,12 @@ const textareaStyle = {
   height: '14em',
 };
 
-const encodeResponse: InteractionStateEncoder = userInput => ({[IDENTIFIER]: userInput[0]});
-const decodeResponse: InteractionStateDecoder = interactionState => [interactionState[IDENTIFIER] as string];
-
 const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {inputState, onChange} = React.useContext(QtiViewerContext);
-
-  const [interactionState, setInteractionState] = [
-    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
-    React.useCallback(
-      (newInteractionState: InteractionState) => {
-        onChange({
-          ...inputState,
-          [responseIdentifier]: decodeResponse(newInteractionState),
-        });
-      },
-      [inputState, onChange, responseIdentifier]
-    ),
-  ];
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0]}),
+    interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
+  });
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = ({target: {value}}) => {
     setInteractionState({[IDENTIFIER]: validate(value)});

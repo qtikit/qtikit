@@ -1,36 +1,15 @@
 import React from 'react';
 import {ChoiceInteractionCharacteristics as ChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
-import {QtiViewerContext} from '../../QtiViewer';
-import InteractionStateContext, {
-  InteractionState,
-  InteractionStateEncoder,
-  InteractionStateDecoder,
-} from '../InteractionStateContext';
-
-const encodeResponse: InteractionStateEncoder = userInput =>
-  userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {});
-const decodeResponse: InteractionStateDecoder = interactionState => Object.keys(interactionState);
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {inputState, onChange} = React.useContext(QtiViewerContext);
-
-  const [interactionState, setInteractionState] = [
-    React.useMemo(() => encodeResponse(inputState[responseIdentifier] ?? []), [inputState, responseIdentifier]),
-    React.useCallback(
-      (newInteractionState: InteractionState) => {
-        const choice = decodeResponse(newInteractionState);
-
-        if (choice.length > 0) {
-          onChange({
-            ...inputState,
-            [responseIdentifier]: choice,
-          });
-        }
-      },
-      [inputState, onChange, responseIdentifier]
-    ),
-  ];
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput =>
+      userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {}),
+    interactionStateDecoder: interactionState => Object.keys(interactionState),
+  });
 
   return (
     <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>

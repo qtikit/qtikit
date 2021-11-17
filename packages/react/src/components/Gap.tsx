@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
 
-import {useInteractionStateContext} from '../interactions/InteractionStateContext';
+import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
 
 const gapStyle = {

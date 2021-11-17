@@ -2,7 +2,7 @@ import * as React from 'react';
 import {GapTextCharacteristics as GapTextProps} from '@qtikit/model/lib/qti2_2';
 
 import {Draggable} from './DragDrop';
-import {useInteractionStateContext} from '../interactions/InteractionStateContext';
+import {useInteractionStateContext} from '../interactions/InteractionState';
 
 const gapTextStyle = {
   width: '120px',
