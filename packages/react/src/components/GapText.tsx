@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {GapTextCharacteristics as GapTextProps} from '@qtikit/model/lib/qti2_2';
 
 import {Draggable} from './DragDrop';

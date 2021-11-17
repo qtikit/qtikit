@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 interface InteractionResponse {
   [identifier: string]: string | number | boolean | undefined;

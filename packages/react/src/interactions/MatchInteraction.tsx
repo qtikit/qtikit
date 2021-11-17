@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {MatchInteractionCharacteristics as MatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const MatchInteraction: React.FC<MatchInteractionProps | any> = props => {

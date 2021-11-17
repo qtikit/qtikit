@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
 
 import {useInteractionResponseContext} from '../interactions/InteractionResponseContext';

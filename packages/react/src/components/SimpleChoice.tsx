@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/lib/qti2_2';
 
 import {InteractionResponse, useInteractionResponseContext} from '../interactions/InteractionResponseContext';

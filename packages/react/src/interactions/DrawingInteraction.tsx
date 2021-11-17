@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {DrawingInteractionCharacteristics as DrawingInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const DrawingInteraction: React.FC<DrawingInteractionProps | any> = props => {

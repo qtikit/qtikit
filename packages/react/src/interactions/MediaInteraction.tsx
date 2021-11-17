@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {MediaInteractionCharacteristics as MediaInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const MediaInteraction: React.FC<MediaInteractionProps | any> = props => {
