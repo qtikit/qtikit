@@ -2,6 +2,7 @@ import React from 'react';
 import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {getPlaceHolder} from '../../utils/interaction';
+import {createStyle} from '../../utils/style';
 import {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'textarea';
@@ -10,15 +11,15 @@ const validate = (value: string) => {
   return value;
 };
 
-const textareaBlockStyle = {
+const textareaBlockStyle = createStyle({
   display: 'flex',
-};
+});
 
-const textareaStyle = {
+const textareaStyle = createStyle({
   width: '90%',
   marginTop: '1em',
   height: '14em',
-};
+});
 
 const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({

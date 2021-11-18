@@ -3,15 +3,16 @@ import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
+import {createStyle} from '../utils/style';
 
-const gapStyle = {
+const gapStyle = createStyle({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   width: '80px',
   height: '15px',
   backgroundColor: '#ddd',
-};
+});
 
 const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

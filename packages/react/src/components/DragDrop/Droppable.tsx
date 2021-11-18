@@ -1,10 +1,11 @@
 import React from 'react';
 
 import {Current, useDragDropContext} from '.';
+import {createStyle} from '../../utils/style';
 
-const droppableStyle = {
+const droppableStyle = createStyle({
   display: 'inline-block',
-};
+});
 
 export interface DroppableProps {
   onDrop: (current: Current) => void;
