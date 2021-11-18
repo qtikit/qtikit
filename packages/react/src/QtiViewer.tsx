@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {DOMParser} from '@xmldom/xmldom';
 import {UserInput} from '@qtikit/model/lib/user-input';
 
 import * as Qti from './qti';
