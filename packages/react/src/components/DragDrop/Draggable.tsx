@@ -1,11 +1,12 @@
 import React from 'react';
 
 import {Current, useDragDropContext} from '.';
+import {createStyle} from '../../utils/style';
 
-const draggableStyle = {
+const draggableStyle = createStyle({
   cursor: 'move',
   display: 'inline-block',
-};
+});
 
 export interface DraggableProps {
   current: Current;

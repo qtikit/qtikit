@@ -3,14 +3,15 @@ import {GapTextCharacteristics as GapTextProps} from '@qtikit/model/lib/qti2_2';
 
 import {Draggable} from './DragDrop';
 import {useInteractionStateContext} from '../interactions/InteractionState';
+import {createStyle} from '../utils/style';
 
-const gapTextStyle = {
+const gapTextStyle = createStyle({
   width: '120px',
   height: '30px',
   padding: '3px 6px',
   border: '1px solid black',
   backgroundColor: '#fff',
-};
+});
 
 const GapText: React.FC<GapTextProps | any> = ({identifier, children}) => {
   const {interactionState} = useInteractionStateContext();

@@ -2,15 +2,16 @@ import React from 'react';
 import {TextEntryInteractionCharacteristics as TextEntryInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import {getPlaceHolder} from '../../utils/interaction';
+import {createStyle} from '../../utils/style';
 import {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'text';
 
-const textStyle = {
+const textStyle = createStyle({
   fontSize: '1em',
   border: 'solid 1px',
   width: '6ex',
-};
+});
 
 const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
