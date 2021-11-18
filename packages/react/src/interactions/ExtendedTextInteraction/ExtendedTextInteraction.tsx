@@ -1,9 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {getPlaceHolder} from '../../utils/interaction';
-import {QtiViewerContext} from '../../QtiViewer';
+import {useInteractionState} from '../InteractionState';
+
+const IDENTIFIER = 'textarea';
 
 const validate = (value: string) => {
   return value;
@@ -20,21 +21,27 @@ const textareaStyle = {
 };
 
 const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {onChange} = useContext(QtiViewerContext);
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
+    interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
+  });
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const userInput: UserInput = {};
-    userInput[responseIdentifier] = [validate(event.target.value)];
-    onChange(userInput);
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = ({target: {value}}) => {
+    setInteractionState({[IDENTIFIER]: validate(value)});
   };
 
   return (
-    <div>
+    <>
       {props.children}
       <div style={textareaBlockStyle}>
-        <textarea placeholder={getPlaceHolder(props)} style={textareaStyle} onChange={handleChange}></textarea>
+        <textarea
+          placeholder={getPlaceHolder(props)}
+          style={textareaStyle}
+          onChange={handleChange}
+          value={interactionState[IDENTIFIER] as string}></textarea>
       </div>
-    </div>
+    </>
   );
 };
 

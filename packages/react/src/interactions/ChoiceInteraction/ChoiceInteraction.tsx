@@ -1,24 +1,21 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {ChoiceInteractionCharacteristics as ChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
-import {QtiViewerContext} from '../../QtiViewer';
-import {useInteractionResponseContext} from '../InteractionResponseContext';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {onChange} = useContext(QtiViewerContext);
-  const {response} = useInteractionResponseContext();
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput =>
+      userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {}),
+    interactionStateDecoder: interactionState => Object.keys(interactionState),
+  });
 
-  useEffect(() => {
-    const choice = Object.keys(response);
-    if (choice.length > 0) {
-      const userInput: UserInput = {};
-      userInput[responseIdentifier] = choice;
-      onChange(userInput);
-    }
-  }, [onChange, response, responseIdentifier]);
-
-  return <div>{props.children}</div>;
+  return (
+    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+      {props.children}
+    </InteractionStateContext.Provider>
+  );
 };
 
 export default ChoiceInteraction;

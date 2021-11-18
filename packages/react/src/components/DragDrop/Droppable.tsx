@@ -31,9 +31,9 @@ const Droppable: React.FC<DroppableProps> = ({onDrop, children}) => {
   };
 
   return (
-    <div onDragOver={handleDragOver} onDragEnter={handleDragEnter} onDrop={handleDrop} style={droppableStyle}>
+    <span onDragOver={handleDragOver} onDragEnter={handleDragEnter} onDrop={handleDrop} style={droppableStyle}>
       {children}
-    </div>
+    </span>
   );
 };
 

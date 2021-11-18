@@ -1,8 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
-import {QtiViewerContext} from '../../QtiViewer';
+import {useInteractionState} from '../InteractionState';
+
+const IDENTIFIER = 'select';
 
 const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   responseIdentifier,
@@ -10,21 +11,18 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   required,
   ...props
 }) => {
-  const {onChange} = useContext(QtiViewerContext);
-  const [value, setValue] = React.useState('');
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
+    interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
+  });
 
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = event => {
-    const choice = event.target.value;
-    const userInput: UserInput = {};
-
-    userInput[responseIdentifier] = [choice];
-    onChange(userInput);
-
-    setValue(choice);
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = ({target: {value}}) => {
+    setInteractionState({[IDENTIFIER]: value});
   };
 
   return (
-    <select value={value} onChange={handleChange}>
+    <select value={interactionState[IDENTIFIER] as string} onChange={handleChange}>
       <option value="">Choose...</option>
       {props.children}
     </select>

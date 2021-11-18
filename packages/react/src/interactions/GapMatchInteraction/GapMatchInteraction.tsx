@@ -1,23 +1,29 @@
 import * as React from 'react';
-import {UserInput} from '@qtikit/model/lib/user-input';
 import {GapMatchInteractionCharacteristics as GapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
-import {QtiViewerContext} from '../../QtiViewer';
-import {useInteractionResponseContext} from '../InteractionResponseContext';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import {DragDropContextProvider} from '../../components/DragDrop';
 
+const SEPARATOR = ' ';
+
 const GapMatchInteraction: React.FC<GapMatchInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const {onChange} = React.useContext(QtiViewerContext);
-  const {response} = useInteractionResponseContext();
+  const [interactionState, setInteractionState] = useInteractionState({
+    responseIdentifier,
+    interactionStateEncoder: userInput =>
+      userInput.reduce((interactionState, input) => {
+        const [value, key] = input.split(SEPARATOR);
 
-  React.useEffect(() => {
-    const matchedResponse = Object.entries(response).map(([key, value]) => `${value} ${key}`);
-    const userInput: UserInput = {};
-    userInput[responseIdentifier] = matchedResponse;
-    onChange(userInput);
-  }, [onChange, response, responseIdentifier]);
+        return {...interactionState, [key]: value};
+      }, {}),
+    interactionStateDecoder: interactionState =>
+      Object.entries(interactionState).map(entry => entry.reverse().join(SEPARATOR)),
+  });
 
-  return <DragDropContextProvider>{props.children}</DragDropContextProvider>;
+  return (
+    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+      <DragDropContextProvider>{props.children}</DragDropContextProvider>
+    </InteractionStateContext.Provider>
+  );
 };
 
 export default GapMatchInteraction;

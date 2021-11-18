@@ -19,9 +19,9 @@ const Draggable: React.FC<DraggableProps> = ({current, children}) => {
   };
 
   return (
-    <div draggable onDragStart={handleDragStart} style={draggableStyle}>
+    <span draggable onDragStart={handleDragStart} style={draggableStyle}>
       {children}
-    </div>
+    </span>
   );
 };
 

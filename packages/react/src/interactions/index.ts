@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {Props} from '../types/component';
 import {getPropsByElement} from '../utils/node';
-import {InteractionResponseContextProvider} from './InteractionResponseContext';
 import AssociateInteraction from './AssociateInteraction';
 import ChoiceInteraction from './ChoiceInteraction';
 import CustomInteraction from './CustomInteraction';
@@ -78,11 +77,5 @@ export function createInteractionComponent(
   };
   const InteractionComponent = InteractionComponentMap[element.nodeName as InteractionElementName];
 
-  return InteractionComponent
-    ? React.createElement(
-        InteractionResponseContextProvider,
-        {},
-        React.createElement(InteractionComponent, props, children)
-      )
-    : null;
+  return InteractionComponent ? React.createElement(InteractionComponent, props, children) : null;
 }
