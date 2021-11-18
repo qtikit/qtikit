@@ -9,9 +9,8 @@ import {
 } from './components';
 import {createInteractionComponent, isInteractionElement} from './interactions';
 import {isElementNode, isRootElement, isTextNode, isMathElement} from './utils/node';
-import {trimXml} from './utils/xml';
 
-function parseXml(node: Node | Element, index = 0): React.ReactNode {
+export function parseXml(node: Node | Element, index = 0): React.ReactNode {
   const {childNodes} = node;
 
   const defaultProps = {
@@ -37,15 +36,4 @@ function parseXml(node: Node | Element, index = 0): React.ReactNode {
       console.warn(`Unsupported node type: ${node.nodeName}`);
     }
   }
-}
-
-export function createComponent(xml: string): React.ReactNode {
-  const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
-  const itemBody = root.documentElement.getElementsByTagName('itemBody')[0];
-
-  if (!itemBody) {
-    throw new Error('QTI itemBody is not found');
-  }
-
-  return parseXml(itemBody);
 }
