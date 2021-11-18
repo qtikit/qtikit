@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {InlineChoiceCharacteristics as InlineChoiceProps} from '@qtikit/model/lib/qti2_2';
 
 function flattenChildren(children: React.ReactNode): string {

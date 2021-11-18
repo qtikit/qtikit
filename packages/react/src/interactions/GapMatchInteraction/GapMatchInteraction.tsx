@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {GapMatchInteractionCharacteristics as GapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';

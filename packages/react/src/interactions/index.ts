@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import {Props} from '../types/component';
 import {getPropsByElement} from '../utils/node';

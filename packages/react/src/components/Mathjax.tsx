@@ -1,6 +1,5 @@
 import type {MathComponentProps} from 'mathjax-react/dist/components/MathComponent';
-import * as React from 'react';
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
 export interface MathjaxProps {
   mathHtml: string;

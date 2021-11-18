@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {HotTextInteractionCharacteristics as HottextInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const HottextInteraction: React.FC<HottextInteractionProps | any> = props => {

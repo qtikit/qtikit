@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {QtiViewerContext} from '../QtiViewer';

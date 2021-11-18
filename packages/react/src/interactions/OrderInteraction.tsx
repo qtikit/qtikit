@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {OrderInteractionCharacteristics as OrderInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const OrderInteraction: React.FC<OrderInteractionProps | any> = props => {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {HotspotInteractionCharacteristics as HotspotInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const HotspotInteraction: React.FC<HotspotInteractionProps | any> = props => {

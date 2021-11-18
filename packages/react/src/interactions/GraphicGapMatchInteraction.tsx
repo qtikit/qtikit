@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {GraphicGapMatchInteractionCharacteristics as GraphicGapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any> = props => {

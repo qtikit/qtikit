@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {SelectPointInteractionCharacteristics as SelectPointInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 const SelectPointInteraction: React.FC<SelectPointInteractionProps | any> = props => {
