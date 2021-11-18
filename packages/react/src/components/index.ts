@@ -4,7 +4,9 @@ import {Props} from '../types/component';
 import {getOuterXmlWithoutNs, getPropsByElement} from '../utils/node';
 import Gap from './Gap';
 import GapText from './GapText';
+import Hottext from './Hottext';
 import Prompt from './Prompt';
+import RubricBlock from './RubricBlock';
 import SimpleChoice from './SimpleChoice';
 import InlineChoice from './InlineChoice';
 import ImageHtml from './ImageHtml';
@@ -69,7 +71,15 @@ export const htmlComponetNames = ['img', 'object'] as const;
 
 export type HtmlComponetName = typeof htmlComponetNames[number];
 
-export const interactionChildElementNames = ['gap', 'gapText', 'prompt', 'simpleChoice', 'inlineChoice'] as const;
+export const interactionChildElementNames = [
+  'gap',
+  'gapText',
+  'hottext',
+  'prompt',
+  'rubricBlock',
+  'simpleChoice',
+  'inlineChoice',
+] as const;
 
 export type InteractionChildElementName = typeof interactionChildElementNames[number];
 
@@ -87,7 +97,9 @@ export function createInteractionChildComponent(
   const InteractionChildComponentMap: Record<InteractionChildElementName, React.FC> = {
     gap: Gap,
     gapText: GapText,
+    hottext: Hottext,
     prompt: Prompt,
+    rubricBlock: RubricBlock,
     simpleChoice: SimpleChoice,
     inlineChoice: InlineChoice,
   };
