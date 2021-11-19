@@ -1,9 +1,33 @@
-import React from 'react';
+import * as React from 'react';
 import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/lib/qti2_2';
 
 import {createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Draggable, Droppable, useDragDropContext} from './DragDrop';
+
+const DefaultSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, children}) => {
+  const {interactionState, setInteractionState} = useInteractionStateContext();
+
+  const handleChange = () => {
+    setInteractionState({
+      [identifier]: true,
+    });
+  };
+
+  return (
+    <div>
+      <label>
+        <input
+          type="radio"
+          checked={interactionState[identifier] === true}
+          value={identifier}
+          onChange={handleChange}
+        />
+        {children}
+      </label>
+    </div>
+  );
+};
 
 const OrderSimpleChoiceStyle = createStyle(({index, isDragging}: {index: number; isDragging: boolean}) => ({
   order: index,
@@ -37,20 +61,13 @@ const OrderSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, child
   );
 };
 
-const SimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, children}) => {
-  const {interactionState, setInteractionState} = useInteractionStateContext();
+const SimpleChoice: React.FC<SimpleChoiceProps | any> = props => {
+  const {interactionElementName} = useInteractionStateContext();
 
-  const handleChange = () => {
-    setInteractionState({
-      [identifier]: true,
-    });
-  };
-
-  return (
-    <div>
-      <input type="radio" checked={interactionState[identifier] === true} value={identifier} onChange={handleChange} />
-      <label>{children}</label>
-    </div>
+  return interactionElementName === 'orderInteraction' ? (
+    <OrderSimpleChoice {...props} />
+  ) : (
+    <DefaultSimpleChoice {...props} />
   );
 };
 
