@@ -1,1 +1,9 @@
-object { width: 100%; height: 100% }.leftpane { position: fixed; top: 32px; left: 32px; width: 264px; }.rightpane { position: fixed; top: 32px; left: 328px; width: 464px; }
+object {
+    width: 95%;
+    height: 500px;
+    margin: 0.25em;
+    padding: 0.25em;
+    border: solid 1px #AAA;
+}
+.leftpane { position: fixed; top: 32px; left: 32px; width: 264px; }
+.rightpane { position: fixed; top: 32px; left: 328px; width: 464px; }

@@ -1,24 +1,40 @@
 import React, {useEffect} from 'react';
 import {UserInput} from '@qtikit/model/lib/user-input';
+import ReactDOM from 'react-dom';
 
 import * as Qti from './qti';
 import {getBaseUrl} from './utils/url';
 import {trimXml} from './utils/xml';
 
-interface ViewerProps {
-  xml: string;
+interface AssessmentItem {
+  itemBody: Element;
+  stylesheets: HTMLLinkElement[];
 }
 
-const Viewer = React.memo<ViewerProps>(({xml}) => {
-  const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
-  const itemBody = root.documentElement.getElementsByTagName('itemBody')[0];
+interface ShadowRootProp {
+  assessmentItem: AssessmentItem;
+}
 
-  if (!itemBody) {
-    throw new Error('QTI itemBody is not found');
-  }
+type ReactShadowRoot = ShadowRoot | Element;
 
-  return <>{Qti.parseXml(itemBody)}</>;
-});
+const ShadowRoot: React.FC<ShadowRootProp> = ({assessmentItem}) => {
+  const parentRef = React.useRef<HTMLDivElement>(null);
+  const [shadowRoot, setShadowRoot] = React.useState<ReactShadowRoot | null>(null);
+  const ItemBody = React.memo(() => <>{Qti.renderItemBody(assessmentItem.itemBody)}</>);
+
+  useEffect(() => {
+    const shadow = parentRef.current?.attachShadow({
+      mode: 'open',
+    });
+
+    if (shadow) {
+      assessmentItem.stylesheets.forEach(s => shadow.appendChild(s));
+      setShadowRoot(shadow);
+    }
+  }, [parentRef, assessmentItem.stylesheets]);
+
+  return <div ref={parentRef}>{shadowRoot && ReactDOM.createPortal(<ItemBody />, shadowRoot as Element)}</div>;
+};
 
 export interface QtiViewerProps {
   assessmentItemSrc: string;
@@ -32,6 +48,32 @@ interface QtiViewerContextValue extends QtiViewerProps {
 
 export const QtiViewerContext = React.createContext<QtiViewerContextValue>(null as any);
 
+function createLinkElement(href: string): HTMLLinkElement {
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('href', href);
+
+  return link;
+}
+
+async function fetchAssessmentItem(url: string): Promise<AssessmentItem> {
+  const xml = await fetch(url).then(res => res.text());
+  const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
+  const itemBody = root.documentElement.getElementsByTagName('itemBody')[0];
+
+  if (!itemBody) {
+    throw new Error('QTI itemBody is not found');
+  }
+
+  const baseUrl = getBaseUrl(url);
+  const stylesheets = root.getElementsByTagName('stylesheet');
+
+  return {
+    itemBody: itemBody,
+    stylesheets: Array.from(stylesheets).map((s: Element) => createLinkElement(`${baseUrl}/${s.getAttribute('href')}`)),
+  };
+}
+
 const defaultValue: QtiViewerContextValue = {
   baseUrl: '',
   assessmentItemSrc: '',
@@ -40,15 +82,14 @@ const defaultValue: QtiViewerContextValue = {
 };
 
 const QtiViewer: React.FC<QtiViewerProps> = props => {
-  const [xml, setXml] = React.useState<string>('');
+  const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
 
   useEffect((): void => {
-    const loadXml = async () => {
-      const xml = await fetch(props.assessmentItemSrc).then(response => response.text());
-      setXml(xml);
+    const load = async () => {
+      setAssessmentItem(await fetchAssessmentItem(props.assessmentItemSrc));
     };
 
-    loadXml();
+    load();
   }, [props.assessmentItemSrc]);
 
   return (
@@ -58,7 +99,7 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
         baseUrl: getBaseUrl(props.assessmentItemSrc),
         ...props,
       }}>
-      {xml && <Viewer xml={xml} />}
+      {assessmentItem && <ShadowRoot assessmentItem={assessmentItem} />}
     </QtiViewerContext.Provider>
   );
 };
