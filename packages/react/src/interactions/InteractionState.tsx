@@ -2,6 +2,7 @@ import React from 'react';
 import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {QtiViewerContext} from '../QtiViewer';
+import {InteractionElementName} from '.';
 
 interface InteractionState {
   [identifier: string]: string | number | boolean | undefined;
@@ -39,6 +40,7 @@ const useInteractionState = ({
 };
 
 const InteractionStateContext = React.createContext<{
+  interactionElementName?: InteractionElementName;
   interactionState: InteractionState;
   setInteractionState: (interactionState: InteractionState) => void;
 }>(null as any);
