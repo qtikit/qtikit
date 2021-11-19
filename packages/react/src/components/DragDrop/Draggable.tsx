@@ -19,8 +19,12 @@ const Draggable: React.FC<DraggableProps> = ({current, children}) => {
     setCurrent(current);
   };
 
+  const handleDragEnd: React.DragEventHandler<HTMLDivElement> = () => {
+    setCurrent(null);
+  };
+
   return (
-    <span draggable onDragStart={handleDragStart} style={draggableStyle}>
+    <span draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} style={draggableStyle}>
       {children}
     </span>
   );

@@ -8,11 +8,12 @@ const droppableStyle = createStyle({
 });
 
 export interface DroppableProps {
-  onDrop: (current: Current) => void;
+  onDragEnter?: (current: Current) => void;
+  onDrop?: (current: Current) => void;
 }
 
-const Droppable: React.FC<DroppableProps> = ({onDrop, children}) => {
-  const {current, setCurrent} = useDragDropContext();
+const Droppable: React.FC<DroppableProps> = ({onDragEnter, onDrop, children}) => {
+  const {current} = useDragDropContext();
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = event => {
     event.preventDefault();
@@ -20,14 +21,17 @@ const Droppable: React.FC<DroppableProps> = ({onDrop, children}) => {
 
   const handleDragEnter: React.DragEventHandler<HTMLDivElement> = event => {
     event.preventDefault();
+
+    if (current) {
+      onDragEnter?.(current);
+    }
   };
 
   const handleDrop: React.DragEventHandler<HTMLDivElement> = event => {
     event.preventDefault();
 
     if (current) {
-      onDrop(current);
-      setCurrent(null);
+      onDrop?.(current);
     }
   };
 
