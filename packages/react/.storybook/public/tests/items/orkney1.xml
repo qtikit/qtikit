@@ -14,6 +14,7 @@
 			<value>0</value>
 		</defaultValue>
 	</outcomeDeclaration>
+	<stylesheet href="style.css" type="text/css"/>
 	<stylesheet href="shared/orkney.css" type="text/css"/>
 	<itemBody>
 		<div class="rightpane">

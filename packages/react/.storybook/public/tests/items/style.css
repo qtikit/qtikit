@@ -1,0 +1,12 @@
+/* Test style sheet to test global, body hack */
+body {
+  background-color: red;
+}
+
+input {
+  font-size: 3em;
+}
+
+textarea {
+  font-size: 3em;
+}
