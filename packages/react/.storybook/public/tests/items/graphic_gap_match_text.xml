@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2"
-  identifier="graphic_gap_match_text"
-  title="Airport Tags Using Text"
-  adaptive="false"
-  timeDependent="false">
-
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2  http://www.imsglobal.org/xsd/qti/qtiv2p2/imsqti_v2p2p2.xsd"
+	identifier="graphicGapMatchText" title="Airport Tags Using Text" adaptive="false" timeDependent="false">
   <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
     <correctResponse>
       <value>GLA A</value>
@@ -17,26 +15,14 @@
       <mapEntry mapKey="MAN C" mappedValue="1"/>
     </mapping>
   </responseDeclaration>
-
   <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
-
   <itemBody>
-    <p>
-      The International Air Transport Association assigns
-      three-letter codes to identify airports worldwide. For example, London
-      Heathrow has code LHR.
-    </p>
-
+    <p>The International Air Transport Association assigns three-letter codes to identify
+      airports worldwide. For example, London Heathrow has code LHR.</p>
     <graphicGapMatchInteraction responseIdentifier="RESPONSE">
-      <prompt>
-        Some of the labels on the following diagram are missing: can
-        you identify the correct three-letter codes for the unlabelled
-        airports?
-      </prompt>
-
-      <object type="image/png" data="images/ukairtags.png"
-              width="206" height="280">x</object><br/>
-
+      <prompt>Some of the labels on the following diagram are missing: can you identify the
+        correct three-letter codes for the unlabelled airports?</prompt>
+      <object type="image/png" data="images/ukairtags.png" width="206" height="280"/>
       <gapText identifier="CBG" matchMax="1">
         <strong>CBG</strong>
       </gapText>
@@ -55,12 +41,10 @@
       <gapText identifier="MCH" matchMax="1">
         <strong>MCH</strong>
       </gapText>
-
-      <associableHotspot identifier="A" matchMax="1" shape="rect" coords="28,93,42,99"/>
-      <associableHotspot identifier="B" matchMax="1" shape="rect" coords="123,87,138,93"/>
-      <associableHotspot identifier="C" matchMax="1" shape="rect" coords="78,164,93,170"/>
+      <associableHotspot identifier="A" matchMax="1" shape="rect" coords="12,108,39,121"/>
+      <associableHotspot identifier="B" matchMax="1" shape="rect" coords="128,103,155,126"/>
+      <associableHotspot identifier="C" matchMax="1" shape="rect" coords="66,165,93,178"/>
     </graphicGapMatchInteraction>
   </itemBody>
-
-  <responseProcessing template="http://www.imsglobal.org/question/qti_v2p2/rptemplates/map_response.xml"/>
+  <responseProcessing template="http://www.imsglobal.org/question/qti_v2p2/rptemplates/map_response"/>
 </assessmentItem>
