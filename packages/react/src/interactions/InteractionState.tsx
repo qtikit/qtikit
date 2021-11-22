@@ -13,28 +13,30 @@ type InteractionStateDecoder = (interactionState: InteractionState) => UserInput
 
 const useInteractionState = ({
   responseIdentifier,
-  interactionStateEncoder,
-  interactionStateDecoder,
+  encode,
+  decode,
+  init,
 }: {
   responseIdentifier: string;
-  interactionStateEncoder: InteractionStateEncoder;
-  interactionStateDecoder: InteractionStateDecoder;
+  encode: InteractionStateEncoder;
+  decode: InteractionStateDecoder;
+  init?: () => InteractionState;
 }): [InteractionState, (interactionState: InteractionState) => void] => {
   const {inputState, onChange} = React.useContext(QtiViewerContext);
 
   return [
     React.useMemo(
-      () => interactionStateEncoder(inputState[responseIdentifier] ?? []),
-      [inputState, interactionStateEncoder, responseIdentifier]
+      () => (inputState[responseIdentifier] || !init ? encode(inputState[responseIdentifier] ?? []) : init()),
+      [inputState, responseIdentifier, encode, init]
     ),
     React.useCallback(
       (newInteractionState: InteractionState) => {
         onChange({
           ...inputState,
-          [responseIdentifier]: interactionStateDecoder(newInteractionState),
+          [responseIdentifier]: decode(newInteractionState),
         });
       },
-      [inputState, interactionStateDecoder, onChange, responseIdentifier]
+      [inputState, decode, onChange, responseIdentifier]
     ),
   ];
 };

@@ -24,8 +24,8 @@ const textareaStyle = createStyle({
 const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
-    interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
+    encode: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
+    decode: interactionState => [interactionState[IDENTIFIER] as string],
   });
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = ({target: {value}}) => {
