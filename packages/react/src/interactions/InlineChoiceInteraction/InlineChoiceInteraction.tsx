@@ -13,8 +13,8 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
 }) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    interactionStateEncoder: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
-    interactionStateDecoder: interactionState => [interactionState[IDENTIFIER] as string],
+    encode: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
+    decode: interactionState => [interactionState[IDENTIFIER] as string],
   });
 
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = ({target: {value}}) => {

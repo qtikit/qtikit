@@ -6,9 +6,9 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    interactionStateEncoder: userInput =>
+    encode: userInput =>
       userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {}),
-    interactionStateDecoder: interactionState => Object.keys(interactionState),
+    decode: interactionState => Object.keys(interactionState),
   });
 
   return (
