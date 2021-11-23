@@ -1,5 +1,5 @@
 import React from 'react';
-import {OrderInteractionCharacteristics as OrderInteractionProps} from '@qtikit/model/lib/qti2_2';
+import type {OrderInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
 import {createStyle} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
@@ -7,25 +7,30 @@ import {DragDropContextProvider} from '../../components/DragDrop';
 
 const orderInteractionStyle = createStyle({display: 'flex', flexDirection: 'column'});
 
+interface OrderInteractionProps extends OrderInteractionCharacteristics {
+  responseIdentifier: string;
+}
 const OrderInteraction: React.FC<OrderInteractionProps | any> = ({responseIdentifier, ...props}) => {
+  const children = React.Children.toArray(props.children).filter(
+    child => child && typeof child === 'object'
+  ) as React.ReactElement[];
+  const simpleChoices = children.filter(child => (child.type as any).displayName === 'SimpleChoice');
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    encode: userInput =>
+    encode: (userInput: string[]) =>
       userInput.reduce((interactionState, indentifier, index) => ({...interactionState, [indentifier]: index}), {}),
     decode: interactionState =>
       Object.entries(interactionState)
         .sort(([, a], [, b]) => Number(a) - Number(b))
         .map(([identifier]) => identifier),
     init: () =>
-      props.children
-        .filter(child => child.type.displayName === 'SimpleChoice')
-        .reduce(
-          (state, child, index) => ({
-            ...state,
-            [child.props.identifier]: index,
-          }),
-          {}
-        ),
+      simpleChoices.reduce(
+        (state, child, index) => ({
+          ...state,
+          [child.props.identifier]: index,
+        }),
+        {}
+      ),
   });
 
   return (
