@@ -5,6 +5,8 @@ import QtiViewer from '../';
 
 const BASE_URL = process.env.VERCEL_URL ?? 'http://localhost:6006';
 
+console.log(process.env);
+
 export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = args => {
   const [inputState, setInputState] = React.useState({});
 
