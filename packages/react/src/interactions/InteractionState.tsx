@@ -16,12 +16,14 @@ const useInteractionState = ({
   encode,
   decode,
   init,
+  shouldUpdate,
 }: {
   responseIdentifier: string;
   encode: InteractionStateEncoder;
   decode: InteractionStateDecoder;
   init?: () => InteractionState;
-}): [InteractionState, (interactionState: InteractionState) => void] => {
+  shouldUpdate?: (nextInteractionState: InteractionState) => boolean;
+}): [InteractionState, (newInteractionState: InteractionState) => void] => {
   const {inputState, onChange} = React.useContext(QtiViewerContext);
 
   return [
@@ -31,12 +33,14 @@ const useInteractionState = ({
     ),
     React.useCallback(
       (newInteractionState: InteractionState) => {
-        onChange({
-          ...inputState,
-          [responseIdentifier]: decode(newInteractionState),
-        });
+        if (!shouldUpdate || shouldUpdate(newInteractionState)) {
+          onChange({
+            ...inputState,
+            [responseIdentifier]: decode(newInteractionState),
+          });
+        }
       },
-      [inputState, decode, onChange, responseIdentifier]
+      [onChange, inputState, responseIdentifier, decode, shouldUpdate]
     ),
   ];
 };
@@ -44,7 +48,7 @@ const useInteractionState = ({
 const InteractionStateContext = React.createContext<{
   interactionElementName?: InteractionElementName;
   interactionState: InteractionState;
-  setInteractionState: (interactionState: InteractionState) => void;
+  setInteractionState: (newInteractionState: InteractionState, prevInteractionState?: InteractionState) => void;
 }>(null as any);
 
 const useInteractionStateContext = () => {
