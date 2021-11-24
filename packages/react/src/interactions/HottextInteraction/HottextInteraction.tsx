@@ -6,8 +6,7 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 const HottextInteraction: React.FC<HottextInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    encode: userInput =>
-      userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {}),
+    encode: userInput => Object.fromEntries(userInput.map(input => [input, true])),
     decode: interactionState => Object.keys(interactionState),
   });
 

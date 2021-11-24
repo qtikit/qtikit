@@ -17,20 +17,12 @@ const OrderInteraction: React.FC<OrderInteractionProps | any> = ({responseIdenti
   const simpleChoices = children.filter(child => (child.type as any).displayName === 'SimpleChoice');
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    encode: (userInput: string[]) =>
-      userInput.reduce((interactionState, indentifier, index) => ({...interactionState, [indentifier]: index}), {}),
+    encode: userInput => Object.fromEntries(userInput.map((input, index) => [input, index])),
     decode: interactionState =>
       Object.entries(interactionState)
         .sort(([, a], [, b]) => Number(a) - Number(b))
         .map(([identifier]) => identifier),
-    init: () =>
-      simpleChoices.reduce(
-        (state, child, index) => ({
-          ...state,
-          [child.props.identifier]: index,
-        }),
-        {}
-      ),
+    init: () => Object.fromEntries(simpleChoices.map((child, index) => [child.props.identifier, index])),
   });
 
   return (

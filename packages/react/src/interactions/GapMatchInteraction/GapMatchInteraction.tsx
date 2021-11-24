@@ -9,12 +9,7 @@ const SEPARATOR = ' ';
 const GapMatchInteraction: React.FC<GapMatchInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    encode: userInput =>
-      userInput.reduce((interactionState, input) => {
-        const [value, key] = input.split(SEPARATOR);
-
-        return {...interactionState, [key]: value};
-      }, {}),
+    encode: userInput => Object.fromEntries(userInput.map(input => input.split(SEPARATOR).reverse())),
     decode: interactionState => Object.entries(interactionState).map(entry => entry.reverse().join(SEPARATOR)),
   });
 

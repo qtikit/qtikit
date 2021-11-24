@@ -31,7 +31,7 @@ export function isMathElement(node: Node): boolean {
 }
 
 export function getPropsByElement(element: Element): Props {
-  return Array.from(element.attributes).reduce((acc, cur) => ({...acc, [cur.name]: cur.value}), {});
+  return Object.fromEntries(Array.from(element.attributes).map(({name, value}) => [name, value]));
 }
 
 export function getOuterXmlWithoutNs(node: Node | Element): string {
