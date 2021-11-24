@@ -4,6 +4,7 @@ import {Props} from '../types/component';
 import {getOuterXmlWithoutNs, getPropsByElement} from '../utils/node';
 import Gap from './Gap';
 import GapText from './GapText';
+import HotspotChoice from './HotspotChoice';
 import Hottext from './Hottext';
 import Prompt from './Prompt';
 import RubricBlock from './RubricBlock';
@@ -74,6 +75,7 @@ export type HtmlComponetName = typeof htmlComponetNames[number];
 export const interactionChildElementNames = [
   'gap',
   'gapText',
+  'hotspotChoice',
   'hottext',
   'prompt',
   'rubricBlock',
@@ -97,6 +99,7 @@ export function createInteractionChildComponent(
   const InteractionChildComponentMap: Record<InteractionChildElementName, React.FC> = {
     gap: Gap,
     gapText: GapText,
+    hotspotChoice: HotspotChoice,
     hottext: Hottext,
     prompt: Prompt,
     rubricBlock: RubricBlock,
