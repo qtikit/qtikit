@@ -19,7 +19,7 @@ const GapText: React.FC<GapTextProps | any> = ({identifier, children}) => {
   }
 
   return (
-    <Draggable style={gapTextStyle} current={{name: children, value: identifier}}>
+    <Draggable style={gapTextStyle} current={{value: identifier, node: children}}>
       {children}
     </Draggable>
   );

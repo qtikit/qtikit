@@ -54,7 +54,7 @@ const OrderSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, child
         index: Number(interactionState[identifier] ?? 0),
         isDragging: current?.name === identifier,
       })}>
-      <Draggable current={{name: identifier, value: identifier}}>
+      <Draggable current={{value: identifier}}>
         <Droppable onDragEnter={handleDragEnter}>{children}</Droppable>
       </Draggable>
     </div>

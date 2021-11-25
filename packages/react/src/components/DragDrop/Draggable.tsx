@@ -9,12 +9,14 @@ const draggableStyle = createStyle({
 });
 
 export interface DraggableProps {
-  current: Current;
+  current: Omit<Current, 'name'> & Partial<Pick<Current, 'name'>>;
   style?: React.CSSProperties;
 }
 
-const Draggable: React.FC<DraggableProps> = ({current, style, children}) => {
+const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, children}) => {
   const {setCurrent} = useDragDropContext();
+
+  const current = {...optionalCurrent, name: optionalCurrent.name ?? optionalCurrent.value};
 
   const handleDragStart: React.DragEventHandler<HTMLDivElement> = () => {
     setCurrent(current);

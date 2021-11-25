@@ -3,6 +3,7 @@ import React from 'react';
 export interface Current {
   name: string;
   value: string;
+  node?: React.ReactNode;
 }
 
 interface DragDropValue {
