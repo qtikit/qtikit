@@ -2,7 +2,9 @@ import React from 'react';
 
 import {Props} from '../types/component';
 import {getOuterXmlWithoutNs, getPropsByElement} from '../utils/node';
+import AssociableHotspot from './AssociableHotspot';
 import Gap from './Gap';
+import GapImg from './GapImg';
 import GapText from './GapText';
 import HotspotChoice from './HotspotChoice';
 import Hottext from './Hottext';
@@ -60,6 +62,7 @@ export const htmlElementNames = [
   'b',
   'br',
   'object',
+  'strong',
 ] as const;
 
 export type HTMLElementName = typeof htmlElementNames[number];
@@ -73,7 +76,9 @@ export const htmlComponetNames = ['img', 'object'] as const;
 export type HtmlComponetName = typeof htmlComponetNames[number];
 
 export const interactionChildElementNames = [
+  'associableHotspot',
   'gap',
+  'gapImg',
   'gapText',
   'hotspotChoice',
   'hottext',
@@ -97,7 +102,9 @@ export function createInteractionChildComponent(
   const props = {...defaultProps, ...getPropsByElement(element)};
 
   const InteractionChildComponentMap: Record<InteractionChildElementName, React.FC> = {
+    associableHotspot: AssociableHotspot,
     gap: Gap,
+    gapImg: GapImg,
     gapText: GapText,
     hotspotChoice: HotspotChoice,
     hottext: Hottext,
