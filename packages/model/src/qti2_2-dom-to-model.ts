@@ -59,6 +59,32 @@ defaultValueDomToModel.childrenMapping = {
   value: valueDomToModel,
 };
 
+// 5.30
+export function equalDomToModel(el: Element): model.Equal {
+  const result: model.Equal = {
+    $children: mapElements(el.children, equalDomToModel.childrenMapping),
+  };
+  if (el.hasAttribute('toleranceMode')) result.toleranceMode = el.getAttribute('toleranceMode') as model.ToleranceMode;
+  // TODO: tolerance
+  // TODO: includeLowerBound
+  // TODO: includeUpperBound
+  return result;
+}
+equalDomToModel.childrenMapping = {
+  logic: expressionGroupDomToModel,
+};
+
+// 5.60
+export function logic1toManyDomToModel(el: Element): model.Logic1toMany {
+  const result: model.Logic1toMany = {
+    $children: mapElements(el.children, logic1toManyDomToModel.childrenMapping),
+  };
+  return result;
+}
+logic1toManyDomToModel.childrenMapping = {
+  logic: expressionGroupDomToModel,
+};
+
 // 5.61
 export function logicPairDomToModel(el: Element): model.LogicPair {
   const result: model.LogicPair = {
@@ -68,6 +94,31 @@ export function logicPairDomToModel(el: Element): model.LogicPair {
 }
 logicPairDomToModel.childrenMapping = {
   logic: expressionGroupDomToModel,
+};
+
+// 5.62
+export function logicSingleDomToModel(el: Element): model.LogicSingle {
+  const result: model.LogicSingle = {
+    $children: mapElements(el.children, logicSingleDomToModel.childrenMapping),
+  };
+  return result;
+}
+logicSingleDomToModel.childrenMapping = {
+  logic: expressionGroupDomToModel,
+};
+
+// 5.64
+export function mappingDomToModel(el: Element): model.Mapping {
+  const result: model.Mapping = {
+    $children: mapElements(el.children, mappingDomToModel.childrenMapping),
+  };
+  if (el.hasAttribute('lowerBound')) result.lowerBound = +(el.getAttribute('lowerBound') || 0);
+  if (el.hasAttribute('upperBound')) result.upperBound = +(el.getAttribute('upperBound') || 0);
+  if (el.hasAttribute('defaultValue')) result.defaultValue = +(el.getAttribute('defaultValue') || 0);
+  return result;
+}
+mappingDomToModel.childrenMapping = {
+  mapEntry: mapEntryDomToModel,
 };
 
 // 5.70
@@ -154,13 +205,13 @@ export function expressionGroupDomToModel(el: Element): model.ExpressionGroup {
   return result;
 }
 expressionGroupDomToModel.elementMapping = {
-  // TODO: and
-  // TODO: gt
-  // TODO: not
-  // TODO: lt
-  // TODO: gte
-  // TODO: lte
-  // TODO: or
+  and: logic1toManyDomToModel,
+  gt: logicPairDomToModel,
+  not: logicSingleDomToModel,
+  lt: logicPairDomToModel,
+  gte: logicPairDomToModel,
+  lte: logicPairDomToModel,
+  or: logic1toManyDomToModel,
   sum: numericLogic1toManyDomToModel,
   // TODO: durationLT
   // TODO: durationGTE
@@ -182,7 +233,7 @@ expressionGroupDomToModel.elementMapping = {
   match: logicPairDomToModel,
   // TODO: index
   // TODO: power
-  // TODO: equal
+  equal: equalDomToModel,
   // TODO: contains
   // TODO: containerSize
   // TODO: correct
@@ -190,7 +241,7 @@ expressionGroupDomToModel.elementMapping = {
   // TODO: anyN
   // TODO: integerDivide
   // TODO: integerModulus
-  // TODO: isNull
+  isNull: logicSingleDomToModel,
   // TODO: member
   // TODO: product
   // TODO: round
@@ -206,8 +257,8 @@ expressionGroupDomToModel.elementMapping = {
   // TODO: inside
   baseValue: baseValueDomToModel,
   // TODO: patternMatch
-  // TODO: mapResponsePoint
-  // TODO: mapResponse
+  mapResponsePoint: mapResponseDomToModel,
+  mapResponse: mapResponseDomToModel,
   // TODO: stringMatch
   // TODO: repeat
   // TODO: roundTo
@@ -245,7 +296,7 @@ numericExpressionGroupDomToModel.elementMapping = {
   // TODO: index
   // TODO: power
   // TODO: containerSize
-  // TODO: correct
+  correct: correctDomToModel,
   // TODO: default
   // TODO: integerDivide
   // TODO: integerModulus
@@ -302,6 +353,25 @@ export function baseValueDomToModel(el: Element): model.BaseValue {
 // 7.8
 export function correctDomToModel(el: Element): model.Correct {
   const result: model.Correct = {
+    $value: undefined,
+    identifier: {$value: el.getAttribute('identifier') || ''},
+  };
+  return result;
+}
+
+export function mapEntryDomToModel(el: Element): model.MapEntry {
+  const result: model.MapEntry = {
+    $value: undefined,
+    mapKey: el.getAttribute('mapKey') || '',
+    mappedValue: +(el.getAttribute('mappedValue') || 0),
+  };
+  if (el.hasAttribute('caseSensitive')) result.caseSensitive = el.getAttribute('caseSensitive') === 'true';
+  return result;
+}
+
+// 7.17
+export function mapResponseDomToModel(el: Element): model.MapResponse {
+  const result: model.MapResponse = {
     $value: undefined,
     identifier: {$value: el.getAttribute('identifier') || ''},
   };
