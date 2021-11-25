@@ -14,7 +14,4 @@ export const orkney1 = QtiViewerTemplate.bind({});
 
 orkney1.args = {
   assessmentItemSrc: 'items/orkney1.xml',
-  onChange: (value: any) => {
-    console.log(value);
-  },
 };
