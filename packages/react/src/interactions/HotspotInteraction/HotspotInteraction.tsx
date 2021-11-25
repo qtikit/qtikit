@@ -6,7 +6,7 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'HotspotChoice'];
 
-const hospotInteractionPortalStyle = createStyle({
+const hospotInteractionAreaStyle = createStyle({
   position: 'relative',
 });
 
@@ -30,7 +30,7 @@ const HotspotInteraction: React.FC<HotspotInteractionProps | any> = ({responseId
   return (
     <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
       {restComponents}
-      <div style={hospotInteractionPortalStyle}>{interactionComponents}</div>
+      <div style={hospotInteractionAreaStyle}>{interactionComponents}</div>
     </InteractionStateContext.Provider>
   );
 };

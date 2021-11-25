@@ -10,9 +10,10 @@ const draggableStyle = createStyle({
 
 export interface DraggableProps {
   current: Current;
+  style?: React.CSSProperties;
 }
 
-const Draggable: React.FC<DraggableProps> = ({current, children}) => {
+const Draggable: React.FC<DraggableProps> = ({current, style, children}) => {
   const {setCurrent} = useDragDropContext();
 
   const handleDragStart: React.DragEventHandler<HTMLDivElement> = () => {
@@ -24,7 +25,7 @@ const Draggable: React.FC<DraggableProps> = ({current, children}) => {
   };
 
   return (
-    <span draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} style={draggableStyle}>
+    <span draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} style={{...draggableStyle, ...style}}>
       {children}
     </span>
   );

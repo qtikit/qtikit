@@ -8,11 +8,12 @@ const droppableStyle = createStyle({
 });
 
 export interface DroppableProps {
+  style?: React.CSSProperties;
   onDragEnter?: (current: Current) => void;
   onDrop?: (current: Current) => void;
 }
 
-const Droppable: React.FC<DroppableProps> = ({onDragEnter, onDrop, children}) => {
+const Droppable: React.FC<DroppableProps> = ({style, onDragEnter, onDrop, children}) => {
   const {current} = useDragDropContext();
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = event => {
@@ -36,7 +37,11 @@ const Droppable: React.FC<DroppableProps> = ({onDragEnter, onDrop, children}) =>
   };
 
   return (
-    <span onDragOver={handleDragOver} onDragEnter={handleDragEnter} onDrop={handleDrop} style={droppableStyle}>
+    <span
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDrop={handleDrop}
+      style={{...droppableStyle, ...style}}>
       {children}
     </span>
   );

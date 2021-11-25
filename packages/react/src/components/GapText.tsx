@@ -6,8 +6,6 @@ import {useInteractionStateContext} from '../interactions/InteractionState';
 import {createStyle} from '../utils/style';
 
 const gapTextStyle = createStyle({
-  width: '120px',
-  height: '30px',
   padding: '3px 6px',
   border: '1px solid black',
   backgroundColor: '#fff',
@@ -21,8 +19,8 @@ const GapText: React.FC<GapTextProps | any> = ({identifier, children}) => {
   }
 
   return (
-    <Draggable current={{name: children, value: identifier}}>
-      <span style={gapTextStyle}>{children}</span>
+    <Draggable style={gapTextStyle} current={{name: children, value: identifier}}>
+      {children}
     </Draggable>
   );
 };

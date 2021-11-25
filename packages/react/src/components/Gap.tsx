@@ -6,11 +6,13 @@ import {Current, Droppable} from './DragDrop';
 import {createStyle} from '../utils/style';
 
 const gapStyle = createStyle({
-  display: 'flex',
+  display: 'inline-flex',
   justifyContent: 'center',
   alignItems: 'center',
   width: '80px',
   height: '15px',
+  marginRight: '0.2em',
+  verticalAlign: 'middle',
   backgroundColor: '#ddd',
 });
 
@@ -24,15 +26,14 @@ const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
       ...interactionState,
       [identifier]: current.value,
     });
+
     setDropped(current.name);
   };
 
   return (
-    <Droppable onDrop={handleDrop}>
-      <span style={gapStyle}>
-        {dropped}
-        {children}
-      </span>
+    <Droppable style={gapStyle} onDrop={handleDrop}>
+      {dropped}
+      {children}
     </Droppable>
   );
 };

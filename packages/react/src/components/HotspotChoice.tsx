@@ -10,12 +10,7 @@ const hotspotChoiceLabelStyle = createStyle(
     display: 'block',
     cursor: 'pointer',
     ...createShapeStyle(coordsPattern)[shape],
-    ...(checked
-      ? {
-          border: '2px solid red',
-          backgroundColor: 'rgba(255, 0, 0, .3)',
-        }
-      : {}),
+    ...(checked ? {backgroundColor: 'rgba(255, 0, 0, .3)'} : {}),
   })
 );
 
@@ -23,7 +18,7 @@ const hotspotChoiceInputStyle = createStyle({
   display: 'none',
 });
 
-const HotspotChoice: React.FC<HotspotChoiceProps | any> = ({identifier, coords: coordsPattern, shape, children}) => {
+const HotspotChoice: React.FC<HotspotChoiceProps | any> = ({identifier, shape, coords: coordsPattern, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const checked = !!interactionState[identifier];
