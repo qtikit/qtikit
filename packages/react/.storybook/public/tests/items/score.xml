@@ -1,7 +1,0 @@
-<responseProcessing>
-  <setOutcomeValue identifier="SCORE">
-    <baseValue baseType="float">99.99</baseValue>
-  </setOutcomeValue>
-</responseProcessing>
-
-      
