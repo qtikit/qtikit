@@ -5,7 +5,7 @@ import {createStyle} from '../../utils/style';
 
 const draggableStyle = createStyle({
   cursor: 'move',
-  display: 'inline-block',
+  display: 'inline-flex',
 });
 
 export interface DraggableProps {

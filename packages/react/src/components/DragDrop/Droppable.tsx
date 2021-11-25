@@ -4,7 +4,7 @@ import {Current, useDragDropContext} from '.';
 import {createStyle} from '../../utils/style';
 
 const droppableStyle = createStyle({
-  display: 'inline-block',
+  display: 'inline-flex',
 });
 
 export interface DroppableProps {
