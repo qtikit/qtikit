@@ -1,9 +1,9 @@
 import React from 'react';
 import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
 
+import {createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
-import {createStyle} from '../utils/style';
 
 const gapStyle = createStyle({
   display: 'inline-flex',
