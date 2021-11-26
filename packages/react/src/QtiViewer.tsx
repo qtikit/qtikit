@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {UserInput} from '@qtikit/model/lib/user-input';
-import ReactDOM from 'react-dom';
 
 import * as Qti from './qti';
 import {getBaseUrl} from './utils/url';
@@ -8,32 +7,24 @@ import {trimXml} from './utils/xml';
 
 interface AssessmentItem {
   itemBody: Element;
-  stylesheets: HTMLLinkElement[];
+  styles: string[];
 }
 
-interface ShadowRootProp {
-  assessmentItem: AssessmentItem;
-}
+const ItemBody: React.FC<{itemBody: Element}> = React.memo(({itemBody}) => <>{Qti.renderItemBody(itemBody)}</>);
 
-type ReactShadowRoot = ShadowRoot | Element;
+const ROOT_ID = 'qti-viewer';
 
-const ShadowRoot: React.FC<ShadowRootProp> = ({assessmentItem}) => {
-  const parentRef = React.useRef<HTMLDivElement>(null);
-  const [shadowRoot, setShadowRoot] = React.useState<ReactShadowRoot | null>(null);
-  const ItemBody = React.memo(() => <>{Qti.renderItemBody(assessmentItem.itemBody)}</>);
-
-  useEffect(() => {
-    const shadow = parentRef.current?.attachShadow({
-      mode: 'open',
-    });
-
-    if (shadow) {
-      assessmentItem.stylesheets.forEach(s => shadow.appendChild(s));
-      setShadowRoot(shadow);
-    }
-  }, [parentRef, assessmentItem.stylesheets]);
-
-  return <div ref={parentRef}>{shadowRoot && ReactDOM.createPortal(<ItemBody />, shadowRoot as Element)}</div>;
+const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
+  return (
+    <>
+      {styles.map((style, index) => (
+        <style key={index}>{style}</style>
+      ))}
+      <div id={ROOT_ID}>
+        <ItemBody itemBody={itemBody} />
+      </div>
+    </>
+  );
 };
 
 export interface QtiViewerProps {
@@ -48,18 +39,18 @@ interface QtiViewerContextValue extends QtiViewerProps {
 
 export const QtiViewerContext = React.createContext<QtiViewerContextValue>(null as any);
 
-function createLinkElement(href: string): HTMLLinkElement {
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('href', href);
+async function fetchStylesheet(href: string): Promise<string> {
+  return fetch(href).then(response => response.text());
+}
 
-  return link;
+function setStyleRoot(style: string): string {
+  return style.replace(/(.*?){/g, `#${ROOT_ID} $1 {`);
 }
 
 async function fetchAssessmentItem(url: string): Promise<AssessmentItem> {
-  const xml = await fetch(url).then(res => res.text());
+  const xml = await fetch(url).then(response => response.text());
   const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
-  const itemBody = root.documentElement.getElementsByTagName('itemBody')[0];
+  const [itemBody] = root.documentElement.getElementsByTagName('itemBody');
 
   if (!itemBody) {
     throw new Error('QTI itemBody is not found');
@@ -70,7 +61,11 @@ async function fetchAssessmentItem(url: string): Promise<AssessmentItem> {
 
   return {
     itemBody: itemBody,
-    stylesheets: Array.from(stylesheets).map((s: Element) => createLinkElement(`${baseUrl}/${s.getAttribute('href')}`)),
+    styles: await Promise.all(
+      Array.from(stylesheets).map(stylesheet =>
+        fetchStylesheet(`${baseUrl}/${stylesheet.getAttribute('href')}`).then(setStyleRoot)
+      )
+    ),
   };
 }
 
@@ -81,25 +76,21 @@ const defaultValue: QtiViewerContextValue = {
   onChange: () => {},
 };
 
-const QtiViewer: React.FC<QtiViewerProps> = props => {
+const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, ...props}) => {
   const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
 
-  useEffect((): void => {
-    const load = async () => {
-      setAssessmentItem(await fetchAssessmentItem(props.assessmentItemSrc));
-    };
-
-    load();
-  }, [props.assessmentItemSrc]);
+  useEffect(() => {
+    fetchAssessmentItem(assessmentItemSrc).then(setAssessmentItem);
+  }, [assessmentItemSrc]);
 
   return (
     <QtiViewerContext.Provider
       value={{
         ...defaultValue,
-        baseUrl: getBaseUrl(props.assessmentItemSrc),
+        baseUrl: getBaseUrl(assessmentItemSrc),
         ...props,
       }}>
-      {assessmentItem && <ShadowRoot assessmentItem={assessmentItem} />}
+      {assessmentItem && <Root {...assessmentItem} />}
     </QtiViewerContext.Provider>
   );
 };
