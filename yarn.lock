@@ -2447,6 +2447,7 @@ __metadata:
     "@babel/core": ^7.16.0
     "@mdx-js/react": ^1.6.22
     "@qtikit/model": "workspace:^"
+    "@qtikit/scoring-engine": "workspace:^"
     "@storybook/addon-actions": ^6.4.0-beta.29
     "@storybook/addon-docs": ^6.4.0-beta.29
     "@storybook/addon-essentials": ^6.4.0-beta.29
@@ -2470,7 +2471,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@qtikit/scoring-engine@workspace:packages/scoring-engine":
+"@qtikit/scoring-engine@workspace:^, @qtikit/scoring-engine@workspace:packages/scoring-engine":
   version: 0.0.0-use.local
   resolution: "@qtikit/scoring-engine@workspace:packages/scoring-engine"
   dependencies:
