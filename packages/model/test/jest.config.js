@@ -1,4 +1,4 @@
 module.exports = {
-  extensionsToTreatAsEsm: [".jsx", ".ts", ".tsx"],
-  modulePathIgnorePatterns: ["<rootDir>/lib/"],
+  extensionsToTreatAsEsm: ['.jsx', '.ts', '.tsx'],
+  modulePathIgnorePatterns: ['<rootDir>/lib/'],
 };
