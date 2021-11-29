@@ -3,7 +3,7 @@ import type * as model from './qti2_2';
 // 4.5
 export function outcomeDeclarationDomToModel(el: Element): model.OutcomeDeclaration {
   const result: model.OutcomeDeclaration = {
-    $children: mapElements(el.children, outcomeDeclarationDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), outcomeDeclarationDomToModel.childrenMapping),
     identifier: {$value: el.getAttribute('identifier') || ''},
     cardinality: (el.getAttribute('cardinality') || 'single') as model.Cardinality,
   };
@@ -25,7 +25,7 @@ outcomeDeclarationDomToModel.childrenMapping = {
 // 4.6
 export function responseProcessingDomToModel(el: Element): model.ResponseProcessing {
   const result: model.ResponseProcessing = {
-    $children: mapElements(el.children, responseProcessingDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), responseProcessingDomToModel.childrenMapping),
   };
   // TODO: template
   // TODO: templateLocation
@@ -38,7 +38,7 @@ responseProcessingDomToModel.childrenMapping = {
 // 5.20
 export function correctResponseDomToModel(el: Element): model.CorrectResponse {
   const result: model.CorrectResponse = {
-    $children: mapElements(el.children, correctResponseDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), correctResponseDomToModel.childrenMapping),
   };
   if (el.hasAttribute('interpretation')) result.interpretation = el.getAttribute('interpretation') || '';
   return result;
@@ -50,7 +50,7 @@ correctResponseDomToModel.childrenMapping = {
 // 5.26
 export function defaultValueDomToModel(el: Element): model.DefaultValue {
   const result: model.DefaultValue = {
-    $children: mapElements(el.children, defaultValueDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), defaultValueDomToModel.childrenMapping),
   };
   if (el.hasAttribute('interpretation')) result.interpretation = el.getAttribute('interpretation') || '';
   return result;
@@ -62,7 +62,7 @@ defaultValueDomToModel.childrenMapping = {
 // 5.30
 export function equalDomToModel(el: Element): model.Equal {
   const result: model.Equal = {
-    $children: mapElements(el.children, equalDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), equalDomToModel.childrenMapping),
   };
   if (el.hasAttribute('toleranceMode')) result.toleranceMode = el.getAttribute('toleranceMode') as model.ToleranceMode;
   // TODO: tolerance
@@ -77,7 +77,7 @@ equalDomToModel.childrenMapping = {
 // 5.60
 export function logic1toManyDomToModel(el: Element): model.Logic1toMany {
   const result: model.Logic1toMany = {
-    $children: mapElements(el.children, logic1toManyDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), logic1toManyDomToModel.childrenMapping),
   };
   return result;
 }
@@ -88,7 +88,7 @@ logic1toManyDomToModel.childrenMapping = {
 // 5.61
 export function logicPairDomToModel(el: Element): model.LogicPair {
   const result: model.LogicPair = {
-    $children: mapElements(el.children, logicPairDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), logicPairDomToModel.childrenMapping),
   };
   return result;
 }
@@ -99,7 +99,7 @@ logicPairDomToModel.childrenMapping = {
 // 5.62
 export function logicSingleDomToModel(el: Element): model.LogicSingle {
   const result: model.LogicSingle = {
-    $children: mapElements(el.children, logicSingleDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), logicSingleDomToModel.childrenMapping),
   };
   return result;
 }
@@ -110,7 +110,7 @@ logicSingleDomToModel.childrenMapping = {
 // 5.64
 export function mappingDomToModel(el: Element): model.Mapping {
   const result: model.Mapping = {
-    $children: mapElements(el.children, mappingDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), mappingDomToModel.childrenMapping),
   };
   if (el.hasAttribute('lowerBound')) result.lowerBound = +(el.getAttribute('lowerBound') || 0);
   if (el.hasAttribute('upperBound')) result.upperBound = +(el.getAttribute('upperBound') || 0);
@@ -124,7 +124,7 @@ mappingDomToModel.childrenMapping = {
 // 5.70
 export function numericLogic1toManyDomToModel(el: Element): model.NumericLogic1toMany {
   const result: model.NumericLogic1toMany = {
-    $children: mapElements(el.children, numericLogic1toManyDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), numericLogic1toManyDomToModel.childrenMapping),
   };
   return result;
 }
@@ -135,7 +135,7 @@ numericLogic1toManyDomToModel.childrenMapping = {
 // 5.86
 export function responseConditionDomToModel(el: Element): model.ResponseCondition {
   const result: model.ResponseCondition = {
-    $children: mapElements(el.children, responseConditionDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), responseConditionDomToModel.childrenMapping),
   };
   return result;
 }
@@ -148,7 +148,7 @@ responseConditionDomToModel.childrenMapping = {
 // 5.87
 export function responseDeclarationDomToModel(el: Element): model.ResponseDeclaration {
   const result: model.ResponseDeclaration = {
-    $children: mapElements(el.children, responseDeclarationDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), responseDeclarationDomToModel.childrenMapping),
     identifier: {$value: el.getAttribute('identifier') || ''},
     cardinality: (el.getAttribute('cardinality') || 'multiple') as model.Cardinality,
   };
@@ -165,7 +165,7 @@ responseDeclarationDomToModel.childrenMapping = {
 // 5.88
 export function responseElseDomToModel(el: Element): model.ResponseElse {
   const result: model.ResponseElse = {
-    $children: mapElements(el.children, responseElseDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), responseElseDomToModel.childrenMapping),
   };
   return result;
 }
@@ -176,7 +176,7 @@ responseElseDomToModel.childrenMapping = {
 // 5.89
 export function responseIfDomToModel(el: Element): model.ResponseIf {
   const result: model.ResponseIf = {
-    $children: mapElements(el.children, responseIfDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), responseIfDomToModel.childrenMapping),
   };
   return result;
 }
@@ -188,7 +188,7 @@ responseIfDomToModel.childrenMapping = {
 // 5.97
 export function setValueDomToModel(el: Element): model.SetValue {
   const result: model.SetValue = {
-    $children: mapElements(el.children, setValueDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), setValueDomToModel.childrenMapping),
     identifier: {$value: el.getAttribute('identifier') || ''},
   };
   return result;
@@ -395,6 +395,18 @@ export function variableDomToModel(el: Element): model.Variable {
     identifier: {$value: el.getAttribute('identifier') || ''},
   };
   if (el.hasAttribute('weightIdentifier')) result.identifier = {$value: el.getAttribute('weightIdentifier') || ''};
+  return result;
+}
+
+const elementNode = 1 as const; // Node.ELEMENT_NODE
+function getChildElements(el: Element): Iterable<Element> {
+  // `@xmldom/xmldom` doesn't support `el.children`
+  if (el.children) return el.children;
+  const result: Element[] = [];
+  for (let i = 0; i < el.childNodes.length; i++) {
+    const child = el.childNodes[i];
+    if (child.nodeType === elementNode) result.push(child as Element);
+  }
   return result;
 }
 
