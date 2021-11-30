@@ -1,5 +1,12 @@
 import type * as model from './qti2_2';
 
+interface DomToModelFn<T> {
+  (el: Element): T;
+}
+interface ElementMapping {
+  [key: string]: DomToModelFn<any>;
+}
+
 // 4.5
 export function outcomeDeclarationDomToModel(el: Element): model.OutcomeDeclaration {
   const result: model.OutcomeDeclaration = {
@@ -25,14 +32,21 @@ outcomeDeclarationDomToModel.childrenMapping = {
 // 4.6
 export function responseProcessingDomToModel(el: Element): model.ResponseProcessing {
   const result: model.ResponseProcessing = {
-    $children: mapElements(getChildElements(el), responseProcessingDomToModel.childrenMapping),
+    $children: mapElements(
+      getChildElements(el),
+      responseProcessingDomToModel.childrenMapping,
+      responseProcessingDomToModel.groupMapping
+    ),
   };
-  // TODO: template
-  // TODO: templateLocation
+  if (el.hasAttribute('template')) result.template = el.getAttribute('template') || '';
+  if (el.hasAttribute('templateLocation')) result.templateLocation = el.getAttribute('templateLocation') || '';
   return result;
 }
 responseProcessingDomToModel.childrenMapping = {
   responseRuleGroup: responseRuleGroupDomToModel,
+};
+responseProcessingDomToModel.groupMapping = {
+  ...toGroupMapping(getResponseRuleGroupElementMapping(), 'responseRuleGroup'),
 };
 
 // 5.20
@@ -62,7 +76,7 @@ defaultValueDomToModel.childrenMapping = {
 // 5.30
 export function equalDomToModel(el: Element): model.Equal {
   const result: model.Equal = {
-    $children: mapElements(getChildElements(el), equalDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), equalDomToModel.childrenMapping, equalDomToModel.groupMapping),
   };
   if (el.hasAttribute('toleranceMode')) result.toleranceMode = el.getAttribute('toleranceMode') as model.ToleranceMode;
   // TODO: tolerance
@@ -73,38 +87,58 @@ export function equalDomToModel(el: Element): model.Equal {
 equalDomToModel.childrenMapping = {
   logic: expressionGroupDomToModel,
 };
+equalDomToModel.groupMapping = {
+  ...toGroupMapping(getExpressionGroupElementMapping(), 'logic'),
+};
 
 // 5.60
 export function logic1toManyDomToModel(el: Element): model.Logic1toMany {
   const result: model.Logic1toMany = {
-    $children: mapElements(getChildElements(el), logic1toManyDomToModel.childrenMapping),
+    $children: mapElements(
+      getChildElements(el),
+      logic1toManyDomToModel.childrenMapping,
+      logic1toManyDomToModel.groupMapping
+    ),
   };
   return result;
 }
 logic1toManyDomToModel.childrenMapping = {
   logic: expressionGroupDomToModel,
 };
+logic1toManyDomToModel.groupMapping = {
+  ...toGroupMapping(getExpressionGroupElementMapping(), 'logic'),
+};
 
 // 5.61
 export function logicPairDomToModel(el: Element): model.LogicPair {
   const result: model.LogicPair = {
-    $children: mapElements(getChildElements(el), logicPairDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), logicPairDomToModel.childrenMapping, logicPairDomToModel.groupMapping),
   };
   return result;
 }
 logicPairDomToModel.childrenMapping = {
   logic: expressionGroupDomToModel,
 };
+logicPairDomToModel.groupMapping = {
+  ...toGroupMapping(getExpressionGroupElementMapping(), 'logic'),
+};
 
 // 5.62
 export function logicSingleDomToModel(el: Element): model.LogicSingle {
   const result: model.LogicSingle = {
-    $children: mapElements(getChildElements(el), logicSingleDomToModel.childrenMapping),
+    $children: mapElements(
+      getChildElements(el),
+      logicSingleDomToModel.childrenMapping,
+      logicSingleDomToModel.groupMapping
+    ),
   };
   return result;
 }
 logicSingleDomToModel.childrenMapping = {
   logic: expressionGroupDomToModel,
+};
+logicSingleDomToModel.groupMapping = {
+  ...toGroupMapping(getExpressionGroupElementMapping(), 'logic'),
 };
 
 // 5.64
@@ -165,18 +199,29 @@ responseDeclarationDomToModel.childrenMapping = {
 // 5.88
 export function responseElseDomToModel(el: Element): model.ResponseElse {
   const result: model.ResponseElse = {
-    $children: mapElements(getChildElements(el), responseElseDomToModel.childrenMapping),
+    $children: mapElements(
+      getChildElements(el),
+      responseElseDomToModel.childrenMapping,
+      responseElseDomToModel.groupMapping
+    ),
   };
   return result;
 }
 responseElseDomToModel.childrenMapping = {
   responseRuleGroup: responseRuleGroupDomToModel,
 };
+responseElseDomToModel.groupMapping = {
+  ...toGroupMapping(getResponseRuleGroupElementMapping(), 'responseRuleGroup'),
+};
 
 // 5.89
 export function responseIfDomToModel(el: Element): model.ResponseIf {
   const result: model.ResponseIf = {
-    $children: mapElements(getChildElements(el), responseIfDomToModel.childrenMapping),
+    $children: mapElements(
+      getChildElements(el),
+      responseIfDomToModel.childrenMapping,
+      responseIfDomToModel.groupMapping
+    ),
   };
   return result;
 }
@@ -184,17 +229,24 @@ responseIfDomToModel.childrenMapping = {
   expressionGroup: expressionGroupDomToModel,
   responseRuleGroup: responseRuleGroupDomToModel,
 };
+responseIfDomToModel.groupMapping = {
+  ...toGroupMapping(getExpressionGroupElementMapping(), 'expressionGroup'),
+  ...toGroupMapping(getResponseRuleGroupElementMapping(), 'responseRuleGroup'),
+};
 
 // 5.97
 export function setValueDomToModel(el: Element): model.SetValue {
   const result: model.SetValue = {
-    $children: mapElements(getChildElements(el), setValueDomToModel.childrenMapping),
+    $children: mapElements(getChildElements(el), setValueDomToModel.childrenMapping, setValueDomToModel.groupMapping),
     identifier: {$value: el.getAttribute('identifier') || ''},
   };
   return result;
 }
 setValueDomToModel.childrenMapping = {
   expressionGroup: expressionGroupDomToModel,
+};
+setValueDomToModel.groupMapping = {
+  ...toGroupMapping(getExpressionGroupElementMapping(), 'expressionGroup'),
 };
 
 // 6.7
@@ -204,72 +256,75 @@ export function expressionGroupDomToModel(el: Element): model.ExpressionGroup {
   };
   return result;
 }
-expressionGroupDomToModel.elementMapping = {
-  and: logic1toManyDomToModel,
-  gt: logicPairDomToModel,
-  not: logicSingleDomToModel,
-  lt: logicPairDomToModel,
-  gte: logicPairDomToModel,
-  lte: logicPairDomToModel,
-  or: logic1toManyDomToModel,
-  sum: numericLogic1toManyDomToModel,
-  // TODO: durationLT
-  // TODO: durationGTE
-  // TODO: subtract
-  // TODO: divide
-  // TODO: multiple
-  // TODO: ordered
-  // TODO: customOperator
-  // TODO: random
-  // TODO: numberIncorrect
-  // TODO: numberCorrect
-  // TODO: numberPresented
-  // TODO: numberResponded
-  // TODO: numberSelected
-  // TODO: substring
-  // TODO: equalRounded
-  // TODO: null
-  // TODO: delete
-  match: logicPairDomToModel,
-  // TODO: index
-  // TODO: power
-  equal: equalDomToModel,
-  // TODO: contains
-  // TODO: containerSize
-  // TODO: correct
-  // TODO: default
-  // TODO: anyN
-  // TODO: integerDivide
-  // TODO: integerModulus
-  isNull: logicSingleDomToModel,
-  // TODO: member
-  // TODO: product
-  // TODO: round
-  // TODO: truncate
-  // TODO: fieldValue
-  // TODO: randomInteger
-  // TODO: randomFloat
-  variable: variableDomToModel,
-  // TODO: outcomeMinimum
-  // TODO: outcomeMaximum
-  // TODO: testVariables
-  // TODO: integerToFloat
-  // TODO: inside
-  baseValue: baseValueDomToModel,
-  // TODO: patternMatch
-  mapResponsePoint: mapResponseDomToModel,
-  mapResponse: mapResponseDomToModel,
-  // TODO: stringMatch
-  // TODO: repeat
-  // TODO: roundTo
-  // TODO: lcm
-  // TODO: gcd
-  // TODO: min
-  // TODO: max
-  // TODO: mathConstant
-  // TODO: statsOperator
-  // TODO: mathOperator
-};
+expressionGroupDomToModel.elementMapping = getExpressionGroupElementMapping();
+function getExpressionGroupElementMapping() {
+  return {
+    and: logic1toManyDomToModel,
+    gt: logicPairDomToModel,
+    not: logicSingleDomToModel,
+    lt: logicPairDomToModel,
+    gte: logicPairDomToModel,
+    lte: logicPairDomToModel,
+    or: logic1toManyDomToModel,
+    sum: numericLogic1toManyDomToModel,
+    // TODO: durationLT
+    // TODO: durationGTE
+    // TODO: subtract
+    // TODO: divide
+    // TODO: multiple
+    // TODO: ordered
+    // TODO: customOperator
+    // TODO: random
+    // TODO: numberIncorrect
+    // TODO: numberCorrect
+    // TODO: numberPresented
+    // TODO: numberResponded
+    // TODO: numberSelected
+    // TODO: substring
+    // TODO: equalRounded
+    // TODO: null
+    // TODO: delete
+    match: logicPairDomToModel,
+    // TODO: index
+    // TODO: power
+    equal: equalDomToModel,
+    // TODO: contains
+    // TODO: containerSize
+    correct: correctDomToModel,
+    // TODO: default
+    // TODO: anyN
+    // TODO: integerDivide
+    // TODO: integerModulus
+    isNull: logicSingleDomToModel,
+    // TODO: member
+    // TODO: product
+    // TODO: round
+    // TODO: truncate
+    // TODO: fieldValue
+    // TODO: randomInteger
+    // TODO: randomFloat
+    variable: variableDomToModel,
+    // TODO: outcomeMinimum
+    // TODO: outcomeMaximum
+    // TODO: testVariables
+    // TODO: integerToFloat
+    // TODO: inside
+    baseValue: baseValueDomToModel,
+    // TODO: patternMatch
+    mapResponsePoint: mapResponseDomToModel,
+    mapResponse: mapResponseDomToModel,
+    // TODO: stringMatch
+    // TODO: repeat
+    // TODO: roundTo
+    // TODO: lcm
+    // TODO: gcd
+    // TODO: min
+    // TODO: max
+    // TODO: mathConstant
+    // TODO: statsOperator
+    // TODO: mathOperator
+  };
+}
 
 // 6.22
 export function numericExpressionGroupDomToModel(el: Element): model.NumericExpressionGroup {
@@ -278,52 +333,55 @@ export function numericExpressionGroupDomToModel(el: Element): model.NumericExpr
   };
   return result;
 }
-numericExpressionGroupDomToModel.elementMapping = {
-  sum: numericLogic1toManyDomToModel,
-  subtract: logicPairDomToModel,
-  divide: logicPairDomToModel,
-  // TODO: multiple
-  // TODO: ordered
-  // TODO: customOperator
-  // TODO: random
-  // TODO: numberIncorrect
-  // TODO: numberCorrect
-  // TODO: numberPresented
-  // TODO: numberResponded
-  // TODO: numberSelected
-  // TODO: null
-  // TODO: delete
-  // TODO: index
-  // TODO: power
-  // TODO: containerSize
-  correct: correctDomToModel,
-  // TODO: default
-  // TODO: integerDivide
-  // TODO: integerModulus
-  // TODO: product
-  // TODO: round
-  // TODO: truncate
-  // TODO: fieldValue
-  // TODO: randomInteger
-  // TODO: variable
-  // TODO: outcomeMinimum
-  // TODO: outcomeMaximum
-  // TODO: testVariables
-  // TODO: integerToFloat
-  // TODO: baseValue
-  // TODO: mapResponsePoint
-  // TODO: mapResponse
-  // TODO: repeat
-  // TODO: roundTo
-  // TODO: lcm
-  // TODO: gcd
-  // TODO: min
-  // TODO: max
-  // TODO: mathConstant
-  // TODO: statsOperator
-  // TODO: mathOperator
-  // TODO: randomFloat
-};
+numericExpressionGroupDomToModel.elementMapping = getNumericExpressionGroupElementMapping();
+function getNumericExpressionGroupElementMapping() {
+  return {
+    sum: numericLogic1toManyDomToModel,
+    subtract: logicPairDomToModel,
+    divide: logicPairDomToModel,
+    // TODO: multiple
+    // TODO: ordered
+    // TODO: customOperator
+    // TODO: random
+    // TODO: numberIncorrect
+    // TODO: numberCorrect
+    // TODO: numberPresented
+    // TODO: numberResponded
+    // TODO: numberSelected
+    // TODO: null
+    // TODO: delete
+    // TODO: index
+    // TODO: power
+    // TODO: containerSize
+    correct: correctDomToModel,
+    // TODO: default
+    // TODO: integerDivide
+    // TODO: integerModulus
+    // TODO: product
+    // TODO: round
+    // TODO: truncate
+    // TODO: fieldValue
+    // TODO: randomInteger
+    // TODO: variable
+    // TODO: outcomeMinimum
+    // TODO: outcomeMaximum
+    // TODO: testVariables
+    // TODO: integerToFloat
+    // TODO: baseValue
+    // TODO: mapResponsePoint
+    // TODO: mapResponse
+    // TODO: repeat
+    // TODO: roundTo
+    // TODO: lcm
+    // TODO: gcd
+    // TODO: min
+    // TODO: max
+    // TODO: mathConstant
+    // TODO: statsOperator
+    // TODO: mathOperator
+    // TODO: randomFloat
+  };
+}
 
 // 6.26
 export function responseRuleGroupDomToModel(el: Element): model.ResponseRuleGroup {
@@ -332,14 +390,17 @@ export function responseRuleGroupDomToModel(el: Element): model.ResponseRuleGrou
   };
   return result;
 }
-responseRuleGroupDomToModel.elementMapping = {
-  // TODO: include
-  responseCondition: responseConditionDomToModel,
-  // TODO: responseProcessingFragment
-  setOutcomeValue: setValueDomToModel,
-  // TODO: exitResponse
-  // TODO: lookupOutcomeValue
-};
+responseRuleGroupDomToModel.elementMapping = getResponseRuleGroupElementMapping();
+function getResponseRuleGroupElementMapping() {
+  return {
+    // TODO: include
+    responseCondition: responseConditionDomToModel,
+    // TODO: responseProcessingFragment
+    setOutcomeValue: setValueDomToModel,
+    // TODO: exitResponse
+    // TODO: lookupOutcomeValue
+  };
+}
 
 // 7.6
 export function baseValueDomToModel(el: Element): model.BaseValue {
@@ -412,12 +473,14 @@ function getChildElements(el: Element): Iterable<Element> {
 
 function mapElements<TChildren extends [string, any][] = [string, any][]>(
   elements: Iterable<Element>,
-  table: {[tagName: string]: (el: Element) => any}
+  table: {[tagName: string]: (el: Element) => any},
+  groupMapping?: {[tagName: string]: string}
 ): TChildren {
   return Array.from(elements)
     .map(el => {
-      if (!(el.tagName in table)) return;
-      return [el.tagName, table[el.tagName](el)];
+      const tagName = groupMapping?.[el.tagName] ?? el.tagName;
+      if (!(tagName in table)) return;
+      return [tagName, table[tagName](el)];
     })
     .filter(Boolean) as unknown as TChildren;
 }
@@ -428,4 +491,12 @@ function selectElement<TChild extends [string, any] = [string, any]>(
 ): TChild | undefined {
   if (!(element.tagName in table)) return;
   return [element.tagName, table[element.tagName](element)] as TChild;
+}
+
+function toGroupMapping<T extends ElementMapping, U extends string>(
+  elementMapping: T,
+  groupKey: U
+): {[key in keyof T]: U} {
+  const keys = Object.keys(elementMapping) as (keyof T)[];
+  return Object.fromEntries(keys.map(key => [key, groupKey])) as {[key in keyof T]: U};
 }
