@@ -33,7 +33,6 @@ export const interactionElementNames = [
   'graphicOrderInteraction',
   'hotspotInteraction',
   'hottextInteraction',
-  'matchInteraction',
   'mediaInteraction',
   'orderInteraction',
   'selectPointInteraction',
@@ -67,7 +66,6 @@ export function createInteractionComponent(
     graphicOrderInteraction: GraphicOrderInteraction,
     hotspotInteraction: HotspotInteraction,
     hottextInteraction: HottextInteraction,
-    matchInteraction: MatchInteraction,
     mediaInteraction: MediaInteraction,
     orderInteraction: OrderInteraction,
     selectPointInteraction: SelectPointInteraction,
@@ -78,4 +76,31 @@ export function createInteractionComponent(
   const InteractionComponent = InteractionComponentMap[element.nodeName as InteractionElementName];
 
   return InteractionComponent ? React.createElement(InteractionComponent, props, children) : null;
+}
+
+export const flowGroupInteractionNames = ['matchInteraction'] as const;
+
+export type FlowGroupInteractionName = typeof flowGroupInteractionNames[number];
+
+export function isFlowGroupInteraction(node: Node): boolean {
+  return flowGroupInteractionNames.includes(node.nodeName as any);
+}
+
+export interface FlowGroupInteractionProps {
+  elementChildren: Element;
+}
+
+export function createFlowGroupInteractionComponent(element: Element, defaultProps: Props): React.ReactElement | null {
+  const props = {
+    ...defaultProps,
+    elementChildren: element,
+    ...getPropsByElement(element),
+  };
+
+  const componentMap: Record<FlowGroupInteractionName, React.FC> = {
+    matchInteraction: MatchInteraction,
+  };
+  const component = componentMap[element.nodeName as FlowGroupInteractionName];
+
+  return component ? React.createElement<FlowGroupInteractionProps>(component, props) : null;
 }

@@ -7,7 +7,12 @@ import {
   isInteractionChildElement,
   createMathComponent,
 } from './components';
-import {createInteractionComponent, isInteractionElement} from './interactions';
+import {
+  createFlowGroupInteractionComponent,
+  createInteractionComponent,
+  isFlowGroupInteraction,
+  isInteractionElement,
+} from './interactions';
 import {isElementNode, isRootElement, isTextNode, isMathElement} from './utils/node';
 
 export function renderItemBody(node: Node | Element, index = 0): React.ReactNode {
@@ -22,18 +27,22 @@ export function renderItemBody(node: Node | Element, index = 0): React.ReactNode
   } else if (isMathElement(node)) {
     return createMathComponent(node as Element, defaultProps);
   } else if (isElementNode(node)) {
-    const children = childNodes ? Array.from(childNodes).map(childNode => renderItemBody(childNode, ++index)) : [];
-
-    if (isHTMLElement(node)) {
-      return createHTMLComponent(node, defaultProps, children);
-    } else if (isInteractionElement(node)) {
-      return createInteractionComponent(node, defaultProps, children);
-    } else if (isInteractionChildElement(node)) {
-      return createInteractionChildComponent(node, defaultProps, children);
-    } else if (isRootElement(node)) {
-      return React.createElement(React.Fragment, defaultProps, children);
+    if (isFlowGroupInteraction(node)) {
+      return createFlowGroupInteractionComponent(node, defaultProps);
     } else {
-      console.warn(`Unsupported node type: ${node.nodeName}`);
+      const children = childNodes ? Array.from(childNodes).map(childNode => renderItemBody(childNode, ++index)) : [];
+
+      if (isHTMLElement(node)) {
+        return createHTMLComponent(node, defaultProps, children);
+      } else if (isInteractionElement(node)) {
+        return createInteractionComponent(node, defaultProps, children);
+      } else if (isInteractionChildElement(node)) {
+        return createInteractionChildComponent(node, defaultProps, children);
+      } else if (isRootElement(node)) {
+        return React.createElement(React.Fragment, defaultProps, children);
+      } else {
+        console.warn(`Unsupported node type: ${node.nodeName}`);
+      }
     }
   }
 }
