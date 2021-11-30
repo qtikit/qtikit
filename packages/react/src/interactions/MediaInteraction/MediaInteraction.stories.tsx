@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'MediaInteraction',
+  title: 'Interaction/Media',
 };
 
 export const media = QtiViewerTemplate.bind({});

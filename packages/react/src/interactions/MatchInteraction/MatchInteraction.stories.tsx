@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'MatchInteraction',
+  title: 'Interaction/Match',
 };
 
 export const match = QtiViewerTemplate.bind({});

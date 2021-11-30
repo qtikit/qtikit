@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'TextEntryInteraction',
+  title: 'Interaction/TextEntry',
 };
 
 export const text_entry = QtiViewerTemplate.bind({});

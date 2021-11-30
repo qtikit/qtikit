@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'GraphicGapMatchInteractions',
+  title: 'Interaction/GraphicGapMatch',
 };
 
 export const graphic_gap_match = QtiViewerTemplate.bind({});

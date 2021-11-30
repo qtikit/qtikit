@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'OrderInteraction',
+  title: 'Interaction/Order',
 };
 
 export const order = QtiViewerTemplate.bind({});

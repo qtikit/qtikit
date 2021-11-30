@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'HottextInteraction',
+  title: 'Interaction/Hottext',
 };
 
 export const hottext = QtiViewerTemplate.bind({});

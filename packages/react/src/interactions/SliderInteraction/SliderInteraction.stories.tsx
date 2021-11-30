@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'SliderInteraction',
+  title: 'Interaction/Slider',
 };
 
 export const slider = QtiViewerTemplate.bind({});

@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'ExtendedTextInteractions',
+  title: 'Interaction/ExtendedText',
 };
 
 export const essay = QtiViewerTemplate.bind({});

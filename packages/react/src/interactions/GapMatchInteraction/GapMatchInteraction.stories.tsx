@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'GapMatchInteractions',
+  title: 'Interaction/GapMatch',
 };
 
 export const gap_match = QtiViewerTemplate.bind({});

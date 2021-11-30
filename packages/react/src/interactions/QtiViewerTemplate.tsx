@@ -14,10 +14,10 @@ export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = props => {
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
   return (
     <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-      <div style={{flex: '1'}}>
+      <div style={{flex: '1', padding: 10}}>
         <QtiViewer assessmentItemSrc={assessmentItemSrc} inputState={inputState} onChange={setInputState} />
       </div>
-      <div style={{flex: '1'}}>
+      <div style={{flex: '1', padding: 10}}>
         <h3>Input State</h3>
         <pre>{JSON.stringify(inputState, null, 2)}</pre>
         <h3>Response Processing Result</h3>

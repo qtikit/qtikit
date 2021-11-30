@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'HotspotInteraction',
+  title: 'Interaction/Hotspot',
 };
 
 export const hotspot = QtiViewerTemplate.bind({});

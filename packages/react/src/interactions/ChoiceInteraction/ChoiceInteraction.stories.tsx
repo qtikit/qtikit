@@ -1,7 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
 export default {
-  title: 'ChoiceInteractions',
+  title: 'Interaction/Choice',
 };
 
 export const choice = QtiViewerTemplate.bind({});
