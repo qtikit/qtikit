@@ -1,7 +1,7 @@
 {
   "name": "@qtikit/react",
   "packageManager": "yarn@3.1.0",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "clean": "rm -rf lib",
     "build": "tsc",
