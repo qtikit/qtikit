@@ -1,5 +1,18 @@
 # @qtikit/react
 
+## 0.0.5
+
+### Patch Changes
+
+- Implement HottextInteraction
+- Implement RubricBlock
+- Implement HotspotChoice
+- Implement OrderInteraction
+- Implement OrderSimpleChoice
+- Implement HotspotInteraction
+- Updated dependencies
+  - @qtikit/model@0.0.2
+
 ## 0.0.4
 
 ### Patch Changes
