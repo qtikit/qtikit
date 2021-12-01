@@ -1,5 +1,6 @@
 import React from 'react';
-import {useInteractionStateContext} from 'src/interactions/InteractionState';
+
+import {useInteractionStateContext} from '../interactions/InteractionState';
 
 interface CheckboxProps {
   indentifier: string;

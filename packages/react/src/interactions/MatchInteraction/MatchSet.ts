@@ -1,5 +1,6 @@
 import {SimpleAssociableChoiceCharacteristics} from '@qtikit/model/lib/qti2_2';
-import {getPropsByElement} from 'src/utils/node';
+
+import {getPropsByElement} from '../../utils/node';
 
 type MatchSetChoice = Omit<SimpleAssociableChoiceCharacteristics, 'identifier' | 'matchMax'> & {
   identifier: string;
