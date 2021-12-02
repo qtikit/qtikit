@@ -4,12 +4,16 @@
     "rootDir": "src",
     "outDir": "lib",
     "declaration": true,
-    "target": "esnext",
+    "target": "es2018",
     "module": "commonjs",
     "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+    "downlevelIteration": true
+  },
+  "exclude": [
+    "**/*.stories.tsx"
+  ]
 }
