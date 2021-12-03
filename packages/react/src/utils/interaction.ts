@@ -3,7 +3,8 @@ import {
   ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps,
 } from '@qtikit/model/lib/qti2_2';
 
-type PlaceHolderProps = TextEntryInteractionProps & ExtendedTextInteractionProps;
+type PlaceHolderProps = Pick<TextEntryInteractionProps, 'placeholderText' | 'expectedLength'> &
+  Pick<ExtendedTextInteractionProps, 'placeholderText' | 'expectedLength' | 'expectedLines'>;
 
 export const getPlaceHolder = (props: PlaceHolderProps) => {
   const {placeholderText, expectedLength, expectedLines} = props;

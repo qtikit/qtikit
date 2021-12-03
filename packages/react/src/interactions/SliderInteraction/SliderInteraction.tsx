@@ -1,13 +1,16 @@
 import React from 'react';
-import {SliderInteractionCharacteristics as SliderInteractionProps} from '@qtikit/model/lib/qti2_2';
+import {BasePromptInteractionCharacteristics, SliderInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
-import Slider from '../../components/Slider';
+import {InteractionProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
+import Slider from '../../components/Slider';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'slider';
 
-const SliderInteraction: React.FC<SliderInteractionProps | any> = ({responseIdentifier, children, ...props}) => {
+type SliderInteractionProps = InteractionProps<BasePromptInteractionCharacteristics, SliderInteractionCharacteristics>;
+
+const SliderInteraction: React.FC<SliderInteractionProps> = ({responseIdentifier, children, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),

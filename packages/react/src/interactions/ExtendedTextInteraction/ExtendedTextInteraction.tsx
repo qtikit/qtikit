@@ -1,14 +1,26 @@
 import React from 'react';
-import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {classNameForInteraction} from 'src/utils/style';
+import {BasePromptInteractionCharacteristics, ExtendedTextInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {InteractionProps} from '../../types/props';
+import {classNameForInteraction} from '../../utils/style';
 import {getPlaceHolder} from '../../utils/interaction';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import ExtendedText from '../../components/ExtendedText';
 
 const IDENTIFIER = 'textarea';
 
-const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({responseIdentifier, ...props}) => {
+type ExtendedTextInteractionProps = InteractionProps<
+  BasePromptInteractionCharacteristics,
+  ExtendedTextInteractionCharacteristics
+>;
+
+const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps> = ({
+  responseIdentifier,
+  placeholderText,
+  expectedLength,
+  expectedLines,
+  children,
+}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
@@ -17,9 +29,12 @@ const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({
 
   return (
     <div className={classNameForInteraction('extended-text')}>
-      {props.children}
+      {children}
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-        <ExtendedText identifier={IDENTIFIER} placeholder={getPlaceHolder(props)} />
+        <ExtendedText
+          identifier={IDENTIFIER}
+          placeholder={getPlaceHolder({placeholderText, expectedLength, expectedLines})}
+        />
       </InteractionStateContext.Provider>
     </div>
   );
