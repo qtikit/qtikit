@@ -1,6 +1,8 @@
 import React from 'react';
 import {Coords} from '@qtikit/model/lib/qti2_2';
 
+import {FlatValue} from '../types/props';
+
 type StyleCreator<Props> = (props: Props) => React.CSSProperties;
 
 export function createStyle(style: React.CSSProperties): React.CSSProperties;
@@ -13,8 +15,8 @@ export function createStyle<Props>(style: React.CSSProperties | StyleCreator<Pro
   return style;
 }
 
-export function createShapeStyle(coordsPattern: Coords['pattern']) {
-  const coords = coordsPattern.split(',').map(Number);
+export function createShapeStyle(_coords: FlatValue<Coords>) {
+  const coords = _coords.split(',').map(Number);
 
   return {
     circle: {

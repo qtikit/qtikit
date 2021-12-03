@@ -1,11 +1,14 @@
 import React from 'react';
-import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
+import {BaseSequenceXBaseCharacteristics, GapCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {CharsToProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
 import {classNameForComponent} from '../utils/style';
 
-const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
+type GapProps = CharsToProps<BaseSequenceXBaseCharacteristics, GapCharacteristics>;
+
+const Gap: React.FC<GapProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const [dropped, setDropped] = React.useState<React.ReactNode>();
