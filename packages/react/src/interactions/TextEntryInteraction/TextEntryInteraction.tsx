@@ -1,14 +1,24 @@
 import React from 'react';
-import {TextEntryInteractionCharacteristics as TextEntryInteractionProps} from '@qtikit/model/lib/qti2_2';
+import {BaseSequenceXBaseCharacteristics, TextEntryInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import TextEntry from '../../components/TextEntry';
-import {getPlaceHolder} from '../../utils/interaction';
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import {InteractionProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
+import {getPlaceHolder} from '../../utils/interaction';
+import TextEntry from '../../components/TextEntry';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'text';
 
-const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({responseIdentifier, ...props}) => {
+type TextEntryInteractionProps = InteractionProps<
+  BaseSequenceXBaseCharacteristics,
+  TextEntryInteractionCharacteristics
+>;
+
+const TextEntryInteraction: React.FC<TextEntryInteractionProps> = ({
+  responseIdentifier,
+  placeholderText,
+  expectedLength,
+}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
@@ -18,7 +28,7 @@ const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({respon
   return (
     <div className={classNameForInteraction('textentry')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-        <TextEntry identifier={IDENTIFIER} placeholder={getPlaceHolder(props)} />
+        <TextEntry identifier={IDENTIFIER} placeholder={getPlaceHolder({placeholderText, expectedLength})} />
       </InteractionStateContext.Provider>
     </div>
   );
