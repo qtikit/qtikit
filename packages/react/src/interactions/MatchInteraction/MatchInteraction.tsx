@@ -1,14 +1,14 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, MatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {InteractionProps} from '../../types/props';
+import {CharsToProps} from '../../types/props';
 import Prompt from '../../components/Prompt';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import MatchSet from './MatchSet';
 import MatchTable from '../../components/MatchTable';
 import {classNameForInteraction} from '../../utils/style';
 
-type MatchInteractionProps = InteractionProps<
+type MatchInteractionProps = CharsToProps<
   BasePromptInteractionCharacteristics,
   MatchInteractionCharacteristics & {elementChildren: Element}
 >;
