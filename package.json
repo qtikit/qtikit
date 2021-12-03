@@ -7,7 +7,10 @@
   "license": "(MIT OR Apache-2.0)",
   "packageManager": "yarn@3.1.0",
   "workspaces": [
-    "packages/**/*"
+    "packages/model",
+    "packages/model-test",
+    "packages/react",
+    "packages/scoring-engine"
   ],
   "scripts": {
     "lint": "eslint packages --ext .ts,.tsx",
