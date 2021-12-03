@@ -1,11 +1,14 @@
 import React from 'react';
-import {GapTextCharacteristics as GapTextProps} from '@qtikit/model/lib/qti2_2';
+import {BaseSequenceCharacteristics, GapTextCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {CharsToProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Draggable} from './DragDrop';
 import {classNameForComponent} from '../utils/style';
 
-const GapText: React.FC<GapTextProps | any> = ({identifier, children}) => {
+type GapTextProps = CharsToProps<BaseSequenceCharacteristics, GapTextCharacteristics>;
+
+const GapText: React.FC<GapTextProps> = ({identifier, children}) => {
   const {interactionState} = useInteractionStateContext();
 
   if (Object.values(interactionState).includes(identifier)) {

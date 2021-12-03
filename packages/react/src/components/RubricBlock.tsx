@@ -1,16 +1,16 @@
 import * as React from 'react';
-import {RubricBlockCharacteristics as RubricBlockProps} from '@qtikit/model/lib/qti2_2';
+import {View, BaseSequenceXBaseCharacteristics, RubricBlockCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {CharsToProps} from '../types/props';
 import {classNameForComponent} from '../utils/style';
 
-const RubricBlock: React.FC<RubricBlockProps | any> = props => (
+type RubricBlockProps = CharsToProps<BaseSequenceXBaseCharacteristics, RubricBlockCharacteristics>;
+
+const RubricBlock: React.FC<RubricBlockProps> = ({view, children}) => (
   <span
-    className={[
-      classNameForComponent('rubric-block'),
-      props.view && classNameForComponent('rubric-block', props.view),
-    ].join(' ')}>
-    <span>{props.view}:</span>
-    {props.children}
+    className={[classNameForComponent('rubric-block'), view && classNameForComponent('rubric-block', view)].join(' ')}>
+    <span>{view}:</span>
+    {children}
   </span>
 );
 
