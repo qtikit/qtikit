@@ -1,13 +1,19 @@
 import React from 'react';
-import {GapMatchInteractionCharacteristics as GapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
+import {BasePromptInteractionCharacteristics, GapMatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
-import {DragDropContextProvider} from '../../components/DragDrop';
+import {InteractionProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
+import {DragDropContextProvider} from '../../components/DragDrop';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const SEPARATOR = ' ';
 
-const GapMatchInteraction: React.FC<GapMatchInteractionProps | any> = ({responseIdentifier, ...props}) => {
+type GapMatchInteractionProps = InteractionProps<
+  BasePromptInteractionCharacteristics,
+  GapMatchInteractionCharacteristics
+>;
+
+const GapMatchInteraction: React.FC<GapMatchInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => Object.fromEntries(userInput.map(input => input.split(SEPARATOR).reverse())),
@@ -17,7 +23,7 @@ const GapMatchInteraction: React.FC<GapMatchInteractionProps | any> = ({response
   return (
     <div className={classNameForInteraction('gap-match')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-        <DragDropContextProvider>{props.children}</DragDropContextProvider>
+        <DragDropContextProvider>{children}</DragDropContextProvider>
       </InteractionStateContext.Provider>
     </div>
   );

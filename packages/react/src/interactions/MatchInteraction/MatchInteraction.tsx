@@ -1,18 +1,23 @@
 import React from 'react';
-import {MatchInteractionCharacteristics as MatchInteractionProps} from '@qtikit/model/lib/qti2_2';
+import {BasePromptInteractionCharacteristics, MatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {InteractionProps} from '../../types/props';
 import Prompt from '../../components/Prompt';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import MatchSet from './MatchSet';
 import MatchTable from '../../components/MatchTable';
 import {classNameForInteraction} from '../../utils/style';
 
-const MatchInteraction: React.FC<MatchInteractionProps | any> = ({
-  responseIdentifier,
-  maxAssociations,
-  elementChildren,
-}) => {
-  const matchSet = React.useMemo(() => new MatchSet(maxAssociations, elementChildren), []);
+type MatchInteractionProps = InteractionProps<
+  BasePromptInteractionCharacteristics,
+  MatchInteractionCharacteristics & {elementChildren: Element}
+>;
+
+const MatchInteraction: React.FC<MatchInteractionProps> = ({responseIdentifier, maxAssociations, elementChildren}) => {
+  const matchSet = React.useMemo(
+    () => new MatchSet(maxAssociations ? parseInt(maxAssociations) : 1, elementChildren),
+    []
+  );
 
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
@@ -33,7 +38,7 @@ const MatchInteraction: React.FC<MatchInteractionProps | any> = ({
 
   return (
     <div className={classNameForInteraction('match')}>
-      <Prompt>{elementChildren.querySelector('prompt').textContent}</Prompt>
+      <Prompt>{elementChildren.querySelector('prompt')?.textContent}</Prompt>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <MatchTable set={matchSet} />
       </InteractionStateContext.Provider>

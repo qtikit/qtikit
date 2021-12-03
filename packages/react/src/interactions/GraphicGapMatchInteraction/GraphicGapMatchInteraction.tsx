@@ -1,30 +1,33 @@
 import React from 'react';
-import {GraphicGapMatchInteractionCharacteristics as GraphicGapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
+import {BaseSequenceFullCharacteristics, GraphicGapMatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {InteractionProps} from '../../types/props';
 import {classNameForComponent, classNameForInteraction} from '../../utils/style';
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import {DragDropContextProvider} from '../../components/DragDrop';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'AssociableHotspot'];
 const SEPARATOR = ' ';
 
-const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any> = ({
-  responseIdentifier,
-  ...props
-}) => {
+type GraphicGapMatchInteractionProps = InteractionProps<
+  BaseSequenceFullCharacteristics,
+  GraphicGapMatchInteractionCharacteristics
+>;
+
+const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => Object.fromEntries(userInput.map(input => input.split(SEPARATOR).reverse())),
     decode: interactionState => Object.entries(interactionState).map(entry => entry.reverse().join(SEPARATOR)),
   });
 
-  const children = React.Children.toArray(props.children).filter(
+  const componentChildren = React.Children.toArray(children).filter(
     child => child && typeof child === 'object'
   ) as React.ReactElement[];
-  const interactionComponents = children.filter(child =>
+  const interactionComponents = componentChildren.filter(child =>
     INTERACTION_COMPONENT_NAMES.includes((child.type as any).displayName)
   );
-  const restComponents = children.filter(
+  const restComponents = componentChildren.filter(
     child => !INTERACTION_COMPONENT_NAMES.includes((child.type as any).displayName)
   );
 

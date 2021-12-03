@@ -1,18 +1,18 @@
 import React from 'react';
-import type {OrderInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
+import type {BasePromptInteractionCharacteristics, OrderInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
-import {DragDropContextProvider} from '../../components/DragDrop';
+import {InteractionProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
+import {DragDropContextProvider} from '../../components/DragDrop';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
-interface OrderInteractionProps extends OrderInteractionCharacteristics {
-  responseIdentifier: string;
-}
-const OrderInteraction: React.FC<OrderInteractionProps | any> = ({responseIdentifier, ...props}) => {
-  const children = React.Children.toArray(props.children).filter(
+type OrderInteractionProps = InteractionProps<BasePromptInteractionCharacteristics, OrderInteractionCharacteristics>;
+
+const OrderInteraction: React.FC<OrderInteractionProps> = ({responseIdentifier, children}) => {
+  const componentChildren = React.Children.toArray(children).filter(
     child => child && typeof child === 'object'
   ) as React.ReactElement[];
-  const simpleChoices = children.filter(child => (child.type as any).displayName === 'SimpleChoice');
+  const simpleChoices = componentChildren.filter(child => (child.type as any).displayName === 'SimpleChoice');
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => Object.fromEntries(userInput.map((input, index) => [input, index])),
@@ -27,7 +27,7 @@ const OrderInteraction: React.FC<OrderInteractionProps | any> = ({responseIdenti
     <div className={classNameForInteraction('order')}>
       <InteractionStateContext.Provider
         value={{interactionElementName: 'orderInteraction', interactionState, setInteractionState}}>
-        <DragDropContextProvider>{props.children}</DragDropContextProvider>
+        <DragDropContextProvider>{children}</DragDropContextProvider>
       </InteractionStateContext.Provider>
     </div>
   );

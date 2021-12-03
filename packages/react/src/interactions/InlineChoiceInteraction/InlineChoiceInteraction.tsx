@@ -1,16 +1,19 @@
 import React from 'react';
-import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
+import {BaseSequenceFullCharacteristics, InlineChoiceInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
-import InlineChoice from '../../components/InlineChoice';
+import {InteractionProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
+import InlineChoice from '../../components/InlineChoice';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'select';
 
-const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
-  responseIdentifier,
-  elementChildren,
-}) => {
+type InlineChoiceInteractionProps = InteractionProps<
+  BaseSequenceFullCharacteristics,
+  InlineChoiceInteractionCharacteristics
+>;
+
+const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps> = ({responseIdentifier, elementChildren}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),

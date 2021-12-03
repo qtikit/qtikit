@@ -41,7 +41,7 @@ export function createInteractionComponent(
 ): React.ReactElement | null {
   const props = {...defaultProps, ...getPropsByElement(element)};
 
-  const InteractionComponentMap: Record<InteractionElementName, React.FC> = {
+  const InteractionComponentMap = {
     choiceInteraction: ChoiceInteraction,
     extendedTextInteraction: ExtendedTextInteraction,
     gapMatchInteraction: GapMatchInteraction,
@@ -77,11 +77,11 @@ export function createFlowGroupInteractionComponent(element: Element, defaultPro
     ...getPropsByElement(element),
   };
 
-  const componentMap: Record<FlowGroupInteractionName, React.FC> = {
+  const componentMap = {
     matchInteraction: MatchInteraction,
     inlineChoiceInteraction: InlineChoiceInteraction,
   };
   const component = componentMap[element.nodeName as FlowGroupInteractionName];
 
-  return component ? React.createElement<FlowGroupInteractionProps>(component, props) : null;
+  return component ? React.createElement<any>(component, props) : null;
 }
