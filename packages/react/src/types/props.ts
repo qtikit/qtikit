@@ -8,4 +8,4 @@ type FlatValues<Characteristics> = {[Key in keyof Characteristics]: FlatValue<Ch
 type CharsToProps<BaseInteractionCharacteristics, InteractionCharacteristics> =
   FlatValues<BaseInteractionCharacteristics> & FlatValues<InteractionCharacteristics>;
 
-export {CharsToProps};
+export {FlatValue, FlatValues, CharsToProps};

@@ -1,11 +1,14 @@
 import * as React from 'react';
-import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/lib/qti2_2';
+import {BaseSequenceCharacteristics, SimpleChoiceCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {CharsToProps} from '../types/props';
 import {classNameForComponent, createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Draggable, Droppable, useDragDropContext} from './DragDrop';
 
-const DefaultSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, children}) => {
+type SimpleChoiceProps = CharsToProps<BaseSequenceCharacteristics, SimpleChoiceCharacteristics>;
+
+const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const handleChange = () => {
@@ -34,7 +37,7 @@ const OrderSimpleChoiceStyle = createStyle(({index, isDragging}: {index: number;
   opacity: isDragging ? 0.01 : 1,
 }));
 
-const OrderSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, children}) => {
+const OrderSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
   const {current} = useDragDropContext();
 
@@ -61,7 +64,7 @@ const OrderSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, child
   );
 };
 
-const SimpleChoice: React.FC<SimpleChoiceProps | any> = props => {
+const SimpleChoice: React.FC<SimpleChoiceProps> = props => {
   const {interactionElementName} = useInteractionStateContext();
 
   return interactionElementName === 'orderInteraction' ? (

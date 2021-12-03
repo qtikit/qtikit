@@ -1,22 +1,23 @@
 import * as React from 'react';
-import {AssociableHotspotCharacteristics as AssociableHotspotProps, Shape, Coords} from '@qtikit/model/lib/qti2_2';
+import {
+  Shape,
+  Coords,
+  BaseSequenceXBaseCharacteristics,
+  AssociableHotspotCharacteristics,
+} from '@qtikit/model/lib/qti2_2';
 
+import {FlatValue, CharsToProps} from '../types/props';
 import {createStyle, createShapeStyle, classNameForComponent} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
 
-const associableHotspotLabelStyle = createStyle(
-  ({shape, coordsPattern}: {shape: Shape; coordsPattern: Coords['pattern']}) => ({
-    ...createShapeStyle(coordsPattern)[shape],
-  })
-);
+const associableHotspotLabelStyle = createStyle(({shape, coords}: {shape: Shape; coords: FlatValue<Coords>}) => ({
+  ...createShapeStyle(coords)[shape],
+}));
 
-const AssociableHotspot: React.FC<AssociableHotspotProps | any> = ({
-  identifier,
-  shape,
-  coords: coordsPattern,
-  children,
-}) => {
+type AssociableHotspotProps = CharsToProps<BaseSequenceXBaseCharacteristics, AssociableHotspotCharacteristics>;
+
+const AssociableHotspot: React.FC<AssociableHotspotProps> = ({identifier, shape, coords, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const [dropped, setDropped] = React.useState<React.ReactNode>();
@@ -33,7 +34,7 @@ const AssociableHotspot: React.FC<AssociableHotspotProps | any> = ({
   return (
     <Droppable
       className={classNameForComponent('associable-hotspot')}
-      style={associableHotspotLabelStyle({shape, coordsPattern})}
+      style={associableHotspotLabelStyle({shape, coords})}
       onDrop={handleDrop}>
       {dropped}
       {children}

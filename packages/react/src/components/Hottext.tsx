@@ -1,10 +1,13 @@
 import * as React from 'react';
-import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/lib/qti2_2';
+import {BaseSequenceXBaseCharacteristics, HotTextCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {CharsToProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
-const Hottext: React.FC<SimpleChoiceProps | any> = ({identifier, children}) => {
+type HottextProps = CharsToProps<BaseSequenceXBaseCharacteristics, HotTextCharacteristics>;
+
+const Hottext: React.FC<HottextProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const handleChange = () => {

@@ -10,7 +10,7 @@ const ImageHtml: React.FC<ImageHtmlProps> = ({src, children, ...props}) => {
   const {baseUrl} = useContext(QtiViewerContext);
   return (
     <span className={classNameForComponent('image')}>
-      <img src={resolveUrl(src, baseUrl)} {...props} />
+      <img {...props} src={resolveUrl(src, baseUrl)} />
     </span>
   );
 };
