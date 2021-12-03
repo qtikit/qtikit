@@ -192,7 +192,7 @@ export function responseDeclarationDomToModel(el: Element): model.ResponseDeclar
 responseDeclarationDomToModel.childrenMapping = {
   // TODO: defaultValue
   correctResponse: correctResponseDomToModel,
-  // TODO: mapping
+  mapping: mappingDomToModel,
   // TODO: areaMapping
 };
 

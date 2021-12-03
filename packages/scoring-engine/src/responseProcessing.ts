@@ -116,7 +116,11 @@ function evalExpressionGroup(node: model.ExpressionGroup, env: Env): Value {
     // TODO: anyN
     // TODO: integerDivide
     // TODO: integerModulus
-    // TODO: isNull
+    case 'isNull': {
+      const isNullNode = $selection[1];
+      const value = evalExpressionGroup(isNullNode.$children[0][1], env);
+      return [String(value.length < 1)];
+    }
     // TODO: member
     // TODO: product
     // TODO: round
@@ -139,7 +143,25 @@ function evalExpressionGroup(node: model.ExpressionGroup, env: Env): Value {
     }
     // TODO: patternMatch
     // TODO: mapResponsePoint
-    // TODO: mapResponse
+    case 'mapResponse': {
+      const mapResponseNode = $selection[1];
+      const identifier = mapResponseNode.identifier.$value;
+      const mapping = getMapping(findResponseDeclaration(env.config.responseDeclarations, identifier));
+      if (!mapping) return [];
+      const {defaultValue, lowerBound, upperBound} = mapping;
+      const mapEntries = filterChildrenByType(mapping.$children, 'mapEntry');
+      const caseSensitiveInput = env.input[identifier] || [];
+      const lowercaseInput = caseSensitiveInput.map(value => value.toLowerCase());
+      const matchedValues: number[] = [];
+      for (const mapEntry of mapEntries) {
+        const {mapKey, mappedValue, caseSensitive} = mapEntry;
+        const key = caseSensitive ? mapKey : mapKey.toLowerCase();
+        const input = caseSensitive ? caseSensitiveInput : lowercaseInput;
+        if (input.includes(key)) matchedValues.push(mappedValue);
+      }
+      const sum = matchedValues.length < 1 ? defaultValue || 0 : matchedValues.reduce((a, b) => a + b, 0);
+      return [String(Math.max(lowerBound ?? -Infinity, Math.min(upperBound ?? Infinity, sum)))];
+    }
     // TODO: stringMatch
     // TODO: repeat
     // TODO: roundTo
@@ -198,6 +220,10 @@ function getCorrectValue(declaration?: model.ResponseDeclaration): Value {
   if (!declaration) return [];
   const correctResponse = findChildByType(declaration.$children as any, 'correctResponse') as any;
   return correctResponse ? getValue(correctResponse.$children) : [];
+}
+
+function getMapping(declaration?: model.ResponseDeclaration): model.Mapping | undefined {
+  return declaration && (findChildByType(declaration.$children as any, 'mapping') as any);
 }
 
 function getValue(values: ['value', model.Value][]) {
