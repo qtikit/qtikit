@@ -1,7 +1,7 @@
 import React from 'react';
 import {BaseSequenceXBaseCharacteristics, TextEntryInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {InteractionProps} from '../../types/props';
+import {CharsToProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import {getPlaceHolder} from '../../utils/interaction';
 import TextEntry from '../../components/TextEntry';
@@ -9,10 +9,7 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 
 const IDENTIFIER = 'text';
 
-type TextEntryInteractionProps = InteractionProps<
-  BaseSequenceXBaseCharacteristics,
-  TextEntryInteractionCharacteristics
->;
+type TextEntryInteractionProps = CharsToProps<BaseSequenceXBaseCharacteristics, TextEntryInteractionCharacteristics>;
 
 const TextEntryInteraction: React.FC<TextEntryInteractionProps> = ({
   responseIdentifier,

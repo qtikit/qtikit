@@ -1,14 +1,11 @@
 import * as React from 'react';
 import {BasePromptInteractionCharacteristics, HotTextInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {InteractionProps} from '../../types/props';
+import {CharsToProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
-type HottextInteractionProps = InteractionProps<
-  BasePromptInteractionCharacteristics,
-  HotTextInteractionCharacteristics
->;
+type HottextInteractionProps = CharsToProps<BasePromptInteractionCharacteristics, HotTextInteractionCharacteristics>;
 
 const HottextInteraction: React.FC<HottextInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({

@@ -1,7 +1,7 @@
 import React from 'react';
 import {BaseSequenceFullCharacteristics, GraphicGapMatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {InteractionProps} from '../../types/props';
+import {CharsToProps} from '../../types/props';
 import {classNameForComponent, classNameForInteraction} from '../../utils/style';
 import {DragDropContextProvider} from '../../components/DragDrop';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
@@ -9,7 +9,7 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'AssociableHotspot'];
 const SEPARATOR = ' ';
 
-type GraphicGapMatchInteractionProps = InteractionProps<
+type GraphicGapMatchInteractionProps = CharsToProps<
   BaseSequenceFullCharacteristics,
   GraphicGapMatchInteractionCharacteristics
 >;
