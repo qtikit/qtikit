@@ -55,14 +55,17 @@ function evalResponseCondition(node: model.ResponseCondition, env: Env): void {
       case 'responseElseIf': {
         const ifNode = child[1];
         const condNode = ifNode.$children[0][1] as model.ExpressionGroup;
-        const thenNode = ifNode.$children[1][1] as model.ResponseRuleGroup;
-        if (evalExpressionGroup(condNode, env)[0] === 'true') return evalResponseRuleGroup(thenNode, env);
+        const body = ifNode.$children.slice(1).map(([, node]) => node) as model.ResponseRuleGroup[];
+        if (evalExpressionGroup(condNode, env)[0] === 'true') {
+          for (const childNode of body) evalResponseRuleGroup(childNode, env);
+        }
         break;
       }
       case 'responseElse': {
         const elseNode = child[1];
-        const thenNode = elseNode.$children[0][1];
-        return evalResponseRuleGroup(thenNode, env);
+        const body = elseNode.$children.slice(1).map(([, node]) => node);
+        for (const childNode of body) evalResponseRuleGroup(childNode, env);
+        break;
       }
     }
   }
@@ -79,12 +82,24 @@ function evalExpressionGroup(node: model.ExpressionGroup, env: Env): Value {
     // TODO: gte
     // TODO: lte
     // TODO: or
-    // TODO: sum
+    case 'sum': {
+      const sumNode = $selection[1];
+      return [
+        String(
+          multiple(sumNode.$children, env)
+            .map(Number)
+            .reduce((a, b) => a + b, 0)
+        ),
+      ];
+    }
     // TODO: durationLT
     // TODO: durationGTE
     // TODO: subtract
     // TODO: divide
-    // TODO: multiple
+    case 'multiple': {
+      const multipleNode = $selection[1];
+      return multiple(multipleNode.$children, env);
+    }
     // TODO: ordered
     // TODO: customOperator
     // TODO: random
@@ -130,7 +145,8 @@ function evalExpressionGroup(node: model.ExpressionGroup, env: Env): Value {
     // TODO: randomFloat
     case 'variable': {
       const variableNode = $selection[1];
-      return env.input[variableNode.identifier.$value] || [];
+      const identifier = variableNode.identifier.$value;
+      return env.input[identifier] || env.outcomeValues[identifier] || [];
     }
     // TODO: outcomeMinimum
     // TODO: outcomeMaximum
@@ -228,6 +244,10 @@ function getMapping(declaration?: model.ResponseDeclaration): model.Mapping | un
 
 function getValue(values: ['value', model.Value][]) {
   return values.map(([, {$value}]) => $value);
+}
+
+function multiple(children: ['logic', model.ExpressionGroup][], env: Env) {
+  return children.flatMap(([, expression]) => evalExpressionGroup(expression, env));
 }
 
 function findResponseDeclaration(

@@ -91,6 +91,24 @@ equalDomToModel.groupMapping = {
   ...toGroupMapping(getExpressionGroupElementMapping(), 'logic'),
 };
 
+// 5.59
+export function logic0toManyDomToModel(el: Element): model.Logic0toMany {
+  const result: model.Logic0toMany = {
+    $children: mapElements(
+      getChildElements(el),
+      logic0toManyDomToModel.childrenMapping,
+      logic0toManyDomToModel.groupMapping
+    ),
+  };
+  return result;
+}
+logic0toManyDomToModel.childrenMapping = {
+  logic: expressionGroupDomToModel,
+};
+logic0toManyDomToModel.groupMapping = {
+  ...toGroupMapping(getExpressionGroupElementMapping(), 'logic'),
+};
+
 // 5.60
 export function logic1toManyDomToModel(el: Element): model.Logic1toMany {
   const result: model.Logic1toMany = {
@@ -158,12 +176,19 @@ mappingDomToModel.childrenMapping = {
 // 5.70
 export function numericLogic1toManyDomToModel(el: Element): model.NumericLogic1toMany {
   const result: model.NumericLogic1toMany = {
-    $children: mapElements(getChildElements(el), numericLogic1toManyDomToModel.childrenMapping),
+    $children: mapElements(
+      getChildElements(el),
+      numericLogic1toManyDomToModel.childrenMapping,
+      numericLogic1toManyDomToModel.groupMapping
+    ),
   };
   return result;
 }
 numericLogic1toManyDomToModel.childrenMapping = {
   logic: numericExpressionGroupDomToModel,
+};
+numericLogic1toManyDomToModel.groupMapping = {
+  ...toGroupMapping(getNumericExpressionGroupElementMapping(), 'logic'),
 };
 
 // 5.86
@@ -271,7 +296,7 @@ function getExpressionGroupElementMapping() {
     // TODO: durationGTE
     // TODO: subtract
     // TODO: divide
-    // TODO: multiple
+    multiple: logic0toManyDomToModel,
     // TODO: ordered
     // TODO: customOperator
     // TODO: random
@@ -339,7 +364,7 @@ function getNumericExpressionGroupElementMapping() {
     sum: numericLogic1toManyDomToModel,
     subtract: logicPairDomToModel,
     divide: logicPairDomToModel,
-    // TODO: multiple
+    multiple: logic0toManyDomToModel,
     // TODO: ordered
     // TODO: customOperator
     // TODO: random
@@ -362,14 +387,14 @@ function getNumericExpressionGroupElementMapping() {
     // TODO: truncate
     // TODO: fieldValue
     // TODO: randomInteger
-    // TODO: variable
+    variable: variableDomToModel,
     // TODO: outcomeMinimum
     // TODO: outcomeMaximum
     // TODO: testVariables
     // TODO: integerToFloat
-    // TODO: baseValue
+    baseValue: baseValueDomToModel,
     // TODO: mapResponsePoint
-    // TODO: mapResponse
+    mapResponse: mapResponseDomToModel,
     // TODO: repeat
     // TODO: roundTo
     // TODO: lcm
