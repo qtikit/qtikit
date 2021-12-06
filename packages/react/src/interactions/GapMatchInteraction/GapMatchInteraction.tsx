@@ -3,6 +3,7 @@ import {GapMatchInteractionCharacteristics as GapMatchInteractionProps} from '@q
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import {DragDropContextProvider} from '../../components/DragDrop';
+import {classNameForInteraction} from '../../utils/style';
 
 const SEPARATOR = ' ';
 
@@ -14,9 +15,11 @@ const GapMatchInteraction: React.FC<GapMatchInteractionProps | any> = ({response
   });
 
   return (
-    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-      <DragDropContextProvider>{props.children}</DragDropContextProvider>
-    </InteractionStateContext.Provider>
+    <div className={classNameForInteraction('gap-match')}>
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        <DragDropContextProvider>{props.children}</DragDropContextProvider>
+      </InteractionStateContext.Provider>
+    </div>
   );
 };
 

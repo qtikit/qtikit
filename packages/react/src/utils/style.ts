@@ -35,3 +35,16 @@ export function createShapeStyle(coordsPattern: Coords['pattern']) {
     default: {},
   };
 }
+
+// Following BEM naming `block-name__element-name-modifier?`
+export function className(block: string, element: string, modifier?: string) {
+  return `qtikit-${block}__${element}${modifier ? `-${modifier}` : ''}`;
+}
+
+export function classNameForInteraction(element: string) {
+  return `qtikit-interaction ${className('interaction', element)}`;
+}
+
+export function classNameForComponent(element: string, modifier?: string) {
+  return `qtikit-component ${className('component', element, modifier)}`;
+}

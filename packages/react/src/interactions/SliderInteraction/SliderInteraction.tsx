@@ -1,42 +1,26 @@
 import React from 'react';
 import {SliderInteractionCharacteristics as SliderInteractionProps} from '@qtikit/model/lib/qti2_2';
 
-import {useInteractionState} from '../InteractionState';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import Slider from '../../components/Slider';
+import {classNameForInteraction} from '../../utils/style';
 
 const IDENTIFIER = 'slider';
 
-const SliderInteraction: React.FC<SliderInteractionProps | any> = ({
-  responseIdentifier,
-  lowerBound,
-  upperBound,
-  step,
-  stepLabel,
-  children,
-}) => {
+const SliderInteraction: React.FC<SliderInteractionProps | any> = ({responseIdentifier, children, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => ({[IDENTIFIER]: userInput[0] ?? ''}),
     decode: interactionState => [interactionState[IDENTIFIER] as string],
   });
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({target: {value}}) => {
-    setInteractionState({[IDENTIFIER]: value});
-  };
-
   return (
-    <>
+    <div className={classNameForInteraction('slider')}>
       {children}
-      <input
-        type="range"
-        id={responseIdentifier}
-        min={lowerBound}
-        max={upperBound}
-        step={step}
-        onChange={handleChange}
-        value={interactionState[IDENTIFIER] as string}
-      />
-      {JSON.parse(stepLabel) && <label>{interactionState[IDENTIFIER]}</label>}
-    </>
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        <Slider identifier={IDENTIFIER} {...props} />
+      </InteractionStateContext.Provider>
+    </div>
   );
 };
 

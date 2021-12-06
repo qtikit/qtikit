@@ -1,15 +1,15 @@
 import React from 'react';
 import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
-import {useInteractionState} from '../InteractionState';
+import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import InlineChoice from '../../components/InlineChoice';
+import {classNameForInteraction} from '../../utils/style';
 
 const IDENTIFIER = 'select';
 
 const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   responseIdentifier,
-  shuffle,
-  required,
-  ...props
+  elementChildren,
 }) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
@@ -17,15 +17,12 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
     decode: interactionState => [interactionState[IDENTIFIER] as string],
   });
 
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = ({target: {value}}) => {
-    setInteractionState({[IDENTIFIER]: value});
-  };
-
   return (
-    <select value={interactionState[IDENTIFIER] as string} onChange={handleChange}>
-      <option value="">Choose...</option>
-      {props.children}
-    </select>
+    <span className={classNameForInteraction('inline-choice')}>
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        <InlineChoice identifier={IDENTIFIER} elementChildren={elementChildren} />
+      </InteractionStateContext.Provider>
+    </span>
   );
 };
 

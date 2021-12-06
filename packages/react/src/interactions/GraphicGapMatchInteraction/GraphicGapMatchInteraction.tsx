@@ -1,16 +1,12 @@
 import React from 'react';
 import {GraphicGapMatchInteractionCharacteristics as GraphicGapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
-import {createStyle} from '../../utils/style';
+import {classNameForComponent, classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import {DragDropContextProvider} from '../../components/DragDrop';
 
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'AssociableHotspot'];
 const SEPARATOR = ' ';
-
-const graphicGapMatchInteractionAreaStyle = createStyle({
-  position: 'relative',
-});
 
 const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any> = ({
   responseIdentifier,
@@ -33,12 +29,14 @@ const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any
   );
 
   return (
-    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-      <DragDropContextProvider>
-        {restComponents}
-        <div style={graphicGapMatchInteractionAreaStyle}>{interactionComponents}</div>
-      </DragDropContextProvider>
-    </InteractionStateContext.Provider>
+    <div className={classNameForInteraction('graphic-gap-match')}>
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        <DragDropContextProvider>
+          {restComponents}
+          <div className={classNameForComponent('graphic-gap-match')}>{interactionComponents}</div>
+        </DragDropContextProvider>
+      </InteractionStateContext.Provider>
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
+import {classNameForComponent} from '../utils/style';
 
 interface CheckboxProps {
   indentifier: string;
@@ -16,7 +17,11 @@ const Checkbox: React.FC<CheckboxProps> = ({indentifier}) => {
     });
   };
 
-  return <input type="checkbox" checked={interactionState[indentifier] === true} onChange={handleChange} />;
+  return (
+    <span className={classNameForComponent('checkbox')}>
+      <input type="checkbox" checked={interactionState[indentifier] === true} onChange={handleChange} />
+    </span>
+  );
 };
 
 export default Checkbox;

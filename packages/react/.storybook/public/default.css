@@ -1,0 +1,209 @@
+/* QtiKit Interactions */
+
+.qtikit-interaction {}
+
+.qtikit-interaction__choice {}
+
+.qtikit-interaction__extended-text {}
+
+.qtikit-interaction__gap-match {}
+
+qtikit-interaction__graphic-gap-match {}
+
+.qtikit-interaction__hotspot {}
+
+.qtikit-interaction__hotspot__components {
+  position: relative;
+}
+
+.qtikit-interaction__hottext {}
+
+.qtikit-interaction__inline-choice {
+  display: inline;
+}
+
+.qtikit-interaction__match {}
+
+.qtikit-interaction__media {}
+
+.qtikit-interaction__order {
+  display: flex;
+  flex-direction: column;
+}
+
+.qtikit-interaction__textentry {
+  display: inline-block;
+}
+
+.qtikit-interaction__slider {}
+
+/* QtiKit Components */
+
+.qtikit-component__simple-choice {}
+
+.qtikit-component__order-simple-choice {}
+
+.qtikit-component__gap {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 15px;
+  margin-right: 0.2em;
+  vertical-align: middle;
+  background-color: #ddd;
+}
+
+.qtikit-component__graphic-gap-match {
+  position: relative;
+}
+
+.qtikit-component__gap-img {}
+
+.qtikit-component__gap-text {
+  padding: 3px 6px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.qtikit-component__hotspot {
+  display: inline;
+}
+
+.qtikit-component__hotspot-choice {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+}
+
+.qtikit-component__hotspot-choice label .checked {
+  background-color: rgba(255, 0, 0, .3);
+}
+
+.qtikit-component__hotspot-choice input {
+  display: none;
+}
+
+.qtikit-component__extended-text {
+  display: flex;
+}
+
+.qtikit-component__extended-text textarea {
+  width: 90%;
+  margin-top: 1em;
+  height: 14em;
+}
+
+.qtikit-component__select {}
+
+.qtikit-component__select select {}
+
+.qtikit-component__select option {}
+
+.qtikit-component__checkbox {
+  display: inline;
+}
+
+.qtikit-component__checkbox input {}
+
+.qtikit-component__slider {}
+
+.qtikit-component__slider > input[type="range"] {}
+
+.qtikit-component__slider > label {}
+
+.qtikit-component__textentry {
+  display: inline;
+}
+
+.qtikit-component__textentry > input[type="text"] {
+  font-size: 1em;
+  border: solid 1px;
+  width: 6ex;
+}
+
+.qtikit-component__hottext {
+  font-weight: bold;
+  font-style: italic;
+  display: inline-flex;
+  align-items: center;
+}
+
+.qtikit-component__hottext input[type="radio"] {
+  margin: 0;
+  margin-right: 0.2em;
+}
+
+.qtikit-component__image {
+  display: inline
+}
+
+.qtikit-component__mathjax {
+  display: inline
+}
+
+.qtikit-component__object {
+  display: inline
+}
+
+.qtikit-component__prompt {}
+
+.qtikit-component__prompt > h4 {}
+
+.qtikit-component__rubric-block {
+  position: relative;
+  display: inline-block;
+  margin: 2em auto;
+  padding: 1em 1em 2em 1em;
+  border: solid 1px #EEE;
+  background-color: initial;
+}
+
+.qtikit-component__rubric-block-candidate {
+  background-color: ivory;
+}
+
+.qtikit-component__rubric-block-scorer {
+  background-color: #fcedf3;
+}
+
+.qtikit-component__rubric-block > span {
+  color: #999;
+  font-style: italic;
+  position: absolute;
+  top: -1.2em;
+}
+
+.qtikit-component__gap-img {
+  padding: 3px 6px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.qtikit-component__associable-hotspot {
+  display: inline-flex;
+  border: 1px solid rgba(0,0,0,0);
+  box-sizing: border-box;
+  position: absolute;
+  cursor: pointer;
+}
+
+.qtikit-component__dropable {
+  display: inline-flex;
+}
+
+.qtikit-component__droggable {
+  cursor: move;
+  display: inline-flex;
+}
+
+.qtikit-component__match-table > table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid black;
+}
+
+.qtikit-component__match-table td,th,tr {
+  border: 1px solid #444444;
+}
