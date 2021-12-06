@@ -1,7 +1,7 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, ExtendedTextInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../../types/props';
+import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import {getPlaceHolder} from '../../utils/interaction';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
@@ -9,7 +9,7 @@ import ExtendedText from '../../components/ExtendedText';
 
 const IDENTIFIER = 'textarea';
 
-type ExtendedTextInteractionProps = CharsToProps<
+type ExtendedTextInteractionProps = QtiModelProps<
   BasePromptInteractionCharacteristics,
   ExtendedTextInteractionCharacteristics
 >;

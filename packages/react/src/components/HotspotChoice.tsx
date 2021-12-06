@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Shape, Coords, BaseSequenceXBaseCharacteristics, HotspotChoiceCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {FlatValue, CharsToProps} from '../types/props';
+import {FlatValue, QtiModelProps} from '../types/props';
 import {createStyle, createShapeStyle, classNameForComponent} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 
@@ -9,7 +9,7 @@ const hotspotChoiceLabelStyle = createStyle(({shape, coords}: {shape: Shape; coo
   ...createShapeStyle(coords)[shape],
 }));
 
-type HotspotChoiceProps = CharsToProps<BaseSequenceXBaseCharacteristics, HotspotChoiceCharacteristics>;
+type HotspotChoiceProps = QtiModelProps<BaseSequenceXBaseCharacteristics, HotspotChoiceCharacteristics>;
 
 const HotspotChoice: React.FC<HotspotChoiceProps> = ({identifier, shape, coords, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

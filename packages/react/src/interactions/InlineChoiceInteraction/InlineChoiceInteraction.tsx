@@ -1,14 +1,14 @@
 import React from 'react';
 import {BaseSequenceFullCharacteristics, InlineChoiceInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../../types/props';
+import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import InlineChoice from '../../components/InlineChoice';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'select';
 
-type InlineChoiceInteractionProps = CharsToProps<
+type InlineChoiceInteractionProps = QtiModelProps<
   BaseSequenceFullCharacteristics,
   InlineChoiceInteractionCharacteristics
 >;
