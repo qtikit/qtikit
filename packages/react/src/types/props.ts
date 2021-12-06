@@ -5,7 +5,7 @@ type FlatValue<Characteristic> = Characteristic extends {$value: infer Value}
   : Characteristic;
 type FlatValues<Characteristics> = {[Key in keyof Characteristics]: FlatValue<Characteristics[Key]>};
 
-type CharsToProps<BaseInteractionCharacteristics, InteractionCharacteristics> =
-  FlatValues<BaseInteractionCharacteristics> & FlatValues<InteractionCharacteristics>;
+type QtiModelProps<BaseCharacteristics, Characteristics> = FlatValues<BaseCharacteristics> &
+  FlatValues<Characteristics>;
 
-export {FlatValue, FlatValues, CharsToProps};
+export {FlatValue, FlatValues, QtiModelProps};

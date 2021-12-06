@@ -1,12 +1,12 @@
 import React from 'react';
 import {BaseSequenceCharacteristics, GapImgCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../types/props';
+import {QtiModelProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Draggable} from './DragDrop';
 import {classNameForComponent} from '../utils/style';
 
-type GapImgProps = CharsToProps<BaseSequenceCharacteristics, GapImgCharacteristics>;
+type GapImgProps = QtiModelProps<BaseSequenceCharacteristics, GapImgCharacteristics>;
 
 const GapImg: React.FC<GapImgProps> = ({identifier, children}) => {
   const {interactionState} = useInteractionStateContext();

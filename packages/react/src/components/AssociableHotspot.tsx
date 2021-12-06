@@ -6,7 +6,7 @@ import {
   AssociableHotspotCharacteristics,
 } from '@qtikit/model/lib/qti2_2';
 
-import {FlatValue, CharsToProps} from '../types/props';
+import {FlatValue, QtiModelProps} from '../types/props';
 import {createStyle, createShapeStyle, classNameForComponent} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
@@ -15,7 +15,7 @@ const associableHotspotLabelStyle = createStyle(({shape, coords}: {shape: Shape;
   ...createShapeStyle(coords)[shape],
 }));
 
-type AssociableHotspotProps = CharsToProps<BaseSequenceXBaseCharacteristics, AssociableHotspotCharacteristics>;
+type AssociableHotspotProps = QtiModelProps<BaseSequenceXBaseCharacteristics, AssociableHotspotCharacteristics>;
 
 const AssociableHotspot: React.FC<AssociableHotspotProps> = ({identifier, shape, coords, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
