@@ -4,7 +4,7 @@ import MatchSet from '../interactions/MatchInteraction/MatchSet';
 import {classNameForComponent} from '../utils/style';
 import CheckBox from './Checkbox';
 
-interface MatchTableProps {
+export interface MatchTableProps {
   set: MatchSet;
 }
 
@@ -23,7 +23,7 @@ const MatchTable: React.FC<MatchTableProps> = ({set}) => (
             <th>{textContent}</th>
             {set.cols().map(({identifier: col}, colIndex) => (
               <td key={`${rowIndex}-${colIndex}`}>
-                <CheckBox indentifier={`${row} ${col}`} />
+                <CheckBox identifier={`${row} ${col}`} />
               </td>
             ))}
           </tr>

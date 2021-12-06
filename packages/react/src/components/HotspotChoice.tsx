@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Shape, Coords, BaseSequenceXBaseCharacteristics, HotspotChoiceCharacteristics} from '@qtikit/model/lib/qti2_2';
 
 import {Attribute, QtiModelProps} from '../types/props';
