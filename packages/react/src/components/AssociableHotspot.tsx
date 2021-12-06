@@ -15,7 +15,7 @@ const associableHotspotLabelStyle = createStyle(({shape, coords}: {shape: Shape;
   ...createShapeStyle(coords)[shape],
 }));
 
-type AssociableHotspotProps = QtiModelProps<BaseSequenceXBaseCharacteristics, AssociableHotspotCharacteristics>;
+export type AssociableHotspotProps = QtiModelProps<BaseSequenceXBaseCharacteristics, AssociableHotspotCharacteristics>;
 
 const AssociableHotspot: React.FC<AssociableHotspotProps> = ({identifier, shape, coords, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

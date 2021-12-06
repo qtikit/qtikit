@@ -4,7 +4,7 @@ import {BaseSequenceXBaseCharacteristics, RubricBlockCharacteristics} from '@qti
 import {QtiModelProps} from '../types/props';
 import {classNameForComponent} from '../utils/style';
 
-type RubricBlockProps = QtiModelProps<BaseSequenceXBaseCharacteristics, RubricBlockCharacteristics>;
+export type RubricBlockProps = QtiModelProps<BaseSequenceXBaseCharacteristics, RubricBlockCharacteristics>;
 
 const RubricBlock: React.FC<RubricBlockProps> = ({view, children}) => (
   <span

@@ -4,7 +4,7 @@ import {BaseSequenceCharacteristics, PromptCharacteristics} from '@qtikit/model/
 import {QtiModelProps} from '../types/props';
 import {classNameForComponent} from '../utils/style';
 
-type PromptProps = QtiModelProps<BaseSequenceCharacteristics, PromptCharacteristics>;
+export type PromptProps = QtiModelProps<BaseSequenceCharacteristics, PromptCharacteristics>;
 
 const Prompt: React.FC<PromptProps> = ({children}) => {
   return (

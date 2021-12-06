@@ -9,7 +9,7 @@ const hotspotChoiceLabelStyle = createStyle(({shape, coords}: {shape: Shape; coo
   ...createShapeStyle(coords)[shape],
 }));
 
-type HotspotChoiceProps = QtiModelProps<BaseSequenceXBaseCharacteristics, HotspotChoiceCharacteristics>;
+export type HotspotChoiceProps = QtiModelProps<BaseSequenceXBaseCharacteristics, HotspotChoiceCharacteristics>;
 
 const HotspotChoice: React.FC<HotspotChoiceProps> = ({identifier, shape, coords, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

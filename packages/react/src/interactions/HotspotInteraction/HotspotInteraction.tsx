@@ -7,7 +7,10 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'HotspotChoice'];
 
-type HotspotInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, HotspotInteractionCharacteristics>;
+export type HotspotInteractionProps = QtiModelProps<
+  BasePromptInteractionCharacteristics,
+  HotspotInteractionCharacteristics
+>;
 
 const HotspotInteraction: React.FC<HotspotInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({

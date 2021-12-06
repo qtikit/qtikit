@@ -5,7 +5,7 @@ import {QtiModelProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
-type HottextProps = QtiModelProps<BaseSequenceXBaseCharacteristics, HotTextCharacteristics>;
+export type HottextProps = QtiModelProps<BaseSequenceXBaseCharacteristics, HotTextCharacteristics>;
 
 const Hottext: React.FC<HottextProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

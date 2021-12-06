@@ -4,7 +4,10 @@ import {BasePromptInteractionCharacteristics, MediaInteractionCharacteristics} f
 import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 
-type MediaInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, MediaInteractionCharacteristics>;
+export type MediaInteractionProps = QtiModelProps<
+  BasePromptInteractionCharacteristics,
+  MediaInteractionCharacteristics
+>;
 
 const MediaInteraction: React.FC<MediaInteractionProps> = ({children}) => {
   return <div className={classNameForInteraction('media')}>{children}</div>;

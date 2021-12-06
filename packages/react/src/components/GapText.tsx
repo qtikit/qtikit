@@ -6,7 +6,7 @@ import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Draggable} from './DragDrop';
 import {classNameForComponent} from '../utils/style';
 
-type GapTextProps = QtiModelProps<BaseSequenceCharacteristics, GapTextCharacteristics>;
+export type GapTextProps = QtiModelProps<BaseSequenceCharacteristics, GapTextCharacteristics>;
 
 const GapText: React.FC<GapTextProps> = ({identifier, children}) => {
   const {interactionState} = useInteractionStateContext();

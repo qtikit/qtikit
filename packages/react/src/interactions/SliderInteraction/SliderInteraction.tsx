@@ -8,7 +8,10 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 
 const IDENTIFIER = 'slider';
 
-type SliderInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, SliderInteractionCharacteristics>;
+export type SliderInteractionProps = QtiModelProps<
+  BasePromptInteractionCharacteristics,
+  SliderInteractionCharacteristics
+>;
 
 const SliderInteraction: React.FC<SliderInteractionProps> = ({responseIdentifier, children, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({

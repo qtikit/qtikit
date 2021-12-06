@@ -6,7 +6,10 @@ import {QtiModelProps} from '../../types/props';
 import {DragDropContextProvider} from '../../components/DragDrop';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
-type OrderInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, OrderInteractionCharacteristics>;
+export type OrderInteractionProps = QtiModelProps<
+  BasePromptInteractionCharacteristics,
+  OrderInteractionCharacteristics
+>;
 
 const OrderInteraction: React.FC<OrderInteractionProps> = ({responseIdentifier, children}) => {
   const componentChildren = React.Children.toArray(children).filter(
