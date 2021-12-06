@@ -58,14 +58,15 @@ function evalResponseCondition(node: model.ResponseCondition, env: Env): void {
         const body = ifNode.$children.slice(1).map(([, node]) => node) as model.ResponseRuleGroup[];
         if (evalExpressionGroup(condNode, env)[0] === 'true') {
           for (const childNode of body) evalResponseRuleGroup(childNode, env);
+          return;
         }
         break;
       }
       case 'responseElse': {
         const elseNode = child[1];
-        const body = elseNode.$children.slice(1).map(([, node]) => node);
+        const body = elseNode.$children.map(([, node]) => node);
         for (const childNode of body) evalResponseRuleGroup(childNode, env);
-        break;
+        return;
       }
     }
   }
