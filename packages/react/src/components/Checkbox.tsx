@@ -3,7 +3,7 @@ import React from 'react';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
-type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
   indentifier: string;
 };
 

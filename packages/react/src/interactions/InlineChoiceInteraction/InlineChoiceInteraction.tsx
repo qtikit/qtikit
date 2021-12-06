@@ -8,7 +8,7 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 
 const IDENTIFIER = 'select';
 
-type InlineChoiceInteractionProps = QtiModelProps<
+export type InlineChoiceInteractionProps = QtiModelProps<
   BaseSequenceFullCharacteristics,
   InlineChoiceInteractionCharacteristics
 >;

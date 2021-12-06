@@ -2,13 +2,13 @@ import React from 'react';
 import {BasePromptInteractionCharacteristics, MatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
 import {QtiModelProps} from '../../types/props';
-import Prompt from '../../components/Prompt';
+import Prompt, {PromptProps} from '../../components/Prompt';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import MatchSet from './MatchSet';
 import MatchTable from '../../components/MatchTable';
 import {classNameForInteraction} from '../../utils/style';
 
-type MatchInteractionProps = QtiModelProps<
+export type MatchInteractionProps = QtiModelProps<
   BasePromptInteractionCharacteristics,
   MatchInteractionCharacteristics & {elementChildren: Element}
 >;
@@ -36,9 +36,12 @@ const MatchInteraction: React.FC<MatchInteractionProps> = ({responseIdentifier, 
     },
   });
 
+  const promptElement = elementChildren.querySelector('prompt');
+  const promptProps: PromptProps = Object.values(promptElement?.attributes ?? {}).map(attribute => attribute.value);
+
   return (
     <div className={classNameForInteraction('match')}>
-      <Prompt>{elementChildren.querySelector('prompt')?.textContent}</Prompt>
+      <Prompt {...promptProps}>{promptElement?.textContent}</Prompt>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <MatchTable set={matchSet} />
       </InteractionStateContext.Provider>

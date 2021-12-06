@@ -4,7 +4,7 @@ import {QtiViewerContext} from '../QtiViewer';
 import {classNameForComponent} from '../utils/style';
 import {resolveUrl} from '../utils/url';
 
-type ObjectHtmlProps = React.ObjectHTMLAttributes<HTMLObjectElement>;
+export type ObjectHtmlProps = React.ObjectHTMLAttributes<HTMLObjectElement>;
 
 const ObjectHtml: React.FC<ObjectHtmlProps> = ({data, ...props}) => {
   const {baseUrl} = useContext(QtiViewerContext);

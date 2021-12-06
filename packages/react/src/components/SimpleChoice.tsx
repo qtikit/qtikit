@@ -6,7 +6,7 @@ import {classNameForComponent, createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Draggable, Droppable, useDragDropContext} from './DragDrop';
 
-type SimpleChoiceProps = QtiModelProps<BaseSequenceCharacteristics, SimpleChoiceCharacteristics>;
+export type SimpleChoiceProps = QtiModelProps<BaseSequenceCharacteristics, SimpleChoiceCharacteristics>;
 
 const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

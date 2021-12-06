@@ -9,7 +9,10 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 
 const IDENTIFIER = 'text';
 
-type TextEntryInteractionProps = QtiModelProps<BaseSequenceXBaseCharacteristics, TextEntryInteractionCharacteristics>;
+export type TextEntryInteractionProps = QtiModelProps<
+  BaseSequenceXBaseCharacteristics,
+  TextEntryInteractionCharacteristics
+>;
 
 const TextEntryInteraction: React.FC<TextEntryInteractionProps> = ({
   responseIdentifier,
