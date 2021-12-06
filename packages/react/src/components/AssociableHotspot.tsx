@@ -6,12 +6,12 @@ import {
   AssociableHotspotCharacteristics,
 } from '@qtikit/model/lib/qti2_2';
 
-import {FlatValue, QtiModelProps} from '../types/props';
+import {Attribute, QtiModelProps} from '../types/props';
 import {createStyle, createShapeStyle, classNameForComponent} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
 
-const associableHotspotLabelStyle = createStyle(({shape, coords}: {shape: Shape; coords: FlatValue<Coords>}) => ({
+const associableHotspotLabelStyle = createStyle(({shape, coords}: {shape: Shape; coords: Attribute<Coords>}) => ({
   ...createShapeStyle(coords)[shape],
 }));
 
