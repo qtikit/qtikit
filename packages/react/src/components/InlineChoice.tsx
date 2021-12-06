@@ -9,7 +9,10 @@ function flattenChildren(children: React.ReactNode): string {
   return React.Children.map(children, child => child)?.join('') || '';
 }
 
-export type InlineChoiceProps = QtiModelProps<BaseSequenceCharacteristics, InlineChoiceCharacteristics>;
+export type InlineChoiceProps = QtiModelProps<
+  Omit<BaseSequenceCharacteristics, 'responseIdentifier'>,
+  InlineChoiceCharacteristics & {elementChildren: Element}
+>;
 
 const InlineChoice: React.FC<InlineChoiceProps> = ({identifier, elementChildren}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

@@ -3,11 +3,11 @@ import * as React from 'react';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
-interface SelectProps {
-  indentifier: string;
+export interface SelectProps {
+  identifier: string;
 }
 
-const Select: React.FC<SelectProps | any> = ({identifier, children}) => {
+const Select: React.FC<SelectProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const handleChange: React.ChangeEventHandler<HTMLSelectElement> = ({target: {value}}) => {

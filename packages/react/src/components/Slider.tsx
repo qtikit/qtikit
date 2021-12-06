@@ -1,10 +1,18 @@
 import * as React from 'react';
-import {SliderInteractionCharacteristics as SliderProps} from '@qtikit/model/lib/qti2_2';
+import {BasePromptInteractionCharacteristics, SliderInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
+import {QtiModelProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
-const Slider: React.FC<SliderProps | any> = ({identifier, lowerBound, upperBound, step, stepLabel}) => {
+export type SliderProps = QtiModelProps<
+  Omit<BasePromptInteractionCharacteristics, 'responseIdentifier'>,
+  SliderInteractionCharacteristics
+> & {
+  identifier: string;
+};
+
+const Slider: React.FC<SliderProps> = ({identifier, lowerBound, upperBound, step, stepLabel}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({target: {value}}) => {
@@ -22,7 +30,7 @@ const Slider: React.FC<SliderProps | any> = ({identifier, lowerBound, upperBound
         onChange={handleChange}
         value={interactionState[identifier] as string}
       />
-      {JSON.parse(stepLabel) && <label>{interactionState[identifier]}</label>}
+      {stepLabel && JSON.parse(stepLabel) && <label>{interactionState[identifier]}</label>}
     </span>
   );
 };

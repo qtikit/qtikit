@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {BasePromptInteractionCharacteristics, HotTextInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
 import {QtiModelProps} from '../../types/props';

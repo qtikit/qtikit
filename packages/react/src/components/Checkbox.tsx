@@ -4,22 +4,22 @@ import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
 export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  indentifier: string;
+  identifier: string;
 };
 
-const Checkbox: React.FC<CheckboxProps> = ({indentifier, ...props}) => {
+const Checkbox: React.FC<CheckboxProps> = ({identifier, ...props}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const handleChange = () => {
     setInteractionState({
       ...interactionState,
-      [indentifier]: !(interactionState[indentifier] === true),
+      [identifier]: !(interactionState[identifier] === true),
     });
   };
 
   return (
     <span className={classNameForComponent('checkbox')}>
-      <input {...props} type="checkbox" checked={interactionState[indentifier] === true} onChange={handleChange} />
+      <input {...props} type="checkbox" checked={interactionState[identifier] === true} onChange={handleChange} />
     </span>
   );
 };

@@ -3,12 +3,12 @@ import * as React from 'react';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
-interface TextEntryProps {
-  indentifier: string;
+export interface TextEntryProps {
+  identifier: string;
   placeholder?: string;
 }
 
-const TextEntry: React.FC<TextEntryProps | any> = ({identifier, placeholder}) => {
+const TextEntry: React.FC<TextEntryProps> = ({identifier, placeholder}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({target: {value}}) => {
