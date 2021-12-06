@@ -1,20 +1,9 @@
 import React from 'react';
 import {GapCharacteristics as GapProps} from '@qtikit/model/lib/qti2_2';
 
-import {createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Droppable} from './DragDrop';
-
-const gapStyle = createStyle({
-  display: 'inline-flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '80px',
-  height: '15px',
-  marginRight: '0.2em',
-  verticalAlign: 'middle',
-  backgroundColor: '#ddd',
-});
+import {classNameForComponent} from '../utils/style';
 
 const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
@@ -31,7 +20,7 @@ const Gap: React.FC<GapProps | any> = ({identifier, children}) => {
   };
 
   return (
-    <Droppable style={gapStyle} onDrop={handleDrop}>
+    <Droppable className={classNameForComponent('gap')} onDrop={handleDrop}>
       {dropped}
       {children}
     </Droppable>

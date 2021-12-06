@@ -12,15 +12,13 @@ interface AssessmentItem {
 
 const ItemBody: React.FC<{itemBody: Element}> = React.memo(({itemBody}) => <>{Qti.renderItemBody(itemBody)}</>);
 
-const ROOT_ID = 'qti-viewer';
-
 const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
   return (
     <>
       {styles.map((style, index) => (
         <style key={index}>{style}</style>
       ))}
-      <div id={ROOT_ID}>
+      <div data-qtikit>
         <ItemBody itemBody={itemBody} />
       </div>
     </>
@@ -29,6 +27,7 @@ const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
 
 export interface QtiViewerProps {
   assessmentItemSrc: string;
+  stylesheetSrc?: string;
   inputState: UserInput;
   onChange: (newState: UserInput) => void;
 }
@@ -44,11 +43,18 @@ async function fetchStylesheet(href: string): Promise<string> {
 }
 
 function setStyleRoot(style: string): string {
-  return style.replace(/(.*?){/g, `#${ROOT_ID} $1 {`);
+  return style.replace(/(.*?){/g, `[data-qtikit] $1 {`);
 }
 
-async function fetchAssessmentItem(url: string): Promise<AssessmentItem> {
-  const xml = await fetch(url).then(response => response.text());
+function createLinkElement(href: string): HTMLStyleElement {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  return link;
+}
+
+async function fetchAssessmentItem(assessmentSrc: string, stylesheetSrc?: string): Promise<AssessmentItem> {
+  const xml = await fetch(assessmentSrc).then(response => response.text());
   const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
   const [itemBody] = root.documentElement.getElementsByTagName('itemBody');
 
@@ -56,14 +62,18 @@ async function fetchAssessmentItem(url: string): Promise<AssessmentItem> {
     throw new Error('QTI itemBody is not found');
   }
 
-  const baseUrl = getBaseUrl(url);
-  const stylesheets = root.getElementsByTagName('stylesheet');
+  const stylesheets = [...root.getElementsByTagName('stylesheet')];
+  if (stylesheetSrc) {
+    stylesheets.push(createLinkElement(stylesheetSrc));
+  }
+
+  const baseUrl = getBaseUrl(assessmentSrc);
 
   return {
     itemBody: itemBody,
     styles: await Promise.all(
       Array.from(stylesheets).map(stylesheet =>
-        fetchStylesheet(`${baseUrl}/${stylesheet.getAttribute('href')}`).then(setStyleRoot)
+        fetchStylesheet(`${new URL(stylesheet.getAttribute('href') || '', baseUrl).href}`).then(setStyleRoot)
       )
     ),
   };
@@ -72,16 +82,17 @@ async function fetchAssessmentItem(url: string): Promise<AssessmentItem> {
 const defaultValue: QtiViewerContextValue = {
   baseUrl: '',
   assessmentItemSrc: '',
+  stylesheetSrc: '',
   inputState: {},
   onChange: () => {},
 };
 
-const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, ...props}) => {
+const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, stylesheetSrc, ...props}) => {
   const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
 
   useEffect(() => {
-    fetchAssessmentItem(assessmentItemSrc).then(setAssessmentItem);
-  }, [assessmentItemSrc]);
+    fetchAssessmentItem(assessmentItemSrc, stylesheetSrc).then(setAssessmentItem);
+  }, [assessmentItemSrc, stylesheetSrc]);
 
   return (
     <QtiViewerContext.Provider

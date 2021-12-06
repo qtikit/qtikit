@@ -26,7 +26,6 @@ export const interactionElementNames = [
   'orderInteraction',
   'sliderInteraction',
   'textEntryInteraction',
-  'inlineChoiceInteraction',
 ] as const;
 
 export type InteractionElementName = typeof interactionElementNames[number];
@@ -52,7 +51,6 @@ export function createInteractionComponent(
     mediaInteraction: MediaInteraction,
     orderInteraction: OrderInteraction,
     textEntryInteraction: TextEntryInteraction,
-    inlineChoiceInteraction: InlineChoiceInteraction,
     sliderInteraction: SliderInteraction,
   };
   const InteractionComponent = InteractionComponentMap[element.nodeName as InteractionElementName];
@@ -60,7 +58,7 @@ export function createInteractionComponent(
   return InteractionComponent ? React.createElement(InteractionComponent, props, children) : null;
 }
 
-export const flowGroupInteractionNames = ['matchInteraction'] as const;
+export const flowGroupInteractionNames = ['matchInteraction', 'inlineChoiceInteraction'] as const;
 
 export type FlowGroupInteractionName = typeof flowGroupInteractionNames[number];
 
@@ -81,6 +79,7 @@ export function createFlowGroupInteractionComponent(element: Element, defaultPro
 
   const componentMap: Record<FlowGroupInteractionName, React.FC> = {
     matchInteraction: MatchInteraction,
+    inlineChoiceInteraction: InlineChoiceInteraction,
   };
   const component = componentMap[element.nodeName as FlowGroupInteractionName];
 
