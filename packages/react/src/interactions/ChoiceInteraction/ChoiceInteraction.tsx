@@ -1,11 +1,11 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, ChoiceInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../../types/props';
+import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
-type ChoiceInteractionProps = CharsToProps<BasePromptInteractionCharacteristics, ChoiceInteractionCharacteristics>;
+type ChoiceInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, ChoiceInteractionCharacteristics>;
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({

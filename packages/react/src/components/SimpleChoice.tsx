@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {BaseSequenceCharacteristics, SimpleChoiceCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../types/props';
+import {QtiModelProps} from '../types/props';
 import {classNameForComponent, createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Draggable, Droppable, useDragDropContext} from './DragDrop';
 
-type SimpleChoiceProps = CharsToProps<BaseSequenceCharacteristics, SimpleChoiceCharacteristics>;
+type SimpleChoiceProps = QtiModelProps<BaseSequenceCharacteristics, SimpleChoiceCharacteristics>;
 
 const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

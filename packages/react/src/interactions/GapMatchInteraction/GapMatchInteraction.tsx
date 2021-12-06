@@ -1,14 +1,14 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, GapMatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../../types/props';
+import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import {DragDropContextProvider} from '../../components/DragDrop';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const SEPARATOR = ' ';
 
-type GapMatchInteractionProps = CharsToProps<BasePromptInteractionCharacteristics, GapMatchInteractionCharacteristics>;
+type GapMatchInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, GapMatchInteractionCharacteristics>;
 
 const GapMatchInteraction: React.FC<GapMatchInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({

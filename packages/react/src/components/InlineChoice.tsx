@@ -1,7 +1,7 @@
 import React from 'react';
 import {BaseSequenceCharacteristics, InlineChoiceCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../types/props';
+import {QtiModelProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
@@ -9,7 +9,7 @@ function flattenChildren(children: React.ReactNode): string {
   return React.Children.map(children, child => child)?.join('') || '';
 }
 
-type InlineChoiceProps = CharsToProps<BaseSequenceCharacteristics, InlineChoiceCharacteristics>;
+type InlineChoiceProps = QtiModelProps<BaseSequenceCharacteristics, InlineChoiceCharacteristics>;
 
 const InlineChoice: React.FC<InlineChoiceProps> = ({identifier, elementChildren}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();

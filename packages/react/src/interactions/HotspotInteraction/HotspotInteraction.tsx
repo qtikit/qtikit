@@ -1,13 +1,13 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, HotspotInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../../types/props';
+import {QtiModelProps} from '../../types/props';
 import {className, classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'HotspotChoice'];
 
-type HotspotInteractionProps = CharsToProps<BasePromptInteractionCharacteristics, HotspotInteractionCharacteristics>;
+type HotspotInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, HotspotInteractionCharacteristics>;
 
 const HotspotInteraction: React.FC<HotspotInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({

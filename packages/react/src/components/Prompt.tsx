@@ -1,10 +1,10 @@
 import React from 'react';
 import {BaseSequenceCharacteristics, PromptCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../types/props';
+import {QtiModelProps} from '../types/props';
 import {classNameForComponent} from '../utils/style';
 
-type PromptProps = CharsToProps<BaseSequenceCharacteristics, PromptCharacteristics>;
+type PromptProps = QtiModelProps<BaseSequenceCharacteristics, PromptCharacteristics>;
 
 const Prompt: React.FC<PromptProps> = ({children}) => {
   return (

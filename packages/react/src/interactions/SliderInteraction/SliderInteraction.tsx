@@ -1,14 +1,14 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, SliderInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../../types/props';
+import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import Slider from '../../components/Slider';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
 const IDENTIFIER = 'slider';
 
-type SliderInteractionProps = CharsToProps<BasePromptInteractionCharacteristics, SliderInteractionCharacteristics>;
+type SliderInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, SliderInteractionCharacteristics>;
 
 const SliderInteraction: React.FC<SliderInteractionProps> = ({responseIdentifier, children, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({

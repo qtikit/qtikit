@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {BaseSequenceXBaseCharacteristics, HotTextCharacteristics} from '@qtikit/model/lib/qti2_2';
 
-import {CharsToProps} from '../types/props';
+import {QtiModelProps} from '../types/props';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {classNameForComponent} from '../utils/style';
 
-type HottextProps = CharsToProps<BaseSequenceXBaseCharacteristics, HotTextCharacteristics>;
+type HottextProps = QtiModelProps<BaseSequenceXBaseCharacteristics, HotTextCharacteristics>;
 
 const Hottext: React.FC<HottextProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
