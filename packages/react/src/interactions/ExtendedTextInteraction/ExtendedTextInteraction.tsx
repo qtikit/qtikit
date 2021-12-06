@@ -9,7 +9,7 @@ import ExtendedText from '../../components/ExtendedText';
 
 const IDENTIFIER = 'textarea';
 
-type ExtendedTextInteractionProps = QtiModelProps<
+export type ExtendedTextInteractionProps = QtiModelProps<
   BasePromptInteractionCharacteristics,
   ExtendedTextInteractionCharacteristics
 >;

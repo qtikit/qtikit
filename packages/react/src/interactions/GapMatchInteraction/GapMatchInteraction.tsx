@@ -8,7 +8,10 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 
 const SEPARATOR = ' ';
 
-type GapMatchInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, GapMatchInteractionCharacteristics>;
+export type GapMatchInteractionProps = QtiModelProps<
+  BasePromptInteractionCharacteristics,
+  GapMatchInteractionCharacteristics
+>;
 
 const GapMatchInteraction: React.FC<GapMatchInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({

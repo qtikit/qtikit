@@ -5,7 +5,10 @@ import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 
-type ChoiceInteractionProps = QtiModelProps<BasePromptInteractionCharacteristics, ChoiceInteractionCharacteristics>;
+export type ChoiceInteractionProps = QtiModelProps<
+  BasePromptInteractionCharacteristics,
+  ChoiceInteractionCharacteristics
+>;
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({responseIdentifier, children}) => {
   const [interactionState, setInteractionState] = useInteractionState({

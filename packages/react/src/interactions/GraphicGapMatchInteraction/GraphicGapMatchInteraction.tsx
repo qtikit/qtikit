@@ -9,7 +9,7 @@ import InteractionStateContext, {useInteractionState} from '../InteractionState'
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'AssociableHotspot'];
 const SEPARATOR = ' ';
 
-type GraphicGapMatchInteractionProps = QtiModelProps<
+export type GraphicGapMatchInteractionProps = QtiModelProps<
   BaseSequenceFullCharacteristics,
   GraphicGapMatchInteractionCharacteristics
 >;
