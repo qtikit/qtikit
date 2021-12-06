@@ -2,6 +2,7 @@ import React from 'react';
 import {InlineChoiceCharacteristics as InlineChoiceProps} from '@qtikit/model/lib/qti2_2';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
+import {classNameForComponent} from '../utils/style';
 
 function flattenChildren(children: React.ReactNode): string {
   return React.Children.map(children, child => child)?.join('') || '';
@@ -14,10 +15,8 @@ const InlineChoice: React.FC<(InlineChoiceProps & Node[]) | any> = ({identifier,
     setInteractionState({[identifier]: value});
   };
 
-  console.log('children', elementChildren);
-
   return (
-    <span className={'qtikit-component__select'}>
+    <span className={classNameForComponent('select')}>
       <select value={interactionState[identifier] as string} onChange={handleChange}>
         <option value="">Choose...</option>
         {[...elementChildren.querySelectorAll('inlineChoice')].map((child: any, i) => (

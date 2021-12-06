@@ -1,7 +1,7 @@
 import React from 'react';
 import {GraphicGapMatchInteractionCharacteristics as GraphicGapMatchInteractionProps} from '@qtikit/model/lib/qti2_2';
 
-import {createStyle} from '../../utils/style';
+import {classNameForComponent, classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import {DragDropContextProvider} from '../../components/DragDrop';
 
@@ -29,11 +29,11 @@ const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any
   );
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__graphic-gap-match'}>
+    <div className={classNameForInteraction('graphic-gap-match')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <DragDropContextProvider>
           {restComponents}
-          <div className={'qtikit-component__graphic-gap-match'}>{interactionComponents}</div>
+          <div className={classNameForComponent('graphic-gap-match')}>{interactionComponents}</div>
         </DragDropContextProvider>
       </InteractionStateContext.Provider>
     </div>

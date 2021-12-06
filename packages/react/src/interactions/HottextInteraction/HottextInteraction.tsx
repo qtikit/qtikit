@@ -2,6 +2,7 @@ import * as React from 'react';
 import {HotTextInteractionCharacteristics as HottextInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import {classNameForInteraction} from '../../utils/style';
 
 const HottextInteraction: React.FC<HottextInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
@@ -11,7 +12,7 @@ const HottextInteraction: React.FC<HottextInteractionProps | any> = ({responseId
   });
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__hottext'}>
+    <div className={classNameForInteraction('hottext')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         {props.children}
       </InteractionStateContext.Provider>

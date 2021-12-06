@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
+import {classNameForComponent} from '../utils/style';
 
 interface ExtendedTextProps {
   indentifier: string;
@@ -19,7 +20,7 @@ const ExtendedText: React.FC<ExtendedTextProps | any> = ({identifier, placeholde
   };
 
   return (
-    <span className={'qtikit-component__extended-text'}>
+    <span className={classNameForComponent('extended-text')}>
       <textarea
         placeholder={placeholder}
         onChange={handleChange}

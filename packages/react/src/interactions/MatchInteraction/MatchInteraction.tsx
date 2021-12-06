@@ -5,6 +5,7 @@ import Prompt from '../../components/Prompt';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import MatchSet from './MatchSet';
 import MatchTable from '../../components/MatchTable';
+import {classNameForInteraction} from '../../utils/style';
 
 const MatchInteraction: React.FC<MatchInteractionProps | any> = ({
   responseIdentifier,
@@ -31,7 +32,7 @@ const MatchInteraction: React.FC<MatchInteractionProps | any> = ({
   });
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__match'}>
+    <div className={classNameForInteraction('match')}>
       <Prompt>{elementChildren.querySelector('prompt').textContent}</Prompt>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <MatchTable set={matchSet} />

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {classNameForComponent} from '../../utils/style';
 import {Current, useDragDropContext} from '.';
 
 export interface DroppableProps {
@@ -37,7 +38,7 @@ const Droppable: React.FC<DroppableProps> = ({style, className, onDragEnter, onD
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDrop={handleDrop}
-      className={`qtikit-component__dropable ${className}`}
+      className={`${classNameForComponent('dropable')} ${className}`}
       style={style}>
       {children}
     </span>

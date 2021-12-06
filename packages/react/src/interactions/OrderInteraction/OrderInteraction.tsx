@@ -3,6 +3,7 @@ import type {OrderInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import {DragDropContextProvider} from '../../components/DragDrop';
+import {classNameForInteraction} from '../../utils/style';
 
 interface OrderInteractionProps extends OrderInteractionCharacteristics {
   responseIdentifier: string;
@@ -23,7 +24,7 @@ const OrderInteraction: React.FC<OrderInteractionProps | any> = ({responseIdenti
   });
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__order'}>
+    <div className={classNameForInteraction('order')}>
       <InteractionStateContext.Provider
         value={{interactionElementName: 'orderInteraction', interactionState, setInteractionState}}>
         <DragDropContextProvider>{props.children}</DragDropContextProvider>

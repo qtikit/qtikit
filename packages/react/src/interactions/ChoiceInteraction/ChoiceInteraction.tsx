@@ -2,6 +2,7 @@ import React from 'react';
 import {ChoiceInteractionCharacteristics as ChoiceInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import {classNameForInteraction} from '../../utils/style';
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIdentifier, ...props}) => {
   const [interactionState, setInteractionState] = useInteractionState({
@@ -11,7 +12,7 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIden
   });
 
   return (
-    <div className="qtikit-interaction qtikit-interaction__choice">
+    <div className={classNameForInteraction('choice')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         {props.children}
       </InteractionStateContext.Provider>

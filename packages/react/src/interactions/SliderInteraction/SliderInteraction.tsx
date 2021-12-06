@@ -3,6 +3,7 @@ import {SliderInteractionCharacteristics as SliderInteractionProps} from '@qtiki
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import Slider from '../../components/Slider';
+import {classNameForInteraction} from '../../utils/style';
 
 const IDENTIFIER = 'slider';
 
@@ -14,7 +15,7 @@ const SliderInteraction: React.FC<SliderInteractionProps | any> = ({responseIden
   });
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__slider'}>
+    <div className={classNameForInteraction('slider')}>
       {children}
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <Slider identifier={IDENTIFIER} {...props} />

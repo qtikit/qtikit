@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {SimpleChoiceCharacteristics as SimpleChoiceProps} from '@qtikit/model/lib/qti2_2';
 
-import {createStyle} from '../utils/style';
+import {classNameForComponent, createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Draggable, Droppable, useDragDropContext} from './DragDrop';
 
@@ -15,7 +15,7 @@ const DefaultSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, chi
   };
 
   return (
-    <span className="qtikit-component__simple-choice">
+    <span className={classNameForComponent('simple-choice')}>
       <label>
         <input
           type="radio"
@@ -54,7 +54,7 @@ const OrderSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, child
         index: Number(interactionState[identifier] ?? 0),
         isDragging: current?.name === identifier,
       })}>
-      <Draggable className="qtikit-component__order-simple-choice" current={{value: identifier}}>
+      <Draggable className={classNameForComponent('order-simple-choice')} current={{value: identifier}}>
         <Droppable onDragEnter={handleDragEnter}>{children}</Droppable>
       </Draggable>
     </div>

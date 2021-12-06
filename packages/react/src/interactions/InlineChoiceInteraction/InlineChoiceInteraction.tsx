@@ -3,6 +3,7 @@ import {InlineChoiceInteractionCharacteristics as InlineChoiceInteractionProps} 
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import InlineChoice from '../../components/InlineChoice';
+import {classNameForInteraction} from '../../utils/style';
 
 const IDENTIFIER = 'select';
 
@@ -17,7 +18,7 @@ const InlineChoiceInteraction: React.FC<InlineChoiceInteractionProps | any> = ({
   });
 
   return (
-    <span className={'qtikit-interaction qtikit-interaction__inline-choice'}>
+    <span className={classNameForInteraction('inline-choice')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <InlineChoice identifier={IDENTIFIER} elementChildren={elementChildren} />
       </InteractionStateContext.Provider>

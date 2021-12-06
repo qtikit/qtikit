@@ -1,6 +1,8 @@
 import type {MathComponentProps} from 'mathjax-react/dist/components/MathComponent';
 import React, {useState, useEffect} from 'react';
 
+import {classNameForComponent} from '../utils/style';
+
 export interface MathjaxProps {
   mathHtml: string;
 }
@@ -16,7 +18,7 @@ const LazyMathComponent: React.FC<MathComponentProps> = props => {
 
 const Mathjax: React.FC<MathjaxProps> = ({mathHtml, ...props}) => {
   return (
-    <span className={'qtikit-component__mathjax'}>
+    <span className={classNameForComponent('mathjax')}>
       <LazyMathComponent {...props} mathml={mathHtml} display={false} />
     </span>
   );

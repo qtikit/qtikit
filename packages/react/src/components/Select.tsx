@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
+import {classNameForComponent} from '../utils/style';
 
 interface SelectProps {
   indentifier: string;
@@ -14,7 +15,7 @@ const Select: React.FC<SelectProps | any> = ({identifier, children}) => {
   };
 
   return (
-    <span className={'qtikit-component__select'}>
+    <span className={classNameForComponent('select')}>
       <select value={interactionState[identifier] as string} onChange={handleChange}>
         <option value="">Choose...</option>
         {children}

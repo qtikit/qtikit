@@ -2,6 +2,7 @@ import * as React from 'react';
 import {SliderInteractionCharacteristics as SliderProps} from '@qtikit/model/lib/qti2_2';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
+import {classNameForComponent} from '../utils/style';
 
 const Slider: React.FC<SliderProps | any> = ({identifier, lowerBound, upperBound, step, stepLabel}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
@@ -11,7 +12,7 @@ const Slider: React.FC<SliderProps | any> = ({identifier, lowerBound, upperBound
   };
 
   return (
-    <span className={'qtikit-component__slider'}>
+    <span className={classNameForComponent('slider')}>
       <input
         type="range"
         id={identifier}

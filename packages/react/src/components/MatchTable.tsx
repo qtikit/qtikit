@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import MatchSet from '../interactions/MatchInteraction/MatchSet';
+import {classNameForComponent} from '../utils/style';
 import CheckBox from './Checkbox';
 
 interface MatchTableProps {
@@ -8,7 +9,7 @@ interface MatchTableProps {
 }
 
 const MatchTable: React.FC<MatchTableProps> = ({set}) => (
-  <span className={'qtikit-component__match-table'}>
+  <span className={classNameForComponent('match-table')}>
     <table>
       <tbody>
         <tr>

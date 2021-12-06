@@ -3,6 +3,7 @@ import {GapTextCharacteristics as GapTextProps} from '@qtikit/model/lib/qti2_2';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Draggable} from './DragDrop';
+import {classNameForComponent} from '../utils/style';
 
 const GapImg: React.FC<GapTextProps | any> = ({identifier, children}) => {
   const {interactionState} = useInteractionStateContext();
@@ -12,7 +13,7 @@ const GapImg: React.FC<GapTextProps | any> = ({identifier, children}) => {
   }
 
   return (
-    <Draggable className={'qtikit-component__gap-img'} current={{value: identifier, node: children}}>
+    <Draggable className={classNameForComponent('gap-img')} current={{value: identifier, node: children}}>
       {children}
     </Draggable>
   );

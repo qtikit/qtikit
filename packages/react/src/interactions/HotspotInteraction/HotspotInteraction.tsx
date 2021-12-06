@@ -2,6 +2,7 @@ import React from 'react';
 import {HotspotInteractionCharacteristics as HotspotInteractionProps} from '@qtikit/model/lib/qti2_2';
 
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import {className, classNameForInteraction} from '../../utils/style';
 
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'HotspotChoice'];
 
@@ -23,10 +24,10 @@ const HotspotInteraction: React.FC<HotspotInteractionProps | any> = ({responseId
   );
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__hotspot'}>
+    <div className={classNameForInteraction('hotspot')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         {restComponents}
-        <div className={'qtikit-interaction__hotspot__components'}>{interactionComponents}</div>
+        <div className={className('interaction', 'hotspot__components')}>{interactionComponents}</div>
       </InteractionStateContext.Provider>
     </div>
   );

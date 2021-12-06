@@ -1,5 +1,6 @@
 import React from 'react';
 import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
+import {classNameForInteraction} from 'src/utils/style';
 
 import {getPlaceHolder} from '../../utils/interaction';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
@@ -15,7 +16,7 @@ const ExtendedTextInteraction: React.FC<ExtendedTextInteractionProps | any> = ({
   });
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__extended-text'}>
+    <div className={classNameForInteraction('extended-text')}>
       {props.children}
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <ExtendedText identifier={IDENTIFIER} placeholder={getPlaceHolder(props)} />

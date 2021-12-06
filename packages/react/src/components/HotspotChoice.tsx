@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {HotspotChoiceCharacteristics as HotspotChoiceProps, Shape, Coords} from '@qtikit/model/lib/qti2_2';
 
-import {createStyle, createShapeStyle} from '../utils/style';
+import {createStyle, createShapeStyle, classNameForComponent} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 
 const hotspotChoiceLabelStyle = createStyle(
@@ -22,7 +22,7 @@ const HotspotChoice: React.FC<HotspotChoiceProps | any> = ({identifier, shape, c
   };
 
   return (
-    <span className={'qtikit-component__hotspot-choice'}>
+    <span className={classNameForComponent('hotspot-choice')}>
       <label className={checked ? 'checked' : ''} style={hotspotChoiceLabelStyle({shape, coordsPattern})}>
         <input type="radio" checked={checked} value={identifier} onChange={handleChange} />
         {children}

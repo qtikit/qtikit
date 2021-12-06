@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {classNameForComponent} from '../../utils/style';
 import {Current, useDragDropContext} from '.';
 
 export interface DraggableProps {
@@ -23,7 +24,7 @@ const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, c
 
   return (
     <span
-      className={`qtikit-component__droggable ${className}`}
+      className={`${classNameForComponent('droggable')} ${className}`}
       draggable
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}

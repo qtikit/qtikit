@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {useInteractionStateContext} from '../interactions/InteractionState';
+import {classNameForComponent} from '../utils/style';
 
 interface TextEntryProps {
   indentifier: string;
@@ -15,7 +16,7 @@ const TextEntry: React.FC<TextEntryProps | any> = ({identifier, placeholder}) =>
   };
 
   return (
-    <span className={'qtikit-component__text-entry'}>
+    <span className={classNameForComponent('text-entry')}>
       <input
         type="text"
         placeholder={placeholder}

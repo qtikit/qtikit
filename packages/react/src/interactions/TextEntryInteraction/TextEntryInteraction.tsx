@@ -4,6 +4,7 @@ import {TextEntryInteractionCharacteristics as TextEntryInteractionProps} from '
 import TextEntry from '../../components/TextEntry';
 import {getPlaceHolder} from '../../utils/interaction';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import {classNameForInteraction} from '../../utils/style';
 
 const IDENTIFIER = 'text';
 
@@ -15,7 +16,7 @@ const TextEntryInteraction: React.FC<TextEntryInteractionProps | any> = ({respon
   });
 
   return (
-    <div className={'qtikit-interaction qtikit-interaction__textentry'}>
+    <div className={classNameForInteraction('textentry')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <TextEntry identifier={IDENTIFIER} placeholder={getPlaceHolder(props)} />
       </InteractionStateContext.Provider>
