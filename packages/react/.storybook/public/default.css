@@ -150,7 +150,7 @@ qtikit-interaction__graphic-gap-match {}
 
 .qtikit-component__prompt > h4 {}
 
-.qtikit-component__rublic-block {
+.qtikit-component__rubric-block {
   position: relative;
   display: inline-block;
   margin: 2em auto;
@@ -159,15 +159,15 @@ qtikit-interaction__graphic-gap-match {}
   background-color: initial;
 }
 
-.qtikit-component__rublic-block-candidate {
+.qtikit-component__rubric-block-candidate {
   background-color: ivory;
 }
 
-.qtikit-component__rublic-block-scorer {
+.qtikit-component__rubric-block-scorer {
   background-color: #fcedf3;
 }
 
-.qtikit-component__rublic-block > span {
+.qtikit-component__rubric-block > span {
   color: #999;
   font-style: italic;
   position: absolute;
