@@ -14,9 +14,11 @@ const GapMatchInteraction: React.FC<GapMatchInteractionProps | any> = ({response
   });
 
   return (
-    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-      <DragDropContextProvider>{props.children}</DragDropContextProvider>
-    </InteractionStateContext.Provider>
+    <div className="qtikit-interaction qtikit-interaction__gap-match">
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        <DragDropContextProvider>{props.children}</DragDropContextProvider>
+      </InteractionStateContext.Provider>
+    </div>
   );
 };
 

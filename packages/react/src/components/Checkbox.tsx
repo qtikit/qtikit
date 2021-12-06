@@ -16,7 +16,11 @@ const Checkbox: React.FC<CheckboxProps> = ({indentifier}) => {
     });
   };
 
-  return <input type="checkbox" checked={interactionState[indentifier] === true} onChange={handleChange} />;
+  return (
+    <span className={'qtikit-component__checkbox'}>
+      <input type="checkbox" checked={interactionState[indentifier] === true} onChange={handleChange} />
+    </span>
+  );
 };
 
 export default Checkbox;

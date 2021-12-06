@@ -3,19 +3,26 @@ import {ComponentStory} from '@storybook/react';
 import responseProcessing from '@qtikit/scoring-engine/lib/responseProcessing';
 import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/getResponseProcessingConfigFromDocument';
 
+import {getUrl} from '../utils/url';
 import QtiViewer, {QtiViewerProps} from '../';
 
 type InputState = QtiViewerProps['inputState'];
 
 export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = props => {
-  const assessmentItemSrc = `/tests/${props.assessmentItemSrc}`;
+  const assessmentItemSrc = getUrl(`/tests/${props.assessmentItemSrc}`);
+  const stylesheetSrc = getUrl(props.stylesheetSrc ? `/tests/${props.stylesheetSrc}` : 'default.css');
   const [inputState, setInputState] = useState<InputState>({});
   const assessmentItemDocument = useAssignmentItemDocument(assessmentItemSrc);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
   return (
     <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
       <div style={{flex: '1', padding: 10}}>
-        <QtiViewer assessmentItemSrc={assessmentItemSrc} inputState={inputState} onChange={setInputState} />
+        <QtiViewer
+          assessmentItemSrc={assessmentItemSrc}
+          stylesheetSrc={stylesheetSrc}
+          inputState={inputState}
+          onChange={setInputState}
+        />
       </div>
       <div style={{flex: '1', padding: 10}}>
         <h3>Input State</h3>

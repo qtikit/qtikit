@@ -1,19 +1,14 @@
 import React from 'react';
 
 import {Current, useDragDropContext} from '.';
-import {createStyle} from '../../utils/style';
-
-const draggableStyle = createStyle({
-  cursor: 'move',
-  display: 'inline-flex',
-});
 
 export interface DraggableProps {
   current: Omit<Current, 'name'> & Partial<Pick<Current, 'name'>>;
   style?: React.CSSProperties;
+  className?: string;
 }
 
-const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, children}) => {
+const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, className, children}) => {
   const {setCurrent} = useDragDropContext();
 
   const current = {...optionalCurrent, name: optionalCurrent.name ?? optionalCurrent.value};
@@ -27,7 +22,12 @@ const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, c
   };
 
   return (
-    <span draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd} style={{...draggableStyle, ...style}}>
+    <span
+      className={`qtikit-component__droggable ${className}`}
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      style={style}>
       {children}
     </span>
   );

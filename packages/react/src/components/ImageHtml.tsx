@@ -6,7 +6,11 @@ type ImageHtmlProps = React.ImgHTMLAttributes<HTMLImageElement>;
 
 const ImageHtml: React.FC<ImageHtmlProps> = ({src, children, ...props}) => {
   const {baseUrl} = useContext(QtiViewerContext);
-  return <img src={`${baseUrl}/${src}`} {...props} />;
+  return (
+    <span className={'qtikit-component__image'}>
+      <img src={`${baseUrl}/${src}`} {...props} />
+    </span>
+  );
 };
 
 export default ImageHtml;

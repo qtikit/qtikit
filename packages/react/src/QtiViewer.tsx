@@ -12,15 +12,13 @@ interface AssessmentItem {
 
 const ItemBody: React.FC<{itemBody: Element}> = React.memo(({itemBody}) => <>{Qti.renderItemBody(itemBody)}</>);
 
-const ROOT_ID = 'qti-viewer';
-
 const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
   return (
     <>
       {styles.map((style, index) => (
         <style key={index}>{style}</style>
       ))}
-      <div id={ROOT_ID}>
+      <div data-qtikit>
         <ItemBody itemBody={itemBody} />
       </div>
     </>
@@ -44,7 +42,7 @@ async function fetchStylesheet(href: string): Promise<string> {
 }
 
 function setStyleRoot(style: string): string {
-  return style.replace(/(.*?){/g, `#${ROOT_ID} $1 {`);
+  return style.replace(/(.*?){/g, `[data-qtikit] $1 {`);
 }
 
 async function fetchAssessmentItem(url: string): Promise<AssessmentItem> {

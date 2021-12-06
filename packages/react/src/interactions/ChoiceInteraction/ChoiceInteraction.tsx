@@ -11,9 +11,11 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps | any> = ({responseIden
   });
 
   return (
-    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-      {props.children}
-    </InteractionStateContext.Provider>
+    <div className="qtikit-interaction qtikit-interaction__choice">
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        {props.children}
+      </InteractionStateContext.Provider>
+    </div>
   );
 };
 

@@ -15,7 +15,7 @@ const DefaultSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, chi
   };
 
   return (
-    <div>
+    <span className="qtikit-component__simple-choice">
       <label>
         <input
           type="radio"
@@ -25,7 +25,7 @@ const DefaultSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, chi
         />
         {children}
       </label>
-    </div>
+    </span>
   );
 };
 
@@ -54,7 +54,7 @@ const OrderSimpleChoice: React.FC<SimpleChoiceProps | any> = ({identifier, child
         index: Number(interactionState[identifier] ?? 0),
         isDragging: current?.name === identifier,
       })}>
-      <Draggable current={{value: identifier}}>
+      <Draggable className="qtikit-component__order-simple-choice" current={{value: identifier}}>
         <Droppable onDragEnter={handleDragEnter}>{children}</Droppable>
       </Draggable>
     </div>

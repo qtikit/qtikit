@@ -3,9 +3,9 @@ import {PromptCharacteristics as PromptProps} from '@qtikit/model/lib/qti2_2';
 
 const Prompt: React.FC<PromptProps | any> = props => {
   return (
-    <div>
+    <span className={'qtikit-component__prompt'}>
       <h4>{props.children}</h4>
-    </div>
+    </span>
   );
 };
 

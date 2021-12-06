@@ -15,7 +15,11 @@ const LazyMathComponent: React.FC<MathComponentProps> = props => {
 };
 
 const Mathjax: React.FC<MathjaxProps> = ({mathHtml, ...props}) => {
-  return <LazyMathComponent {...props} mathml={mathHtml} display={false} />;
+  return (
+    <span className={'qtikit-component__mathjax'}>
+      <LazyMathComponent {...props} mathml={mathHtml} display={false} />
+    </span>
+  );
 };
 
 export default Mathjax;

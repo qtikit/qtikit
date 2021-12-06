@@ -11,9 +11,11 @@ const HottextInteraction: React.FC<HottextInteractionProps | any> = ({responseId
   });
 
   return (
-    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-      {props.children}
-    </InteractionStateContext.Provider>
+    <div className={'qtikit-interaction qtikit-interaction__hottext'}>
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        {props.children}
+      </InteractionStateContext.Provider>
+    </div>
   );
 };
 

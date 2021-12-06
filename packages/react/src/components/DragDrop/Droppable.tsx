@@ -1,19 +1,15 @@
 import React from 'react';
 
 import {Current, useDragDropContext} from '.';
-import {createStyle} from '../../utils/style';
-
-const droppableStyle = createStyle({
-  display: 'inline-flex',
-});
 
 export interface DroppableProps {
   style?: React.CSSProperties;
+  className?: string;
   onDragEnter?: (current: Current) => void;
   onDrop?: (current: Current) => void;
 }
 
-const Droppable: React.FC<DroppableProps> = ({style, onDragEnter, onDrop, children}) => {
+const Droppable: React.FC<DroppableProps> = ({style, className, onDragEnter, onDrop, children}) => {
   const {current} = useDragDropContext();
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = event => {
@@ -41,7 +37,8 @@ const Droppable: React.FC<DroppableProps> = ({style, onDragEnter, onDrop, childr
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDrop={handleDrop}
-      style={{...droppableStyle, ...style}}>
+      className={`qtikit-component__dropable ${className}`}
+      style={style}>
       {children}
     </span>
   );

@@ -7,11 +7,6 @@ import {Current, Droppable} from './DragDrop';
 
 const associableHotspotLabelStyle = createStyle(
   ({shape, coordsPattern}: {shape: Shape; coordsPattern: Coords['pattern']}) => ({
-    display: 'inline-flex',
-    border: '1px solid rgba(0,0,0,0)',
-    boxSizing: 'border-box' as const,
-    position: 'absolute' as const,
-    cursor: 'pointer',
     ...createShapeStyle(coordsPattern)[shape],
   })
 );
@@ -36,7 +31,10 @@ const AssociableHotspot: React.FC<AssociableHotspotProps | any> = ({
   };
 
   return (
-    <Droppable style={associableHotspotLabelStyle({shape, coordsPattern})} onDrop={handleDrop}>
+    <Droppable
+      className={'qtikit-component__associable-hotspot'}
+      style={associableHotspotLabelStyle({shape, coordsPattern})}
+      onDrop={handleDrop}>
       {dropped}
       {children}
     </Droppable>

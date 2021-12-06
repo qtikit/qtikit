@@ -8,10 +8,6 @@ import {DragDropContextProvider} from '../../components/DragDrop';
 const INTERACTION_COMPONENT_NAMES = ['ObjectHtml', 'AssociableHotspot'];
 const SEPARATOR = ' ';
 
-const graphicGapMatchInteractionAreaStyle = createStyle({
-  position: 'relative',
-});
-
 const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any> = ({
   responseIdentifier,
   ...props
@@ -33,12 +29,14 @@ const GraphicGapMatchInteraction: React.FC<GraphicGapMatchInteractionProps | any
   );
 
   return (
-    <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-      <DragDropContextProvider>
-        {restComponents}
-        <div style={graphicGapMatchInteractionAreaStyle}>{interactionComponents}</div>
-      </DragDropContextProvider>
-    </InteractionStateContext.Provider>
+    <div className={'qtikit-interaction qtikit-interaction__graphic-gap-match'}>
+      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+        <DragDropContextProvider>
+          {restComponents}
+          <div className={'qtikit-component__graphic-gap-match'}>{interactionComponents}</div>
+        </DragDropContextProvider>
+      </InteractionStateContext.Provider>
+    </div>
   );
 };
 
