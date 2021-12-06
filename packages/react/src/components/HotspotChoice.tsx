@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Shape, Coords, BaseSequenceXBaseCharacteristics, HotspotChoiceCharacteristics} from '@qtikit/model/lib/qti2_2';
 
 import {Attribute, QtiModelProps} from '../types/props';
@@ -15,6 +15,7 @@ const HotspotChoice: React.FC<HotspotChoiceProps> = ({identifier, shape, coords,
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const checked = !!interactionState[identifier];
+  console.log(hotspotChoiceLabelStyle({shape, coords}));
 
   const handleChange = () => {
     setInteractionState({
@@ -23,12 +24,12 @@ const HotspotChoice: React.FC<HotspotChoiceProps> = ({identifier, shape, coords,
   };
 
   return (
-    <span className={classNameForComponent('hotspot-choice')}>
-      <label className={checked ? 'checked' : ''} style={hotspotChoiceLabelStyle({shape, coords})}>
-        <input type="radio" checked={checked} value={identifier} onChange={handleChange} />
-        {children}
-      </label>
-    </span>
+    <label
+      className={[classNameForComponent('hotspot-choice'), checked ? 'checked' : ''].join(' ')}
+      style={hotspotChoiceLabelStyle({shape, coords})}>
+      <input type="radio" checked={checked} value={identifier} onChange={handleChange} />
+      {children}
+    </label>
   );
 };
 

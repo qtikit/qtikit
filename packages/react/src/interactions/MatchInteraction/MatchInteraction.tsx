@@ -37,7 +37,9 @@ const MatchInteraction: React.FC<MatchInteractionProps> = ({responseIdentifier, 
   });
 
   const promptElement = elementChildren.querySelector('prompt');
-  const promptProps: PromptProps = Object.values(promptElement?.attributes ?? {}).map(attribute => attribute.value);
+  const promptProps: PromptProps = Object.fromEntries(
+    Object.entries(promptElement?.attributes ?? {}).map(([name, {value}]) => [name as any, value])
+  );
 
   return (
     <div className={classNameForInteraction('match')}>
