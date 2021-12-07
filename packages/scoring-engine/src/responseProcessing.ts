@@ -121,7 +121,18 @@ function evalExpressionGroup(node: model.ExpressionGroup, env: Env): Value {
     }
     // TODO: index
     // TODO: power
-    // TODO: equal
+    case 'equal': {
+      const equalNode = $selection[1];
+      const lhs = evalExpressionGroup(equalNode.$children[0][1], env);
+      const rhs = evalExpressionGroup(equalNode.$children[1][1], env);
+      if (lhs.length < 1 || rhs.length < 1) return [];
+      const lhsValue = +lhs[0];
+      const rhsValue = +rhs[0];
+      const {toleranceMode = 'exact'} = equalNode;
+      if (toleranceMode === 'exact') return [String(lhsValue === rhsValue)];
+      // TODO: handle other tolerance modes
+      return [String(lhsValue === rhsValue)];
+    }
     // TODO: contains
     // TODO: containerSize
     case 'correct': {
