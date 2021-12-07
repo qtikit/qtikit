@@ -1,8 +1,8 @@
 import React from 'react';
 import {ExtendedTextInteractionCharacteristics as ExtendedTextInteractionProps} from '@qtikit/model/lib/qti2_2';
-import {classNameForInteraction} from 'src/utils/style';
 
 import {getPlaceHolder} from '../../utils/interaction';
+import {classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {useInteractionState} from '../InteractionState';
 import ExtendedText from '../../components/ExtendedText';
 
