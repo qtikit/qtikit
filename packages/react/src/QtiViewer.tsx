@@ -64,7 +64,7 @@ async function fetchAssessmentItem(assessmentSrc: string, stylesheetSrc?: string
 
   const stylesheets = [...root.getElementsByTagName('stylesheet')];
   if (stylesheetSrc) {
-    stylesheets.push(createLinkElement(stylesheetSrc));
+    stylesheets.unshift(createLinkElement(stylesheetSrc));
   }
 
   const baseUrl = getBaseUrl(assessmentSrc);
