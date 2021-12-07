@@ -76,12 +76,50 @@ function evalResponseCondition(node: model.ResponseCondition, env: Env): void {
 function evalExpressionGroup(node: model.ExpressionGroup, env: Env): Value {
   const {$selection} = node;
   switch ($selection[0]) {
-    // TODO: and
-    // TODO: gt
+    case 'and': {
+      const andNode = $selection[1];
+      const values = andNode.$children.map(([, expression]) => evalExpressionGroup(expression, env));
+      if (values.some(value => value[0] === 'false')) return ['false'];
+      if (values.some(value => value.length < 1)) return [];
+      return ['true'];
+    }
+    case 'gt': {
+      const gtNode = $selection[1];
+      const lhs = evalExpressionGroup(gtNode.$children[0][1], env);
+      const rhs = evalExpressionGroup(gtNode.$children[1][1], env);
+      if (lhs.length < 1 || rhs.length < 1) return [];
+      const lhsValue = +lhs[0];
+      const rhsValue = +rhs[0];
+      return [String(lhsValue > rhsValue)];
+    }
     // TODO: not
-    // TODO: lt
-    // TODO: gte
-    // TODO: lte
+    case 'lt': {
+      const ltNode = $selection[1];
+      const lhs = evalExpressionGroup(ltNode.$children[0][1], env);
+      const rhs = evalExpressionGroup(ltNode.$children[1][1], env);
+      if (lhs.length < 1 || rhs.length < 1) return [];
+      const lhsValue = +lhs[0];
+      const rhsValue = +rhs[0];
+      return [String(lhsValue < rhsValue)];
+    }
+    case 'gte': {
+      const gteNode = $selection[1];
+      const lhs = evalExpressionGroup(gteNode.$children[0][1], env);
+      const rhs = evalExpressionGroup(gteNode.$children[1][1], env);
+      if (lhs.length < 1 || rhs.length < 1) return [];
+      const lhsValue = +lhs[0];
+      const rhsValue = +rhs[0];
+      return [String(lhsValue >= rhsValue)];
+    }
+    case 'lte': {
+      const lteNode = $selection[1];
+      const lhs = evalExpressionGroup(lteNode.$children[0][1], env);
+      const rhs = evalExpressionGroup(lteNode.$children[1][1], env);
+      if (lhs.length < 1 || rhs.length < 1) return [];
+      const lhsValue = +lhs[0];
+      const rhsValue = +rhs[0];
+      return [String(lhsValue <= rhsValue)];
+    }
     // TODO: or
     case 'sum': {
       const sumNode = $selection[1];
