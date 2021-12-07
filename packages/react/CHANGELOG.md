@@ -1,5 +1,15 @@
 # @qtikit/react
 
+## 0.0.9
+
+### Patch Changes
+
+- Support external stylesheet
+- Remove unimplemented interactions
+- Updated dependencies [6f50d98]
+- Updated dependencies [092b1a0]
+  - @qtikit/model@0.0.4
+
 ## 0.0.5
 
 ### Patch Changes

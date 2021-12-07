@@ -1,5 +1,16 @@
 # @qtikit/scoring-engine
 
+## 0.0.4
+
+### Patch Changes
+
+- 6f50d98: Implement sum
+- 092b1a0: Implement mapResponse
+- Implement equal, and, gt, lt, gte, lte
+- Updated dependencies [6f50d98]
+- Updated dependencies [092b1a0]
+  - @qtikit/model@0.0.4
+
 ## 0.0.2
 
 ### Patch Changes
