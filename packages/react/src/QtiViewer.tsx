@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {UserInput} from '@qtikit/model/lib/user-input';
 
 import * as Qti from './qti';
@@ -13,10 +13,31 @@ interface AssessmentItem {
 const ItemBody: React.FC<{itemBody: Element}> = React.memo(({itemBody}) => <>{Qti.renderItemBody(itemBody)}</>);
 
 const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
+  // useMemo is not fit for multiple ref scenario. but I have no idea for now.
+  // This code can become problematic later for the following reasons:
+  // https://reactjs.org/docs/hooks-reference.html#usememo
+  // > You may rely on useMemo as a performance optimization, not as a semantic guarantee.
+  const styleRefs = useMemo(() => styles.map(() => React.createRef<HTMLStyleElement>()), [styles]);
+  useEffect(() => {
+    for (const ref of styleRefs) {
+      if (!ref.current?.sheet) continue;
+      const cssRules = ref.current.sheet.cssRules;
+      for (const rule of cssRules) {
+        const oldSelectorText = (rule as any).selectorText as string;
+        const newSelectorText = oldSelectorText
+          .split(',')
+          .map(s => `[data-qtikit] ${s}`)
+          .join(',');
+        (rule as any).selectorText = newSelectorText;
+      }
+    }
+  }, [styleRefs]);
   return (
     <>
       {styles.map((style, index) => (
-        <style key={index}>{style}</style>
+        <style key={index} ref={styleRefs[index]}>
+          {style}
+        </style>
       ))}
       <div data-qtikit>
         <ItemBody itemBody={itemBody} />
@@ -42,17 +63,6 @@ async function fetchStylesheet(href: string): Promise<string> {
   return fetch(href).then(response => response.text());
 }
 
-function setStyleRoot(style: string): string {
-  return style.replace(/(.*?){/g, `[data-qtikit] $1 {`);
-}
-
-function createLinkElement(href: string): HTMLStyleElement {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = href;
-  return link;
-}
-
 async function fetchAssessmentItem(assessmentSrc: string, stylesheetSrc?: string): Promise<AssessmentItem> {
   const xml = await fetch(assessmentSrc).then(response => response.text());
   const root = new DOMParser().parseFromString(trimXml(xml), 'text/xml');
@@ -62,20 +72,14 @@ async function fetchAssessmentItem(assessmentSrc: string, stylesheetSrc?: string
     throw new Error('QTI itemBody is not found');
   }
 
-  const stylesheets = [...root.getElementsByTagName('stylesheet')];
-  if (stylesheetSrc) {
-    stylesheets.unshift(createLinkElement(stylesheetSrc));
-  }
-
   const baseUrl = getBaseUrl(assessmentSrc);
+  const stylesheets = Array.from(root.getElementsByTagName('stylesheet'));
+  const stylesheetSrcs = stylesheets.map(stylesheet => new URL(stylesheet.getAttribute('href') || '', baseUrl).href);
+  if (stylesheetSrc) stylesheetSrcs.unshift(stylesheetSrc);
 
   return {
     itemBody: itemBody,
-    styles: await Promise.all(
-      Array.from(stylesheets).map(stylesheet =>
-        fetchStylesheet(`${new URL(stylesheet.getAttribute('href') || '', baseUrl).href}`).then(setStyleRoot)
-      )
-    ),
+    styles: await Promise.all(stylesheetSrcs.map(fetchStylesheet)),
   };
 }
 

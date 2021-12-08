@@ -243,6 +243,8 @@ qtikit-interaction__graphic-gap-match {}
   border: 3px solid black;
 }
 
-.qtikit-component__match-table td,th,tr {
+.qtikit-component__match-table td,
+.qtikit-component__match-table th,
+.qtikit-component__match-table tr {
   border: 1px solid #444444;
 }
