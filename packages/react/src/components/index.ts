@@ -101,7 +101,7 @@ export function createInteractionChildComponent(
 ): React.ReactElement | null {
   const props = {...defaultProps, ...getPropsByElement(element)};
 
-  const InteractionChildComponentMap: Record<InteractionChildElementName, React.FC> = {
+  const InteractionChildComponentMap = {
     associableHotspot: AssociableHotspot,
     gap: Gap,
     gapImg: GapImg,

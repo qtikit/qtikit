@@ -1,1 +1,1 @@
-export type Props = Record<string, unknown>;
+export type Props = Record<string, string | number | boolean | undefined>;
