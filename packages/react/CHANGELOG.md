@@ -1,5 +1,11 @@
 # @qtikit/react
 
+## 0.0.11
+
+### Patch Changes
+
+- Fix some custom stylesheet bugs
+
 ## 0.0.10
 
 ### Patch Changes
