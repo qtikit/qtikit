@@ -3356,7 +3356,7 @@ export type ToleranceList = (string | Double)[];
  * # 9.2.1
  * https://www.imsglobal.org/question/qtiv2p2p4/QTIv2p2p4-ASI-InformationModelv1p0/imsqtiv2p2p4_asi_v1p0_InfoModelv1p0.html#TabEnumeratedListClass_DataModel_View
  */
-export type View = 'author' | 'candidate' | 'proctor' | 'scorer' | 'testConstructor' | 'tutor';
+ export interface View {};
 
 /**
  * # 9.3.1
