@@ -52,7 +52,6 @@ export interface QtiViewerProps {
   stylesheetSrc?: string;
   inputState: UserInput;
   onChange: (newState: UserInput) => void;
-  onError?: (error: Error | null) => void;
 }
 
 interface QtiViewerContextValue extends QtiViewerProps {
@@ -91,10 +90,9 @@ const defaultValue: QtiViewerContextValue = {
   stylesheetSrc: '',
   inputState: {},
   onChange: () => {},
-  onError: () => {},
 };
 
-const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, stylesheetSrc, onError, ...props}) => {
+const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, stylesheetSrc, ...props}) => {
   const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
   const [throwError] = useThrowError();
 
