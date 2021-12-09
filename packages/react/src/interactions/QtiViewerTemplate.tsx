@@ -3,14 +3,14 @@ import {ComponentStory} from '@storybook/react';
 import responseProcessing from '@qtikit/scoring-engine/lib/responseProcessing';
 import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/getResponseProcessingConfigFromDocument';
 
-import {getUrl} from '../utils/url';
+import {resolveUrl} from '../utils/url';
 import QtiViewer, {QtiViewerProps} from '../';
 
 type InputState = QtiViewerProps['inputState'];
 
 export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = props => {
-  const assessmentItemSrc = getUrl(`/tests/${props.assessmentItemSrc}`);
-  const stylesheetSrc = getUrl(props.stylesheetSrc ? `/tests/${props.stylesheetSrc}` : 'default.css');
+  const assessmentItemSrc = resolveUrl(`/tests/${props.assessmentItemSrc}`);
+  const stylesheetSrc = resolveUrl(props.stylesheetSrc ? `/tests/${props.stylesheetSrc}` : 'default.css');
   const [inputState, setInputState] = useState<InputState>({});
   const assessmentItemDocument = useAssignmentItemDocument(assessmentItemSrc);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);

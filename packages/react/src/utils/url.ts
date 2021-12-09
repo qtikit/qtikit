@@ -6,8 +6,12 @@ export function getBaseUrl(url: string): string {
   return url.split('/').slice(0, -1).join('/') + '/';
 }
 
-export function getUrl(pathname: string | null, baseurl?: string): string {
+export function getPathName(url: string): string {
+  return url.split('/').pop() ?? '';
+}
+
+export function resolveUrl(pathname: string | undefined, baseurl?: string): string {
   const url = new URL(baseurl || location.href);
 
-  return new URL(pathname || '/', url.origin).href;
+  return new URL(pathname || '/', url).href;
 }
