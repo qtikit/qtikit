@@ -4,16 +4,25 @@ import {BaseSequenceXBaseCharacteristics, RubricBlockCharacteristics} from '@qti
 import {QtiModelProps} from '../types/props';
 import {classNameForComponent} from '../utils/style';
 
+type View = 'author' | 'candidate' | 'proctor' | 'scorer' | 'testConstructor' | 'tutor';
+
 export type RubricBlockProps = QtiModelProps<BaseSequenceXBaseCharacteristics, RubricBlockCharacteristics> & {
-  view: 'author' | 'candidate' | 'proctor' | 'scorer' | 'testConstructor' | 'tutor';
+  view: string;
 };
 
-const RubricBlock: React.FC<RubricBlockProps> = ({view, children}) => (
-  <span
-    className={[classNameForComponent('rubric-block'), view && classNameForComponent('rubric-block', view)].join(' ')}>
-    <span>{view}:</span>
-    {children}
-  </span>
-);
+const RubricBlock: React.FC<RubricBlockProps> = ({view: viewProp, children}) => {
+  const views = viewProp.split(' ') as View[];
+
+  return (
+    <span
+      className={[
+        classNameForComponent('rubric-block'),
+        ...views.map(view => classNameForComponent('rubric-block', view)),
+      ].join(' ')}>
+      <span>{views}:</span>
+      {children}
+    </span>
+  );
+};
 
 export default RubricBlock;
