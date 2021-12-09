@@ -2,7 +2,7 @@ import {UserInput} from '@qtikit/model/lib/user-input';
 import React, {useEffect, useState} from 'react';
 
 import QtiViewer from './QtiViewer';
-import {getPathName} from './utils/url';
+import {getPathName, resolveUrl} from './utils/url';
 
 class QtiViewerErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
   constructor(props) {
@@ -32,7 +32,7 @@ class QtiViewerErrorBoundary extends React.Component<{children: any}, {hasError:
   }
 }
 
-const QtiViewersTemplate = ({assessmentItemSrc}) => {
+const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc}) => {
   const [assessmentItems, setAssessmentItems] = useState([]);
   const [inputState, setInputState] = useState<UserInput>({});
 
@@ -51,7 +51,12 @@ const QtiViewersTemplate = ({assessmentItemSrc}) => {
               QTI: <a href={assessmentItemSrc}>{getPathName(assessmentItemSrc)}</a>
             </h2>
             <QtiViewerErrorBoundary key={assessmentItemSrc}>
-              <QtiViewer assessmentItemSrc={assessmentItemSrc} inputState={inputState} onChange={setInputState} />
+              <QtiViewer
+                assessmentItemSrc={assessmentItemSrc}
+                inputState={inputState}
+                onChange={setInputState}
+                stylesheetSrc={stylesheetSrc}
+              />
             </QtiViewerErrorBoundary>
           </div>
         ))}
@@ -65,6 +70,7 @@ export const QtiViewers = QtiViewersTemplate.bind({});
 QtiViewers.storyName = 'QtiViewers';
 QtiViewers.args = {
   assessmentItemSrc: getAssessmentItemSrcParam(),
+  stylesheetSrc: resolveUrl('default.css'),
 };
 
 function urlize(url: string) {
