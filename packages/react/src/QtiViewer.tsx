@@ -2,7 +2,7 @@ import React, {useEffect, useMemo} from 'react';
 import {UserInput} from '@qtikit/model/lib/user-input';
 
 import * as Qti from './qti';
-import {getBaseUrl} from './utils/url';
+import {getBaseUrl, resolveUrl} from './utils/url';
 import {trimXml} from './utils/xml';
 import {useThrowError} from './utils/error';
 
@@ -75,7 +75,7 @@ async function fetchAssessmentItem(assessmentSrc: string, stylesheetSrc?: string
 
   const baseUrl = getBaseUrl(assessmentSrc);
   const stylesheets = Array.from(root.getElementsByTagName('stylesheet'));
-  const stylesheetSrcs = stylesheets.map(stylesheet => new URL(stylesheet.getAttribute('href') || '', baseUrl).href);
+  const stylesheetSrcs = stylesheets.map(stylesheet => resolveUrl(stylesheet.getAttribute('href') || '', baseUrl));
   if (stylesheetSrc) stylesheetSrcs.unshift(stylesheetSrc);
 
   return {
