@@ -94,7 +94,7 @@ const defaultValue: QtiViewerContextValue = {
 
 const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, stylesheetSrc, ...props}) => {
   const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
-  const [throwError] = useThrowError();
+  const throwError = useThrowError();
 
   useEffect(() => {
     const loadAssessmentItem = async () => {
