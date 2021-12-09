@@ -4,6 +4,7 @@ import {UserInput} from '@qtikit/model/lib/user-input';
 import * as Qti from './qti';
 import {getBaseUrl, resolveUrl} from './utils/url';
 import {trimXml} from './utils/xml';
+import {useThrowError} from './utils/error';
 
 interface AssessmentItem {
   itemBody: Element;
@@ -93,10 +94,19 @@ const defaultValue: QtiViewerContextValue = {
 
 const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, stylesheetSrc, ...props}) => {
   const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
+  const throwError = useThrowError();
 
   useEffect(() => {
-    fetchAssessmentItem(assessmentItemSrc, stylesheetSrc).then(setAssessmentItem);
-  }, [assessmentItemSrc, stylesheetSrc]);
+    const loadAssessmentItem = async () => {
+      try {
+        setAssessmentItem(await fetchAssessmentItem(assessmentItemSrc, stylesheetSrc));
+      } catch (e: any) {
+        throwError(e);
+      }
+    };
+
+    loadAssessmentItem();
+  }, [assessmentItemSrc, stylesheetSrc, throwError]);
 
   return (
     <QtiViewerContext.Provider
