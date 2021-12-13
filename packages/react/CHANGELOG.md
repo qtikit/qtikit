@@ -1,5 +1,12 @@
 # @qtikit/react
 
+## 0.0.12
+
+### Patch Changes
+
+- f1f9689: Bug Fixes
+- 762e001: Handle div props for `<QtiViewer/>`
+
 ## 0.0.11
 
 ### Patch Changes
