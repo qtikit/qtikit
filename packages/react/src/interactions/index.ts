@@ -52,7 +52,7 @@ export function createInteractionComponent(
     orderInteraction: OrderInteraction,
     textEntryInteraction: TextEntryInteraction,
     sliderInteraction: SliderInteraction,
-  };
+  } as {[key in InteractionElementName]: React.FC<any>};
   const InteractionComponent = InteractionComponentMap[element.nodeName as InteractionElementName];
 
   return InteractionComponent ? React.createElement(InteractionComponent, props, children) : null;

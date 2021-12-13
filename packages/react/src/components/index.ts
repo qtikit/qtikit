@@ -112,7 +112,7 @@ export function createInteractionChildComponent(
     rubricBlock: RubricBlock,
     simpleChoice: SimpleChoice,
     inlineChoice: InlineChoice,
-  };
+  } as {[key in InteractionChildElementName]: React.FC<any>};
   const InteractionChildComponent = InteractionChildComponentMap[element.nodeName as InteractionChildElementName];
 
   return InteractionChildComponent ? React.createElement(InteractionChildComponent, props, children) : null;
