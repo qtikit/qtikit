@@ -40,14 +40,12 @@ const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
           {style}
         </style>
       ))}
-      <div data-qtikit>
-        <ItemBody itemBody={itemBody} />
-      </div>
+      <ItemBody itemBody={itemBody} />
     </>
   );
 };
 
-export interface QtiViewerProps {
+export interface QtiViewerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   assessmentItemSrc: string;
   stylesheetSrc?: string;
   inputState: UserInput;
@@ -92,7 +90,8 @@ const defaultValue: QtiViewerContextValue = {
   onChange: () => {},
 };
 
-const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, stylesheetSrc, ...props}) => {
+const QtiViewer: React.FC<QtiViewerProps> = props => {
+  const {assessmentItemSrc, stylesheetSrc, inputState, onChange, ...divProps} = props;
   const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
   const throwError = useThrowError();
 
@@ -112,10 +111,12 @@ const QtiViewer: React.FC<QtiViewerProps> = ({assessmentItemSrc, stylesheetSrc, 
     <QtiViewerContext.Provider
       value={{
         ...defaultValue,
-        baseUrl: getBaseUrl(assessmentItemSrc),
         ...props,
+        baseUrl: getBaseUrl(assessmentItemSrc),
       }}>
-      {assessmentItem && <Root {...assessmentItem} />}
+      <div data-qtikit {...divProps}>
+        {assessmentItem && <Root {...assessmentItem} />}
+      </div>
     </QtiViewerContext.Provider>
   );
 };
