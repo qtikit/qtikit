@@ -18,7 +18,9 @@ const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}
   };
 
   return (
-    <span className={classNameForComponent('simple-choice')}>
+    <span
+      className={classNameForComponent('simple-choice')}
+      data-qtikit-checked={interactionState[identifier] === true}>
       <label>
         <input
           type="radio"

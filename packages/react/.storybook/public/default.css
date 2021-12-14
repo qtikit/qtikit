@@ -7,13 +7,16 @@
   width: 30em;
   counter-reset: qtikit-interaction__choice;
 }
+
 .qtikit-interaction__choice > .qtikit-component__simple-choice {
   display: block;
   margin-bottom: 0.5em;
 }
+
 .qtikit-interaction__choice > .qtikit-component__simple-choice:last-child {
   margin: 0;
 }
+
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label {
   display: block;
   position: relative;
@@ -23,9 +26,11 @@
   border-radius: 0.5em;
   counter-increment: qtikit-interaction__choice;
 }
+
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label:hover {
   background-color: #eee;
 }
+
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label::before,
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="radio"] {
   position: absolute;
@@ -34,11 +39,17 @@
   right: 1em;
   transform: translateY(-50%);
 }
+
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label::before {
   left: 1em;
   content: counter(qtikit-interaction__choice, upper-alpha);
   font-weight: bold;
 }
+
+.qtikit-interaction__choice > .qtikit-component__simple-choice[data-qtikit-checked="true"] > label {
+  background-color: #eee;
+}
+
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="radio"] {
   right: 1em;
 }
