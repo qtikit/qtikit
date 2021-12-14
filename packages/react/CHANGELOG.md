@@ -1,5 +1,11 @@
 # @qtikit/react
 
+## 0.0.13
+
+### Patch Changes
+
+- 6d9db57: Add data attr for checked checkbox
+
 ## 0.0.12
 
 ### Patch Changes
