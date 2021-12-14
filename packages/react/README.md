@@ -35,6 +35,65 @@ const Home = () => {
 export default Home
 ```
 
+# Stylesheet
+
+QtiViewer supports custom stylesheets to display QTI Interactions and Components in their own style. CSS class names follow [BEM style][bem]. Refer to [Example][css-style]. Here is a sample that shows how to use a stylesheet.
+
+- Fetch a stylesheet from remote, and applies it to scoped CSS under the root element of QtiViewer.
+  ```
+  <QtiViewer
+    assessmentItemSrc={assessmentItemSrc}
+    stylesheetSrc={'https://yoursite.com'}
+    inputState={inputState}
+    onChange={setInputState}
+  />
+  ```
+- In Next.js, You can use CSS in global and local. See the sample code below.
+  - Global CSS, Add css path to __app.js
+    ```
+    import '../styles/qti-default.css'
+    
+    import type { AppProps } from 'next/app'
+
+    function MyApp({ Component, pageProps }: AppProps) {
+      return <Component {...pageProps} />
+    }
+
+    export default MyApp
+    ```
+  - Local CSS, You must use [a plugin](https://www.npmjs.com/package/next-cssloader-options) to update local CSS, css-loader options. CSS is loaded when the page loads
+    ```
+    // in next.config.js
+    const withCssLoaderOptions = require('next-cssloader-options');
+
+    module.exports = withCssLoaderOptions({
+      cssLoaderOptions: {
+        modules: {
+          getLocalIdent: (context, localIdentName, localName, options) => localName
+        }
+      }
+    });
+
+    // in index.js
+    import QtiStyles from '../styles/qtikit.module.css'
+
+    const Home: NextPage = () => (
+      <div className={QtiStyles.qtikitInteraction}>
+        <QtiViewer
+          assessmentItemSrc={assessmentItemSrc}
+          inputState={inputState}
+          onChange={setInputState}
+        />
+      </div>
+    )
+    ```
+
+[bem]: http://getbem.com/naming/
+[css-style]: https://qtikit-storybook.vercel.app/default.css
+
+## 
+
+
 # Test
 
 We're using Storybook to test and preview now with [IMSGlobal Sample Files][sample-files]. Please visit [our showcase][story-book] with a [assessment XML url][xml] as a param
