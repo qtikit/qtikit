@@ -7,11 +7,11 @@ export default {
 export const inline_choice = QtiViewerTemplate.bind({});
 
 inline_choice.args = {
-  assessmentItemSrc: 'items/inline_choice.xml',
+  assessmentItemSrc: 'tests/items/inline_choice.xml',
 };
 
 export const inline_choice_math = QtiViewerTemplate.bind({});
 
 inline_choice_math.args = {
-  assessmentItemSrc: 'items/inline_choice_math.xml',
+  assessmentItemSrc: 'tests/items/inline_choice_math.xml',
 };

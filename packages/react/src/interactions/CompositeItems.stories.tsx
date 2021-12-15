@@ -7,11 +7,11 @@ export default {
 export const multi_input = QtiViewerTemplate.bind({});
 
 multi_input.args = {
-  assessmentItemSrc: 'items/multi-input.xml',
+  assessmentItemSrc: 'tests/items/multi-input.xml',
 };
 
 export const upload_composite = QtiViewerTemplate.bind({});
 
 upload_composite.args = {
-  assessmentItemSrc: 'items/upload_composite.xml',
+  assessmentItemSrc: 'tests/items/upload_composite.xml',
 };

@@ -7,5 +7,5 @@ export default {
 export const match = QtiViewerTemplate.bind({});
 
 match.args = {
-  assessmentItemSrc: 'items/match.xml',
+  assessmentItemSrc: 'tests/items/match.xml',
 };

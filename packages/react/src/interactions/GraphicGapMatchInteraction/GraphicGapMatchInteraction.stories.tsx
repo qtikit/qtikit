@@ -7,11 +7,11 @@ export default {
 export const graphic_gap_match = QtiViewerTemplate.bind({});
 
 graphic_gap_match.args = {
-  assessmentItemSrc: 'items/graphic_gap_match.xml',
+  assessmentItemSrc: 'tests/items/graphic_gap_match.xml',
 };
 
 export const graphic_gap_match_text = QtiViewerTemplate.bind({});
 
 graphic_gap_match_text.args = {
-  assessmentItemSrc: 'items/graphic_gap_match_text.xml',
+  assessmentItemSrc: 'tests/items/graphic_gap_match_text.xml',
 };

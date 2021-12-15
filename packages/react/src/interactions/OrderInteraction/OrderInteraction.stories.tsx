@@ -7,5 +7,5 @@ export default {
 export const order = QtiViewerTemplate.bind({});
 
 order.args = {
-  assessmentItemSrc: 'items/order.xml',
+  assessmentItemSrc: 'tests/items/order.xml',
 };

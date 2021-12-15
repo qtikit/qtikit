@@ -7,5 +7,5 @@ export default {
 export const text_entry = QtiViewerTemplate.bind({});
 
 text_entry.args = {
-  assessmentItemSrc: 'items/text_entry.xml',
+  assessmentItemSrc: 'tests/items/text_entry.xml',
 };

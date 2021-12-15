@@ -7,5 +7,5 @@ export default {
 export const hottext = QtiViewerTemplate.bind({});
 
 hottext.args = {
-  assessmentItemSrc: 'items/hottext.xml',
+  assessmentItemSrc: 'tests/items/hottext.xml',
 };

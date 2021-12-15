@@ -7,5 +7,5 @@ export default {
 export const hotspot = QtiViewerTemplate.bind({});
 
 hotspot.args = {
-  assessmentItemSrc: 'items/hotspot.xml',
+  assessmentItemSrc: 'tests/items/hotspot.xml',
 };

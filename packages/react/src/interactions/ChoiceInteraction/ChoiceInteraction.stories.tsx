@@ -7,11 +7,11 @@ export default {
 export const choice = QtiViewerTemplate.bind({});
 
 choice.args = {
-  assessmentItemSrc: 'items/choice.xml',
+  assessmentItemSrc: 'tests/items/choice.xml',
 };
 
 export const orkney1 = QtiViewerTemplate.bind({});
 
 orkney1.args = {
-  assessmentItemSrc: 'items/orkney1.xml',
+  assessmentItemSrc: 'tests/items/orkney1.xml',
 };

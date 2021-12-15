@@ -7,11 +7,11 @@ export default {
 export const slider = QtiViewerTemplate.bind({});
 
 slider.args = {
-  assessmentItemSrc: 'items/slider.xml',
+  assessmentItemSrc: 'tests/items/slider.xml',
 };
 
 export const sliderLabel = QtiViewerTemplate.bind({});
 
 sliderLabel.args = {
-  assessmentItemSrc: 'items/slider-label.xml',
+  assessmentItemSrc: 'tests/items/slider-label.xml',
 };
