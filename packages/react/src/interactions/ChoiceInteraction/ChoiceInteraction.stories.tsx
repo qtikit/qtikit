@@ -22,6 +22,12 @@ choice_fixed.args = {
   assessmentItemSrc: 'tests/items/choice_fixed.xml',
 };
 
+export const choice_orientation = QtiViewerTemplate.bind({});
+
+choice_orientation.args = {
+  assessmentItemSrc: 'tests/items/choice_orientation.xml',
+};
+
 export const orkney1 = QtiViewerTemplate.bind({});
 
 orkney1.args = {

@@ -19,7 +19,7 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
   shuffle,
   // maxChoices,
   // minChoices,
-  // orientation,
+  orientation,
   children,
 }) => {
   const [interactionState, setInteractionState] = useInteractionState({
