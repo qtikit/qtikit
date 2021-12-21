@@ -13,7 +13,7 @@ const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}
 
   const handleChange = () => {
     setInteractionState({
-      [identifier]: true,
+      [identifier]: !interactionState[identifier],
     });
   };
 
@@ -23,7 +23,7 @@ const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}
       data-qtikit-checked={interactionState[identifier] === true}>
       <label>
         <input
-          type="radio"
+          type="checkbox"
           checked={interactionState[identifier] === true}
           value={identifier}
           onChange={handleChange}

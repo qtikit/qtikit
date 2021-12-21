@@ -45,7 +45,7 @@
 }
 
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label::before,
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="radio"] {
+.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="checkbox"] {
   position: absolute;
   margin: 0;
   top: 50%;
@@ -63,7 +63,7 @@
   background-color: #eee;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="radio"] {
+.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="checkbox"] {
   right: 1em;
 }
 

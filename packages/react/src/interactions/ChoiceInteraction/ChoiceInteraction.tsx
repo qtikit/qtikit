@@ -1,5 +1,6 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, ChoiceInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
+import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
@@ -14,26 +15,40 @@ export type ChoiceInteractionProps = QtiModelProps<
   ChoiceInteractionCharacteristics
 >;
 
+function decodeChoices(choices: {[s: string]: unknown}) {
+  return Object.entries(choices)
+    .filter(([, value]) => value === true)
+    .map(([key]) => key);
+}
+
+function encodeChoices(userInput: UserInput[string]) {
+  return Object.fromEntries(userInput.map(input => [input, true]));
+}
+
+function checkMaxChoices(
+  interactionState: InteractionState,
+  nextInteractionState: InteractionState,
+  maxChoice: number
+) {
+  const checked = Object.entries(nextInteractionState)[0][1];
+  const length = Object.entries(interactionState).filter(([, value]) => value === checked).length;
+
+  return !checked || maxChoice === 0 || length < maxChoice;
+}
+
 const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
   responseIdentifier,
   shuffle,
-  // maxChoices,
-  // minChoices,
+  maxChoices,
   orientation,
   children,
 }) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    encode: userInput => Object.fromEntries(userInput.map(input => [input, true])),
-    decode: newInteractionState =>
-      Object.keys({
-        ...interactionState,
-        ...newInteractionState,
-      }),
-    shouldUpdate: (nextInteractionState: InteractionState) => {
-      console.log('nextInteractionState', nextInteractionState);
-      return true;
-    },
+    encode: userInput => encodeChoices(userInput),
+    decode: newInteractionState => decodeChoices({...interactionState, ...newInteractionState}),
+    shouldUpdate: (nextInteractionState: InteractionState) =>
+      checkMaxChoices(interactionState, nextInteractionState, parseMaxChoices(maxChoices)),
   });
 
   const shuffledChildren = useShuffleAttributes(ATTRIBUTE_NAME, parseBoolean(shuffle), children);
