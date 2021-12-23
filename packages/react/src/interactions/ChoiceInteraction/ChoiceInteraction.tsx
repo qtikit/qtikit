@@ -1,26 +1,62 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, ChoiceInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
+import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {QtiModelProps} from '../../types/props';
 import {classNameForInteraction} from '../../utils/style';
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
+import InteractionStateContext, {InteractionState, useInteractionState} from '../InteractionState';
+import {parseBoolean, parseMaxChoices} from '../../utils/type';
+import useShuffleAttributes from '../../characteristics/Shuffle';
+
+const ATTRIBUTE_NAME = 'SimpleChoice';
 
 export type ChoiceInteractionProps = QtiModelProps<
   BasePromptInteractionCharacteristics,
   ChoiceInteractionCharacteristics
 >;
 
-const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({responseIdentifier, children}) => {
+function decodeChoices(choices: {[s: string]: unknown}) {
+  return Object.entries(choices)
+    .filter(([, value]) => value === true)
+    .map(([key]) => key);
+}
+
+function encodeChoices(userInput: UserInput[string]) {
+  return Object.fromEntries(userInput.map(input => [input, true]));
+}
+
+function checkMaxChoices(
+  interactionState: InteractionState,
+  nextInteractionState: InteractionState,
+  maxChoice: number
+) {
+  const checked = Object.entries(nextInteractionState)[0][1];
+  const length = Object.entries(interactionState).filter(([, value]) => value === checked).length;
+
+  return !checked || maxChoice === 0 || length < maxChoice;
+}
+
+const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
+  responseIdentifier,
+  shuffle,
+  maxChoices,
+  orientation,
+  children,
+}) => {
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    encode: userInput => Object.fromEntries(userInput.map(input => [input, true])),
-    decode: interactionState => Object.keys(interactionState),
+    encode: userInput => encodeChoices(userInput),
+    decode: newInteractionState => decodeChoices({...interactionState, ...newInteractionState}),
+    shouldUpdate: (nextInteractionState: InteractionState) =>
+      checkMaxChoices(interactionState, nextInteractionState, parseMaxChoices(maxChoices)),
   });
 
+  const shuffledChildren = useShuffleAttributes(ATTRIBUTE_NAME, parseBoolean(shuffle), children);
+
   return (
-    <div className={classNameForInteraction('choice')}>
+    <div className={`${classNameForInteraction('choice')} ${orientation}`}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-        {children}
+        {shuffledChildren}
       </InteractionStateContext.Provider>
     </div>
   );

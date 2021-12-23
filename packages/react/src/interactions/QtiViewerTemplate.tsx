@@ -17,7 +17,6 @@ export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = props => {
   return (
     <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
       <div style={{flex: '1', padding: 10}}>
-        {/* adasd */}
         <QtiViewer
           assessmentItemSrc={assessmentItemSrc}
           stylesheetSrc={stylesheetSrc}

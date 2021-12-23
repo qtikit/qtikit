@@ -3,9 +3,22 @@
 .qtikit-interaction {}
 
 .qtikit-interaction__choice {
+  display: flex;
+  flex-direction: column;
   margin: 2em auto;
   width: 30em;
   counter-reset: qtikit-interaction__choice;
+}
+
+.qtikit-interaction__choice.vertical {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.qtikit-interaction__choice.vertical > .qtikit-component__simple-choice {
+  display: flex;
+  margin: 0;
+  margin-right: 0.5em;
 }
 
 .qtikit-interaction__choice > .qtikit-component__simple-choice {
@@ -32,7 +45,7 @@
 }
 
 .qtikit-interaction__choice > .qtikit-component__simple-choice > label::before,
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="radio"] {
+.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="checkbox"] {
   position: absolute;
   margin: 0;
   top: 50%;
@@ -50,9 +63,10 @@
   background-color: #eee;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="radio"] {
+.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="checkbox"] {
   right: 1em;
 }
+
 
 .qtikit-interaction__extended-text {}
 
