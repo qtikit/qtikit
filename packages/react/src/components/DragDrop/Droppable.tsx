@@ -14,6 +14,7 @@ const Droppable: React.FC<DroppableProps> = ({style, className, onDragEnter, onD
   const {current} = useDragDropContext();
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = event => {
+    event.dataTransfer.dropEffect = 'move';
     event.preventDefault();
   };
 
@@ -38,7 +39,7 @@ const Droppable: React.FC<DroppableProps> = ({style, className, onDragEnter, onD
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDrop={handleDrop}
-      className={`${classNameForComponent('dropable')} ${className}`}
+      className={`${classNameForComponent('dropable')} ${className ?? ''}`}
       style={style}>
       {children}
     </span>

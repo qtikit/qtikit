@@ -1,36 +1,44 @@
+/* QtiKit Charateristics */
+
+.qtikit-orientation {
+  display: flex;
+}
+
+.qtikit-orientation__vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.qtikit-orientation__horizontal {
+  flex-direction: row;
+}
+
 /* QtiKit Interactions */
 
 .qtikit-interaction {}
 
 .qtikit-interaction__choice {
-  display: flex;
-  flex-direction: column;
   margin: 2em auto;
   width: 30em;
   counter-reset: qtikit-interaction__choice;
 }
 
-.qtikit-interaction__choice.vertical {
-  flex-direction: row;
-  align-items: stretch;
-}
-
-.qtikit-interaction__choice.vertical > .qtikit-component__simple-choice {
+.qtikit-interaction__choice > .qtikit-orientation__horizontal > .qtikit-component__simple-choice {
   display: flex;
   margin: 0;
   margin-right: 0.5em;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice {
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice {
   display: block;
   margin-bottom: 0.5em;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice:last-child {
+.qtikit-interaction__choice >.qtikit-orientation__vertical > .qtikit-component__simple-choice:last-child {
   margin: 0;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label {
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice > label {
   display: block;
   position: relative;
   padding: 1em 2em;
@@ -40,12 +48,12 @@
   counter-increment: qtikit-interaction__choice;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label:hover {
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label:hover {
   background-color: #eee;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label::before,
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="checkbox"] {
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label::before,
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label > input[type="checkbox"] {
   position: absolute;
   margin: 0;
   top: 50%;
@@ -53,20 +61,15 @@
   transform: translateY(-50%);
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label::before {
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label::before {
   left: 1em;
   content: counter(qtikit-interaction__choice, upper-alpha);
   font-weight: bold;
 }
 
-.qtikit-interaction__choice > .qtikit-component__simple-choice[data-qtikit-checked="true"] > label {
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice[data-qtikit-checked="true"] > label {
   background-color: #eee;
 }
-
-.qtikit-interaction__choice > .qtikit-component__simple-choice > label > input[type="checkbox"] {
-  right: 1em;
-}
-
 
 .qtikit-interaction__extended-text {}
 
@@ -93,6 +96,16 @@
 .qtikit-interaction__order {
   display: flex;
   flex-direction: column;
+}
+
+.qtikit-interaction__order > .qtikit-orientation__horizontal {
+  flex-direction: row;
+}
+
+.qtikit-interaction__order > .qtikit-orientation__horizontal .qtikit-component__order-simple-choice {
+  display: flex;
+  margin: 0;
+  margin-right: 0.5em;
 }
 
 .qtikit-interaction__textentry {
@@ -256,9 +269,14 @@
   display: inline-flex;
 }
 
-.qtikit-component__droggable {
+.qtikit-component__draggable {
   cursor: move;
   display: inline-flex;
+}
+
+.qtikit-component__fixed {
+  cursor: default;
+  user-select: none;
 }
 
 .qtikit-component__match-table > table {

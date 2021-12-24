@@ -7,8 +7,7 @@ import {classNameForInteraction} from '../../utils/style';
 import InteractionStateContext, {InteractionState, useInteractionState} from '../InteractionState';
 import {parseBoolean, parseMaxChoices} from '../../utils/type';
 import useShuffleAttributes from '../../characteristics/Shuffle';
-
-const ATTRIBUTE_NAME = 'SimpleChoice';
+import OrientationCharacteristic from '../../characteristics/Orientation';
 
 export type ChoiceInteractionProps = QtiModelProps<
   BasePromptInteractionCharacteristics,
@@ -43,6 +42,8 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
   orientation,
   children,
 }) => {
+  const {prompt, shuffledChildren} = useShuffleAttributes(parseBoolean(shuffle), children);
+
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => encodeChoices(userInput),
@@ -51,12 +52,11 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
       checkMaxChoices(interactionState, nextInteractionState, parseMaxChoices(maxChoices)),
   });
 
-  const shuffledChildren = useShuffleAttributes(ATTRIBUTE_NAME, parseBoolean(shuffle), children);
-
   return (
-    <div className={`${classNameForInteraction('choice')} ${orientation}`}>
+    <div className={`${classNameForInteraction('choice')}`}>
+      {prompt}
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-        {shuffledChildren}
+        <OrientationCharacteristic orientation={orientation}>{shuffledChildren}</OrientationCharacteristic>
       </InteractionStateContext.Provider>
     </div>
   );

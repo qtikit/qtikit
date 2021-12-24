@@ -50,3 +50,7 @@ export function classNameForInteraction(element: string) {
 export function classNameForComponent(element: string, modifier?: string) {
   return `qtikit-component ${className('component', element, modifier)}`;
 }
+
+export function classNameForCharacteristic(name: string, value: string) {
+  return `qtikit-${name} qtikit-${name}__${value}`;
+}

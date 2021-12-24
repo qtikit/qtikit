@@ -10,8 +10,4 @@ type Attributes<Characteristics> = {[Key in keyof Characteristics]: Attribute<Ch
 type QtiModelProps<BaseCharacteristics, Characteristics> = Attributes<BaseCharacteristics> &
   Attributes<Characteristics>;
 
-const AttributeNames = ['Prompt', 'SimpleChoice'] as const;
-
-type AttributeName = typeof AttributeNames[number];
-
-export {Attribute, Attributes, QtiModelProps, AttributeName, AttributeNames};
+export {Attribute, Attributes, QtiModelProps};

@@ -15,16 +15,15 @@
 		</defaultValue>
 	</outcomeDeclaration>
 	<itemBody>
-		<p>Vertical</p>
-		<choiceInteraction responseIdentifier="RESPONSE" shuffle="false" maxChoices="1" orientation="horizontal">
+		<h2>Vertical</h2>
+		<choiceInteraction responseIdentifier="RESPONSE" shuffle="false" maxChoices="1" orientation="vertical">
 			<prompt>What does it say?</prompt>
 			<simpleChoice identifier="ChoiceA">You must stay with your luggage at all times.</simpleChoice>
 			<simpleChoice identifier="ChoiceB">Do not let someone else look after your luggage.</simpleChoice>
 			<simpleChoice identifier="ChoiceC">Remember your luggage when you leave.</simpleChoice>
 		</choiceInteraction>
-
-		<p>Horizontal</p>
-		<choiceInteraction responseIdentifier="RESPONSE" shuffle="false" maxChoices="1" orientation="vertical">
+		<h2>Horizontal</h2>
+		<choiceInteraction responseIdentifier="RESPONSE" shuffle="false" maxChoices="1" orientation="horizontal">
 			<prompt>What does it say?</prompt>
 			<simpleChoice identifier="ChoiceA">You must stay with your luggage at all times.</simpleChoice>
 			<simpleChoice identifier="ChoiceB">Do not let someone else look after your luggage.</simpleChoice>

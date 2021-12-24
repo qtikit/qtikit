@@ -7,14 +7,18 @@ export interface DraggableProps {
   current: Omit<Current, 'name'> & Partial<Pick<Current, 'name'>>;
   style?: React.CSSProperties;
   className?: string;
+  draggable?: boolean;
 }
 
-const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, className, children}) => {
+const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, draggable, className, children}) => {
   const {setCurrent} = useDragDropContext();
 
   const current = {...optionalCurrent, name: optionalCurrent.name ?? optionalCurrent.value};
 
-  const handleDragStart: React.DragEventHandler<HTMLDivElement> = () => {
+  const modifier = draggable ? 'draggable' : 'fixed';
+
+  const handleDragStart: React.DragEventHandler<HTMLDivElement> = event => {
+    event.dataTransfer.effectAllowed = 'move';
     setCurrent(current);
   };
 
@@ -24,8 +28,8 @@ const Draggable: React.FC<DraggableProps> = ({current: optionalCurrent, style, c
 
   return (
     <span
-      className={`${classNameForComponent('droggable')} ${className}`}
-      draggable
+      className={`${classNameForComponent(modifier)} ${className ?? ''}`}
+      draggable={draggable}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       style={style}>
