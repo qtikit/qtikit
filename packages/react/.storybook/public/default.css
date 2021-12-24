@@ -216,7 +216,7 @@
 
 .qtikit-component__rubric-block {
   position: relative;
-  display: inline-block;
+  display: none;
   margin: 2em auto;
   padding: 1em 1em 2em 1em;
   border: solid 1px #EEE;
