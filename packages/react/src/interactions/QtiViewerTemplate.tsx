@@ -40,8 +40,12 @@ function useAssignmentItemDocument(assessmentItemSrc: string) {
     fetch(assessmentItemSrc)
       .then(response => response.text())
       .then(text => {
-        const document = new DOMParser().parseFromString(text, 'text/xml');
-        setAssessmentItemDocument(document);
+        try {
+          const document = new DOMParser().parseFromString(text, 'text/xml');
+          setAssessmentItemDocument(document);
+        } catch (e) {
+          console.error(e);
+        }
       });
   }, [assessmentItemSrc]);
   return assessmentItemDocument;
@@ -49,8 +53,13 @@ function useAssignmentItemDocument(assessmentItemSrc: string) {
 
 function useResponseProcessingResult(assessmentItemDocument?: Document, inputState: InputState = {}) {
   const responseProcessingResult = useMemo(() => {
-    if (!assessmentItemDocument) return;
-    return responseProcessing(getResponseProcessingConfigFromDocument(assessmentItemDocument), inputState);
+    try {
+      if (!assessmentItemDocument) return;
+      return responseProcessing(getResponseProcessingConfigFromDocument(assessmentItemDocument), inputState);
+    } catch (e) {
+      console.error(e);
+      console.log(assessmentItemDocument?.documentElement?.outerHTML);
+    }
   }, [assessmentItemDocument, inputState]);
   return responseProcessingResult;
 }
