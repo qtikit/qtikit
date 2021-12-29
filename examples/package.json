@@ -1,0 +1,15 @@
+{
+  "name": "examples",
+  "private": true,
+  "packageManager": "yarn@3.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^11.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
