@@ -73,6 +73,63 @@ QtiViewers.args = {
   stylesheetSrc: resolveUrl('default.css'),
 };
 
+const QtiSlideViewerTemplate = ({assessmentItemSrc, stylesheetSrc}) => {
+  const [assessmentItems, setAssessmentItems] = useState([]);
+  const [assessmentIndex, setAssessmentIndex] = useState(0);
+  const [inputState, setInputState] = useState<UserInput>({});
+
+  const prev = React.useCallback((): void => {
+    if (assessmentIndex > 0) {
+      setAssessmentIndex(assessmentIndex - 1);
+    }
+  }, [assessmentIndex]);
+
+  const next = React.useCallback((): void => {
+    if (assessmentIndex < assessmentItems.length - 1) {
+      setAssessmentIndex(assessmentIndex + 1);
+    }
+  }, [assessmentIndex, assessmentItems]);
+
+  useEffect(() => {
+    setAssessmentItems(normalizeAssessmentItemUrls(assessmentItemSrc));
+  }, [assessmentItemSrc]);
+
+  return (
+    <>
+      <h1>Input Assessment Urls in Slide</h1>
+      <div>
+        <h2>
+          QTI: <a href={assessmentItems[assessmentIndex]}>{getPathName(assessmentItems[assessmentIndex])}</a>
+        </h2>
+        <div>
+          <button onClick={prev}>Previous</button>
+          <button onClick={next}>Next</button>
+        </div>
+        {assessmentItems.length > 0 ? (
+          <QtiViewerErrorBoundary key={assessmentItems[assessmentIndex]}>
+            <QtiViewer
+              assessmentItemSrc={assessmentItems[assessmentIndex]}
+              inputState={inputState}
+              onChange={setInputState}
+              stylesheetSrc={stylesheetSrc}
+            />
+          </QtiViewerErrorBoundary>
+        ) : (
+          <h3>No Assessment Items</h3>
+        )}
+      </div>
+    </>
+  );
+};
+
+export const QtiSlideViewer = QtiSlideViewerTemplate.bind({});
+
+QtiSlideViewer.storyName = 'QtiSlideViewer';
+QtiSlideViewer.args = {
+  assessmentItemSrc: getAssessmentItemSrcParam(),
+  stylesheetSrc: resolveUrl('default.css'),
+};
+
 function urlize(url: string) {
   return /^(http|https):\/\//.test(url) ? url : `https://${url}`;
 }

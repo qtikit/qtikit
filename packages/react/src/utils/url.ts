@@ -7,7 +7,7 @@ export function getBaseUrl(url: string): string {
 }
 
 export function getPathName(url: string): string {
-  return url.split('/').pop() ?? '';
+  return (url && url.split('/').pop()) ?? '';
 }
 
 export function resolveUrl(pathname: string | undefined, baseurl?: string): string {
