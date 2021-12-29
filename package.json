@@ -10,7 +10,8 @@
     "packages/model",
     "packages/model/test",
     "packages/react",
-    "packages/scoring-engine"
+    "packages/scoring-engine",
+    "examples"
   ],
   "scripts": {
     "lint": "eslint packages --ext .ts,.tsx",
