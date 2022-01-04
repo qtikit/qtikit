@@ -5031,16 +5031,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apps@workspace:examples":
-  version: 0.0.0-use.local
-  resolution: "apps@workspace:examples"
-  dependencies:
-    next: ^11.1.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
-  languageName: unknown
-  linkType: soft
-
 "aproba@npm:^1.0.3 || ^2.0.0":
   version: 2.0.0
   resolution: "aproba@npm:2.0.0"
@@ -8228,6 +8218,16 @@ __metadata:
   checksum: ad4e1577f1a6b721c7800dcc7c733fe01f6c310732bb5bf2240245c2a5b45a38518b91d8be2c610611623160b9d1c0e91f1ce96d639f8b53e8894625cf20fa45
   languageName: node
   linkType: hard
+
+"examples@workspace:examples":
+  version: 0.0.0-use.local
+  resolution: "examples@workspace:examples"
+  dependencies:
+    next: ^11.1.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
 
 "exec-sh@npm:^0.3.2":
   version: 0.3.6

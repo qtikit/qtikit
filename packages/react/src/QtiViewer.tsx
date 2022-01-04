@@ -105,6 +105,9 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
     };
 
     loadAssessmentItem();
+    return () => {
+      setAssessmentItem(null);
+    };
   }, [assessmentItemSrc, stylesheetSrc, throwError]);
 
   return (
