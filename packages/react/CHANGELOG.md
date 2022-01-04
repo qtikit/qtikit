@@ -4,7 +4,14 @@
 
 ### Patch Changes
 
+#### Fixes
 - 0d471bc: - fix: Prevent multiple rendering after first render
+
+#### Breaking Changes
+- 5143a73: - Characteristic implements in Choice Interaction
+  - Simple Choice control type changed, [radio -> checkbox](https://github.com/riiid/qtikit/commit/5143a732a9ea07fd2d2334b614f6a413ab4215fa#diff-4f876bf01afd270e32dc037505a41a7e3362efd3b8d49365d8ed23704bb75207L35), to support multi select
+- 20d3f13: - Improve order interaction
+  - [Query selector for order interaction changed](https://github.com/riiid/qtikit/commit/20d3f1340d61bd328b796585a67fba6e34b0ea63#diff-4f876bf01afd270e32dc037505a41a7e3362efd3b8d49365d8ed23704bb75207R1)
 
 ## 0.0.13
 
