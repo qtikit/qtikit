@@ -1,5 +1,11 @@
 # @qtikit/react
 
+## 0.0.14
+
+### Patch Changes
+
+- 0d471bc: - fix: Prevent multiple rendering after first render
+
 ## 0.0.13
 
 ### Patch Changes
