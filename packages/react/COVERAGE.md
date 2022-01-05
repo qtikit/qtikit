@@ -2,11 +2,11 @@
 
 This table represents status of implementation progress of interactions and characteristics which are supported by QtiViewer.
 
-| Interaction / Children 58%(27 / 46) | Characteristics 6%(9 / 140)|
+| Interaction / Children (27 / 46) | Characteristics (14 / 140)|
 |--|--|
 | Simple Interaction | |
 | ✅ Choice | ✅ shuffle <br/> ✅ maxChoices <br/> ✅ minChoices <br/> ✅ orientation |
-| ✅ Order | ❌ shuffle <br/> ❌ maxChoices <br/> ❌ minChoices <br/> ❌ orientation |
+| ✅ Order | ✅ shuffle <br/> ✅ maxChoices <br/> ✅ minChoices <br/> ✅ orientation |
 | ❌ Associate | ❌ shuffle <br/> ❌ maxAssociations <br/> ❌ minAssociations |
 | ✅ Match | ❌ shuffle <br/> ❌ maxAssociations <br/> ❌ minAssociations |
 | ✅ GapMatch | ❌ shuffle <br/> ❌ maxAssociations <br/> ❌ minAssociations |
