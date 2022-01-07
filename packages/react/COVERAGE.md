@@ -8,7 +8,7 @@ This table represents status of implementation progress of interactions and char
 | ✅ Choice | ✅ shuffle <br/> ✅ maxChoices <br/> ✅ minChoices <br/> ✅ orientation |
 | ✅ Order | ✅ shuffle <br/> ✅ maxChoices <br/> ✅ minChoices <br/> ✅ orientation |
 | ❌ Associate | ❌ shuffle <br/> ❌ maxAssociations <br/> ❌ minAssociations |
-| ✅ Match | ❌ shuffle <br/> ❌ maxAssociations <br/> ❌ minAssociations |
+| ✅ Match | ✅ shuffle <br/> ✅ maxAssociations <br/> ✅ minAssociations |
 | ✅ GapMatch | ❌ shuffle <br/> ❌ maxAssociations <br/> ❌ minAssociations |
 | Text-based Interaction | |
 | ✅ InlineChoice | ❌ shuffle <br/> ❌ required |
