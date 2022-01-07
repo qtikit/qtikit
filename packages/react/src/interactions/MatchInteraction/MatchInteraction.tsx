@@ -1,38 +1,47 @@
 import React from 'react';
 import {BasePromptInteractionCharacteristics, MatchInteractionCharacteristics} from '@qtikit/model/lib/qti2_2';
+import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {QtiModelProps} from '../../types/props';
 import Prompt, {PromptProps} from '../../components/Prompt';
-import InteractionStateContext, {useInteractionState} from '../InteractionState';
-import MatchSet from './MatchSet';
-import MatchTable from '../../components/MatchTable';
+import InteractionStateContext, {InteractionState, useInteractionState} from '../InteractionState';
 import {classNameForInteraction} from '../../utils/style';
+import {parseBoolean} from '../../utils/type';
+import SimpleMatchSet, {useSimpleMatchSet} from '../../components/SimpleMatchSet';
 
 export type MatchInteractionProps = QtiModelProps<
   BasePromptInteractionCharacteristics,
   MatchInteractionCharacteristics & {elementChildren: Element}
 >;
 
-const MatchInteraction: React.FC<MatchInteractionProps> = ({responseIdentifier, maxAssociations, elementChildren}) => {
-  const matchSet = React.useMemo(
-    () => new MatchSet(maxAssociations ? parseInt(maxAssociations) : 1, elementChildren),
-    []
+function encodeToBooleanMap(userInput: UserInput[string]): InteractionState {
+  return userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {});
+}
+
+function decodeWithValidIdentifier(interactionState: InteractionState): UserInput[string] {
+  return Object.keys(interactionState).filter(identifier => interactionState[identifier]);
+}
+
+const MatchInteraction: React.FC<MatchInteractionProps> = ({
+  responseIdentifier,
+  maxAssociations,
+  shuffle,
+  elementChildren,
+}) => {
+  const {simpleMatchSet, checkChoice} = useSimpleMatchSet(
+    elementChildren,
+    Number.parseInt(maxAssociations || '0'),
+    parseBoolean(shuffle)
   );
 
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
-    encode: userInput =>
-      userInput.reduce((interactionState, identifier) => ({...interactionState, [identifier]: true}), {}),
-    decode: interactionState => Object.keys(interactionState).filter(identifier => interactionState[identifier]),
-    shouldUpdate: newInteractionState => {
-      const current = Object.entries(interactionState);
-      const next = Object.entries(newInteractionState);
-      const [choice, checked] = next.filter(([response, checked]) =>
-        current.length < next.length ? !interactionState[response] : checked !== interactionState[response]
-      )[0];
-      const [rowIdentifier, colIdentifier] = choice.split(' ');
-
-      return checked ? matchSet.check(rowIdentifier, colIdentifier) : matchSet.uncheck(rowIdentifier, colIdentifier);
+    encode: encodeToBooleanMap,
+    decode: decodeWithValidIdentifier,
+    shouldUpdate: (nextInteractionState, prevInteractionState) => {
+      const changeIdentifier = Object.keys(prevInteractionState)[0];
+      const checked = nextInteractionState[changeIdentifier];
+      return checkChoice(changeIdentifier, checked as boolean);
     },
   });
 
@@ -45,7 +54,7 @@ const MatchInteraction: React.FC<MatchInteractionProps> = ({responseIdentifier, 
     <div className={classNameForInteraction('match')}>
       <Prompt {...promptProps}>{promptElement?.textContent}</Prompt>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-        <MatchTable set={matchSet} />
+        <SimpleMatchSet {...simpleMatchSet} />
       </InteractionStateContext.Provider>
     </div>
   );

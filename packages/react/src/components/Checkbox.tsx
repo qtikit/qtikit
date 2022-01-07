@@ -11,10 +11,13 @@ const Checkbox: React.FC<CheckboxProps> = ({identifier, ...props}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const handleChange = () => {
-    setInteractionState({
-      ...interactionState,
-      [identifier]: !(interactionState[identifier] === true),
-    });
+    setInteractionState(
+      {
+        ...interactionState,
+        [identifier]: !(interactionState[identifier] === true),
+      },
+      {[identifier]: interactionState[identifier]}
+    );
   };
 
   return (

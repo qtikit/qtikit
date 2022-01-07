@@ -1,12 +1,17 @@
 import React, {ReactNode} from 'react';
 
 import {divideComponent} from '../utils/component';
+import {getPropsByElement} from '../utils/node';
 import {parseBoolean} from '../utils/type';
 
 function isSortableAttribute(first: any) {
   const fixed = parseBoolean(first.props?.fixed);
 
   return !fixed ? Math.random() - 0.5 : 0;
+}
+
+export function isSortableElement(first: any) {
+  return isSortableAttribute(getPropsByElement(first));
 }
 
 export function shuffleAttributes(children: ReactNode): ReactNode {
