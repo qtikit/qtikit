@@ -1,5 +1,13 @@
 # @qtikit/scoring-engine
 
+## 0.0.5
+
+### Patch Changes
+
+- Update tsconfig to support storybook
+- Updated dependencies
+  - @qtikit/model@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

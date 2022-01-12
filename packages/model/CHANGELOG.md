@@ -1,5 +1,11 @@
 # @qtikit/model
 
+## 0.0.5
+
+### Patch Changes
+
+- Update tsconfig to support storybook
+
 ## 0.0.4
 
 ### Patch Changes
