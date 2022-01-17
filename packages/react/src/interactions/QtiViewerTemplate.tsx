@@ -9,8 +9,8 @@ import QtiViewer, {QtiViewerProps} from '../';
 type InputState = QtiViewerProps['inputState'];
 
 export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = props => {
-  const assessmentItemSrc = resolveUrl(props.assessmentItemSrc);
-  const stylesheetSrc = resolveUrl(props.stylesheetSrc ?? 'default.css');
+  const assessmentItemSrc = resolveUrl(props.assessmentItemSrc as string);
+  const stylesheetSrc = resolveUrl((props.stylesheetSrc as string) ?? 'default.css');
   const [inputState, setInputState] = useState<InputState>({});
   const assessmentItemDocument = useAssignmentItemDocument(assessmentItemSrc);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);

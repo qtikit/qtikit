@@ -2,7 +2,8 @@ import {UserInput} from '@qtikit/model/lib/user-input';
 import React, {useEffect, useState} from 'react';
 
 import QtiViewer from './QtiViewer';
-import {getPathName, resolveUrl} from './utils/url';
+import {fetchText} from './utils';
+import {getBaseUrl, getPathName, resolveUrl} from './utils/url';
 
 class QtiViewerErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
   constructor(props) {
@@ -37,25 +38,38 @@ const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc}) => {
   const [inputState, setInputState] = useState<UserInput>({});
 
   useEffect(() => {
-    setAssessmentItems(normalizeAssessmentItemUrls(assessmentItemSrc));
+    const fetch = async () => {
+      const items = await Promise.all(
+        normalizeAssessmentItemUrls(assessmentItemSrc).map(async src => {
+          return {
+            src,
+            content: await fetchText(src),
+          };
+        })
+      );
+      setAssessmentItems(items);
+    };
+
+    fetch();
   }, [assessmentItemSrc]);
 
   return (
     <>
       <h1>Input Assessment Urls</h1>
       <div>
-        {assessmentItems.map((assessmentItemSrc, index) => (
+        {assessmentItems.map((assessmentItem, index) => (
           <div key={index}>
             <hr />
             <h2>
-              QTI: <a href={assessmentItemSrc}>{getPathName(assessmentItemSrc)}</a>
+              QTI: <a href={assessmentItem.src}>{getPathName(assessmentItem.src)}</a>
             </h2>
-            <QtiViewerErrorBoundary key={assessmentItemSrc}>
+            <QtiViewerErrorBoundary key={assessmentItem}>
               <QtiViewer
-                assessmentItemSrc={assessmentItemSrc}
+                assessmentItemSrc={assessmentItem.content}
                 inputState={inputState}
                 onChange={setInputState}
                 stylesheetSrc={stylesheetSrc}
+                resourceBaseUrl={getBaseUrl(assessmentItem.src)}
               />
             </QtiViewerErrorBoundary>
           </div>

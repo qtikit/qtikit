@@ -1,5 +1,5 @@
 export function getBaseUrl(url: string): string {
-  if (!/^(http|https):\/\//.test(url)) {
+  if (!isUrlString(url)) {
     throw new Error(`Assessment source URL must be absolute path. ${url}`);
   }
 
@@ -14,4 +14,8 @@ export function resolveUrl(pathname: string | undefined, baseurl?: string): stri
   const url = new URL(baseurl || location.href);
 
   return new URL(pathname || '/', url).href;
+}
+
+export function isUrlString(url: string): boolean {
+  return /^(http|https):\/\//.test(url);
 }

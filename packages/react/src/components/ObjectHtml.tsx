@@ -7,10 +7,10 @@ import {resolveUrl} from '../utils/url';
 export type ObjectHtmlProps = React.ObjectHTMLAttributes<HTMLObjectElement>;
 
 const ObjectHtml: React.FC<ObjectHtmlProps> = ({data, ...props}) => {
-  const {baseUrl} = useContext(QtiViewerContext);
+  const {resourceBaseUrl} = useContext(QtiViewerContext);
   return (
     <span className={classNameForComponent('object')}>
-      <object data={resolveUrl(data, baseUrl)} {...props} />
+      <object data={resolveUrl(data, resourceBaseUrl)} {...props} />
     </span>
   );
 };

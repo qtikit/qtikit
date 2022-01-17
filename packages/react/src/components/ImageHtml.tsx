@@ -7,10 +7,10 @@ import {resolveUrl} from '../utils/url';
 export type ImageHtmlProps = React.ImgHTMLAttributes<HTMLImageElement>;
 
 const ImageHtml: React.FC<ImageHtmlProps> = ({src, children, ...props}) => {
-  const {baseUrl} = useContext(QtiViewerContext);
+  const {resourceBaseUrl} = useContext(QtiViewerContext);
   return (
     <span className={classNameForComponent('image')}>
-      <img {...props} src={resolveUrl(src, baseUrl)} />
+      <img {...props} src={resolveUrl(src, resourceBaseUrl)} />
     </span>
   );
 };
