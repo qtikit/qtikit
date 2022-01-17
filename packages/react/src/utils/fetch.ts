@@ -10,4 +10,15 @@ async function fetchText(href: string): Promise<string> {
   return fetch(href).then(response => response.text());
 }
 
-export {ResourceSrc, isUrlResourceType, fetchText};
+async function fetchAssessment(assessmentItemSrc: string[]) {
+  return Promise.all(
+    assessmentItemSrc.map(async src => {
+      return {
+        src,
+        content: await fetchText(src),
+      };
+    })
+  );
+}
+
+export {ResourceSrc, isUrlResourceType, fetchText, fetchAssessment};
