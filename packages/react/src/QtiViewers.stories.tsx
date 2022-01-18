@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 
-import {QtiViewerTemplate} from './interactions/QtiViewerTemplate';
+import {QtiViewerTemplate, QtiViewerView} from './interactions/QtiViewerTemplate';
 import {getPathName, resolveUrl} from './utils/url';
 
 const useAssessmentNavigation = (assessmentItems: string[]) => {
@@ -79,6 +79,65 @@ export const QtiNonLinearViewer = QtiNonLinearViewerTemplate.bind({});
 QtiNonLinearViewer.storyName = 'QtiNonLinearViewer';
 QtiNonLinearViewer.args = {
   assessmentItemsSrc: getAssessmentItemSrcParam(),
+  stylesheetSrc: resolveUrl('default.css'),
+};
+
+const QtiXmlViewerTemplate = ({assessmentItemsSrc, assessmentItemContent, stylesheetSrc}) => {
+  return (
+    <>
+      <h1>QtiViewers with XML</h1>
+      {assessmentItemsSrc && (
+        <QtiViewerView
+          assessmentItemSrc={assessmentItemsSrc}
+          assessmentItemContent={assessmentItemContent}
+          stylesheetSrc={stylesheetSrc}
+        />
+      )}
+    </>
+  );
+};
+
+export const QtiXmlViewer = QtiXmlViewerTemplate.bind({});
+
+const defaultXml = `<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p2 http://www.imsglobal.org/xsd/qti/qtiv2p2/imsqti_v2p2p2.xsd"
+    xmlns="http://www.imsglobal.org/xsd/imsqti_v2p2">
+  <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+    <correctResponse>
+      <value>true</value>
+    </correctResponse>
+  </responseDeclaration>
+  <itemBody>
+    <choiceInteraction responseIdentifier="RESPONSE" shuffle="false" maxChoices="1">
+      <prompt>Sigmund Freud and Carl Jung both belong to the psychoanalytic school of psychology.</prompt>
+      <simpleChoice identifier="true" fixed="true">True</simpleChoice>
+      <simpleChoice identifier="false" fixed="true">False</simpleChoice>
+    </choiceInteraction>
+  </itemBody>
+  <responseProcessing>
+    <setOutcomeValue identifier="FEEDBACK">
+      <variable identifier="RESPONSE"/>
+    </setOutcomeValue>
+    <responseCondition>
+      <responseIf>
+        <match>
+          <variable identifier="RESPONSE"/>
+          <correct identifier="RESPONSE"/>
+        </match>
+        <setOutcomeValue identifier="SCORE">
+            <variable identifier="MAXSCORE"/>
+        </setOutcomeValue>
+      </responseIf>
+    </responseCondition>
+  </responseProcessing>
+</assessmentItem>`;
+
+QtiXmlViewer.storyName = 'QtiXmlViewer';
+QtiXmlViewer.args = {
+  assessmentItemsSrc: 'http://localhost:6006',
+  assessmentItemContent: defaultXml,
   stylesheetSrc: resolveUrl('default.css'),
 };
 

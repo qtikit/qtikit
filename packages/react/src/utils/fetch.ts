@@ -1,5 +1,11 @@
 import {isUrlString} from '.';
 
+// @TODO add more options, content are cached? no request if already loaded?
+// ResourceSrc {
+//   src: URL,
+//   content: string,
+// }
+
 type ResourceSrc = URL | string;
 
 function isUrlResourceType(src: ResourceSrc) {

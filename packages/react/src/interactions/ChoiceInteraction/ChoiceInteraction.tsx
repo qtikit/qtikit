@@ -8,6 +8,7 @@ import InteractionStateContext, {InteractionState, useInteractionState} from '..
 import {parseBoolean, parseMaxChoices} from '../../utils/type';
 import useShuffleAttributes from '../../characteristics/Shuffle';
 import OrientationCharacteristic from '../../characteristics/Orientation';
+import CorrentResponseStateContext from '../CorrectionResponse';
 
 export type ChoiceInteractionProps = QtiModelProps<
   BasePromptInteractionCharacteristics,
@@ -55,9 +56,11 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
   return (
     <div className={`${classNameForInteraction('choice')}`}>
       {prompt}
-      <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
-        <OrientationCharacteristic orientation={orientation}>{shuffledChildren}</OrientationCharacteristic>
-      </InteractionStateContext.Provider>
+      <CorrentResponseStateContext.Provider value={{responseIdentifier}}>
+        <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
+          <OrientationCharacteristic orientation={orientation}>{shuffledChildren}</OrientationCharacteristic>
+        </InteractionStateContext.Provider>
+      </CorrentResponseStateContext.Provider>
     </div>
   );
 };

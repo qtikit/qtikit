@@ -7,6 +7,7 @@ import {fetchText, getBaseUrl, isUrlResourceType, resolveUrl, ResourceSrc, trimX
 interface AssessmentItem {
   itemBody: Element;
   styles: string[];
+  correctResponses: any;
 }
 
 const ItemBody: React.FC<{itemBody: Element}> = React.memo(({itemBody}) => <>{Qti.renderItemBody(itemBody)}</>);
@@ -47,11 +48,14 @@ export interface QtiViewerProps extends Omit<React.HTMLAttributes<HTMLDivElement
   assessmentItemSrc: ResourceSrc;
   stylesheetSrc?: ResourceSrc;
   inputState: UserInput;
-  onChange: (newState: UserInput) => void;
+  onChange?: (newState: UserInput) => void;
+  // @TODO, How to remove it? how to get res url from out-side
   resourceBaseUrl?: string;
 }
 
-type QtiViewerContextValue = QtiViewerProps;
+type QtiViewerContextValue = QtiViewerProps & {
+  correctResponses: any;
+};
 
 export const QtiViewerContext = React.createContext<QtiViewerContextValue>(null as any);
 
@@ -94,9 +98,24 @@ async function fetchStyles(
   return styleContent;
 }
 
+function readCorrectResponse(root: Document) {
+  const responses = root.documentElement.getElementsByTagName('responseDeclaration');
+  return Array.from(responses).reduce((correct, response) => {
+    const identifier = response.getAttribute('identifier') ?? '__UNKNOWNN__';
+    // @TODO mapElement('name', () => {}), reduceElement('tagName', (values, value) => {})
+    correct[identifier] = Array.from(response.getElementsByTagName('value')).reduce((values, value) => {
+      values[value.textContent ?? '__UNKNOWN__'] = true;
+      return values;
+    }, {} as any);
+
+    return correct;
+  }, {} as any);
+}
+
 async function fetchResources(
   assessmentItemSrc: ResourceSrc,
   resourceBaseUrl: string,
+  readResponse: boolean,
   stylesheetSrc?: ResourceSrc
 ): Promise<AssessmentItem> {
   const root = await fetchAssessmentItem(assessmentItemSrc);
@@ -112,6 +131,7 @@ async function fetchResources(
   return {
     itemBody,
     styles,
+    correctResponses: readResponse ? readCorrectResponse(root) : null,
   };
 }
 
@@ -128,6 +148,7 @@ const defaultValue: QtiViewerContextValue = {
   assessmentItemSrc: '',
   stylesheetSrc: '',
   inputState: {},
+  correctResponses: {},
   onChange: () => {},
 };
 
@@ -140,7 +161,7 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
   useEffect(() => {
     const loadAssessmentItem = async () => {
       try {
-        setAssessmentItem(await fetchResources(assessmentItemSrc, resourceBaseUrl, stylesheetSrc));
+        setAssessmentItem(await fetchResources(assessmentItemSrc, resourceBaseUrl, !onChange, stylesheetSrc));
       } catch (e: any) {
         throwError(e);
       }
@@ -150,7 +171,7 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
     return () => {
       setAssessmentItem(null);
     };
-  }, [assessmentItemSrc, resourceBaseUrl, stylesheetSrc, throwError]);
+  }, [assessmentItemSrc, onChange, resourceBaseUrl, stylesheetSrc, throwError]);
 
   return (
     <QtiViewerContext.Provider
@@ -158,6 +179,7 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
         ...defaultValue,
         ...props,
         resourceBaseUrl,
+        correctResponses: assessmentItem?.correctResponses ?? null,
       }}>
       <div data-qtikit {...divProps}>
         {assessmentItem && <Root {...assessmentItem} />}

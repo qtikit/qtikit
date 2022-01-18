@@ -67,8 +67,40 @@
   font-weight: bold;
 }
 
-.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice[data-qtikit-checked="true"] > label {
+.qtikit-interaction__choice 
+  > .qtikit-orientation 
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"] 
+  > label {
   background-color: #eee;
+}
+
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="false"]
+  > label::after {
+  position: relative;
+  display: block;
+  margin: 1em 0 0 0;
+  color: red;
+  content: 'That’s wrong!';
+}
+
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="true"]
+  > label::after {
+  position: relative;
+  display: block;
+  margin: 1em 0 0 0;
+  color: blue;
+  content: 'That’s Correct';
+}
+
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="false"][data-qtikit-correct="true"]
+  > label {
+    border: 1px solid #faa;
 }
 
 .qtikit-interaction__extended-text {}
