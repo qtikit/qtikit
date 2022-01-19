@@ -4,7 +4,8 @@ import {UserInput} from '@qtikit/model/lib/user-input';
 import * as Qti from './qti';
 import {fetchText, getBaseUrl, isUrlResourceType, resolveUrl, ResourceSrc, trimXml, useThrowError} from './utils';
 
-interface AssessmentItem {
+// @TODO integrate with
+interface AssessmentResource {
   itemBody: Element;
   styles: string[];
   correctResponses: any;
@@ -45,16 +46,16 @@ const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
 };
 
 export interface QtiViewerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  assessmentItemSrc: ResourceSrc;
-  stylesheetSrc?: ResourceSrc;
+  assessmentItem: AssessmentItem;
+  stylesheet?: StyleSheet;
   inputState: UserInput;
   onChange?: (newState: UserInput) => void;
   // @TODO, How to remove it? how to get res url from out-side
-  resourceBaseUrl?: string;
+  // resourceBaseUrl?: string;
 }
 
 type QtiViewerContextValue = QtiViewerProps & {
-  correctResponses: any;
+  correctResponses?: any;
 };
 
 export const QtiViewerContext = React.createContext<QtiViewerContextValue>(null as any);
@@ -144,24 +145,24 @@ function getResourceBaseUrl(assessmentItemSrc: ResourceSrc, resourceBaseUrl: str
 }
 
 const defaultValue: QtiViewerContextValue = {
-  resourceBaseUrl: '',
-  assessmentItemSrc: '',
-  stylesheetSrc: '',
+  // resourceBaseUrl: '',
+  assessmentItem: {} as AssessmentItem,
   inputState: {},
-  correctResponses: {},
+  // correctResponses: {},
   onChange: () => {},
 };
 
 const QtiViewer: React.FC<QtiViewerProps> = props => {
-  const {assessmentItemSrc, stylesheetSrc, inputState, onChange, ...divProps} = props;
-  const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
+  const {assessmentItem, stylesheet, inputState, onChange, ...divProps} = props;
+  // const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
   const throwError = useThrowError();
-  const resourceBaseUrl = getResourceBaseUrl(assessmentItemSrc, props.resourceBaseUrl ?? '');
+  // const resourceBaseUrl = getResourceBaseUrl(assessmentItemSrc, props.resourceBaseUrl ?? '');
 
   useEffect(() => {
     const loadAssessmentItem = async () => {
       try {
-        setAssessmentItem(await fetchResources(assessmentItemSrc, resourceBaseUrl, !onChange, stylesheetSrc));
+        // setAssessmentItem(await fetchResources(assessmentItemSrc, resourceBaseUrl, !onChange, stylesheetSrc));
+        // conditional fetching
       } catch (e: any) {
         throwError(e);
       }

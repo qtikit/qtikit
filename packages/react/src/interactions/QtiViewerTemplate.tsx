@@ -4,44 +4,59 @@ import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/
 
 import {getBaseUrl, resolveUrl} from '../utils/url';
 import QtiViewer, {QtiViewerProps} from '../';
-import {fetchAssessment, QtiViewerErrorBoundary, ResourceSrc} from '../utils';
+import {AssessmentItem, fetchAssessment, QtiViewerErrorBoundary, StyleSheet} from '../utils';
 
 type InputState = QtiViewerProps['inputState'];
 
 type QtiViewerTemplateProps = {
-  assessmentItemSrc: string[] | string;
-  stylesheetSrc: ResourceSrc;
+  assessmentItemSrc: string;
+  stylesheetSrc: string;
   inputState?: InputState;
   onChange?: (newState: InputState) => void;
 };
 
-type QtiViewerTemplateState = {src: string; content: string};
+const QtiViewerTemplate = ({assessmentItemSrc, stylesheetSrc, inputState, onChange}: QtiViewerTemplateProps) => {
+  const [assessmentItem, setAssessmentItem] = useState<AssessmentItem | undefined>(undefined);
+  const [styles, setStyles] = useState<StyleSheet | undefined>(undefined);
 
-type QtiViewerViewProps = Omit<QtiViewerTemplateProps, 'assessmentItemSrc'> & {
-  assessmentItemSrc: string;
-  assessmentItemContent?: string;
-};
+  const responseProcessingResult = useResponseProcessingResult(assessmentItem, inputState);
 
-export const QtiViewerView = ({
-  assessmentItemSrc,
-  assessmentItemContent,
-  stylesheetSrc,
-  inputState,
-  onChange,
-}: QtiViewerViewProps) => {
-  const responseProcessingResult = useResponseProcessingResult(assessmentItemContent, inputState);
+  // resolveUrl(stylesheetSrc ? stylesheetSrc.toString() : 'default.css'
+
+  // fetch stylesheet and assessmentItem from outside
+
+  // @NOTE export useful functions to outside
+  useEffect(() => {
+    const loadAssessmentItem = async () => {
+      try {
+        const item = new AssessmentItem(assessmentItemSrc);
+        await item.fetch();
+        setAssessmentItem(item);
+
+        const style = new StyleSheet(stylesheetSrc);
+        await style.fetch();
+        setStyles(style);
+      } catch (e) {
+        throw new Error(e);
+      }
+    };
+
+    loadAssessmentItem();
+  }, [assessmentItemSrc, stylesheetSrc, inputState, onChange]);
 
   return (
     <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
       <div style={{flex: '1', padding: 10}}>
         <QtiViewerErrorBoundary>
-          <QtiViewer
-            assessmentItemSrc={assessmentItemContent ?? assessmentItemSrc}
-            stylesheetSrc={resolveUrl(stylesheetSrc ? stylesheetSrc.toString() : 'default.css')}
-            inputState={inputState ?? {}}
-            onChange={onChange}
-            resourceBaseUrl={getBaseUrl(assessmentItemSrc)}
-          />
+          {assessmentItem ? (
+            <QtiViewer
+              assessmentItem={assessmentItem}
+              stylesheet={styles}
+              inputState={inputState ?? {}}
+              onChange={onChange}
+              // resourceBaseUrl={getBaseUrl(assessmentItemSrc)}
+            />
+          ) : null}
         </QtiViewerErrorBoundary>
       </div>
       <div style={{flex: '1', padding: 10}}>
@@ -54,52 +69,51 @@ export const QtiViewerView = ({
   );
 };
 
-const QtiViewerTemplate = ({assessmentItemSrc, stylesheetSrc}: QtiViewerTemplateProps) => {
-  const [inputState, setInputState] = useState<InputState>({});
-  const [assessmentItems, setAssessmentItems] = useState<QtiViewerTemplateState[]>([]);
-  const assessmentItemsSrc = React.useMemo(
-    () => (Array.isArray(assessmentItemSrc) ? assessmentItemSrc : [assessmentItemSrc]).map(src => resolveUrl(src)),
-    [assessmentItemSrc]
-  );
+// const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc}: QtiViewersTemplateProps) => {
+//   const [inputState, setInputState] = useState<InputState>({});
+// const [assessmentItems, setAssessmentItems] = useState<QtiViewersTemplateState[]>([]);
+//   const assessmentItemsSrc = React.useMemo(
+//     () => (Array.isArray(assessmentItemSrc) ? assessmentItemSrc : [assessmentItemSrc]).map(src => resolveUrl(src)),
+//     [assessmentItemSrc]
+//   );
 
-  useEffect(() => {
-    const fetch = async () => {
-      setAssessmentItems(await fetchAssessment(assessmentItemsSrc));
-    };
+//   useEffect(() => {
+//     const fetch = async () => {
+//       setAssessmentItems(await fetchAssessment(assessmentItemsSrc));
+//     };
 
-    fetch();
-  }, [assessmentItemsSrc]);
+//     fetch();
+//   }, [assessmentItemsSrc]);
 
-  return (
-    <>
-      {assessmentItems.map((assessmentItem, index) => (
-        <QtiViewerView
-          key={index}
-          assessmentItemSrc={assessmentItem.src}
-          assessmentItemContent={assessmentItem.content}
-          stylesheetSrc={stylesheetSrc}
-          inputState={inputState}
-          onChange={setInputState}
-        />
-      ))}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {assessmentItems.map((assessmentItem, index) => (
+//         <QtiViewerTemplate
+//           key={index}
+//           assessmentItemSrc={assessmentItem.src}
+//           assessmentItemContent={assessmentItem.content}
+//           stylesheetSrc={stylesheetSrc}
+//           inputState={inputState}
+//           onChange={setInputState}
+//         />
+//       ))}
+//     </>
+//   );
+// };
 
-function useResponseProcessingResult(assessmentItemConent?: string, inputState: InputState = {}) {
+function useResponseProcessingResult(assessmentItem?: AssessmentItem, inputState: InputState = {}) {
   const responseProcessingResult = useMemo(() => {
     try {
-      if (!assessmentItemConent) {
+      if (!assessmentItem || !assessmentItem?.document) {
         return;
       }
 
-      const document = new DOMParser().parseFromString(assessmentItemConent, 'text/xml');
-      return responseProcessing(getResponseProcessingConfigFromDocument(document), inputState);
+      return responseProcessing(getResponseProcessingConfigFromDocument(assessmentItem.document), inputState);
     } catch (e) {
       console.error(e);
-      console.log(assessmentItemConent);
+      console.log(assessmentItem?.content);
     }
-  }, [assessmentItemConent, inputState]);
+  }, [assessmentItem, inputState]);
   return responseProcessingResult;
 }
 
