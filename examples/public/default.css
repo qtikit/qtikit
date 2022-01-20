@@ -67,8 +67,75 @@
   font-weight: bold;
 }
 
-.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice[data-qtikit-checked="true"] > label {
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"]
+  > label {
   background-color: #eee;
+}
+
+/* reset background as feedback mode */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct]
+  > label {
+  background-color: transparent;
+}
+
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-correct]
+  > label:hover {
+  background-color: transparent;
+}
+
+/* correct answer */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="false"][data-qtikit-correct="true"]
+  > label {
+    border: 2px solid #00cfaa;
+}
+
+/* wrong answer */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="false"]
+  > label {
+    border: 1px solid #ff2b76;
+}
+
+/* wrong answer feedback */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="false"]
+  > label::after {
+  display: block;
+  margin: 1em 0 0 0;
+  color: #ff2b76;
+  position: relative;
+  content: 'That’s wrong!';
+}
+
+/* correct answer */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="true"]
+  > label {
+    border: 2px solid #0065ff;
+    color: #0065ff
+}
+
+/* correct answer feedback */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="true"]
+  > label::after {
+  position: relative;
+  display: block;
+  margin: 1em 0 0 0;
+  color: #0065ff;
+  content: 'That’s correct';
 }
 
 .qtikit-interaction__extended-text {}

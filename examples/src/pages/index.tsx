@@ -77,7 +77,7 @@ const Submission = () => {
   return (
     <>
       <div>
-        <h1>Submission</h1>
+        <h1>Submission, Non Linear View</h1>
       </div>
       <div>
         <textarea onChange={handleAssessmentChange} value={assessment} rows={5} cols={100} />
