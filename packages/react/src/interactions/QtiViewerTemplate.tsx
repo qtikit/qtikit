@@ -2,26 +2,36 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {ComponentStory} from '@storybook/react';
 import responseProcessing from '@qtikit/scoring-engine/lib/responseProcessing';
 import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/getResponseProcessingConfigFromDocument';
+import {UserInput} from '@qtikit/model/lib/user-input';
 
 import {resolveUrl} from '../utils/url';
-import QtiViewer, {QtiViewerProps} from '../';
+import QtiViewer from '../';
 
-type InputState = QtiViewerProps['inputState'];
+export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = ({
+  assessmentItemSrc,
+  stylesheetSrc,
+  inputState: initialInputState,
+  options,
+}) => {
+  const url = {
+    assessmentItemSrc: resolveUrl(assessmentItemSrc),
+    stylesheetSrc: resolveUrl(stylesheetSrc ?? 'default.css'),
+  };
 
-export const QtiViewerTemplate: ComponentStory<typeof QtiViewer> = props => {
-  const assessmentItemSrc = resolveUrl(props.assessmentItemSrc);
-  const stylesheetSrc = resolveUrl(props.stylesheetSrc ?? 'default.css');
-  const [inputState, setInputState] = useState<InputState>({});
+  const [inputState, setInputState] = useState<UserInput>(initialInputState ?? {});
+
   const assessmentItemDocument = useAssignmentItemDocument(assessmentItemSrc);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
+
   return (
     <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
       <div style={{flex: '1', padding: 10}}>
         <QtiViewer
-          assessmentItemSrc={assessmentItemSrc}
-          stylesheetSrc={stylesheetSrc}
+          assessmentItemSrc={url.assessmentItemSrc}
+          stylesheetSrc={url.stylesheetSrc}
           inputState={inputState}
-          onChange={setInputState}
+          onChange={!options?.showCorrectResponse ? setInputState : undefined}
+          options={options}
         />
       </div>
       <div style={{flex: '1', padding: 10}}>
@@ -51,7 +61,7 @@ function useAssignmentItemDocument(assessmentItemSrc: string) {
   return assessmentItemDocument;
 }
 
-function useResponseProcessingResult(assessmentItemDocument?: Document, inputState: InputState = {}) {
+function useResponseProcessingResult(assessmentItemDocument?: Document, inputState: UserInput = {}) {
   const responseProcessingResult = useMemo(() => {
     try {
       if (!assessmentItemDocument) return;

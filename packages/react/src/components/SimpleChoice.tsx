@@ -6,11 +6,25 @@ import {classNameForComponent, createStyle} from '../utils/style';
 import {useInteractionStateContext} from '../interactions/InteractionState';
 import {Current, Draggable, Droppable, useDragDropContext} from './DragDrop';
 import {parseBoolean} from '../utils/type';
+import {useCorrectResponseContext} from '../interactions/CorrectResponse';
 
 export type SimpleChoiceProps = QtiModelProps<BaseSequenceCharacteristics, SimpleChoiceCharacteristics>;
 
 const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}) => {
   const {interactionState, setInteractionState} = useInteractionStateContext();
+  const correctResponse = useCorrectResponseContext();
+
+  const datasetAttrs = React.useMemo(() => {
+    const dataset = {
+      'data-qtikit-checked': interactionState[identifier] === true,
+    } as any;
+
+    if (correctResponse) {
+      dataset['data-qtikit-correct'] = correctResponse[identifier] ? true : false;
+    }
+
+    return dataset;
+  }, [correctResponse, identifier, interactionState]);
 
   const handleChange = () => {
     setInteractionState({
@@ -19,9 +33,7 @@ const DefaultSimpleChoice: React.FC<SimpleChoiceProps> = ({identifier, children}
   };
 
   return (
-    <span
-      className={classNameForComponent('simple-choice')}
-      data-qtikit-checked={interactionState[identifier] === true}>
+    <span className={classNameForComponent('simple-choice')} {...datasetAttrs}>
       <label>
         <input
           type="checkbox"

@@ -34,10 +34,11 @@ const useInteractionState = ({
     React.useCallback(
       (nextInteractionState: InteractionState, prevIteractionState?: InteractionState) => {
         if (!shouldUpdate || shouldUpdate(nextInteractionState, prevIteractionState || {})) {
-          onChange({
-            ...inputState,
-            [responseIdentifier]: decode(nextInteractionState),
-          });
+          onChange &&
+            onChange({
+              ...inputState,
+              [responseIdentifier]: decode(nextInteractionState),
+            });
         }
       },
       [onChange, inputState, responseIdentifier, decode, shouldUpdate]
