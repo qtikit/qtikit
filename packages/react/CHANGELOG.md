@@ -1,5 +1,18 @@
 # @qtikit/react
 
+## 0.0.18
+
+### Patch Changes
+
+- 02a1520: Add options to show correct responses in choice interaction
+
+  # Breaking Changes
+
+  ## Show correct, incorrect answers on choice interaction
+
+  - CSS has been changed `data-qtikit-correct` dataset added to .qtikit-interaction\_\_choice
+  - `showCorrectResponse` option added, onChange must not be passed
+
 ## 0.0.15
 
 ### Patch Changes

@@ -20,7 +20,8 @@
     "clean:yarn-build-cache": "rm -f .yarn/yarn.build.json",
     "clean:packages": "yarn workspaces foreach --exclude=qtikit -pv run clean",
     "clean-build": "yarn clean && yarn build",
-    "dev": "nodemon scripts/dev.mjs"
+    "dev": "nodemon scripts/dev.mjs",
+    "versioning": "yarn changeset version && git add . && git commit -m \"dev: Release `date +'%Y-%m-%d'`\""
   },
   "dependencies": {
     "@changesets/cli": "^2.18.0",
