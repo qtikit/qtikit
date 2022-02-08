@@ -96,7 +96,7 @@
     border: 2px solid #00cfaa;
 }
 
-/* wrong answer */
+/* incorrect answer */
 .qtikit-interaction__choice
   > .qtikit-orientation
   > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="false"]
@@ -104,7 +104,7 @@
     border: 1px solid #ff2b76;
 }
 
-/* wrong answer feedback */
+/* incorrect answer feedback */
 .qtikit-interaction__choice
   > .qtikit-orientation
   > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="false"]
@@ -113,7 +113,7 @@
   margin: 1em 0 0 0;
   color: #ff2b76;
   position: relative;
-  content: 'That’s wrong!';
+  content: 'Incorrect';
 }
 
 /* correct answer */
@@ -134,7 +134,7 @@
   display: block;
   margin: 1em 0 0 0;
   color: #0065ff;
-  content: 'That’s correct';
+  content: 'Correct';
 }
 
 .qtikit-interaction__extended-text {}
