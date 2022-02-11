@@ -7,6 +7,7 @@ import {readCorrectResponse} from './utils/xml';
 import {useThrowError} from './utils/error';
 
 interface AssessmentItem {
+  assessmentSrc: string;
   itemBody: Element;
   styles: string[];
   correctResponses: any;
@@ -88,6 +89,7 @@ async function parseAssessmentItem(
   if (stylesheetSrc) stylesheetSrcs.unshift(stylesheetSrc);
 
   return {
+    assessmentSrc: assessmentSrc,
     itemBody: itemBody,
     styles: await Promise.all(stylesheetSrcs.map(fetchStylesheet)),
     correctResponses: options?.showCorrectResponse ? readCorrectResponse(root) : null,
@@ -107,6 +109,8 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
   const throwError = useThrowError();
 
   useEffect(() => {
+    setAssessmentItem(null);
+
     const loadAssessmentItem = async () => {
       try {
         setAssessmentItem(await parseAssessmentItem(assessmentItemSrc, stylesheetSrc, options));
@@ -122,17 +126,19 @@ const QtiViewer: React.FC<QtiViewerProps> = props => {
   }, [assessmentItemSrc, options, stylesheetSrc, throwError]);
 
   return (
-    <QtiViewerContext.Provider
-      value={{
-        ...defaultValue,
-        ...props,
-        baseUrl: getBaseUrl(assessmentItemSrc),
-        correctResponses: assessmentItem?.correctResponses,
-      }}>
-      <div data-qtikit {...divProps}>
-        {assessmentItem && <Root {...assessmentItem} />}
-      </div>
-    </QtiViewerContext.Provider>
+    assessmentItem && (
+      <QtiViewerContext.Provider
+        value={{
+          ...defaultValue,
+          ...props,
+          baseUrl: getBaseUrl(assessmentItem.assessmentSrc),
+          correctResponses: assessmentItem?.correctResponses,
+        }}>
+        <div data-qtikit {...divProps}>
+          {assessmentItem && <Root {...assessmentItem} />}
+        </div>
+      </QtiViewerContext.Provider>
+    )
   );
 };
 
