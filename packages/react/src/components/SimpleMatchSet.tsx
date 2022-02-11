@@ -48,6 +48,7 @@ const SimpleMatchSet: React.FC<SimpleMatchSetProps> = ({sourceChoices, targetCho
 
 function getSimpleAssociableChoice(choicesNode: NodeList, shuffle = false): SimpleAssociableChoice[] {
   return Array.from(choicesNode)
+    .filter(child => child.nodeName === 'simpleAssociableChoice')
     .sort(first => (shuffle ? isSortableElement(first) : 0))
     .map(choice => {
       const {matchMax, identifier, fixed} = getPropsByElement(choice as Element);
