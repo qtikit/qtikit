@@ -1,5 +1,11 @@
 # @qtikit/react
 
+## 0.0.19
+
+### Patch Changes
+
+- c64c9cf: Remove raw Xml string trimming
+
 ## 0.0.18
 
 ### Patch Changes
