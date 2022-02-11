@@ -1,5 +1,11 @@
 # @qtikit/react
 
+## 0.0.20
+
+### Patch Changes
+
+- f79c119: Fixed image re-rendering with old baseurl
+
 ## 0.0.19
 
 ### Patch Changes
