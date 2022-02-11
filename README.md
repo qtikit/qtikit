@@ -39,6 +39,13 @@ yarn
 yarn build
 ```
 
+## Commit
+
+```sh
+// Select target package and write what's update
+yarn changeset
+```
+
 ## Release Packages
 
 For the detail, see [`atlassian/changesets` workflow document][changesets]
