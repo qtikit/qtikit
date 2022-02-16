@@ -16,6 +16,12 @@ choice_multiple.args = {
   assessmentItemSrc: 'tests/items/choice_multiple.xml',
 };
 
+export const choice_multiple2 = QtiViewerTemplate.bind({});
+
+choice_multiple2.args = {
+  assessmentItemSrc: 'tests/items/choice_multiple_2.xml',
+};
+
 export const choice_fixed = QtiViewerTemplate.bind({});
 
 choice_fixed.args = {

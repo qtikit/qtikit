@@ -33,7 +33,7 @@ function checkMaxChoices(
   const checked = Object.entries(nextInteractionState)[0][1];
   const length = Object.entries(interactionState).filter(([, value]) => value === checked).length;
 
-  return !checked || maxChoice === 0 || length < maxChoice;
+  return !checked || (maxChoice === 1 && length === 1) || maxChoice === 0 || length < maxChoice;
 }
 
 const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
@@ -44,13 +44,15 @@ const ChoiceInteraction: React.FC<ChoiceInteractionProps> = ({
   children,
 }) => {
   const {prompt, shuffledChildren} = useShuffleAttributes(parseBoolean(shuffle), children);
+  const maxChoicesNumber = React.useMemo(() => parseMaxChoices(maxChoices), [maxChoices]);
 
   const [interactionState, setInteractionState] = useInteractionState({
     responseIdentifier,
     encode: userInput => encodeChoices(userInput),
-    decode: newInteractionState => decodeChoices({...interactionState, ...newInteractionState}),
+    decode: newInteractionState =>
+      decodeChoices(maxChoicesNumber === 1 ? {...newInteractionState} : {...interactionState, ...newInteractionState}),
     shouldUpdate: (nextInteractionState: InteractionState) =>
-      checkMaxChoices(interactionState, nextInteractionState, parseMaxChoices(maxChoices)),
+      checkMaxChoices(interactionState, nextInteractionState, maxChoicesNumber),
   });
 
   return (
