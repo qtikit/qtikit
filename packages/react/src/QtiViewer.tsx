@@ -3,7 +3,7 @@ import {UserInput} from '@qtikit/model/lib/user-input';
 
 import * as Qti from './qti';
 import {getBaseUrl, resolveUrl} from './utils/url';
-import {readCorrectResponse} from './utils/xml';
+import {readCorrectResponse, trimXml} from './utils/xml';
 import {useThrowError} from './utils/error';
 
 interface AssessmentItem {
@@ -75,7 +75,7 @@ async function parseAssessmentItem(
   stylesheetSrc?: string,
   options?: QtiViewerOptions
 ): Promise<AssessmentItem> {
-  const xml = await fetch(assessmentSrc).then(response => response.text());
+  const xml = trimXml(await fetch(assessmentSrc).then(response => response.text()));
   const root = new DOMParser().parseFromString(xml, 'text/xml');
   const [itemBody] = root.documentElement.getElementsByTagName('itemBody');
 
