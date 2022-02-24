@@ -96,6 +96,17 @@
     border: 2px solid #00cfaa;
 }
 
+/* strong restrict oversize of inner content in simple choice */
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice table {
+  width: 400px !important;
+  height: 100%;
+}
+
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice object {
+  width: 400px !important;
+  height: 100%;
+}
+
 /* incorrect answer */
 .qtikit-interaction__choice
   > .qtikit-orientation
