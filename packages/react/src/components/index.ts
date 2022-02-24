@@ -64,6 +64,13 @@ export const htmlElementNames = [
   'object',
   'strong',
   'bdo',
+  'table',
+  'tbody',
+  'thead',
+  'tfoot',
+  'tr',
+  'td',
+  'th',
 ] as const;
 
 export type HTMLElementName = typeof htmlElementNames[number];
