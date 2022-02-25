@@ -4,7 +4,6 @@ import QtiViewer from '@qtikit/react/lib/';
 
 // initResponses: ['SC-5063469', 'SC-5063536', 'SC-5062522', 'SC-5066035', 'SC-5063677']
 const useUserSubmisstions = (initResponses: string[]) => {
-  console.log('initResponses', initResponses);
   const responses = React.useMemo(
     () =>
       initResponses.map(response => {

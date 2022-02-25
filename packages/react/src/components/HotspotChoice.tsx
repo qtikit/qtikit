@@ -15,8 +15,6 @@ const HotspotChoice: React.FC<HotspotChoiceProps> = ({identifier, shape, coords,
   const {interactionState, setInteractionState} = useInteractionStateContext();
 
   const checked = !!interactionState[identifier];
-  console.log(hotspotChoiceLabelStyle({shape, coords}));
-
   const handleChange = () => {
     setInteractionState({
       [identifier]: true,
