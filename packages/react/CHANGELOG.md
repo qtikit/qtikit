@@ -1,5 +1,12 @@
 # @qtikit/react
 
+## 0.0.21
+
+### Patch Changes
+
+- b12f23d: Improve content rendering in simple choice
+- d141945: De-select choice item when maxChoices is 1
+
 ## 0.0.20
 
 ### Patch Changes
