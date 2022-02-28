@@ -1,5 +1,5 @@
 export function trimXml(xml: string) {
-  return xml.replace(/(?<=\s)(\s+)/gm, '').replace(/\n/gm, ' ');
+  return xml.replace(/\n(?=)(^\s+<)/gm, '<');
 }
 
 export function reduceElement(tagName: string, element: Element, fn: (acc: any, element: any) => any): any {
