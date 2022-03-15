@@ -1,5 +1,11 @@
 # @qtikit/react
 
+## 0.0.22
+
+### Patch Changes
+
+- af73e00: Change default notation value is box in mencloser of MathML
+
 ## 0.0.21
 
 ### Patch Changes
