@@ -36,6 +36,12 @@ export function getPropsByElement(element: Element): Props {
     : {};
 }
 
+function stringifyProps(element: Element): string {
+  return Object.entries(getPropsByElement(element))
+    .map(([name, value]) => `${name}="${value}"`)
+    .join(' ');
+}
+
 export function getOuterXmlWithoutNs(node: Node | Element): string {
   if (isTextNode(node)) {
     return node.nodeValue || '';
@@ -43,7 +49,8 @@ export function getOuterXmlWithoutNs(node: Node | Element): string {
     const children = Array.from(node.childNodes)
       .map(childNode => getOuterXmlWithoutNs(childNode))
       .join('');
-    return `<${node.nodeName}>${children}</${node.nodeName}>`;
+
+    return `<${node.nodeName} ${stringifyProps(node)}>${children}</${node.nodeName}>`;
   }
 
   return '';
