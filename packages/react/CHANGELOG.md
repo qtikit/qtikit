@@ -1,5 +1,11 @@
 # @qtikit/react
 
+## 0.0.23
+
+### Patch Changes
+
+- fc471eb: Fix XML parser to prevent removing attrs
+
 ## 0.0.22
 
 ### Patch Changes
