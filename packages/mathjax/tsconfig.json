@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "outDir": "lib",
+    "declaration": true,
+    "target": "es2018",
+    "module": "ES6",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src"],
+  "exclude": ["lib", "src/lib"]
+}
