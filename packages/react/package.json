@@ -10,8 +10,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@qtikit/mathjax-react": "workspace:^",
     "@qtikit/model": "workspace:^",
-    "mathjax-react": "^1.0.6",
     "ts-xor": "^1.0.8"
   },
   "devDependencies": {

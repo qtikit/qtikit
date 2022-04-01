@@ -1,0 +1,27 @@
+<m:math xmlns="http://www.w3.org/1998/Math/MathML">
+  <m:mrow>
+    <m:mo>{</m:mo>
+    <m:mn>0</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>1</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>2</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>3</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>4</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>5</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>6</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>7</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>8</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>9</m:mn>
+    <m:mo>,</m:mo>
+    <m:mn>10</m:mn>
+    <m:mo>}</m:mo>
+  </m:mrow>
+</m:math>

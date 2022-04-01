@@ -7,6 +7,11 @@ export interface MathjaxProps {
   mathHtml: string;
 }
 
+function normalizeMathHtml(mathHtml: string): string {
+  return mathHtml;
+  // return mathHtml.replace(/<m:mspace linebreak="newline">/g, '<br/>');
+}
+
 // TODO: replace to `React.lazy` after apply React 18
 const LazyMathComponent: React.FC<MathComponentProps> = props => {
   const [mathjaxReact, setMathjaxReact] = useState<typeof import('mathjax-react')>();
@@ -19,7 +24,17 @@ const LazyMathComponent: React.FC<MathComponentProps> = props => {
 const Mathjax: React.FC<MathjaxProps> = ({mathHtml, ...props}) => {
   return (
     <span className={classNameForComponent('mathjax')}>
-      <LazyMathComponent {...props} mathml={mathHtml} display={false} />
+      <LazyMathComponent
+        {...props}
+        mathml={normalizeMathHtml(mathHtml)}
+        display={false}
+        settings={{
+          // 'HTML-CSS': {
+          //   linebreaks: {automatic: true, width: 'container'},
+          // },
+          linebreaks: {automatic: true, width: 'container'},
+        }}
+      />
     </span>
   );
 };

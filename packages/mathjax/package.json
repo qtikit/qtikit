@@ -1,0 +1,29 @@
+{
+  "name": "@qtikit/mathjax-react",
+  "packageManager": "yarn@3.1.0",
+  "version": "0.0.1",
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build": "tsc",
+    "prepublishOnly": "yarn clean && yarn build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-docs": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
+    "@types/babel__core": "^7",
+    "babel-loader": "^8.2.4",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@qtikit/mathjax-full": "beta"
+  }
+}
