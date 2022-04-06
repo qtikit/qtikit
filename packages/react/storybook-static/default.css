@@ -1,0 +1,370 @@
+/* QtiKit Charateristics */
+
+.qtikit-orientation {
+  display: flex;
+}
+
+.qtikit-orientation__vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.qtikit-orientation__horizontal {
+  flex-direction: row;
+}
+
+/* QtiKit Interactions */
+
+.qtikit-interaction {}
+
+.qtikit-interaction__choice {
+  margin: 2em auto;
+  width: 30em;
+  counter-reset: qtikit-interaction__choice;
+}
+
+.qtikit-interaction__choice > .qtikit-orientation__horizontal > .qtikit-component__simple-choice {
+  display: flex;
+  margin: 0;
+  margin-right: 0.5em;
+}
+
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.qtikit-interaction__choice >.qtikit-orientation__vertical > .qtikit-component__simple-choice:last-child {
+  margin: 0;
+}
+
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice > label {
+  display: block;
+  position: relative;
+  padding: 1em 2em;
+  padding-left: 3em;
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+  counter-increment: qtikit-interaction__choice;
+}
+
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label:hover {
+  background-color: #eee;
+}
+
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label::before,
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label > input[type="checkbox"] {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  right: 1em;
+  transform: translateY(-50%);
+}
+
+.qtikit-interaction__choice > .qtikit-orientation > .qtikit-component__simple-choice > label::before {
+  left: 1em;
+  content: counter(qtikit-interaction__choice, upper-alpha);
+  font-weight: bold;
+}
+
+.qtikit-interaction__choice 
+  > .qtikit-orientation 
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"] 
+  > label {
+  background-color: #eee;
+}
+
+/* reset background as feedback mode */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct]
+  > label {
+  background-color: transparent;
+}
+
+.qtikit-interaction__choice 
+  > .qtikit-orientation 
+  > .qtikit-component__simple-choice[data-qtikit-correct] 
+  > label:hover {
+  background-color: transparent;
+}
+
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="false"][data-qtikit-correct="true"]
+  > label {
+    border: 2px solid #00cfaa;
+}
+
+/* strong restrict oversize of inner content in simple choice */
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice table {
+  width: 400px !important;
+  height: 100%;
+}
+
+.qtikit-interaction__choice >.qtikit-orientation > .qtikit-component__simple-choice object {
+  width: 400px !important;
+  height: 100%;
+}
+
+/* incorrect answer */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="false"]
+  > label {
+    border: 1px solid #ff2b76;
+}
+
+/* incorrect answer feedback */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="false"]
+  > label::after {
+  display: block;
+  margin: 1em 0 0 0;
+  color: #ff2b76;
+  position: relative;
+  content: 'Incorrect';
+}
+
+/* correct answer */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="true"]
+  > label {
+    border: 2px solid #0065ff;
+    color: #0065ff
+}
+
+/* correct answer feedback */
+.qtikit-interaction__choice
+  > .qtikit-orientation
+  > .qtikit-component__simple-choice[data-qtikit-checked="true"][data-qtikit-correct="true"]
+  > label::after {
+  position: relative;
+  display: block;
+  margin: 1em 0 0 0;
+  color: #0065ff;
+  content: 'Correct';
+}
+
+.qtikit-interaction__extended-text {}
+
+.qtikit-interaction__gap-match {}
+
+.qtikit-interaction__graphic-gap-match {}
+
+.qtikit-interaction__hotspot {}
+
+.qtikit-interaction__hotspot__components {
+  position: relative;
+}
+
+.qtikit-interaction__hottext {}
+
+.qtikit-interaction__inline-choice {
+  display: inline-flex;
+}
+
+.qtikit-interaction__match {}
+
+.qtikit-interaction__media {}
+
+.qtikit-interaction__order {
+  display: flex;
+  flex-direction: column;
+}
+
+.qtikit-interaction__order > .qtikit-orientation__horizontal {
+  flex-direction: row;
+}
+
+.qtikit-interaction__order > .qtikit-orientation__horizontal .qtikit-component__order-simple-choice {
+  display: flex;
+  margin: 0;
+  margin-right: 0.5em;
+}
+
+.qtikit-interaction__textentry {
+  display: inline-block;
+}
+
+.qtikit-interaction__slider {}
+
+/* QtiKit Components */
+
+.qtikit-component__simple-choice {}
+
+.qtikit-component__order-simple-choice {}
+
+.qtikit-component__gap {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 15px;
+  margin-right: 0.2em;
+  vertical-align: middle;
+  background-color: #ddd;
+}
+
+.qtikit-component__graphic-gap-match {
+  position: relative;
+}
+
+.qtikit-component__gap-img {}
+
+.qtikit-component__gap-text {
+  padding: 3px 6px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.qtikit-component__hotspot {
+  display: inline-flex;
+}
+
+.qtikit-component__hotspot-choice {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+}
+
+.qtikit-component__hotspot-choice.checked {
+  background-color: rgba(255, 0, 0, .3);
+}
+
+.qtikit-component__hotspot-choice input {
+  display: none;
+}
+
+.qtikit-component__extended-text {
+  display: flex;
+}
+
+.qtikit-component__extended-text textarea {
+  width: 90%;
+  margin-top: 1em;
+  height: 14em;
+}
+
+.qtikit-component__select {}
+
+.qtikit-component__select select {}
+
+.qtikit-component__select option {}
+
+.qtikit-component__checkbox {
+  display: inline-flex;
+}
+
+.qtikit-component__checkbox input {}
+
+.qtikit-component__slider {}
+
+.qtikit-component__slider > input[type="range"] {}
+
+.qtikit-component__slider > label {}
+
+.qtikit-component__textentry {
+  display: inline-flex;
+}
+
+.qtikit-component__textentry > input[type="text"] {
+  font-size: 1em;
+  border: solid 1px;
+  width: 6ex;
+}
+
+.qtikit-component__hottext {
+  font-weight: bold;
+  font-style: italic;
+  display: inline-flex;
+  align-items: center;
+}
+
+.qtikit-component__hottext input[type="radio"] {
+  margin: 0;
+  margin-right: 0.2em;
+}
+
+.qtikit-component__image {
+  display: inline-flex
+}
+
+.qtikit-component__mathjax {
+  display: inline-flex
+}
+
+.qtikit-component__object {
+  display: inline-flex
+}
+
+.qtikit-component__prompt {}
+
+.qtikit-component__prompt > h4 {}
+
+.qtikit-component__rubric-block {
+  position: relative;
+  display: none;
+  margin: 2em auto;
+  padding: 1em 1em 2em 1em;
+  border: solid 1px #EEE;
+  background-color: initial;
+}
+
+.qtikit-component__rubric-block-candidate {
+  background-color: ivory;
+}
+
+.qtikit-component__rubric-block-scorer {
+  background-color: #fcedf3;
+}
+
+.qtikit-component__rubric-block > span {
+  color: #999;
+  font-style: italic;
+  position: absolute;
+  top: -1.2em;
+}
+
+.qtikit-component__gap-img {
+  padding: 3px 6px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.qtikit-component__associable-hotspot {
+  display: inline-flex;
+  border: 1px solid rgba(0,0,0,0);
+  box-sizing: border-box;
+  position: absolute;
+  cursor: pointer;
+}
+
+.qtikit-component__dropable {
+  display: inline-flex;
+}
+
+.qtikit-component__draggable {
+  cursor: move;
+  display: inline-flex;
+}
+
+.qtikit-component__fixed {
+  cursor: default;
+  user-select: none;
+}
+
+.qtikit-component__match-table > table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid black;
+}
+
+.qtikit-component__match-table td,
+.qtikit-component__match-table th,
+.qtikit-component__match-table tr {
+  border: 1px solid #444444;
+}

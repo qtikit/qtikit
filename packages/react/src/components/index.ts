@@ -14,7 +14,7 @@ import SimpleChoice from './SimpleChoice';
 import InlineChoice from './InlineChoice';
 import ImageHtml from './ImageHtml';
 import ObjectHtml from './ObjectHtml';
-import Mathjax from './Mathjax';
+import MathML from './MathML';
 
 export const htmlElementNames = [
   'pre',
@@ -148,10 +148,10 @@ export function createMathComponent(element: Element, defaultProps: Props): Reac
   if (element.parentNode?.nodeName === 'inlineChoice') {
     return getOuterXmlWithoutNs(element);
   } else {
-    return React.createElement(Mathjax, {
+    return React.createElement(MathML, {
       ...defaultProps,
       ...getPropsByElement(element),
-      mathHtml: getOuterXmlWithoutNs(element),
+      html: getOuterXmlWithoutNs(element),
     });
   }
 }
