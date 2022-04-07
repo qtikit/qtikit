@@ -1,1 +1,1 @@
-export type {default, QtiViewerProps} from './QtiViewer';
+export {default, QtiViewerProps} from './QtiViewer';
