@@ -2557,6 +2557,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@qtikit/mathml-to-latex@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@qtikit/mathml-to-latex@npm:1.3.0"
+  dependencies:
+    xmldom: ^0.4.0
+  checksum: a53793a4250bc2d958fe530a18daf78df2b5fb3cb0e470354e00aee53c365298a7b3b5afd56522a7a669deab2ab5fd9bd83bfa7c3fa3347b1bf8c991ecf164ac
+  languageName: node
+  linkType: hard
+
 "@qtikit/model-test@workspace:packages/model/test":
   version: 0.0.0-use.local
   resolution: "@qtikit/model-test@workspace:packages/model/test"
@@ -2586,6 +2595,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.16.0
     "@mdx-js/react": ^1.6.22
+    "@qtikit/mathml-to-latex": ^1.3.0
     "@qtikit/model": "workspace:^"
     "@qtikit/scoring-engine": "workspace:^"
     "@storybook/addon-actions": ^6.4.20
@@ -18324,6 +18334,13 @@ __metadata:
   version: 2.2.0
   resolution: "xmlchars@npm:2.2.0"
   checksum: 8c70ac94070ccca03f47a81fcce3b271bd1f37a591bf5424e787ae313fcb9c212f5f6786e1fa82076a2c632c0141552babcd85698c437506dfa6ae2d58723062
+  languageName: node
+  linkType: hard
+
+"xmldom@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "xmldom@npm:0.4.0"
+  checksum: ea975a7bd87109542ce24b19a70e50a3d64d20c757affa1a6c8cf906cbb39f0071a1bea9016beb5532388bc61dcbefddb92f3db2197dceee2b4c46343348ab3c
   languageName: node
   linkType: hard
 

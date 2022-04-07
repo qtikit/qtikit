@@ -1,5 +1,7 @@
 import {QtiViewerTemplate} from '../QtiViewerTemplate';
 
+import '../../../.storybook/public/tests/styles/katex.min.css';
+
 export default {
   title: 'Interaction/Choice',
 };
@@ -100,6 +102,17 @@ export const two_incorrect_answers = QtiViewerTemplate.bind({});
 two_incorrect_answers.args = {
   assessmentItemSrc: 'tests/items/choice_multiple.xml',
   inputState: {RESPONSE: ['C', 'N']},
+  onChange: null,
+  options: {
+    showCorrectResponse: true,
+  },
+};
+
+export const math_ml = QtiViewerTemplate.bind({});
+
+math_ml.args = {
+  assessmentItemSrc: 'tests/items/choice_math.xml',
+  inputState: { RESPONSE: ['A'] },
   onChange: null,
   options: {
     showCorrectResponse: true,
