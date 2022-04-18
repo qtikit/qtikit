@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf lib",
     "build": "tsc",
-    "prepublishOnly": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
