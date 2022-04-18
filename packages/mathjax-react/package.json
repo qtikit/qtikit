@@ -1,17 +1,15 @@
 {
   "name": "@qtikit/mathjax-react",
   "packageManager": "yarn@3.1.0",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "scripts": {
     "clean": "rm -rf lib",
     "build": "tsc",
     "prepack": "yarn clean && yarn build",
+    "prepublishOnly": "yarn clean && yarn build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "files": [
-    "lib"
-  ],
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@mdx-js/react": "^1.6.22",

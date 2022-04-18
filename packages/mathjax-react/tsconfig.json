@@ -5,12 +5,11 @@
     "outDir": "lib",
     "declaration": true,
     "target": "es2018",
-    "module": "ES6",
+    "module": "commonjs",
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["lib", "src/lib", "**/*.stories.tsx"]
+  "exclude": ["src/lib", "**/*.stories.tsx"]
 }
