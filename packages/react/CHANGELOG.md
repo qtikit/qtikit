@@ -1,5 +1,13 @@
 # @qtikit/react
 
+## 0.0.24
+
+### Patch Changes
+
+- Use @qtikit/mathjax-full instead of official
+- Updated dependencies
+  - @qtikit/mathjax-react@0.0.2
+
 ## 0.0.23
 
 ### Patch Changes
