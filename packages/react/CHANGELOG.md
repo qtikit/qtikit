@@ -1,5 +1,13 @@
 # @qtikit/react
 
+## 0.0.25
+
+### Patch Changes
+
+- Use MathML and MathJax custom version
+- Updated dependencies
+  - @qtikit/mathjax-react@0.0.4
+
 ## 0.0.24
 
 ### Patch Changes
