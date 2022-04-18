@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {MathJax} from './MathJax';
+import {MathML} from './MathML';
 
 type SetMathMLDelegate = React.Dispatch<React.SetStateAction<string>>;
 async function fetchXML(xml: string, delegate?: SetMathMLDelegate) {
@@ -11,45 +11,45 @@ async function fetchXML(xml: string, delegate?: SetMathMLDelegate) {
   return data;
 }
 
-const MathJaxTemplate = ({xmlSrc}: {xmlSrc: string}) => {
+const MathMLTemplate = ({xmlSrc}: {xmlSrc: string}) => {
   const [mathML, setMathML] = React.useState('');
 
   useEffect(() => {
     fetchXML(xmlSrc, setMathML);
   }, [xmlSrc]);
 
-  return <>{mathML && <MathJax mathML={mathML} />}</>;
+  return <>{mathML && <MathML mathML={mathML} />}</>;
 };
 
-export const MSpace = MathJaxTemplate.bind({});
+export const MSpace = MathMLTemplate.bind({});
 
 MSpace.storyName = 'mspace-linebreak';
 MSpace.args = {
   xmlSrc: 'tests/mspace-linebreak.xml',
 };
 
-export const Mo = MathJaxTemplate.bind({});
+export const Mo = MathMLTemplate.bind({});
 
 Mo.storyName = 'mo-parentheses';
 Mo.args = {
   xmlSrc: 'tests/mo-parentheses.xml',
 };
 
-export const Mtext = MathJaxTemplate.bind({});
+export const Mtext = MathMLTemplate.bind({});
 
 Mtext.storyName = 'mtext';
 Mtext.args = {
   xmlSrc: 'tests/mtext.xml',
 };
 
-export const Mrow = MathJaxTemplate.bind({});
+export const Mrow = MathMLTemplate.bind({});
 
 Mrow.storyName = 'mrow';
 Mrow.args = {
   xmlSrc: 'tests/mrow-no-parenttheses.xml',
 };
 
-export const MoEnv = MathJaxTemplate.bind({});
+export const MoEnv = MathMLTemplate.bind({});
 
 MoEnv.storyName = 'mo-environment';
 MoEnv.args = {
@@ -57,5 +57,5 @@ MoEnv.args = {
 };
 
 export default {
-  title: 'MathJax',
+  title: 'MathML',
 };

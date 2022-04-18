@@ -11,7 +11,7 @@
     "packages/model/test",
     "packages/react",
     "packages/scoring-engine",
-    "packages/mathjax",
+    "packages/mathjax-react",
     "examples"
   ],
   "scripts": {
@@ -28,7 +28,6 @@
     "@changesets/cli": "^2.18.0",
     "@riiid/eslint-config": "^2.0.0-beta",
     "eslint": "^7.0.0",
-    "mathjax-react": "^1.0.6",
     "prettier": "^2.0.0",
     "typescript": "^4.4.4"
   },
