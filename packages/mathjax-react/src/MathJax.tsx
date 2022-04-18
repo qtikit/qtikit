@@ -6,17 +6,27 @@ import {browserAdaptor} from '@qtikit/mathjax-full/js/adaptors/browserAdaptor';
 import {RegisterHTMLHandler} from '@qtikit/mathjax-full/js/handlers/html';
 import {STATE} from '@qtikit/mathjax-full/js/core/MathItem';
 
-const adaptor = browserAdaptor();
-RegisterHTMLHandler(adaptor);
-
-function onError(math: any) {
-  const {root, typesetRoot} = math;
-  if (root.toString().substr(0, 14) === 'math([merror([') {
-    const merror = root.childNodes[0].childNodes[0];
-    const text = merror.attributes.get('data-mjx-error') || merror.childNodes[0].childNodes[0].getText();
-    adaptor.setAttribute(typesetRoot, 'data-mjx-error', text);
+declare global {
+  interface Window {
+    MathJax: any;
   }
 }
+
+function useAdaptor() {
+  const [adaptor, setAdaptor] = useState<any>(undefined);
+
+  if (window !== undefined && !adaptor) {
+    setAdaptor(browserAdaptor());
+    RegisterHTMLHandler(adaptor);
+  }
+
+  return [adaptor, setAdaptor];
+}
+
+function onError(math: any) {
+  console.error(`Error Mathjax converting ${math}`);
+}
+
 function updateCSS(nodeID: any, text: any) {
   let styleNode = document.getElementById(nodeID);
   if (styleNode === null) {
@@ -26,8 +36,8 @@ function updateCSS(nodeID: any, text: any) {
   }
   styleNode.innerHTML = text;
 }
-const markErrors = [STATE.TYPESET + 1, null, onError];
 
+const markErrors = [STATE.TYPESET + 1, null, onError];
 const mathML = new MathML({});
 const svg = new SVG({fontCache: 'none'});
 const doc = mathjax.document('', {
@@ -38,7 +48,7 @@ const doc = mathjax.document('', {
   },
 });
 
-function convert(math: string, node: HTMLElement) {
+function convert(adaptor: any, math: string, node: HTMLElement) {
   const display = true;
   const metrics = svg.getMetricsFor(node, display);
   const outerHTML = adaptor.outerHTML(
@@ -55,12 +65,13 @@ function convert(math: string, node: HTMLElement) {
 export const MathJax = ({mathML}: {mathML: string}) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [svg, setSVG] = useState('<svg></svg>');
+  const [adoptor] = useAdaptor();
 
   useEffect(() => {
     if (divRef.current) {
-      setSVG(convert(mathML, divRef.current));
+      setSVG(convert(adoptor, mathML, divRef.current));
     }
-  }, [mathML]);
+  }, [mathML, adoptor]);
 
   return <div ref={divRef} dangerouslySetInnerHTML={{__html: svg}}></div>;
 };
