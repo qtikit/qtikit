@@ -11,5 +11,6 @@
     "jsx": "react-jsx",
     "skipLibCheck": true
   },
-  "exclude": ["src/lib", "**/*.stories.tsx"]
+  "include": ["src/**/*.tsx"],
+  "exclude": ["**/*.stories.tsx"]
 }
