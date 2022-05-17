@@ -5,7 +5,7 @@ import {
   createInteractionChildComponent,
   isHTMLElement,
   isInteractionChildElement,
-  createMathComponent,
+  createMathMLComponent,
 } from './components';
 import {
   createFlowGroupInteractionComponent,
@@ -13,24 +13,40 @@ import {
   isFlowGroupInteraction,
   isInteractionElement,
 } from './interactions';
-import {isElementNode, isRootElement, isTextNode, isMathElement} from './utils/node';
+import {Props} from './types/component';
+import {isElementNode, isRootElement, isTextNode, isMathMLElement} from './utils/node';
 
-export function renderItemBody(node: Node | Element, index = 0): React.ReactNode {
+export type ItemBodyRenderOptions = {
+  index: number;
+  predicate: (node: Node, defaultProps: Props) => React.ReactNode;
+};
+
+export function renderItemBody(node: Node | Element, options: ItemBodyRenderOptions): React.ReactNode {
   const {childNodes} = node;
 
   const defaultProps = {
-    key: `qti-component-${index}`,
+    key: `qti-component-${options.index}`,
   };
+
+  const comp = options.predicate(node, defaultProps);
+  if (comp) {
+    return comp;
+  }
 
   if (isTextNode(node)) {
     return node.nodeValue;
-  } else if (isMathElement(node)) {
-    return createMathComponent(node as Element, defaultProps);
+  } else if (isMathMLElement(node)) {
+    return createMathMLComponent(node as Element, defaultProps);
   } else if (isElementNode(node)) {
     if (isFlowGroupInteraction(node)) {
       return createFlowGroupInteractionComponent(node, defaultProps);
     } else {
-      const children = childNodes ? Array.from(childNodes).map(childNode => renderItemBody(childNode, ++index)) : [];
+      const children = childNodes
+        ? Array.from(childNodes).map(childNode => {
+            options.index++;
+            return renderItemBody(childNode, options);
+          })
+        : [];
 
       if (isHTMLElement(node)) {
         return createHTMLComponent(node, defaultProps, children);

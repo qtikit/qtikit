@@ -10,3 +10,4 @@
 #/.pnp.*
 
 node_modules
+.vercel
