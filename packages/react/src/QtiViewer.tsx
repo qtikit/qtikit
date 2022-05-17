@@ -5,17 +5,24 @@ import * as Qti from './qti';
 import {getBaseUrl, resolveUrl} from './utils/url';
 import {readCorrectResponse, trimXml} from './utils/xml';
 import {useThrowError} from './utils/error';
+import {Props} from './types/component';
+import {isTextNode} from './utils/node';
+import {KaTeXMatchArray} from './components/KaTeX';
+import {createKaTeXComponent} from './components';
 
 interface AssessmentItem {
   assessmentSrc: string;
   itemBody: Element;
   styles: string[];
   correctResponses: any;
+  renderOptions: Qti.ItemBodyRenderOptions;
 }
 
-const ItemBody: React.FC<{itemBody: Element}> = React.memo(({itemBody}) => <>{Qti.renderItemBody(itemBody)}</>);
+const ItemBody: React.FC<{itemBody: Element; renderOptions: Qti.ItemBodyRenderOptions}> = React.memo(
+  ({itemBody, renderOptions}) => <>{Qti.renderItemBody(itemBody, renderOptions)}</>
+);
 
-const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
+const Root: React.FC<AssessmentItem> = ({itemBody, renderOptions, styles}) => {
   // useMemo is not fit for multiple ref scenario. but I have no idea for now.
   // This code can become problematic later for the following reasons:
   // https://reactjs.org/docs/hooks-reference.html#usememo
@@ -42,13 +49,19 @@ const Root: React.FC<AssessmentItem> = ({itemBody, styles}) => {
           {style}
         </style>
       ))}
-      <ItemBody itemBody={itemBody} />
+      <ItemBody itemBody={itemBody} renderOptions={renderOptions} />
     </>
   );
 };
 
+type QtiViewerFormulaInput = {
+  type: 'mathml' | 'latex';
+  match: (target: string) => KaTeXMatchArray;
+};
+
 type QtiViewerOptions = {
   showCorrectResponse?: boolean;
+  formulaInput?: QtiViewerFormulaInput;
 };
 
 export interface QtiViewerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -86,13 +99,34 @@ async function parseAssessmentItem(
   const baseUrl = getBaseUrl(assessmentSrc);
   const stylesheets = Array.from(root.getElementsByTagName('stylesheet'));
   const stylesheetSrcs = stylesheets.map(stylesheet => resolveUrl(stylesheet.getAttribute('href') || '', baseUrl));
-  if (stylesheetSrc) stylesheetSrcs.unshift(stylesheetSrc);
+  if (stylesheetSrc) {
+    stylesheetSrcs.unshift(stylesheetSrc);
+  }
+
+  const renderOptions: Qti.ItemBodyRenderOptions = {
+    index: 0,
+    predicate: (node: Node, defaultProps: Props) => {
+      if (!options?.formulaInput) {
+        return null;
+      }
+
+      if (options?.formulaInput.type === 'latex' && isTextNode(node)) {
+        const text = node.nodeValue || '';
+        const matches = options.formulaInput.match(text);
+        console.log('match', node.nodeValue, matches, defaultProps);
+        return createKaTeXComponent({text, matches}, defaultProps);
+      }
+
+      return null;
+    },
+  };
 
   return {
     assessmentSrc: assessmentSrc,
     itemBody: itemBody,
     styles: await Promise.all(stylesheetSrcs.map(fetchStylesheet)),
     correctResponses: options?.showCorrectResponse ? readCorrectResponse(root) : null,
+    renderOptions,
   };
 }
 

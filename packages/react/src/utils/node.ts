@@ -26,7 +26,7 @@ export function isRootElement(node: Node): boolean {
   return node.nodeName === ROOT_ELEMENT_NAME;
 }
 
-export function isMathElement(node: Node): boolean {
+export function isMathMLElement(node: Node): boolean {
   return node.nodeName === MATH_ELEMENT_NAME;
 }
 

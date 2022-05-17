@@ -10,6 +10,8 @@ npm install @qtikit/react
 
 # Usage
 
+## Basic Samples
+
 ```ts
 import React from 'react';
 import QtiViewer from '@qtikit/react/lib'
@@ -27,6 +29,52 @@ const Home = () => {
         stylesheetSrc={stylesheetSrc}
         inputState={inputState}
         onChange={setInputState}
+      />
+    </div>
+  )
+}
+
+export default Home
+```
+
+## KaTex (LaTeX) Sample
+
+```ts
+import React from 'react';
+import QtiViewer from '@qtikit/react/lib'
+import { UserInput } from '@qtikit/model/lib/user-input';
+
+// styles and fonts must be imported
+import 'https:/yoursite.com/styles/katex/katex.min.css';
+
+// match formula for $$2^4$$
+const regexOnyxLaTex = (text: string) => [...text.matchAll(/\$\$(.*)\$\$/g)];
+
+const mapToKaTeXMatch = match => ({
+  pattern: match[0],
+  latex: match[1].replace(/\$/g, ''),
+});
+
+const formulaInputForLaTex = {
+  type: 'latex',
+  match: (text: string) => regexOnyxLaTex(text).map(mapToKaTeXMatch),
+};
+
+const Home = () => {
+  const [inputState, setInputState] = React.useState <UserInput>({});
+  const assessmentItemSrc = 'https://yoursite.com/assessment.xml';
+  const stylesheetSrc = 'https:/yoursite.com/qti-default.css';
+
+  return (
+    <div className={styles.container}>
+      <QtiViewer
+        assessmentItemSrc={assessmentItemSrc}
+        stylesheetSrc={stylesheetSrc}
+        inputState={inputState}
+        onChange={setInputState}
+        options: {
+          formulaInput: formulaInputForLaTex
+        }
       />
     </div>
   )

@@ -9,9 +9,9 @@
   "workspaces": [
     "packages/model",
     "packages/model/test",
+    "packages/mathjax-react",
     "packages/react",
     "packages/scoring-engine",
-    "packages/mathjax-react",
     "examples"
   ],
   "scripts": {

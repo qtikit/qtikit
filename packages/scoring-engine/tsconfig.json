@@ -7,7 +7,8 @@
     "target": "es2018",
     "module": "commonjs",
     "strict": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "exclude": ["lib", "test"]
 }

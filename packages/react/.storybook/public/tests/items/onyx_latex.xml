@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/qti/qtiv2p1/imsqti_v2p1p1.xsd http://www.w3.org/1998/Math/MathML http://www.w3.org/Math/XMLSchema/mathml2/mathml2.xsd" identifier="id7763e69e-8337-4ae7-873d-afb6c1865fff" title="Tools of Algebra – Algebraic Expressions (Level 1)_1" adaptive="false" timeDependent="false">
+  <responseDeclaration identifier="RESPONSE_1" cardinality="single" baseType="string">
+    <correctResponse>
+      <value>Gap</value>
+    </correctResponse>
+    <mapping defaultValue="0">
+      <mapEntry mapKey="Gap" mappedValue="1" />
+    </mapping>
+  </responseDeclaration>
+  <outcomeDeclaration identifier="SCORE_RESPONSE_1" cardinality="single" baseType="float" view="testConstructor">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration identifier="MINSCORE_RESPONSE_1" cardinality="single" baseType="float" view="testConstructor">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration identifier="MAXSCORE_RESPONSE_1" cardinality="single" baseType="float" view="testConstructor">
+    <defaultValue>
+      <value>1</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration identifier="MAXSCORE" cardinality="single" baseType="float">
+    <defaultValue>
+      <value>1</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <outcomeDeclaration identifier="MINSCORE" cardinality="single" baseType="float" view="testConstructor">
+    <defaultValue>
+      <value>0</value>
+    </defaultValue>
+  </outcomeDeclaration>
+  <itemBody>
+    <p>1. $$a = 4, b=6$$.</p>
+    <p>2. $$a^2+b^2 - 2ab + 4$$</p>
+    <p>3. $$c = \pm\sqrt{a^2 + b^2}$$</p>
+    <p>
+       
+      <textEntryInteraction responseIdentifier="RESPONSE_1" class="ctest_l ctest_r" />
+    </p>
+    <p> </p>
+  </itemBody>
+  <responseProcessing>
+    <responseCondition>
+      <responseIf>
+        <not>
+          <isNull>
+            <variable identifier="RESPONSE_1" />
+          </isNull>
+        </not>
+        <setOutcomeValue identifier="SCORE_RESPONSE_1">
+          <mapResponse identifier="RESPONSE_1" />
+        </setOutcomeValue>
+      </responseIf>
+    </responseCondition>
+    <setOutcomeValue identifier="SCORE">
+      <sum>
+        <variable identifier="SCORE_RESPONSE_1" />
+      </sum>
+    </setOutcomeValue>
+    <responseCondition>
+      <responseIf>
+        <gt>
+          <variable identifier="SCORE" />
+          <variable identifier="MAXSCORE" />
+        </gt>
+        <setOutcomeValue identifier="SCORE">
+          <variable identifier="MAXSCORE" />
+        </setOutcomeValue>
+      </responseIf>
+    </responseCondition>
+    <responseCondition>
+      <responseIf>
+        <lt>
+          <variable identifier="SCORE" />
+          <variable identifier="MINSCORE" />
+        </lt>
+        <setOutcomeValue identifier="SCORE">
+          <variable identifier="MINSCORE" />
+        </setOutcomeValue>
+      </responseIf>
+    </responseCondition>
+  </responseProcessing>
+</assessmentItem>

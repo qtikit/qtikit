@@ -6,11 +6,15 @@
     "declaration": true,
     "target": "es2018",
     "module": "commonjs",
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "downlevelIteration": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.tsx"],
-  "exclude": ["**/*.stories.tsx"]
+  "exclude": [
+    "**/*.stories.tsx"
+  ]
 }
