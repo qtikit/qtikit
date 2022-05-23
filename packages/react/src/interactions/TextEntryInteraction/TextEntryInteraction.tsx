@@ -26,11 +26,11 @@ const TextEntryInteraction: React.FC<TextEntryInteractionProps> = ({
   });
 
   return (
-    <div className={classNameForInteraction('textentry')}>
+    <span className={classNameForInteraction('textentry')}>
       <InteractionStateContext.Provider value={{interactionState, setInteractionState}}>
         <TextEntry identifier={IDENTIFIER} placeholder={getPlaceHolder({placeholderText, expectedLength})} />
       </InteractionStateContext.Provider>
-    </div>
+    </span>
   );
 };
 

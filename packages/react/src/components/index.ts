@@ -16,6 +16,7 @@ import ImageHtml from './ImageHtml';
 import ObjectHtml from './ObjectHtml';
 import MathML from './MathML';
 import {KaTeX, KaTeXProps} from './KaTeX';
+import {MatchResult} from '../types/match';
 
 export const htmlElementNames = [
   'pre',
@@ -157,9 +158,9 @@ export function createMathMLComponent(element: Element, defaultProps: Props): Re
   }
 }
 
-export function createKaTeXComponent(katexProps: KaTeXProps, defaultProps: Props): React.ReactNode {
+export function createKaTeXComponent(matches: MatchResult, defaultProps: Props): React.ReactNode {
   return React.createElement(KaTeX, {
-    ...katexProps,
+    ...matches,
     ...defaultProps,
   });
 }

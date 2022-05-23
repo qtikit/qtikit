@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/GapMatch',
@@ -7,5 +7,5 @@ export default {
 export const gap_match = QtiViewerTemplate.bind({});
 
 gap_match.args = {
-  assessmentItemSrc: 'tests/items/gap_match.xml',
+  xml: 'tests/items/gap_match.xml',
 };

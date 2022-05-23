@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 import '../../../styles/katex/katex.min.css';
 
@@ -9,7 +9,7 @@ export default {
 export const text_entry = QtiViewerTemplate.bind({});
 
 text_entry.args = {
-  assessmentItemSrc: 'tests/items/text_entry.xml',
+  xml: 'tests/items/text_entry.xml',
 };
 
 export const onyx_latex = QtiViewerTemplate.bind({});
@@ -27,7 +27,7 @@ const formulaInputForLaTex = {
 };
 
 onyx_latex.args = {
-  assessmentItemSrc: 'tests/items/onyx_latex.xml',
+  xml: 'tests/items/onyx_latex.xml',
   options: {
     formulaInput: formulaInputForLaTex,
   },

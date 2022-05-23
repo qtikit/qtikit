@@ -1,22 +1,25 @@
 import React, {useContext} from 'react';
 
-import {QtiViewerContext} from '../QtiViewer';
+import {ViewContext} from '../views/View';
 
 const CorrectResponseStateContext = React.createContext<{
   responseIdentifier: string;
 }>(null as any);
 
 const useCorrectResponseContext = () => {
-  const {correctResponses} = useContext(QtiViewerContext);
-  const context = React.useContext(CorrectResponseStateContext);
+  const {
+    options,
+    document: {responseDeclarations},
+  } = useContext(ViewContext);
+  const context = useContext(CorrectResponseStateContext);
 
   if (!context) {
     throw new Error('useCorrectResponseContext must be used within a CorrectResponseStateContext');
   }
 
   return React.useMemo(
-    () => correctResponses && correctResponses[context.responseIdentifier],
-    [context.responseIdentifier, correctResponses]
+    () => options?.showCorrectResponse && responseDeclarations[context.responseIdentifier],
+    [context.responseIdentifier, options?.showCorrectResponse, responseDeclarations]
   );
 };
 

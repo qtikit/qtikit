@@ -11,7 +11,8 @@ const NodeType = {
 
 type NodeType = typeof NodeType[keyof typeof NodeType];
 
-const ROOT_ELEMENT_NAME = 'itemBody';
+const ITEMBODY_NAME = 'itemBody';
+const MODAL_FEEDBACK_NAME = 'modalFeedback';
 const MATH_ELEMENT_NAME = 'm:math';
 
 export function isTextNode(node: Node): node is Text {
@@ -22,8 +23,12 @@ export function isElementNode(node: Node): node is Element {
   return node.nodeType === NodeType.ELEMENT_NODE;
 }
 
-export function isRootElement(node: Node): boolean {
-  return node.nodeName === ROOT_ELEMENT_NAME;
+export function isItemBodyElement(node: Node): boolean {
+  return node.nodeName === ITEMBODY_NAME;
+}
+
+export function isModalFeedbackElement(node: Node): boolean {
+  return node.nodeName === MODAL_FEEDBACK_NAME;
 }
 
 export function isMathMLElement(node: Node): boolean {

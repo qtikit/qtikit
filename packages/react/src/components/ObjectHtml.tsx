@@ -1,16 +1,18 @@
 import React, {useContext} from 'react';
 
-import {QtiViewerContext} from '../QtiViewer';
+import {ViewContext} from '../views/View';
 import {classNameForComponent} from '../utils/style';
-import {resolveUrl} from '../utils/url';
+import {resolveBaseUrl} from '../utils/url';
 
 export type ObjectHtmlProps = React.ObjectHTMLAttributes<HTMLObjectElement>;
 
 const ObjectHtml: React.FC<ObjectHtmlProps> = ({data, ...props}) => {
-  const {baseUrl} = useContext(QtiViewerContext);
+  const {
+    document: {baseUrl},
+  } = useContext(ViewContext);
   return (
     <span className={classNameForComponent('object')}>
-      <object data={resolveUrl(data, baseUrl)} {...props} />
+      <object data={resolveBaseUrl(data, baseUrl)} {...props} />
     </span>
   );
 };

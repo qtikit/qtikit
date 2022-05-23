@@ -1,13 +1,19 @@
 import React, {useContext} from 'react';
 
-import {QtiViewerContext} from '../QtiViewer';
+import {ViewContext} from '../views/View';
+import {useResourceRequestAction} from '../utils/action';
 import {classNameForComponent} from '../utils/style';
-import {resolveUrl} from '../utils/url';
+import {resolveBaseUrl} from '../utils/url';
 
 export type ImageHtmlProps = React.ImgHTMLAttributes<HTMLImageElement>;
 
 const ImageHtml: React.FC<ImageHtmlProps> = ({src, children, ...props}) => {
-  const {baseUrl} = useContext(QtiViewerContext);
+  const {
+    document: {baseUrl},
+  } = useContext(ViewContext);
+  const url = useMemo(() => resolveBaseUrl(src, baseUrl), [src, baseUrl]);
+  const newUrl = useResourceRequestAction(url);
+
   return (
     <span className={classNameForComponent('image')}>
       <img {...props} src={resolveUrl(src, baseUrl)} />

@@ -10,7 +10,7 @@ export function getPathName(url: string): string {
   return (url && url.split('/').pop()) ?? '';
 }
 
-export function resolveUrl(pathname: string | undefined, baseurl?: string): string {
+export function resolveBaseUrl(pathname: string | undefined, baseurl?: string): string {
   const url = new URL(baseurl || location.href);
 
   return new URL(pathname || '/', url).href;
