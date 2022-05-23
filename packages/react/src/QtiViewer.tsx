@@ -14,16 +14,23 @@ import {QtiViewerAction} from './types/action';
 interface AssessmentItem {
   assessmentSrc: string;
   itemBody: Element;
+  modalFeedbacks: Element[];
   styles: string[];
   correctResponses: any;
   renderOptions: Qti.ItemBodyRenderOptions;
 }
 
 const ItemBody: React.FC<{itemBody: Element; renderOptions: Qti.ItemBodyRenderOptions}> = React.memo(
-  ({itemBody, renderOptions}) => <>{Qti.renderItemBody(itemBody, renderOptions)}</>
+  ({itemBody, renderOptions}) => <div id="qtikit-itembody">{Qti.renderItemBody(itemBody, renderOptions)}</div>
 );
 
-const Root: React.FC<AssessmentItem> = ({itemBody, renderOptions, styles}) => {
+const ModalFeedback: React.FC<{modalFeedback: Element; renderOptions: Qti.ItemBodyRenderOptions}> = React.memo(
+  ({modalFeedback, renderOptions}) => (
+    <div id="qtikit-modal-feedback">{Qti.renderModalFeedback(modalFeedback, renderOptions)}</div>
+  )
+);
+
+const Root: React.FC<AssessmentItem> = ({itemBody, modalFeedbacks, renderOptions, styles}) => {
   // useMemo is not fit for multiple ref scenario. but I have no idea for now.
   // This code can become problematic later for the following reasons:
   // https://reactjs.org/docs/hooks-reference.html#usememo
@@ -51,6 +58,9 @@ const Root: React.FC<AssessmentItem> = ({itemBody, renderOptions, styles}) => {
         </style>
       ))}
       <ItemBody itemBody={itemBody} renderOptions={renderOptions} />
+      {modalFeedbacks.map((modalFeedback, key) => (
+        <ModalFeedback key={key} modalFeedback={modalFeedback} renderOptions={renderOptions} />
+      ))}
     </>
   );
 };
@@ -60,9 +70,14 @@ type QtiViewerFormulaInput = {
   match: (target: string) => KaTeXMatchArray;
 };
 
+type QtiViewerModalFeedbacks = {
+  filter: (target: string) => any;
+};
+
 type QtiViewerOptions = {
   showCorrectResponse?: boolean;
   formulaInput?: QtiViewerFormulaInput;
+  modalFeedbacks?: QtiViewerModalFeedbacks;
 };
 
 export interface QtiViewerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -83,6 +98,16 @@ export const QtiViewerContext = React.createContext<QtiViewerContextValue>(null 
 
 async function fetchStylesheet(href: string): Promise<string> {
   return fetch(href).then(response => response.text());
+}
+
+function getModalFeedbacks(root: Document): Element[] {
+  const modalFeedback = root.documentElement.getElementsByTagName('modalFeedback');
+
+  if (!modalFeedback) {
+    throw new Error('QTI modalFeedback is not found');
+  }
+
+  return Array.from(modalFeedback);
 }
 
 async function parseAssessmentItem(
@@ -122,9 +147,11 @@ async function parseAssessmentItem(
     },
   };
 
+  console.log('options?.modalFeedback', options?.modalFeedbacks);
   return {
     assessmentSrc: assessmentSrc,
     itemBody: itemBody,
+    modalFeedbacks: options?.modalFeedbacks ? getModalFeedbacks(root) : [],
     styles: await Promise.all(stylesheetSrcs.map(fetchStylesheet)),
     correctResponses: options?.showCorrectResponse ? readCorrectResponse(root) : null,
     renderOptions,

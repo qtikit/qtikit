@@ -33,7 +33,7 @@ class QtiViewerErrorBoundary extends React.Component<{children: any}, {hasError:
   }
 }
 
-const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc, onAction}) => {
+const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc, onAction, options}) => {
   const [assessmentItems, setAssessmentItems] = useState([]);
   const [inputState, setInputState] = useState<UserInput>({});
 
@@ -58,6 +58,7 @@ const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc, onAction}) => {
                 onChange={setInputState}
                 onAction={onAction}
                 stylesheetSrc={stylesheetSrc}
+                options={options}
               />
             </QtiViewerErrorBoundary>
           </div>
@@ -132,6 +133,24 @@ QtiSlideViewer.args = {
   stylesheetSrc: resolveUrl('default.css'),
 };
 
+const regexOnyxLaTex = (text: string) => [...text.matchAll(/\$\$(.*)\$\$/g)];
+
+const mapToKaTeXMatch = match => ({
+  pattern: match[0],
+  latex: match[1].replace(/\$/g, ''),
+});
+
+const formulaInputForLaTex = {
+  type: 'latex',
+  match: (text: string) => regexOnyxLaTex(text).map(mapToKaTeXMatch),
+};
+
+const modalFeedbacks = {
+  filter: (target: string) => {
+    console.log(target);
+  },
+};
+
 export const QtiViewerOptions = QtiViewersTemplate.bind({});
 
 QtiViewerOptions.storyName = 'QtiViewerOptions';
@@ -141,6 +160,10 @@ QtiViewerOptions.args = {
   onAction: (action: QtiViewerAction) => {
     console.log('onAction', action);
     return action;
+  },
+  options: {
+    formulaInput: formulaInputForLaTex,
+    modalFeedbacks: modalFeedbacks,
   },
 };
 
