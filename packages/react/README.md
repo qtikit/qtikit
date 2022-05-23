@@ -83,7 +83,29 @@ const Home = () => {
 export default Home
 ```
 
-# Stylesheet
+## Actions (Events)
+
+QtiViewer will fire events to give a chance of manipulating or to notify the status of progress. For example, before starting fetch, after resource fetching completed. See `QtiViewerAction` and `QtiViewerActions` to get information of types
+
+```
+<QtiViewer
+  assessmentItemSrc={assessmentItemSrc}
+  stylesheetSrc={stylesheetSrc}
+  inputState={inputState}
+  onChange={setInputState}
+  onAction: (action: QtiViewerAction) => {
+    const res: QtiViewerAction = action;
+
+    if (action.type) {
+      res.url = updateUrlWithConfidential(action.url);
+    }
+
+    return res;
+  }
+/>
+```
+
+## Stylesheet
 
 QtiViewer supports custom stylesheets to display QTI Interactions and Components in their own style. CSS class names follow [BEM style][bem]. Refer to [Example][css-style]. Here is a sample that shows how to use a stylesheet.
 
@@ -138,9 +160,6 @@ QtiViewer supports custom stylesheets to display QTI Interactions and Components
 
 [bem]: http://getbem.com/naming/
 [css-style]: https://qtikit-storybook.vercel.app/default.css
-
-## 
-
 
 # Test
 

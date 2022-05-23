@@ -2,6 +2,7 @@ import {UserInput} from '@qtikit/model/lib/user-input';
 import React, {useEffect, useState} from 'react';
 
 import QtiViewer from './QtiViewer';
+import {QtiViewerAction} from './types/action';
 import {getPathName, resolveUrl} from './utils/url';
 
 class QtiViewerErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
@@ -32,7 +33,7 @@ class QtiViewerErrorBoundary extends React.Component<{children: any}, {hasError:
   }
 }
 
-const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc}) => {
+const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc, onAction}) => {
   const [assessmentItems, setAssessmentItems] = useState([]);
   const [inputState, setInputState] = useState<UserInput>({});
 
@@ -55,6 +56,7 @@ const QtiViewersTemplate = ({assessmentItemSrc, stylesheetSrc}) => {
                 assessmentItemSrc={assessmentItemSrc}
                 inputState={inputState}
                 onChange={setInputState}
+                onAction={onAction}
                 stylesheetSrc={stylesheetSrc}
               />
             </QtiViewerErrorBoundary>
@@ -128,6 +130,18 @@ QtiSlideViewer.storyName = 'QtiSlideViewer';
 QtiSlideViewer.args = {
   assessmentItemSrc: getAssessmentItemSrcParam(),
   stylesheetSrc: resolveUrl('default.css'),
+};
+
+export const QtiViewerOptions = QtiViewersTemplate.bind({});
+
+QtiViewerOptions.storyName = 'QtiViewerOptions';
+QtiViewerOptions.args = {
+  assessmentItemSrc: getAssessmentItemSrcParam(),
+  stylesheetSrc: resolveUrl('default.css'),
+  onAction: (action: QtiViewerAction) => {
+    console.log('onAction', action);
+    return action;
+  },
 };
 
 function urlize(url: string) {
