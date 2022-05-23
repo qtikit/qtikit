@@ -1,17 +1,17 @@
-import {getUrls, QtiViewerTemplate} from '../QtiViewer.stories';
-
-export default {
-  title: 'CompositeItems',
-};
+import {QtiViewerTemplate} from '../templates/QtiViewer';
 
 export const multi_input = QtiViewerTemplate.bind({});
 
 multi_input.args = {
-  ...getUrls('tests/items/multi-input.xml'),
+  xml: 'tests/items/multi-input.xml',
 };
 
 export const upload_composite = QtiViewerTemplate.bind({});
 
 upload_composite.args = {
-  ...getUrls('tests/items/upload_composite.xml'),
+  xml: 'tests/items/upload_composite.xml',
+};
+
+export default {
+  title: 'Interaction/CompositeItems',
 };

@@ -1,14 +1,14 @@
 import {useContext, useMemo} from 'react';
 
-import {ViewerActionTypes} from '../types/viewer';
-import {ViewContext} from '../views/View';
+import {QtiViewerContext} from '../QtiViewer';
+import {QtiViewerActions} from '../types/action';
 
 export const useResourceRequestAction = (url: string) => {
-  const {onAction} = useContext(ViewContext);
+  const {onAction} = useContext(QtiViewerContext);
   return useMemo(
     () =>
       onAction?.({
-        type: ViewerActionTypes.REQUEST_RESOURCE,
+        type: QtiViewerActions.REQUEST_RESOURCE,
         url,
       }).url ?? url,
     [onAction, url]

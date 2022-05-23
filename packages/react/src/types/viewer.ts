@@ -7,22 +7,29 @@ export type QtiViewerState = {
   onChange?: (newState: UserInput) => void;
 };
 
+export type QtiViewerEventType = 'xml' | 'image' | 'math' | 'object' | 'style';
+
 export type QtiViewerEvent = {
-  type: 'fetchstart';
+  type: QtiViewerEventType;
+  event?: any;
 };
 
-export type FetchStartEvent = QtiViewerEvent & {
+export type QtiFetchEvent = QtiViewerEvent & {
   url: string;
   baseUrl?: string;
 };
 
+export type QtiUri = string; // starts with 'http' | 'https' | 'blob';
+
 export type QtiViewerEvents = {
-  onFetchStart?: (event: FetchStartEvent) => string;
+  onFetchStart?: (event: QtiFetchEvent) => Promise<QtiUri>;
+  onFetchEnd?: (event: QtiFetchEvent) => void;
 };
 
 export type QtiViewerOptions = {
   showCorrectResponse?: boolean;
   showLaTex?: boolean;
+  showIdentifiers?: string[];
 };
 
 export type QtiViewerProps = QtiViewerState &

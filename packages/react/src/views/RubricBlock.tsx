@@ -3,7 +3,15 @@ import React, {useMemo} from 'react';
 import {QtiView, QtiBody} from './View';
 import {QtiViewerProps} from '../types/viewer';
 
-export const RubricBlock = ({document, inputState, onChange, onFetchStart, options, ...props}: QtiViewerProps) => {
+export const RubricBlock = ({
+  document,
+  inputState,
+  onChange,
+  onFetchStart,
+  onFetchEnd,
+  options,
+  ...props
+}: QtiViewerProps) => {
   if (!document.hasRubricBlock()) {
     throw new Error('Invalid QTI document');
   }
@@ -16,7 +24,12 @@ export const RubricBlock = ({document, inputState, onChange, onFetchStart, optio
   );
 
   return (
-    <QtiView state={{inputState, onChange}} events={{onFetchStart}} document={document} options={options} {...props}>
+    <QtiView
+      state={{inputState, onChange}}
+      events={{onFetchStart, onFetchEnd}}
+      document={document}
+      options={options}
+      {...props}>
       <>
         {Object.entries(document.rubricBlocks).map(([, rubricBlock], index) => {
           return (

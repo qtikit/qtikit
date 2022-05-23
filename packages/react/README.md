@@ -20,8 +20,10 @@ const viewerProps = {
   inputState: UserInput;
   // event called as user input a response
   onChange: (newState: UserInput) => void;
-  // event called as before fetch resource
-  onFetchStart: onFetchStart?: (event: FetchStartEvent) => string;
+  // event called as fetch starting
+  onFetchStart?: (event: QtiFetchEvent) => Promise<string>
+  // event called as fetch ended
+  onFetchEnd?: (event: QtiFetchEvent) => void;
   options?: ViewerOptions = {
     // display LaTeX syntax in text
     showLaTex?: boolean;
@@ -67,7 +69,7 @@ const CorrectionViewer = (
 
 ```ts
 import React from 'react';
-import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, ViewerOptions} from '@qtikit/react/lib';
+import {ItemBody, ModalFeedback, QtiDocument, QtiFetchEvent, ViewerOptions} from '@qtikit/react/lib';
 import { UserInput } from '@qtikit/model/lib/user-input';
 
 const QtiViewer = () => {
@@ -89,7 +91,8 @@ const QtiViewer = () => {
         document={document}
         inputState={inputState}
         onChange={setInputState}
-        onFetchStart={(event: FetchStartEvent) => event.url + '?sign=your-sign'}
+        onFetchStart={(event: QtiFetchEvent) => event.url}
+        onFetchEnd={(event: QtiFetchEvent) => console.log('fetch event')}
         options: {
           showLaTex: true,
           showIdentifiers: ['correct'],
@@ -124,9 +127,6 @@ QtiViewer supports custom stylesheets to display QTI Interactions and Components
 
 [bem]: http://getbem.com/naming/
 [css-style]: https://qtikit-storybook.vercel.app/default.css
-
-## 
-
 
 # Test
 

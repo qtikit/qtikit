@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {QtiStyles, StyleProp} from './Styles';
 import {QtiDocument, RenderOption} from './QtiDocument';
 import {QtiViewerEvents, QtiViewerOptions, QtiViewerState} from '../types/viewer';
+import {fetchStyles} from '../utils/fetch';
 
 export type QtiViewContextValue = QtiViewerState & {
   document: QtiDocument;
@@ -33,12 +34,12 @@ export const QtiView = ({children, state, document, events, options, ...props}: 
   const [styles, setStyles] = React.useState<StyleProp | null>(null);
 
   useEffect(() => {
-    const fetchStyleSheets = async () => {
-      await document.fetchStyleSheets(events.onFetchStart);
+    const init = async () => {
+      document.stylesheets = await fetchStyles(document.styleUrls, document.baseUrl, events);
       setStyles({styles: document.stylesheets ?? []});
     };
 
-    fetchStyleSheets();
+    init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document]);
 
@@ -49,6 +50,7 @@ export const QtiView = ({children, state, document, events, options, ...props}: 
         value={{
           document,
           options,
+          events,
           ...state,
         }}>
         {children}

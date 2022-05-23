@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../../QtiViewer.stories';
+import {QtiViewerTemplate} from '../../templates/QtiViewer';
 
 export default {
   title: 'Interaction/ExtendedText',

@@ -3,17 +3,34 @@ import React, {useMemo} from 'react';
 import {QtiView, QtiBody} from './View';
 import {QtiViewerProps} from '../types/viewer';
 
-export const ModalFeedback = ({document, inputState, onChange, onFetchStart, options, ...props}: QtiViewerProps) => {
+export const ModalFeedback = ({
+  document,
+  inputState,
+  onChange,
+  onFetchStart,
+  onFetchEnd,
+  options,
+  ...props
+}: QtiViewerProps) => {
   if (!document.hasModalFeedback()) {
     throw new Error('Invalid QTI document');
   }
 
-  const identifiers = useMemo(() => options?.identifiers ?? [], [options]);
-
-  console.log('identifiers', options, identifiers);
+  const identifiers = useMemo(() => options?.showIdentifiers ?? [], [options]);
+  const renderOption = useMemo(
+    () => ({
+      parseLaTex: options?.showLaTex,
+    }),
+    [options]
+  );
 
   return (
-    <QtiView state={{inputState, onChange}} events={{onFetchStart}} document={document} options={options} {...props}>
+    <QtiView
+      state={{inputState, onChange}}
+      events={{onFetchStart, onFetchEnd}}
+      document={document}
+      options={options}
+      {...props}>
       <>
         {identifiers.map(identifier => {
           const modal = document.modalFeedbacks[identifier];

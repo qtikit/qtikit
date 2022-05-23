@@ -9,6 +9,7 @@ import {Props} from './types/component';
 import {isTextNode} from './utils/node';
 import {KaTeXMatchArray} from './components/KaTeX';
 import {createKaTeXComponent} from './components';
+import {QtiViewerAction} from './types/action';
 
 interface AssessmentItem {
   assessmentSrc: string;
@@ -69,6 +70,7 @@ export interface QtiViewerProps extends Omit<React.HTMLAttributes<HTMLDivElement
   stylesheetSrc?: string;
   inputState: UserInput;
   onChange?: (newState: UserInput) => void;
+  onAction?: (newAction: QtiViewerAction) => QtiViewerAction;
   options?: QtiViewerOptions;
 }
 
@@ -113,7 +115,6 @@ async function parseAssessmentItem(
       if (options?.formulaInput.type === 'latex' && isTextNode(node)) {
         const text = node.nodeValue || '';
         const matches = options.formulaInput.match(text);
-        console.log('match', node.nodeValue, matches, defaultProps);
         return createKaTeXComponent({text, matches}, defaultProps);
       }
 
@@ -138,7 +139,7 @@ const defaultValue: QtiViewerContextValue = {
 };
 
 const QtiViewer: React.FC<QtiViewerProps> = props => {
-  const {assessmentItemSrc, stylesheetSrc, inputState, onChange, options, ...divProps} = props;
+  const {assessmentItemSrc, stylesheetSrc, inputState, onChange, onAction, options, ...divProps} = props;
   const [assessmentItem, setAssessmentItem] = React.useState<AssessmentItem | null>(null);
   const throwError = useThrowError();
 
