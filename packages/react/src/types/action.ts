@@ -1,8 +1,12 @@
-export const enum QtiViewerActions {
+export const enum ActionTypes {
   REQUEST_RESOURCE,
 }
 
-export type QtiViewerAction = {
-  type: QtiViewerActions;
+export type Action = {
+  type: ActionTypes;
   url?: string;
+};
+
+export type RequestResourceAction = Action & {
+  changeUrl: (url: string) => void;
 };

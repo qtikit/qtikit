@@ -1,1 +1,1 @@
-export {default, QtiViewerProps} from './QtiViewer';
+export * from './views/ItemBody';
