@@ -1,7 +1,7 @@
 import React from 'react';
 import {UserInput} from '@qtikit/model/lib/user-input';
 
-import {QtiViewerContext} from '../QtiViewer';
+import {ViewContext} from '../views/View';
 import {InteractionElementName} from '.';
 
 interface InteractionState {
@@ -24,7 +24,7 @@ const useInteractionState = ({
   init?: () => InteractionState;
   shouldUpdate?: (nextInteractionState: InteractionState, prevIteractionState: InteractionState) => boolean;
 }): [InteractionState, (nextInteractionState: InteractionState) => void] => {
-  const {inputState, onChange} = React.useContext(QtiViewerContext);
+  const {inputState, onChange} = React.useContext(ViewContext);
 
   return [
     React.useMemo(

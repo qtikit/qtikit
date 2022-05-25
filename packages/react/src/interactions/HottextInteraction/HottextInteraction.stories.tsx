@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/Hottext',
@@ -7,5 +7,5 @@ export default {
 export const hottext = QtiViewerTemplate.bind({});
 
 hottext.args = {
-  assessmentItemSrc: 'tests/items/hottext.xml',
+  xml: 'tests/items/hottext.xml',
 };

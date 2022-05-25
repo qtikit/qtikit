@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/Match',
@@ -7,5 +7,5 @@ export default {
 export const match = QtiViewerTemplate.bind({});
 
 match.args = {
-  assessmentItemSrc: 'tests/items/match.xml',
+  xml: 'tests/items/match.xml',
 };

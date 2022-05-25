@@ -1,78 +1,22 @@
-import React, {useEffect, useMemo} from 'react';
-import {UserInput} from '@qtikit/model/lib/user-input';
+import React from 'react';
 
-import {parseDocument, renderItemBody} from '../utils/renderer';
-import {View, ViewProps, ViewState, ViewSource, ViewOptions, XmlSource} from './View';
-// import {getBaseUrl, resolveUrl} from './utils/url';
-// import {readCorrectResponse, trimXml} from './utils/xml';
-import {useThrowError} from '../utils/error';
-// import {Props} from './types/component';
-// import {isTextNode} from './utils/node';
-// import {KaTeXMatchArray} from './components/KaTeX';
-// import {createKaTeXComponent} from './components';
-// import {QtiViewerAction} from './types/action';
-// import {Styles} from '../utils/style';
+import {QtiDocument, QtiBody} from './Document';
+import {View} from './View';
+import {ViewerOptions, ViewerState} from '../types/viewer';
 
-// interface renderOptions {
-//   assessmentSrc: string;
-//   itemBody: Element;
-//   styles: string[];
-//   correctResponses: any;
-//   renderOptions: RenderOptions;
-// }
-
-// const ItemBodyContent: React.FC<{itemBody: Element; renderOptions: RenderOptions}> = React.memo(
-//   ({itemBody, renderOptions}) =>
-// );
-
-// const defaultValue: QtiViewerContextValue = {
-//   baseUrl: '',
-//   renderOptionsSrc: '',
-//   stylesheetSrc: '',
-//   inputState: {},
-// };
-
-export type ItemBodyProps = {
-  xmlSrc: XmlSource;
-  styleSrc?: string;
-  state: ViewState;
-  options: ViewOptions;
+export type ItemBodyProps = ViewerState & {
+  document: QtiDocument;
+  options?: ViewerOptions;
 };
 
-type RenderOptions = {
-  // assessmentSrc: string;
-  itemBody: Element;
-  styles: string[];
-  // correctResponses: any;
-  // renderOptions: RenderOptions;
-};
+export const ItemBody = ({document, inputState, onChange, onAction, onMatch, options, ...props}: ItemBodyProps) => {
+  if (!document.hasItemBody()) {
+    throw new Error('Invalid QTI document');
+  }
 
-export const ItemBody = ({xmlSrc, styleSrc, state, options, ...props}: ItemBodyProps) => {
-  const [renderOptions, setRenderOptions] = React.useState<RenderOptions | null>(null);
-  const throwError = useThrowError();
-
-  useEffect(() => {
-    setRenderOptions(null);
-
-    const loadrenderOptions = async () => {
-      try {
-        setRenderOptions(await parseDocument(xmlSrc, styleSrc, options));
-      } catch (e: any) {
-        throwError(e);
-      }
-    };
-
-    loadrenderOptions();
-
-    return () => {
-      setRenderOptions(null);
-    };
-  }, [throwError, xmlSrc, styleSrc, options]);
   return (
-    renderOptions && (
-      <View baseUrl={''} {...renderOptions} {...state} {...props}>
-        <div className="qtikit-itembody">{renderItemBody(renderOptions.itemBody, renderOptions.renderOptions)}</div>
-      </View>
-    )
+    <View state={{inputState, onChange, onAction, onMatch}} document={document} options={options} {...props}>
+      <QtiBody name="qtikit-itembody" root={document.itemBody} onMatch={onMatch} />
+    </View>
   );
 };

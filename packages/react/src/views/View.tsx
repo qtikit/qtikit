@@ -1,73 +1,32 @@
 import React from 'react';
-import {UserInput} from '@qtikit/model/lib/user-input';
 
-import {Action} from '../types/action';
-import {Styles} from './Styles';
+import {QtiStyles} from './Styles';
+import {QtiDocument} from './document';
+import {ViewerOptions, ViewerState} from '../types/viewer';
 
-export type CorrectResponses = any;
-
-export type UrlData = {
-  url: string;
-  data?: string;
+export type ViewContextValue = ViewerState & {
+  document: QtiDocument;
+  options?: ViewerOptions;
 };
 
-export type Source = UrlData | string;
+export const ViewContext = React.createContext<ViewContextValue>(null as any);
 
-export type XmlSource = {
-  url: string;
-  document?: string;
+export type ViewProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+  children: JSX.Element;
+  state: ViewerState;
+  document: QtiDocument;
+  options?: ViewerOptions;
 };
 
-export type ViewSource = {
-  xml: string;
-  style?: string;
-};
-
-export type ViewState = {
-  inputState: UserInput;
-  onChange?: (newState: UserInput) => void;
-  onAction?: (newAction: Action) => Action;
-};
-
-export type ViewOptions = {
-  correctResponse?: boolean;
-  // formulaInput?: QtiViewerFormulaInput;
-  // modalFeedbacks?: QtiViewerModalFeedbacks;
-};
-
-export type ViewContextValue = ViewState & {
-  baseUrl: string;
-  correctResponses?: CorrectResponses;
-};
-
-const ViewContext = React.createContext<ViewContextValue>(null as any);
-
-export type ViewProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> &
-  ViewContextValue & {
-    styles?: string[];
-    children: JSX.Element;
-  };
-
-export const View = ({
-  styles,
-  children,
-  baseUrl,
-  correctResponses,
-  inputState,
-  onChange,
-  onAction,
-  ...props
-}: ViewProps) => {
+export const View = ({children, state, document, options, ...props}: ViewProps) => {
   return (
     <div data-qtikit {...props}>
-      {styles && <Styles styles={styles} />}
+      {document.stylesheets && <QtiStyles styles={document.stylesheets} />}
       <ViewContext.Provider
         value={{
-          baseUrl,
-          correctResponses,
-          inputState,
-          onChange,
-          onAction,
+          document,
+          options,
+          ...state,
         }}>
         {children}
       </ViewContext.Provider>

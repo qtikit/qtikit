@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/Hotspot',
@@ -7,5 +7,5 @@ export default {
 export const hotspot = QtiViewerTemplate.bind({});
 
 hotspot.args = {
-  assessmentItemSrc: 'tests/items/hotspot.xml',
+  xml: 'tests/items/hotspot.xml',
 };

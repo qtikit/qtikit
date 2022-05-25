@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/GraphicGapMatch',
@@ -7,11 +7,11 @@ export default {
 export const graphic_gap_match = QtiViewerTemplate.bind({});
 
 graphic_gap_match.args = {
-  assessmentItemSrc: 'tests/items/graphic_gap_match.xml',
+  xml: 'tests/items/graphic_gap_match.xml',
 };
 
 export const graphic_gap_match_text = QtiViewerTemplate.bind({});
 
 graphic_gap_match_text.args = {
-  assessmentItemSrc: 'tests/items/graphic_gap_match_text.xml',
+  xml: 'tests/items/graphic_gap_match_text.xml',
 };

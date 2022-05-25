@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import katex, {KatexOptions} from 'katex';
 
-export interface KaTeXMatch {
-  pattern: string;
-  latex: string;
-}
-
-export type KaTeXMatchArray = Array<KaTeXMatch>;
+import {Match} from '../types/match';
 
 export interface KaTeXProps {
-  text: string;
-  matches: KaTeXMatchArray;
+  target: string;
+  matches: Array<Match>;
 }
 
 const katexClassName = `qtikit-component qtikit-component_katex`;
@@ -19,24 +14,18 @@ const katexOptions: KatexOptions = {
   throwOnError: false,
 };
 
-export const KaTeX: React.FC<KaTeXProps> = ({text, matches}) => {
+export const KaTeX: React.FC<KaTeXProps> = ({target, matches}) => {
   const [__html, setHtml] = useState('');
 
   useEffect(() => {
-    let html = text;
+    let html = target;
 
-    if (Array.isArray(matches)) {
-      for (const match of matches) {
-        html = html.replace(match.pattern, katex.renderToString(match.latex, katexOptions));
-      }
-    } else if (typeof matches === 'string') {
-      html = html.replace(matches, katex.renderToString(matches, katexOptions));
-    } else {
-      throw new Error(`Invalid match result, ${JSON.stringify(matches)}`);
+    for (const match of matches) {
+      html = html.replace(match.match, katex.renderToString(match.pattern, katexOptions));
     }
 
     setHtml(html);
-  }, [text, matches]);
+  }, [target, matches]);
 
   return <span className={katexClassName} dangerouslySetInnerHTML={{__html}}></span>;
 };

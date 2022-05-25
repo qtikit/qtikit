@@ -11,7 +11,7 @@ function updateQueryPrefix(query: string, prefix: string) {
     .join(',');
 }
 
-export const Styles = ({styles}: StyleProp) => {
+export const QtiStyles = ({styles}: StyleProp) => {
   // useMemo is not fit for multiple ref scenario. but I have no idea for now.
   // This code can become problematic later for the following reasons:
   // https://reactjs.org/docs/hooks-reference.html#usememo

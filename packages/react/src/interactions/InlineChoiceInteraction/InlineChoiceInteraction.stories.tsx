@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/InlineChoice',
@@ -7,11 +7,11 @@ export default {
 export const inline_choice = QtiViewerTemplate.bind({});
 
 inline_choice.args = {
-  assessmentItemSrc: 'tests/items/inline_choice.xml',
+  xml: 'tests/items/inline_choice.xml',
 };
 
 export const inline_choice_math = QtiViewerTemplate.bind({});
 
 inline_choice_math.args = {
-  assessmentItemSrc: 'tests/items/inline_choice_math.xml',
+  xml: 'tests/items/inline_choice_math.xml',
 };

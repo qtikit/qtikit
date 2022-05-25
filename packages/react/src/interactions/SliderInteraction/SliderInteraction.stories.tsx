@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/Slider',
@@ -7,11 +7,11 @@ export default {
 export const slider = QtiViewerTemplate.bind({});
 
 slider.args = {
-  assessmentItemSrc: 'tests/items/slider.xml',
+  xml: 'tests/items/slider.xml',
 };
 
 export const sliderLabel = QtiViewerTemplate.bind({});
 
 sliderLabel.args = {
-  assessmentItemSrc: 'tests/items/slider-label.xml',
+  xml: 'tests/items/slider-label.xml',
 };

@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../QtiViewerTemplate';
+import {QtiViewerTemplate} from '../../QtiViewer.stories';
 
 export default {
   title: 'Interaction/Media',
@@ -7,11 +7,11 @@ export default {
 export const media = QtiViewerTemplate.bind({});
 
 media.args = {
-  assessmentItemSrc: 'tests/items/media.xml',
+  xml: 'tests/items/media.xml',
 };
 
 export const media_coords = QtiViewerTemplate.bind({});
 
 media_coords.args = {
-  assessmentItemSrc: 'tests/items/media_coords.xml',
+  xml: 'tests/items/media_coords.xml',
 };
