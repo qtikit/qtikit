@@ -37,50 +37,21 @@ const Home = () => {
 export default Home
 ```
 
-## KaTex (LaTeX) Sample
+# Options
 
-```ts
-import React from 'react';
-import QtiViewer from '@qtikit/react/lib'
-import { UserInput } from '@qtikit/model/lib/user-input';
+With common options and each Qti Viewers has unique options for rendering. Please check out options below
 
-// styles and fonts must be imported
-import 'https:/yoursite.com/styles/katex/katex.min.css';
+```js
+const viewOptions = {
+  // shared
+  showLaTex?: boolean; // display LaTeX syntax in text
+  
+  // for ItemBody
+  showCorrectResponse?: boolean; // show correct resposnes
 
-// match formula for $$2^4$$
-const regexOnyxLaTex = (text: string) => [...text.matchAll(/\$\$(.*)\$\$/g)];
-
-const mapToKaTeXMatch = match => ({
-  pattern: match[0],
-  latex: match[1].replace(/\$/g, ''),
-});
-
-const formulaInputForLaTex = {
-  type: 'latex',
-  match: (text: string) => regexOnyxLaTex(text).map(mapToKaTeXMatch),
-};
-
-const Home = () => {
-  const [inputState, setInputState] = React.useState <UserInput>({});
-  const assessmentItemSrc = 'https://yoursite.com/assessment.xml';
-  const stylesheetSrc = 'https:/yoursite.com/qti-default.css';
-
-  return (
-    <div className={styles.container}>
-      <QtiViewer
-        assessmentItemSrc={assessmentItemSrc}
-        stylesheetSrc={stylesheetSrc}
-        inputState={inputState}
-        onChange={setInputState}
-        options: {
-          formulaInput: formulaInputForLaTex
-        }
-      />
-    </div>
-  )
+  // for ModalFeedback
+  identifiers: string[]; // show only feedback that matches an identifiers ex) ['correct']
 }
-
-export default Home
 ```
 
 ## Actions (Events)

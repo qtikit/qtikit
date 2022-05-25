@@ -73,7 +73,6 @@ export const QtiViewerTemplate = ({xml, style, onAction, onMatch, options, modal
               inputState={inputState}
               onChange={setInputState}
               onAction={onAction}
-              onMatch={onMatch}
               options={options}
             />
           )}
@@ -88,6 +87,9 @@ export const ItemBodyView = QtiViewerTemplate.bind({});
 ItemBodyView.storyName = 'ItemBody';
 ItemBodyView.args = {
   xml: getXmlParam(),
+  options: {
+    showLaTex: true,
+  },
 };
 
 export const ModalFeedbackView = QtiViewerTemplate.bind({});
@@ -97,6 +99,7 @@ ModalFeedbackView.args = {
   xml: getXmlParam(),
   modal: true,
   options: {
+    showLaTex: true,
     identifiers: ['correct'],
   },
 };
