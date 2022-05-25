@@ -29,6 +29,9 @@ const Home = () => {
         stylesheetSrc={stylesheetSrc}
         inputState={inputState}
         onChange={setInputState}
+        options={
+          showLaTex: true
+        }
       />
     </div>
   )
@@ -39,18 +42,16 @@ export default Home
 
 # Options
 
-With common options and each Qti Viewers has unique options for rendering. Please check out options below
-
 ```js
-const viewOptions = {
-  // shared
-  showLaTex?: boolean; // display LaTeX syntax in text
-  
-  // for ItemBody
-  showCorrectResponse?: boolean; // show correct resposnes
+const viewOptions: ViewerOptions = {
+  // display LaTeX syntax in text
+  showLaTex?: boolean;
+  // for ItemBody, show correct resposnes
+  showCorrectResponse?: boolean;
 
-  // for ModalFeedback
-  identifiers: string[]; // show only feedback that matches an identifiers ex) ['correct']
+  // for ModalFeedback, show only feedback that matches an identifiers
+  // ex) {showIdentifiers: ['correct']}
+  showIdentifiers: string[];
 }
 ```
 

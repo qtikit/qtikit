@@ -1,4 +1,4 @@
-import {QtiViewerTemplate} from '../../QtiViewer.stories';
+import {QtiViewerTemplate} from '../../templates/QtiViewer';
 
 import '../../../styles/katex/katex.min.css';
 

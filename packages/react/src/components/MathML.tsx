@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {MathJax} from '@qtikit/mathjax-react/lib/MathJax';
 
 import {classNameForComponent} from '../utils/style';
 

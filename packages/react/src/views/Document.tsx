@@ -35,7 +35,7 @@ export type RenderOption = {
   parseLaTex?: boolean;
 };
 
-export function renderQtiBody(node: Node | Element | undefined, options: RenderOption): React.ReactNode {
+export function renderQtiBody(node: Node | Element | undefined, options?: RenderOption): React.ReactNode {
   if (!node) {
     return;
   }
@@ -46,7 +46,7 @@ export function renderQtiBody(node: Node | Element | undefined, options: RenderO
   };
 
   if (isTextNode(node)) {
-    if (options.parseLaTex && node.nodeValue) {
+    if (options?.parseLaTex && node.nodeValue) {
       return createKaTeXComponent(node.nodeValue, defaultProps);
     }
 
@@ -160,6 +160,6 @@ export class QtiDocument {
   }
 }
 
-export const QtiBody: React.FC<{name: string; root?: Element; options: RenderOption}> = React.memo(
-  ({name, root, options}) => <div className={name}>{renderQtiBody(root, options)}</div>
+export const QtiBody: React.FC<{name: string; root?: Element; renderOptions?: RenderOption}> = React.memo(
+  ({name, root, renderOptions}) => <div className={name}>{renderQtiBody(root, renderOptions)}</div>
 );
