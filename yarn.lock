@@ -2746,13 +2746,12 @@ __metadata:
     "@storybook/addon-links": ^6.4.0-beta.29
     "@storybook/react": ^6.4.0-beta.29
     "@types/babel__core": ^7
-    "@types/katex": ^0
     "@types/mdx-js__react": ^1
     "@types/node": ^16.11.6
     "@types/react": ^17.0.34
     "@types/react-dom": ^17.0.11
     babel-loader: ^8.2.3
-    katex: ^0.15.3
+    extract-math: ^1.2.3
     react: ^17.0.2
     react-dom: ^17.0.2
     ts-xor: ^1.0.8
@@ -4399,13 +4398,6 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: e60b153664572116dfea673c5bda7778dbff150498f44f998e34b5886d8afc47f16799280e4b6e241c0472aef1bc36add771c569c68fc5125fc2ae519a3eb9ac
-  languageName: node
-  linkType: hard
-
-"@types/katex@npm:^0":
-  version: 0.14.0
-  resolution: "@types/katex@npm:0.14.0"
-  checksum: 330e0d0337ba48c87f5b793965fbad673653789bf6e50dfe8d726a7b0cbefd37195055e31503aae629814aa79447e4f23a4b87ad1ac565c0d9a9d9978836f39b
   languageName: node
   linkType: hard
 
@@ -7064,13 +7056,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^8.0.0":
-  version: 8.3.0
-  resolution: "commander@npm:8.3.0"
-  checksum: 0f82321821fc27b83bd409510bb9deeebcfa799ff0bf5d102128b500b7af22872c0c92cb6a0ebc5a4cf19c6b550fba9cedfa7329d18c6442a625f851377bacf0
-  languageName: node
-  linkType: hard
-
 "common-path-prefix@npm:^3.0.0":
   version: 3.0.0
   resolution: "common-path-prefix@npm:3.0.0"
@@ -8945,6 +8930,15 @@ __metadata:
     snapdragon: ^0.8.1
     to-regex: ^3.0.1
   checksum: a41531b8934735b684cef5e8c5a01d0f298d7d384500ceca38793a9ce098125aab04ee73e2d75d5b2901bc5dddd2b64e1b5e3bf19139ea48bac52af4a92f1d00
+  languageName: node
+  linkType: hard
+
+"extract-math@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "extract-math@npm:1.2.3"
+  dependencies:
+    escape-string-regexp: ^4.0.0
+  checksum: 019a2a8806568587177cd06ffc7ccb0b5bcbc56b22e6e8d5111bbd209379e4b4916d7ffac532e01d69f3b72f28e0f6b9206f8c2577e56bf3cd8ef13b1943d236
   languageName: node
   linkType: hard
 
@@ -11961,17 +11955,6 @@ __metadata:
   version: 3.1.0
   resolution: "junk@npm:3.1.0"
   checksum: 6c4d68e8f8bc25b546baed802cd0e7be6a971e92f1e885c92cbfe98946d5690b961a32f8e7909e77765d3204c3e556d13c17f73e31697ffae1db07a58b9e68c0
-  languageName: node
-  linkType: hard
-
-"katex@npm:^0.15.3":
-  version: 0.15.3
-  resolution: "katex@npm:0.15.3"
-  dependencies:
-    commander: ^8.0.0
-  bin:
-    katex: cli.js
-  checksum: 12bec82d9ae9f122b9aeafaf2de476e702d12ae19bb9bdd9c8c24126fd81e752047bb856254af98ca54fc51f3bb7f149b3902d65dcdafb5e3deeb691ec4d3db2
   languageName: node
   linkType: hard
 

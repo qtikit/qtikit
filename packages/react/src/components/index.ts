@@ -15,8 +15,7 @@ import InlineChoice from './InlineChoice';
 import ImageHtml from './ImageHtml';
 import ObjectHtml from './ObjectHtml';
 import MathML from './MathML';
-import {KaTeX, KaTeXProps} from './KaTeX';
-import {MatchResult} from '../types/match';
+import {LaTeX} from './LaTeX';
 
 export const htmlElementNames = [
   'pre',
@@ -158,9 +157,9 @@ export function createMathMLComponent(element: Element, defaultProps: Props): Re
   }
 }
 
-export function createKaTeXComponent(matches: MatchResult, defaultProps: Props): React.ReactNode {
-  return React.createElement(KaTeX, {
-    ...matches,
+export function createLaTeXComponent(tex: string, defaultProps: Props): React.ReactNode {
+  return React.createElement(LaTeX, {
+    tex,
     ...defaultProps,
   });
 }

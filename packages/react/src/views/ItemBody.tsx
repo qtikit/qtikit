@@ -9,14 +9,14 @@ export type ItemBodyProps = ViewerState & {
   options?: ViewerOptions;
 };
 
-export const ItemBody = ({document, inputState, onChange, onAction, onMatch, options, ...props}: ItemBodyProps) => {
+export const ItemBody = ({document, inputState, onChange, onAction, options, ...props}: ItemBodyProps) => {
   if (!document.hasItemBody()) {
     throw new Error('Invalid QTI document');
   }
 
   return (
-    <View state={{inputState, onChange, onAction, onMatch}} document={document} options={options} {...props}>
-      <QtiBody name="qtikit-itembody" root={document.itemBody} onMatch={onMatch} />
+    <View state={{inputState, onChange, onAction}} document={document} options={options} {...props}>
+      <QtiBody name="qtikit-itembody" root={document.itemBody} options={{parseLaTex: options?.showLaTex}} />
     </View>
   );
 };

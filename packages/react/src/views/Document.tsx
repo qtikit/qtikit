@@ -6,7 +6,7 @@ import {
   isHTMLElement,
   isInteractionChildElement,
   createMathMLComponent,
-  createKaTeXComponent,
+  createLaTeXComponent,
 } from '../components';
 import {
   createFlowGroupInteractionComponent,
@@ -31,8 +31,11 @@ class QtiComponentKey {
   }
 }
 
-export function renderQtiBody(node?: Node | Element, onMatch?: any): React.ReactNode {
-  console.log('node', node);
+export type RenderOption = {
+  parseLaTex?: boolean;
+};
+
+export function renderQtiBody(node: Node | Element | undefined, options: RenderOption): React.ReactNode {
   if (!node) {
     return;
   }
@@ -42,14 +45,11 @@ export function renderQtiBody(node?: Node | Element, onMatch?: any): React.React
     ...QtiComponentKey.get(),
   };
 
-  if (onMatch) {
-    const matches = onMatch(node);
-    if (matches.type === 'latex') {
-      return createKaTeXComponent(matches, defaultProps);
-    }
-  }
-
   if (isTextNode(node)) {
+    if (options?.parseLaTex && node.nodeValue) {
+      return createLaTeXComponent(node.nodeValue, defaultProps);
+    }
+
     return node.nodeValue;
   } else if (isMathMLElement(node)) {
     return createMathMLComponent(node as Element, defaultProps);
@@ -57,7 +57,7 @@ export function renderQtiBody(node?: Node | Element, onMatch?: any): React.React
     if (isFlowGroupInteraction(node)) {
       return createFlowGroupInteractionComponent(node, defaultProps);
     } else {
-      const children = childNodes ? Array.from(childNodes).map(childNode => renderQtiBody(childNode, onMatch)) : [];
+      const children = childNodes ? Array.from(childNodes).map(childNode => renderQtiBody(childNode, options)) : [];
 
       if (isHTMLElement(node)) {
         return createHTMLComponent(node, defaultProps, children);
@@ -160,6 +160,6 @@ export class QtiDocument {
   }
 }
 
-export const QtiBody: React.FC<{name: string; root?: Element; onMatch?: any}> = React.memo(({name, root, onMatch}) => (
-  <div className={name}>{renderQtiBody(root, onMatch)}</div>
-));
+export const QtiBody: React.FC<{name: string; root?: Element; options: RenderOption}> = React.memo(
+  ({name, root, options}) => <div className={name}>{renderQtiBody(root, options)}</div>
+);

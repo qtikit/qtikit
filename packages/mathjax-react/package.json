@@ -1,7 +1,7 @@
 {
   "name": "@qtikit/mathjax-react",
   "packageManager": "yarn@3.1.0",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "scripts": {
     "clean": "rm -rf lib",
     "build": "tsc",
