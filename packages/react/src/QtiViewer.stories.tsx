@@ -87,6 +87,7 @@ export const ItemBodyView = QtiViewerTemplate.bind({});
 ItemBodyView.storyName = 'ItemBody';
 ItemBodyView.args = {
   xml: getXmlParam(),
+  viewType: 'itemBody',
   options: {
     showLaTex: true,
   },
@@ -97,103 +98,23 @@ export const ModalFeedbackView = QtiViewerTemplate.bind({});
 ModalFeedbackView.storyName = 'ModalFeedback';
 ModalFeedbackView.args = {
   xml: getXmlParam(),
-  modal: true,
+  viewType: 'modal',
   options: {
     showLaTex: true,
     identifiers: ['correct'],
   },
 };
 
-// const QtiSlideViewerTemplate = ({xml, style}) => {
-//   const [assessmentItems, setAssessmentItems] = useState([]);
-//   const [assessmentIndex, setAssessmentIndex] = useState(0);
-//   const [inputState, setInputState] = useState<UserInput>({});
+export const RubricBlockView = QtiViewerTemplate.bind({});
 
-//   const prev = React.useCallback((): void => {
-//     if (assessmentIndex > 0) {
-//       setAssessmentIndex(assessmentIndex - 1);
-//     }
-//   }, [assessmentIndex]);
-
-//   const next = React.useCallback((): void => {
-//     if (assessmentIndex < assessmentItems.length - 1) {
-//       setAssessmentIndex(assessmentIndex + 1);
-//     }
-//   }, [assessmentIndex, assessmentItems]);
-
-//   useEffect(() => {
-//     setAssessmentItems(normalizeUrls(xml));
-//   }, [xml]);
-
-//   return (
-//     <>
-//       <h1>Input Assessment Urls in Slide</h1>
-//       <div>
-//         <h2>
-//           QTI: <a href={assessmentItems[assessmentIndex]}>{getPathName(assessmentItems[assessmentIndex])}</a>
-//         </h2>
-//         <div>
-//           <button onClick={prev}>Previous</button>
-//           <button onClick={next}>Next</button>
-//         </div>
-//         {assessmentItems.length > 0 ? (
-//           <ErrorBoundary key={assessmentItems[assessmentIndex]}>
-//             <QtiViewer
-//               xml={assessmentItems[assessmentIndex]}
-//               inputState={inputState}
-//               onChange={setInputState}
-//               style={style}
-//             />
-//           </ErrorBoundary>
-//         ) : (
-//           <h3>No Assessment Items</h3>
-//         )}
-//       </div>
-//     </>
-//   );
-// };
-
-// export const QtiSlideViewer = QtiSlideViewerTemplate.bind({});
-
-// QtiSlideViewer.storyName = 'QtiSlideViewer';
-// QtiSlideViewer.args = {
-//   xml: getXmlParam(),
-//   style: resolveUrl('default.css'),
-// };
-
-// const regexOnyxLaTex = (text: string) => [...text.matchAll(/\$\$(.*)\$\$/g)];
-
-// const mapToKaTeXMatch = match => ({
-//   pattern: match[0],
-//   latex: match[1].replace(/\$/g, ''),
-// });
-
-// const formulaInputForLaTex = {
-//   type: 'latex',
-//   match: (text: string) => regexOnyxLaTex(text).map(mapToKaTeXMatch),
-// };
-
-// const modalFeedbacks = {
-//   filter: (target: string) => {
-//     console.log(target);
-//   },
-// };
-
-// export const QtiViewerOptions = QtiViewerTemplate.bind({});
-
-// QtiViewerOptions.storyName = 'QtiViewerOptions';
-// QtiViewerOptions.args = {
-//   xml: getXmlParam(),
-//   style: resolveUrl('default.css'),
-//   onAction: (action: QtiViewerAction) => {
-//     console.log('onAction', action);
-//     return action;
-//   },
-//   options: {
-//     formulaInput: formulaInputForLaTex,
-//     modalFeedbacks: modalFeedbacks,
-//   },
-// };
+RubricBlockView.storyName = 'RubricBlock';
+RubricBlockView.args = {
+  xml: getXmlParam(),
+  viewType: 'rubric',
+  options: {
+    showLaTex: true,
+  },
+};
 
 export default {
   title: 'Viewers/QtiViewer',

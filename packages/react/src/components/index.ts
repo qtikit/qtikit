@@ -9,7 +9,6 @@ import GapText from './GapText';
 import HotspotChoice from './HotspotChoice';
 import Hottext from './Hottext';
 import Prompt from './Prompt';
-import RubricBlock from './RubricBlock';
 import SimpleChoice from './SimpleChoice';
 import InlineChoice from './InlineChoice';
 import ImageHtml from './ImageHtml';
@@ -92,7 +91,6 @@ export const interactionChildElementNames = [
   'hotspotChoice',
   'hottext',
   'prompt',
-  'rubricBlock',
   'simpleChoice',
   'inlineChoice',
 ] as const;
@@ -118,7 +116,6 @@ export function createInteractionChildComponent(
     hotspotChoice: HotspotChoice,
     hottext: Hottext,
     prompt: Prompt,
-    rubricBlock: RubricBlock,
     simpleChoice: SimpleChoice,
     inlineChoice: InlineChoice,
   } as {[key in InteractionChildElementName]: React.FC<any>};

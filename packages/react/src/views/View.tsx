@@ -1,27 +1,50 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-import {QtiStyles} from './Styles';
-import {QtiDocument} from './document';
-import {ViewerOptions, ViewerState} from '../types/viewer';
+import {QtiStyles, StyleProp} from './Styles';
+import {QtiDocument, RenderOption} from './document';
+import {QtiViewerEvents, QtiViewerOptions, QtiViewerState} from '../types/viewer';
 
-export type ViewContextValue = ViewerState & {
+export type QtiViewContextValue = QtiViewerState & {
   document: QtiDocument;
-  options?: ViewerOptions;
+  events: QtiViewerEvents;
+  options?: QtiViewerOptions;
 };
 
-export const ViewContext = React.createContext<ViewContextValue>(null as any);
+export const ViewContext = React.createContext<QtiViewContextValue>(null as any);
 
-export type ViewProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+export type QtiViewProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   children: JSX.Element;
-  state: ViewerState;
+  state: QtiViewerState;
   document: QtiDocument;
-  options?: ViewerOptions;
+  events: QtiViewerEvents;
+  options?: QtiViewerOptions;
 };
 
-export const View = ({children, state, document, options, ...props}: ViewProps) => {
+export const QtiBody: React.FC<{
+  name: string;
+  document: QtiDocument;
+  root?: Element;
+  renderOptions?: RenderOption;
+}> = React.memo(({name, document, root, renderOptions}) => (
+  <div className={name}>{document.render(root, renderOptions)}</div>
+));
+
+export const QtiView = ({children, state, document, events, options, ...props}: QtiViewProps) => {
+  const [styles, setStyles] = React.useState<StyleProp | null>(null);
+
+  useEffect(() => {
+    const fetchStyleSheets = async () => {
+      await document.fetchStyleSheets(events.onFetchStart);
+      setStyles({styles: document.stylesheets ?? []});
+    };
+
+    fetchStyleSheets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [document]);
+
   return (
     <div data-qtikit {...props}>
-      {document.stylesheets && <QtiStyles styles={document.stylesheets} />}
+      {styles && <QtiStyles styles={styles.styles} />}
       <ViewContext.Provider
         value={{
           document,

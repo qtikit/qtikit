@@ -13,6 +13,7 @@ type NodeType = typeof NodeType[keyof typeof NodeType];
 
 const ITEMBODY_NAME = 'itemBody';
 const MODAL_FEEDBACK_NAME = 'modalFeedback';
+const RUBRIC_BLOCK_NAME = 'rubricBlock';
 const MATH_ELEMENT_NAME = 'm:math';
 
 export function isTextNode(node: Node): node is Text {
@@ -23,12 +24,10 @@ export function isElementNode(node: Node): node is Element {
   return node.nodeType === NodeType.ELEMENT_NODE;
 }
 
-export function isItemBodyElement(node: Node): boolean {
-  return node.nodeName === ITEMBODY_NAME;
-}
-
-export function isModalFeedbackElement(node: Node): boolean {
-  return node.nodeName === MODAL_FEEDBACK_NAME;
+export function isRootElement(node: Node): boolean {
+  return (
+    node.nodeName === ITEMBODY_NAME || node.nodeName === MODAL_FEEDBACK_NAME || node.nodeName === RUBRIC_BLOCK_NAME
+  );
 }
 
 export function isMathMLElement(node: Node): boolean {

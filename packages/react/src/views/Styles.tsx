@@ -1,6 +1,6 @@
 import React, {createRef, useEffect, useMemo} from 'react';
 
-type StyleProp = {
+export type StyleProp = {
   styles: string[];
 };
 

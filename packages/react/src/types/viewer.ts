@@ -1,21 +1,32 @@
 import {UserInput} from '@qtikit/model/lib/user-input';
 
-export const enum ViewerActionTypes {
-  REQUEST_RESOURCE,
-}
+import {QtiDocument} from '../views/Document';
 
-export type ViewerAction = {
-  type: ViewerActionTypes;
-  url?: string;
-};
-
-export type ViewerState = {
+export type QtiViewerState = {
   inputState: UserInput;
   onChange?: (newState: UserInput) => void;
-  onAction?: (newAction: ViewerAction) => ViewerAction;
 };
 
-export type ViewerOptions = {
+export type QtiViewerEvent = {
+  type: 'fetchstart';
+};
+
+export type FetchStartEvent = QtiViewerEvent & {
+  url: string;
+  baseUrl?: string;
+};
+
+export type QtiViewerEvents = {
+  onFetchStart?: (event: FetchStartEvent) => string;
+};
+
+export type QtiViewerOptions = {
   showCorrectResponse?: boolean;
   showLaTex?: boolean;
 };
+
+export type QtiViewerProps = QtiViewerState &
+  QtiViewerEvents & {
+    document: QtiDocument;
+    options?: QtiViewerOptions;
+  };
