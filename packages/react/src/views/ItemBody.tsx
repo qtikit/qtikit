@@ -1,16 +1,10 @@
 import React, {useMemo} from 'react';
 
-import {QtiDocument, QtiBody} from './Document';
+import {QtiBody} from './Document';
 import {View} from './View';
-import {ViewerEvents, ViewerOptions, ViewerState} from '../types/viewer';
+import {ViewerProps} from '../types/viewer';
 
-export type ItemBodyProps = ViewerState &
-  ViewerEvents & {
-    document: QtiDocument;
-    options?: ViewerOptions;
-  };
-
-export const ItemBody = ({document, inputState, onChange, onFetchStart, options, ...props}: ItemBodyProps) => {
+export const ItemBody = ({document, inputState, onChange, onFetchStart, options, ...props}: ViewerProps) => {
   if (!document.hasItemBody()) {
     throw new Error('Invalid QTI document');
   }

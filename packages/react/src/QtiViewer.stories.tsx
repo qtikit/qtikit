@@ -9,6 +9,7 @@ export const ItemBodyView = QtiViewerTemplate.bind({});
 ItemBodyView.storyName = 'ItemBody';
 ItemBodyView.args = {
   xml: getXmlParam(),
+  viewType: 'itemBody',
   options: {
     showLaTex: true,
   },
@@ -19,10 +20,21 @@ export const ModalFeedbackView = QtiViewerTemplate.bind({});
 ModalFeedbackView.storyName = 'ModalFeedback';
 ModalFeedbackView.args = {
   xml: getXmlParam(),
-  modal: true,
+  viewType: 'modal',
   options: {
     showLaTex: true,
     showIdentifiers: ['correct'],
+  },
+};
+
+export const RubricBlockView = QtiViewerTemplate.bind({});
+
+RubricBlockView.storyName = 'RubricBlock';
+RubricBlockView.args = {
+  xml: getXmlParam(),
+  viewType: 'rubric',
+  options: {
+    showLaTex: true,
   },
 };
 

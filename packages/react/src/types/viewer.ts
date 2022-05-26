@@ -1,5 +1,7 @@
 import {UserInput} from '@qtikit/model/lib/user-input';
 
+import {QtiDocument} from '../views/Document';
+
 export type ViewerState = {
   inputState: UserInput;
   onChange?: (newState: UserInput) => void;
@@ -23,3 +25,9 @@ export type ViewerOptions = {
   showLaTex?: boolean;
   showIdentifiers?: string[];
 };
+
+export type ViewerProps = ViewerState &
+  ViewerEvents & {
+    document: QtiDocument;
+    options?: ViewerOptions;
+  };

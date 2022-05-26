@@ -10,125 +10,107 @@ npm install @qtikit/react
 
 # Usage
 
+## Props
+
+```js
+const viewerProps = {
+  // data model and manager for QtiViewers
+  document: QtiDocument;
+  // user's response of user interaction
+  inputState: UserInput;
+  // event called as user input a response
+  onChange: (newState: UserInput) => void;
+  // event called as before fetch resource
+  onFetchStart: onFetchStart?: (event: FetchStartEvent) => string;
+  options?: ViewerOptions = {
+    // display LaTeX syntax in text
+    showLaTex?: boolean;
+    // for ItemBody, show correct resposnes
+    showCorrectResponse?: boolean;
+    // for ModalFeedback, show only feedback that matches an identifiers
+    // ex) {showIdentifiers: ['correct']}
+    showIdentifiers: string[];
+  }
+}
+```
+
+## Document
+
+Because of qti Viewers has multiple viewers, Host need to create Qti document first which can be able to render items. Qti document will try to get XML content via xml url passed into the document. and then you can use utility APIs to check the model
+
+```js
+function getSolutionViewer(document) {
+  if (document.hasModalFeedback()) {
+    return ModalFeedback;
+  } else if (document.hasRublicBlock()) {
+    return RublicBlock;
+  } else {
+    return null;
+  }
+}
+
+const document = await QtiDocument.create(xmlUrl, styleUrl);
+const SolutionViewer = getSolutionViewer(document);
+```
+
 ## Basic Samples
 
 ```ts
 import React from 'react';
-import QtiViewer from '@qtikit/react/lib'
+import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, ViewerOptions} from '@qtikit/react/lib';
 import { UserInput } from '@qtikit/model/lib/user-input';
 
-const Home = () => {
+const QtiViewer = () => {
   const [inputState, setInputState] = React.useState <UserInput>({});
-  const assessmentItemSrc = 'https://yoursite.com/assessment.xml';
-  const stylesheetSrc = 'https:/yoursite.com/qti-default.css';
+  const [document, setDocument] = useState<QtiDocument | null>(null);
+
+  useEffect(() => {
+    const createDocument = async () => {
+      const document = await QtiDocument.create('question.xml', 'default.css');
+      setDocument(document);
+    };
+
+    createDocument();
+  });
 
   return (
-    <div className={styles.container}>
-      <QtiViewer
-        assessmentItemSrc={assessmentItemSrc}
-        stylesheetSrc={stylesheetSrc}
+    <div>
+      <ItemBody
+        document={document}
         inputState={inputState}
         onChange={setInputState}
-        options={
-          showLaTex: true
+        onFetchStart={(event: FetchStartEvent) => event.url + '?sign=your-sign'}
+        options: {
+          showLaTex: true,
+          showIdentifiers: ['correct'],
         }
       />
     </div>
   )
 }
-
-export default Home
-```
-
-# Options
-
-```js
-const viewOptions: ViewerOptions = {
-  // display LaTeX syntax in text
-  showLaTex?: boolean;
-  // for ItemBody, show correct resposnes
-  showCorrectResponse?: boolean;
-
-  // for ModalFeedback, show only feedback that matches an identifiers
-  // ex) {showIdentifiers: ['correct']}
-  showIdentifiers: string[];
-}
-```
-
-## Actions (Events)
-
-QtiViewer will fire events to give a chance of manipulating or to notify the status of progress. For example, before starting fetch, after resource fetching completed. See `QtiViewerAction` and `QtiViewerActions` to get information of types
-
-```
-<QtiViewer
-  assessmentItemSrc={assessmentItemSrc}
-  stylesheetSrc={stylesheetSrc}
-  inputState={inputState}
-  onChange={setInputState}
-  onAction: (action: QtiViewerAction) => {
-    const res: QtiViewerAction = action;
-
-    if (action.type) {
-      res.url = updateUrlWithConfidential(action.url);
-    }
-
-    return res;
-  }
-/>
 ```
 
 ## Stylesheet
 
 QtiViewer supports custom stylesheets to display QTI Interactions and Components in their own style. CSS class names follow [BEM style][bem]. Refer to [Example][css-style]. Here is a sample that shows how to use a stylesheet.
 
-- Fetch a stylesheet from remote, and applies it to scoped CSS under the root element of QtiViewer.
+- Fetch a stylesheet from remote, and applies it to scoped CSS under the root element of QtiViewer. you can download Qti Document
   ```
-  <QtiViewer
-    assessmentItemSrc={assessmentItemSrc}
-    stylesheetSrc={'https://yoursite.com'}
-    inputState={inputState}
-    onChange={setInputState}
-  />
+  const document = await QtiDocument.create('question.xml', 'default.css');
   ```
-- In Next.js, You can use CSS in global and local. See the sample code below.
-  - Global CSS, Add css path to __app.js
-    ```
-    import '../styles/qti-default.css'
-    
-    import type { AppProps } from 'next/app'
 
-    function MyApp({ Component, pageProps }: AppProps) {
-      return <Component {...pageProps} />
-    }
+- In Next.js, You can use CSS in global. See the sample code below.
+  ```
+  import '../styles/qti-default.css'
+  
+  import type { AppProps } from 'next/app'
 
-    export default MyApp
-    ```
-  - Local CSS, You must use [a plugin](https://www.npmjs.com/package/next-cssloader-options) to update local CSS, css-loader options. CSS is loaded when the page loads
-    ```
-    // in next.config.js
-    const withCssLoaderOptions = require('next-cssloader-options');
+  function MyApp({ Component, pageProps }: AppProps) {
+    return <Component {...pageProps} />
+  }
 
-    module.exports = withCssLoaderOptions({
-      cssLoaderOptions: {
-        modules: {
-          getLocalIdent: (context, localIdentName, localName, options) => localName
-        }
-      }
-    });
-
-    // in index.js
-    import QtiStyles from '../styles/qtikit.module.css'
-
-    const Home: NextPage = () => (
-      <div className={QtiStyles.qtikitInteraction}>
-        <QtiViewer
-          assessmentItemSrc={assessmentItemSrc}
-          inputState={inputState}
-          onChange={setInputState}
-        />
-      </div>
-    )
-    ```
+  export default MyApp
+  ```
 
 [bem]: http://getbem.com/naming/
 [css-style]: https://qtikit-storybook.vercel.app/default.css

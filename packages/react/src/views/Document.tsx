@@ -14,7 +14,7 @@ import {
   isFlowGroupInteraction,
   isInteractionElement,
 } from '../interactions';
-import {isElementNode, isItemBodyElement, isTextNode, isMathMLElement, isModalFeedbackElement} from '../utils/node';
+import {isElementNode, isTextNode, isMathMLElement, isRootElement} from '../utils/node';
 import {fetchText} from '../utils/fetch';
 import {getBaseUrl, resolveBaseUrl} from '../utils/url';
 import {reduceElement, trimXml} from '../utils/xml';
@@ -65,7 +65,7 @@ export function renderQtiBody(node: Node | Element | undefined, options?: Render
         return createInteractionComponent(node, defaultProps, children);
       } else if (isInteractionChildElement(node)) {
         return createInteractionChildComponent(node, defaultProps, children);
-      } else if (isItemBodyElement(node) || isModalFeedbackElement(node)) {
+      } else if (isRootElement(node)) {
         return React.createElement(React.Fragment, defaultProps, children);
       } else {
         console.warn(`Unsupported node type: ${node.nodeName}`);
@@ -105,10 +105,25 @@ function parseModalFeedbacks(root: Document): QtiElements {
   });
 }
 
-function parseStylesheet(root: Document, resolveUrl: any): string[] {
+function parseStylesheet(root: Document, onFetchStart: any): string[] {
   return Array.from(root.getElementsByTagName('stylesheet')).map(stylesheet =>
-    resolveUrl(stylesheet.getAttribute('href'))
+    onFetchStart(stylesheet.getAttribute('href'))
   );
+}
+
+function parseRubricBlock(root: Document) {
+  return reduceElement('rubricBlock', root.documentElement, (rubrics, rubric) => {
+    const id = rubric.getAttribute('id');
+    rubrics[id] = rubric;
+
+    return rubrics;
+  });
+}
+
+function removeRubricBlock(root: Document) {
+  for (const rubricBlock of root.getElementsByTagName('rubricBlock')) {
+    rubricBlock?.parentNode?.removeChild(rubricBlock);
+  }
 }
 
 export class QtiDocument {
@@ -119,6 +134,7 @@ export class QtiDocument {
   stylesheets?: string[];
   responseDeclarations: Record<string, any> = {};
   modalFeedbacks: QtiElements = {};
+  rubricBlocks: QtiElements = {};
 
   constructor() {}
 
@@ -130,33 +146,39 @@ export class QtiDocument {
     return Object.keys(this.modalFeedbacks).length > 0;
   }
 
-  hasRubricBlock(identifier: string) {
-    return identifier;
+  hasRubricBlock() {
+    return Object.keys(this.rubricBlocks).length > 0;
   }
 
-  static async create(url: string, defaultStyleUrl?: string, resolveUrl?: any) {
+  async fetchStyleSheets(onFetchStart?: any) {
+    this.stylesheets = await Promise.all(this.styleUrls.map(url => QtiDocument.fetch(url, onFetchStart)));
+  }
+
+  static async create(url: string, defaultStyleUrl?: string) {
+    const baseUrl = getBaseUrl(url);
     const doc = new QtiDocument();
-    const data = await QtiDocument.fetch(url, resolveUrl);
+    const data = await QtiDocument.fetch(url, baseUrl);
     const root = new DOMParser().parseFromString(trimXml(data), 'text/xml');
 
     doc.xml = url;
-    doc.baseUrl = getBaseUrl(doc.xml);
-    doc.styleUrls = parseStylesheet(root, (href: any) => resolveBaseUrl(href || '', doc.baseUrl));
+    doc.styleUrls = parseStylesheet(root, (href: any) => resolveBaseUrl(href || '', baseUrl));
+    doc.baseUrl = baseUrl;
 
     if (defaultStyleUrl) {
       doc.styleUrls.unshift(defaultStyleUrl);
     }
 
+    doc.rubricBlocks = parseRubricBlock(root);
+    removeRubricBlock(root);
     doc.itemBody = parseItemBody(root);
-    doc.stylesheets = await Promise.all(doc.styleUrls.map(url => QtiDocument.fetch(url, resolveUrl)));
     doc.modalFeedbacks = parseModalFeedbacks(root);
     doc.responseDeclarations = parseResponseDeclaration(root);
 
     return doc;
   }
 
-  static async fetch(url: string, resolveUrl?: any) {
-    return fetchText(resolveUrl ? resolveUrl(url) : url);
+  static async fetch(url: string, baseUrl?: string, onFetchStart?: any) {
+    return fetchText(onFetchStart ? onFetchStart({type: 'fetchstart', url, baseUrl}) : url);
   }
 }
 

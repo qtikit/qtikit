@@ -5,6 +5,7 @@ import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/
 
 import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, ViewerOptions} from '../';
 import {getPathName, resolveBaseUrl} from '../utils/url';
+import {RublicBlock} from '../views/RublicBlock';
 
 class ErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
   constructor(props: {children: any} | Readonly<{children: any}>) {
@@ -38,28 +39,30 @@ export type QtiViewerTemplateProps = {
   xml: string;
   style: string;
   options?: ViewerOptions;
-  modal?: boolean;
+  viewType?: string;
 };
-export const QtiViewerTemplate = ({xml, style, options, modal}: QtiViewerTemplateProps) => {
+export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemplateProps) => {
   const [inputState, setInputState] = useState<UserInput>({});
   const [document, setDocument] = useState<QtiDocument | null>(null);
 
   const assessmentItemDocument = useAssignmentItemDocument(xml);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
 
-  const Viewer = modal ? ModalFeedback : ItemBody;
+  const Viewer = (() => {
+    switch (viewType) {
+      case 'modal':
+        return ModalFeedback;
+      case 'rubric':
+        return RublicBlock;
+      default:
+        return ItemBody;
+    }
+  })();
 
   useEffect(() => {
     const create = async () => {
       const xmlUrl = xml.match(/^(http|https):\/\//) ? xml : resolveBaseUrl(xml);
-      const document = await QtiDocument.create(
-        xmlUrl,
-        resolveBaseUrl(style ?? 'tests/styles/default.css'),
-        (url: any) => {
-          console.log('Fetch Resournce:', url);
-          return url;
-        }
-      );
+      const document = await QtiDocument.create(xmlUrl, resolveBaseUrl(style ?? 'tests/styles/default.css'));
       setDocument(document);
     };
 
@@ -87,7 +90,7 @@ export const QtiViewerTemplate = ({xml, style, options, modal}: QtiViewerTemplat
           />
         )}
       </ErrorBoundary>
-      {!modal && (
+      {viewType === 'itemBay' && (
         <div style={{flex: '1', padding: 10}}>
           <h3>Input State</h3>
           <pre>{JSON.stringify(inputState, null, 2)}</pre>

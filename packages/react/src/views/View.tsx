@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-import {QtiStyles} from './Styles';
+import {QtiStyles, StyleProp} from './Styles';
 import {QtiDocument} from './document';
 import {ViewerEvents, ViewerOptions, ViewerState} from '../types/viewer';
 
@@ -21,9 +21,21 @@ export type ViewProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> &
 };
 
 export const View = ({children, state, document, events, options, ...props}: ViewProps) => {
+  const [styles, setStyles] = React.useState<StyleProp | null>(null);
+
+  useEffect(() => {
+    const fetchStyleSheets = async () => {
+      await document.fetchStyleSheets(events.onFetchStart);
+      setStyles({styles: document.stylesheets ?? []});
+    };
+
+    fetchStyleSheets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [document]);
+
   return (
     <div data-qtikit {...props}>
-      {document.stylesheets && <QtiStyles styles={document.stylesheets} />}
+      {styles && <QtiStyles styles={styles.styles} />}
       <ViewContext.Provider
         value={{
           document,
