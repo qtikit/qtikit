@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {mathjax} from '@qtikit/mathjax-full/js/mathjax';
 import {TeX} from '@qtikit/mathjax-full/js/input/tex';
 import {SVG} from '@qtikit/mathjax-full/js/output/svg';
-import {TeXFont} from '@qtikit/mathjax-full/js/output/chtml/fonts/tex';
 import {AllPackages} from '@qtikit/mathjax-full/js/input/tex/AllPackages';
 import {browserAdaptor} from '@qtikit/mathjax-full/js/adaptors/browserAdaptor';
 import {RegisterHTMLHandler} from '@qtikit/mathjax-full/js/handlers/html';
