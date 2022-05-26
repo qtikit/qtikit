@@ -1,7 +1,5 @@
 import {QtiViewerTemplate} from '../../templates/QtiViewer';
 
-import '../../../styles/katex/katex.min.css';
-
 export default {
   title: 'Interaction/TextEntry',
 };

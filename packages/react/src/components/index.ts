@@ -15,7 +15,6 @@ import InlineChoice from './InlineChoice';
 import ImageHtml from './ImageHtml';
 import ObjectHtml from './ObjectHtml';
 import MathML from './MathML';
-import {KaTeX} from './KaTeX';
 import {LaTeX} from './LaTeX';
 
 export const htmlElementNames = [
@@ -156,13 +155,6 @@ export function createMathMLComponent(element: Element, defaultProps: Props): Re
       mathML: getOuterXmlWithoutNs(element),
     });
   }
-}
-
-export function createKaTeXComponent(text: string, defaultProps: Props): React.ReactNode {
-  return React.createElement(KaTeX, {
-    text,
-    ...defaultProps,
-  });
 }
 
 export function createLaTeXComponent(tex: string, defaultProps: Props): React.ReactNode {
