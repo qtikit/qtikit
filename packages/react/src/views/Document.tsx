@@ -117,7 +117,7 @@ export class QtiDocument {
   baseUrl = '';
   itemBody?: Element;
   stylesheets?: string[];
-  responseDeclarations: QtiElements = {};
+  responseDeclarations: Record<string, any> = {};
   modalFeedbacks: QtiElements = {};
 
   constructor() {}
@@ -130,7 +130,7 @@ export class QtiDocument {
     return Object.keys(this.modalFeedbacks).length > 0;
   }
 
-  hasRublicBlock(identifier: string) {
+  hasRubricBlock(identifier: string) {
     return identifier;
   }
 
