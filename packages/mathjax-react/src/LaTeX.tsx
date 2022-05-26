@@ -1,7 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {mathjax} from '@qtikit/mathjax-full/js/mathjax';
-import {MathML} from '@qtikit/mathjax-full/js/input/mathml';
+import {TeX} from '@qtikit/mathjax-full/js/input/tex';
 import {SVG} from '@qtikit/mathjax-full/js/output/svg';
+import {TeXFont} from '@qtikit/mathjax-full/js/output/chtml/fonts/tex';
+import {AllPackages} from '@qtikit/mathjax-full/js/input/tex/AllPackages';
 import {browserAdaptor} from '@qtikit/mathjax-full/js/adaptors/browserAdaptor';
 import {RegisterHTMLHandler} from '@qtikit/mathjax-full/js/handlers/html';
 import {STATE} from '@qtikit/mathjax-full/js/core/MathItem';
@@ -20,8 +22,22 @@ declare global {
 }
 
 const options: OptionList = {};
-options.InputJax = new MathML({});
+options.InputJax = new TeX({
+  packages: AllPackages,
+  inlineMath: [
+    ['$$', '$$'],
+    ['\\(', '\\)'],
+  ],
+  displayMath: [
+    ['$$', '$$'],
+    ['\\[', '\\]'],
+  ],
+  processEscapes: true,
+  processEnvironments: true,
+});
+
 options.OutputJax = new SVG({fontCache: 'none'});
+
 options.renderActions = {
   markErrors: [STATE.TYPESET + 1, null, onError],
 };
@@ -65,11 +81,11 @@ function updateCSS(nodeID: any, text: any) {
   styleNode.innerHTML = text;
 }
 
-function convert(context: MathJaxContext, math: string, node: HTMLElement) {
-  const display = true;
+function convert(context: MathJaxContext, tex: string, node: HTMLElement) {
+  const display = false;
   const metrics = context.svg.getMetricsFor(node, display);
   const outerHTML = context.adaptor.outerHTML(
-    context.doc.convert(math.trim(), {
+    context.doc.convert(tex.trim(), {
       display,
       ...metrics,
     })
@@ -79,16 +95,16 @@ function convert(context: MathJaxContext, math: string, node: HTMLElement) {
   return outerHTML;
 }
 
-export const MathJax = ({mathML}: {mathML: string}) => {
+export const LaTex = ({tex}: {tex: string}) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const [svg, setSVG] = useState('<svg></svg>');
+  const [element, setElement] = useState('<svg></svg>');
   const [context] = useMathJax();
 
   useEffect(() => {
     if (divRef.current && context) {
-      setSVG(convert(context, mathML, divRef.current));
+      setElement(convert(context, tex, divRef.current));
     }
-  }, [mathML, context]);
+  }, [tex, context]);
 
-  return <span ref={divRef} dangerouslySetInnerHTML={{__html: svg}}></span>;
+  return <span ref={divRef} dangerouslySetInnerHTML={{__html: element}}></span>;
 };

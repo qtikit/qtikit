@@ -6,7 +6,7 @@ import {
   isHTMLElement,
   isInteractionChildElement,
   createMathMLComponent,
-  createKaTeXComponent,
+  createLaTeXComponent,
 } from '../components';
 import {
   createFlowGroupInteractionComponent,
@@ -47,7 +47,7 @@ export function renderQtiBody(node: Node | Element | undefined, options?: Render
 
   if (isTextNode(node)) {
     if (options?.parseLaTex && node.nodeValue) {
-      return createKaTeXComponent(node.nodeValue, defaultProps);
+      return createLaTeXComponent(node.nodeValue, defaultProps);
     }
 
     return node.nodeValue;
