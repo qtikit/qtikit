@@ -18,8 +18,8 @@ const useCorrectResponseContext = () => {
   }
 
   return React.useMemo(
-    () => (options?.showCorrectResponse ? responseDeclarations : {}),
-    [options?.showCorrectResponse, responseDeclarations]
+    () => (options?.showCorrectResponse ? responseDeclarations[context.responseIdentifier] : null),
+    [context.responseIdentifier, options?.showCorrectResponse, responseDeclarations]
   );
 };
 
