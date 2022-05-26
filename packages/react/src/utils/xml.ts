@@ -1,3 +1,5 @@
+import {QtiElements} from '../views/Document';
+
 export function trimXml(xml: string) {
   return xml.replace(/\n(?=)(^\s+<)/gm, '<');
 }
