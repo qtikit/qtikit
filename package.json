@@ -22,16 +22,15 @@
     "clean:packages": "yarn workspaces foreach --exclude=qtikit -pv run clean",
     "clean-build": "yarn clean && yarn build",
     "dev": "nodemon scripts/dev.mjs",
+    "release": "node scripts/release.mjs",
     "versioning": "yarn changeset version && git add . && git commit -m \"dev: Release `date +'%Y-%m-%d'`\""
   },
-  "dependencies": {
+  "devDependencies": {
     "@changesets/cli": "^2.18.0",
     "@riiid/eslint-config": "^2.0.0-beta",
     "eslint": "^7.0.0",
+    "nodemon": "^2.0.15",
     "prettier": "^2.0.0",
     "typescript": "^4.4.4"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
   }
 }
