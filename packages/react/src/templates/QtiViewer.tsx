@@ -5,7 +5,7 @@ import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/
 
 import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, ViewerOptions} from '../';
 import {getPathName, resolveBaseUrl} from '../utils/url';
-import {RublicBlock} from '../views/RublicBlock';
+import {RubricBlock} from '../views/RubricBlock';
 
 class ErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
   constructor(props: {children: any} | Readonly<{children: any}>) {
@@ -53,7 +53,7 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
       case 'modal':
         return ModalFeedback;
       case 'rubric':
-        return RublicBlock;
+        return RubricBlock;
       default:
         return ItemBody;
     }

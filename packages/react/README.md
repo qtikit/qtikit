@@ -42,8 +42,8 @@ Because of qti Viewers has multiple viewers, Host need to create Qti document fi
 function getSolutionViewer(document) {
   if (document.hasModalFeedback()) {
     return ModalFeedback;
-  } else if (document.hasRublicBlock()) {
-    return RublicBlock;
+  } else if (document.hasRubricBlock()) {
+    return RubricBlock;
   } else {
     return null;
   }

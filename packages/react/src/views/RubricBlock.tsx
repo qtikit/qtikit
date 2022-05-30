@@ -4,7 +4,7 @@ import {QtiBody} from './Document';
 import {View} from './View';
 import {ViewerProps} from '../types/viewer';
 
-export const RublicBlock = ({document, inputState, onChange, onFetchStart, options, ...props}: ViewerProps) => {
+export const RubricBlock = ({document, inputState, onChange, onFetchStart, options, ...props}: ViewerProps) => {
   if (!document.hasRubricBlock()) {
     throw new Error('Invalid QTI document');
   }
@@ -20,7 +20,7 @@ export const RublicBlock = ({document, inputState, onChange, onFetchStart, optio
     <View state={{inputState, onChange}} events={{onFetchStart}} document={document} options={options} {...props}>
       <>
         {Object.entries(document.rubricBlocks).map(([, rubricBlock], index) => {
-          return <QtiBody key={index} name="qtikit-rublicblock" root={rubricBlock} renderOptions={renderOption} />;
+          return <QtiBody key={index} name="qtikit-rubricblock" root={rubricBlock} renderOptions={renderOption} />;
         })}
       </>
     </View>
