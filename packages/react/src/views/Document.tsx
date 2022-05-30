@@ -151,7 +151,7 @@ export class QtiDocument {
   }
 
   async fetchStyleSheets(onFetchStart?: any) {
-    this.stylesheets = await Promise.all(this.styleUrls.map(url => QtiDocument.fetch(url, onFetchStart)));
+    this.stylesheets = await Promise.all(this.styleUrls.map(url => QtiDocument.fetch(url, this.baseUrl, onFetchStart)));
   }
 
   static async create(url: string, defaultStyleUrl?: string) {
