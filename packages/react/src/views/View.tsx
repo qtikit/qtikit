@@ -1,26 +1,35 @@
 import React, {useEffect} from 'react';
 
 import {QtiStyles, StyleProp} from './Styles';
-import {QtiDocument} from './document';
-import {ViewerEvents, ViewerOptions, ViewerState} from '../types/viewer';
+import {QtiDocument, RenderOption} from './document';
+import {QtiViewerEvents, QtiViewerOptions, QtiViewerState} from '../types/viewer';
 
-export type ViewContextValue = ViewerState & {
+export type QtiViewContextValue = QtiViewerState & {
   document: QtiDocument;
-  events: ViewerEvents;
-  options?: ViewerOptions;
+  events: QtiViewerEvents;
+  options?: QtiViewerOptions;
 };
 
-export const ViewContext = React.createContext<ViewContextValue>(null as any);
+export const ViewContext = React.createContext<QtiViewContextValue>(null as any);
 
-export type ViewProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
+export type QtiViewProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   children: JSX.Element;
-  state: ViewerState;
+  state: QtiViewerState;
   document: QtiDocument;
-  events: ViewerEvents;
-  options?: ViewerOptions;
+  events: QtiViewerEvents;
+  options?: QtiViewerOptions;
 };
 
-export const View = ({children, state, document, events, options, ...props}: ViewProps) => {
+export const QtiBody: React.FC<{
+  name: string;
+  document: QtiDocument;
+  root?: Element;
+  renderOptions?: RenderOption;
+}> = React.memo(({name, document, root, renderOptions}) => (
+  <div className={name}>{document.render(root, renderOptions)}</div>
+));
+
+export const QtiView = ({children, state, document, events, options, ...props}: QtiViewProps) => {
   const [styles, setStyles] = React.useState<StyleProp | null>(null);
 
   useEffect(() => {

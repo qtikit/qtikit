@@ -1,10 +1,9 @@
 import React, {useMemo} from 'react';
 
-import {QtiBody} from './Document';
-import {View} from './View';
-import {ViewerProps} from '../types/viewer';
+import {QtiView, QtiBody} from './View';
+import {QtiViewerProps} from '../types/viewer';
 
-export const ModalFeedback = ({document, inputState, onChange, onFetchStart, options, ...props}: ViewerProps) => {
+export const ModalFeedback = ({document, inputState, onChange, onFetchStart, options, ...props}: QtiViewerProps) => {
   if (!document.hasModalFeedback()) {
     throw new Error('Invalid QTI document');
   }
@@ -18,15 +17,17 @@ export const ModalFeedback = ({document, inputState, onChange, onFetchStart, opt
   );
 
   return (
-    <View state={{inputState, onChange}} events={{onFetchStart}} document={document} options={options} {...props}>
+    <QtiView state={{inputState, onChange}} events={{onFetchStart}} document={document} options={options} {...props}>
       <>
-        {identifiers.map((identifier, index) => {
+        {identifiers.map(identifier => {
           const modal = document.modalFeedbacks[identifier];
           if (modal) {
-            return <QtiBody key={index} name="qtikit-modalfeedback" root={modal} renderOptions={renderOption} />;
+            return (
+              <QtiBody name="qtikit-modalfeedback" document={document} root={modal} renderOptions={renderOption} />
+            );
           }
         })}
       </>
-    </View>
+    </QtiView>
   );
 };

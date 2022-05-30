@@ -154,6 +154,10 @@ export class QtiDocument {
     this.stylesheets = await Promise.all(this.styleUrls.map(url => QtiDocument.fetch(url, this.baseUrl, onFetchStart)));
   }
 
+  render(root?: Element, renderOptions?: RenderOption): React.ReactNode {
+    return renderQtiBody(root, renderOptions);
+  }
+
   static async create(url: string, defaultStyleUrl?: string) {
     const baseUrl = getBaseUrl(url);
     const doc = new QtiDocument();
@@ -181,7 +185,3 @@ export class QtiDocument {
     return fetchText(onFetchStart ? onFetchStart({type: 'fetchstart', url, baseUrl}) : url);
   }
 }
-
-export const QtiBody: React.FC<{name: string; root?: Element; renderOptions?: RenderOption}> = React.memo(
-  ({name, root, renderOptions}) => <div className={name}>{renderQtiBody(root, renderOptions)}</div>
-);
