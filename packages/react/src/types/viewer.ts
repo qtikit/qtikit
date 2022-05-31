@@ -21,8 +21,8 @@ export type QtiFetchEvent = QtiViewerEvent & {
 
 export type QtiViewerEvents = {
   onResolveUrl?: (url: string) => string;
-  onFetchStart?: (event: QtiFetchEvent) => string;
-  onFetchEnd?: (event: QtiFetchEvent) => string;
+  onFetchStart?: (event: QtiFetchEvent) => void;
+  onFetchEnd?: (event: QtiFetchEvent) => void;
 };
 
 export type QtiViewerOptions = {

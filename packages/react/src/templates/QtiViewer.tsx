@@ -67,6 +67,7 @@ export type QtiViewerTemplateProps = {
 export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemplateProps) => {
   const [inputState, setInputState] = useState<UserInput>({});
   const [document, setDocument] = useState<QtiDocument | null>(null);
+  const [resourceCount, setResourceCount] = useState(0);
 
   const assessmentItemDocument = useAssignmentItemDocument(xml);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
@@ -106,13 +107,17 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
               document={document}
               inputState={inputState}
               onChange={setInputState}
+              onResolveUrl={url => {
+                console.log('onResolveUrl', url);
+                return url;
+              }}
               onFetchStart={(event: QtiFetchEvent) => {
                 console.log('onFetchStart', event);
-                return event.url;
+                setResourceCount(resourceCount => resourceCount + 1);
               }}
               onFetchEnd={(event: QtiFetchEvent) => {
                 console.log('onFetchEnd', event);
-                return event.url;
+                setResourceCount(resourceCount => resourceCount - 1);
               }}
               options={options}
             />
@@ -120,6 +125,12 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
           </div>
         )}
       </ErrorBoundary>
+      <div>
+        <h3>Resource Cound</h3>
+        <div>
+          {resourceCount}, {resourceCount === 0 ? 'completed' : 'incompleted'}
+        </div>
+      </div>
       {viewType === 'itemBay' && (
         <div style={{flex: '1', padding: 10}}>
           <h3>Input State</h3>

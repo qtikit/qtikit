@@ -19,7 +19,7 @@ const ImageHtml: React.FC<ImageHtmlProps> = ({src, children, ...props}) => {
 
   return (
     <span className={classNameForComponent('image')}>
-      <img {...props} src={fetchSrc} onLoad={fetchEnd} />
+      <img {...props} src={fetchSrc} onError={fetchEnd} onLoad={fetchEnd} />
     </span>
   );
 };

@@ -238,7 +238,11 @@ export class QtiDocument {
       baseUrl,
     };
 
-    const res = fetchText(events.onFetchStart ? events.onFetchStart(fetchOptions) : url);
+    if (events.onFetchStart) {
+      events.onFetchStart(fetchOptions);
+    }
+
+    const res = await fetchText(resolvedUrl);
 
     if (events.onFetchEnd) {
       events.onFetchEnd(fetchOptions);

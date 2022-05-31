@@ -4,9 +4,9 @@ import {ViewContext} from '../views/View';
 import {classNameForComponent} from '../utils/style';
 import {useFetchEvent} from '../utils/events';
 
-export type ObjectHtmlProps = React.ObjectHTMLAttributes<HTMLObjectElement>;
+export type ObjectHtmlProps = React.ObjectHTMLAttributes<HTMLImageElement>;
 
-const ObjectHtml: React.FC<ObjectHtmlProps> = ({data, ...props}) => {
+const ObjectHtml: React.FC<ObjectHtmlProps> = ({data, type, children, ...props}) => {
   const {
     document: {baseUrl},
   } = useContext(ViewContext);
@@ -16,11 +16,15 @@ const ObjectHtml: React.FC<ObjectHtmlProps> = ({data, ...props}) => {
   useEffect(() => {
     fetchStart({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, []);
 
   return (
     <span className={classNameForComponent('object')}>
-      <object data={fetchSrc} {...props} onLoad={fetchEnd} />
+      {type?.includes('image') ? (
+        <img src={fetchSrc} {...props} onError={fetchEnd} onLoad={fetchEnd} />
+      ) : (
+        <div>{`type: ${type} doesn't allow to render. ${fetchSrc}`}</div>
+      )}
     </span>
   );
 };

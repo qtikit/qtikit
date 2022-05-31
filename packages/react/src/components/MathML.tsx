@@ -17,11 +17,12 @@ const LazyMathComponent: React.FC<MathMLProps> = props => {
 };
 
 const MathML: React.FC<MathMLProps> = ({mathML, ...props}) => {
-  const {fetchStart, fetchEnd} = useFetchEvent('math', '', '');
+  const {fetchStart, fetchEnd} = useFetchEvent('math');
 
   useEffect(() => {
     fetchStart({});
     fetchEnd({});
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mathML]);
 
