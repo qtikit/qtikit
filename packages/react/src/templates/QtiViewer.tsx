@@ -3,9 +3,10 @@ import React, {useEffect, useMemo, useState} from 'react';
 import responseProcessing from '@qtikit/scoring-engine/lib/responseProcessing';
 import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/getResponseProcessingConfigFromDocument';
 
-import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, ViewerOptions} from '../';
+import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, QtiViewerOptions} from '../';
 import {getPathName, resolveBaseUrl} from '../utils/url';
 import {RubricBlock} from '../views/RubricBlock';
+import {QtiResponses} from '../views/document';
 
 class ErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
   constructor(props: {children: any} | Readonly<{children: any}>) {
@@ -35,12 +36,34 @@ class ErrorBoundary extends React.Component<{children: any}, {hasError: false; e
   }
 }
 
+const Document = ({document}: {document: QtiDocument}) => (
+  <div>
+    <h2>Interactions</h2>
+    {document.interactions.map((interaction: QtiResponses) => (
+      <div key={interaction.name}>
+        <div>name: {interaction.name}</div>
+        <div>responseIdentifier: {interaction.responseIdentifier}</div>
+        <div>
+          element:{' '}
+          <div>
+            <textarea rows={3} cols={80} defaultValue={interaction.element.innerHTML} />
+          </div>
+        </div>
+      </div>
+    ))}
+    <h2>Correct Response</h2>
+    {Object.values(document.correctResponses).map(response =>
+      response.map((response: number) => <div key={response}>{response}</div>)
+    )}
+  </div>
+);
 export type QtiViewerTemplateProps = {
   xml: string;
   style: string;
-  options?: ViewerOptions;
+  options?: QtiViewerOptions;
   viewType?: string;
 };
+
 export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemplateProps) => {
   const [inputState, setInputState] = useState<UserInput>({});
   const [document, setDocument] = useState<QtiDocument | null>(null);
@@ -78,16 +101,19 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
       </h2>
       <ErrorBoundary key={xml}>
         {document && (
-          <Viewer
-            document={document}
-            inputState={inputState}
-            onChange={setInputState}
-            onFetchStart={(event: FetchStartEvent) => {
-              console.log('onFetchStart', event);
-              return event.url;
-            }}
-            options={options}
-          />
+          <div>
+            <Viewer
+              document={document}
+              inputState={inputState}
+              onChange={setInputState}
+              onFetchStart={(event: FetchStartEvent) => {
+                console.log('onFetchStart', event);
+                return event.url;
+              }}
+              options={options}
+            />
+            <Document document={document} />
+          </div>
         )}
       </ErrorBoundary>
       {viewType === 'itemBay' && (

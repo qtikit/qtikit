@@ -21,6 +21,16 @@ import {reduceElement, trimXml} from '../utils/xml';
 
 export type QtiElements = Record<any, Element>;
 
+export type QtiInteraction = {
+  name: string;
+  responseIdentifier: string;
+  element: Element;
+};
+
+export type QtiInteractions = Array<QtiInteraction>;
+
+export type QtiResponses = Record<string, any>;
+
 class QtiComponentKey {
   private static _id = 0;
 
@@ -126,15 +136,48 @@ function removeRubricBlock(root: Document) {
   }
 }
 
+function parseCorrectResponses(root: Document, interactions: QtiInteractions, responseDeclarations: QtiResponses) {
+  const corrects: QtiResponses = {};
+  const choiceInteractions = Object.entries(interactions).filter(([, {name}]) => name === 'choiceInteraction');
+  for (const choice of choiceInteractions) {
+    const {element, responseIdentifier} = choice[1];
+    const simpleItems = [...element.querySelectorAll('simpleChoice')];
+    const correct = simpleItems.reduce((corrects, simpleItem, index) => {
+      const id = simpleItem.getAttribute('identifier') ?? '';
+      if (responseDeclarations[responseIdentifier][id]) {
+        corrects.push(index);
+      }
+      return corrects;
+    }, [] as any);
+
+    corrects[responseIdentifier] = correct;
+  }
+
+  return corrects;
+}
+
+function parseInteractions(root: Document, xml: string): QtiInteractions {
+  const targets = [...xml.matchAll(/<([a-zA-Z]*Interaction) /g)].map(match => match[1]);
+  return [...root.querySelectorAll(targets.join(', '))].map(interaction => {
+    return {
+      name: interaction.nodeName,
+      responseIdentifier: interaction.getAttribute('responseIdentifier') ?? '',
+      element: interaction,
+    };
+  });
+}
+
 export class QtiDocument {
   xml?: string;
   styleUrls: string[] = [];
   baseUrl = '';
   itemBody?: Element;
   stylesheets?: string[];
-  responseDeclarations: Record<string, any> = {};
+  responseDeclarations: QtiResponses = {};
   modalFeedbacks: QtiElements = {};
   rubricBlocks: QtiElements = {};
+  interactions: QtiInteractions = [];
+  correctResponses: QtiResponses = {};
 
   constructor() {}
 
@@ -162,7 +205,8 @@ export class QtiDocument {
     const baseUrl = getBaseUrl(url);
     const doc = new QtiDocument();
     const data = await QtiDocument.fetch(url, baseUrl);
-    const root = new DOMParser().parseFromString(trimXml(data), 'text/xml');
+    const xml = trimXml(data);
+    const root = new DOMParser().parseFromString(xml, 'text/xml');
 
     doc.xml = url;
     doc.styleUrls = parseStylesheet(root, (href: any) => resolveBaseUrl(href || '', baseUrl));
@@ -177,6 +221,8 @@ export class QtiDocument {
     doc.itemBody = parseItemBody(root);
     doc.modalFeedbacks = parseModalFeedbacks(root);
     doc.responseDeclarations = parseResponseDeclaration(root);
+    doc.interactions = parseInteractions(root, xml);
+    doc.correctResponses = parseCorrectResponses(root, doc.interactions, doc.responseDeclarations);
 
     return doc;
   }
