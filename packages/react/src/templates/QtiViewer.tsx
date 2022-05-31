@@ -110,6 +110,10 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
                 console.log('onFetchStart', event);
                 return event.url;
               }}
+              onFetchEnd={(event: FetchStartEvent) => {
+                console.log('onFetchEnd', event);
+                return event.url;
+              }}
               options={options}
             />
             <Document document={document} />

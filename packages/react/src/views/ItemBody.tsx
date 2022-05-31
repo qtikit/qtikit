@@ -3,7 +3,16 @@ import React, {useMemo} from 'react';
 import {QtiView, QtiBody} from './View';
 import {QtiViewerProps} from '../types/viewer';
 
-export const ItemBody = ({document, inputState, onChange, onFetchStart, options, ...props}: QtiViewerProps) => {
+export const ItemBody = ({
+  document,
+  inputState,
+  onChange,
+  onResolveUrl,
+  onFetchStart,
+  onFetchEnd,
+  options,
+  ...props
+}: QtiViewerProps) => {
   if (!document.hasItemBody()) {
     throw new Error('Invalid QTI document');
   }
@@ -16,7 +25,16 @@ export const ItemBody = ({document, inputState, onChange, onFetchStart, options,
   );
 
   return (
-    <QtiView state={{inputState, onChange}} document={document} events={{onFetchStart}} options={options} {...props}>
+    <QtiView
+      state={{inputState, onChange}}
+      document={document}
+      events={{
+        onResolveUrl,
+        onFetchStart,
+        onFetchEnd,
+      }}
+      options={options}
+      {...props}>
       <QtiBody name="qtikit-rubricblock" document={document} root={document.itemBody} renderOptions={renderOption} />
     </QtiView>
   );

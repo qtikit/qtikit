@@ -20,8 +20,12 @@ const viewerProps = {
   inputState: UserInput;
   // event called as user input a response
   onChange: (newState: UserInput) => void;
-  // event called as before fetch resource
+  // event called before fetch starting to reolve url
+  onResolveUrl: onFetchStart?: (event: FetchStartEvent) => string;
+  // event called as fetch starting
   onFetchStart: onFetchStart?: (event: FetchStartEvent) => string;
+  // event called as fetch ended
+  onFetchEnd: onFetchStart?: (event: FetchStartEvent) => string;
   options?: ViewerOptions = {
     // display LaTeX syntax in text
     showLaTex?: boolean;

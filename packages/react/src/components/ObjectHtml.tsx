@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 
 import {ViewContext} from '../views/View';
 import {classNameForComponent} from '../utils/style';
-import {useFetchStartEvent} from '../utils/events';
+import {useFetchEvent} from '../utils/events';
 
 export type ObjectHtmlProps = React.ObjectHTMLAttributes<HTMLObjectElement>;
 
@@ -11,12 +11,16 @@ const ObjectHtml: React.FC<ObjectHtmlProps> = ({data, ...props}) => {
     document: {baseUrl},
   } = useContext(ViewContext);
 
-  // TODO: check object types not only url
-  const url = useFetchStartEvent(data, baseUrl);
+  const {fetchSrc, fetchStart, fetchEnd} = useFetchEvent('object', data, baseUrl);
+
+  useEffect(() => {
+    fetchStart({});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <span className={classNameForComponent('object')}>
-      <object data={url} {...props} />
+      <object data={fetchSrc} {...props} onLoad={fetchEnd} />
     </span>
   );
 };

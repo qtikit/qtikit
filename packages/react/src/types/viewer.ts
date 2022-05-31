@@ -7,17 +7,22 @@ export type QtiViewerState = {
   onChange?: (newState: UserInput) => void;
 };
 
+export type QtiViewerEventType = 'fetch' | 'image' | 'math' | 'object' | 'style';
+
 export type QtiViewerEvent = {
-  type: 'fetchstart';
+  type: QtiViewerEventType;
+  event?: any;
 };
 
-export type FetchStartEvent = QtiViewerEvent & {
+export type QtiFetchEvent = QtiViewerEvent & {
   url: string;
   baseUrl?: string;
 };
 
 export type QtiViewerEvents = {
-  onFetchStart?: (event: FetchStartEvent) => string;
+  onResolveUrl?: (url: string) => string;
+  onFetchStart?: (event: QtiFetchEvent) => string;
+  onFetchEnd?: (event: QtiFetchEvent) => string;
 };
 
 export type QtiViewerOptions = {

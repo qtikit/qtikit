@@ -34,7 +34,7 @@ export const QtiView = ({children, state, document, events, options, ...props}: 
 
   useEffect(() => {
     const fetchStyleSheets = async () => {
-      await document.fetchStyleSheets(events.onFetchStart);
+      await document.fetchStyleSheets(events);
       setStyles({styles: document.stylesheets ?? []});
     };
 

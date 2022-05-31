@@ -18,6 +18,7 @@ import {isElementNode, isTextNode, isMathMLElement, isRootElement} from '../util
 import {fetchText} from '../utils/fetch';
 import {getBaseUrl, resolveBaseUrl} from '../utils/url';
 import {reduceElement, trimXml} from '../utils/xml';
+import {QtiViewerEvents, QtiViewerEventType} from '../types/viewer';
 
 export type QtiElements = Record<any, Element>;
 
@@ -193,8 +194,10 @@ export class QtiDocument {
     return Object.keys(this.rubricBlocks).length > 0;
   }
 
-  async fetchStyleSheets(onFetchStart?: any) {
-    this.stylesheets = await Promise.all(this.styleUrls.map(url => QtiDocument.fetch(url, this.baseUrl, onFetchStart)));
+  async fetchStyleSheets(events: QtiViewerEvents) {
+    this.stylesheets = await Promise.all(
+      this.styleUrls.map(url => QtiDocument.fetch('style', url, events, this.baseUrl))
+    );
   }
 
   render(root?: Element, renderOptions?: RenderOption): React.ReactNode {
@@ -204,7 +207,7 @@ export class QtiDocument {
   static async create(url: string, defaultStyleUrl?: string) {
     const baseUrl = getBaseUrl(url);
     const doc = new QtiDocument();
-    const data = await QtiDocument.fetch(url, baseUrl);
+    const data = await fetchText(url);
     const xml = trimXml(data);
     const root = new DOMParser().parseFromString(xml, 'text/xml');
 
@@ -227,7 +230,20 @@ export class QtiDocument {
     return doc;
   }
 
-  static async fetch(url: string, baseUrl?: string, onFetchStart?: any) {
-    return fetchText(onFetchStart ? onFetchStart({type: 'fetchstart', url, baseUrl}) : url);
+  static async fetch(type: QtiViewerEventType, url: string, events: QtiViewerEvents, baseUrl?: string) {
+    const resolvedUrl = events.onResolveUrl?.(url) ?? url;
+    const fetchOptions = {
+      type,
+      url: resolvedUrl,
+      baseUrl,
+    };
+
+    const res = fetchText(events.onFetchStart ? events.onFetchStart(fetchOptions) : url);
+
+    if (events.onFetchEnd) {
+      events.onFetchEnd(fetchOptions);
+    }
+
+    return res;
   }
 }
