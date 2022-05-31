@@ -3,7 +3,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import responseProcessing from '@qtikit/scoring-engine/lib/responseProcessing';
 import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/getResponseProcessingConfigFromDocument';
 
-import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, QtiViewerOptions} from '../';
+import {ItemBody, ModalFeedback, QtiDocument, QtiFetchEvent, QtiViewerOptions} from '../';
 import {getPathName, resolveBaseUrl} from '../utils/url';
 import {RubricBlock} from '../views/RubricBlock';
 import {QtiResponses} from '../views/document';
@@ -106,11 +106,11 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
               document={document}
               inputState={inputState}
               onChange={setInputState}
-              onFetchStart={(event: FetchStartEvent) => {
+              onFetchStart={(event: QtiFetchEvent) => {
                 console.log('onFetchStart', event);
                 return event.url;
               }}
-              onFetchEnd={(event: FetchStartEvent) => {
+              onFetchEnd={(event: QtiFetchEvent) => {
                 console.log('onFetchEnd', event);
                 return event.url;
               }}

@@ -21,11 +21,11 @@ const viewerProps = {
   // event called as user input a response
   onChange: (newState: UserInput) => void;
   // event called before fetch starting to reolve url
-  onResolveUrl: onFetchStart?: (event: FetchStartEvent) => string;
+  onResolveUrl: onFetchStart?: (event: QtiFetchEvent) => string;
   // event called as fetch starting
-  onFetchStart: onFetchStart?: (event: FetchStartEvent) => string;
+  onFetchStart: onFetchStart?: (event: QtiFetchEvent) => string;
   // event called as fetch ended
-  onFetchEnd: onFetchStart?: (event: FetchStartEvent) => string;
+  onFetchEnd: onFetchStart?: (event: QtiFetchEvent) => string;
   options?: ViewerOptions = {
     // display LaTeX syntax in text
     showLaTex?: boolean;
@@ -71,7 +71,7 @@ const CorrectionViewer = (
 
 ```ts
 import React from 'react';
-import {ItemBody, ModalFeedback, QtiDocument, FetchStartEvent, ViewerOptions} from '@qtikit/react/lib';
+import {ItemBody, ModalFeedback, QtiDocument, QtiFetchEvent, ViewerOptions} from '@qtikit/react/lib';
 import { UserInput } from '@qtikit/model/lib/user-input';
 
 const QtiViewer = () => {
@@ -93,7 +93,7 @@ const QtiViewer = () => {
         document={document}
         inputState={inputState}
         onChange={setInputState}
-        onFetchStart={(event: FetchStartEvent) => event.url + '?sign=your-sign'}
+        onFetchStart={(event: QtiFetchEvent) => event.url + '?sign=your-sign'}
         options: {
           showLaTex: true,
           showIdentifiers: ['correct'],
