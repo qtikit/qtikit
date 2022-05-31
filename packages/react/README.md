@@ -49,8 +49,18 @@ function getSolutionViewer(document) {
   }
 }
 
+function getCorrectResponse(document, index = 0) {
+  responseIdentifier = document.interactions[0].responseIdentifier
+  return document.correctResponses[responseIdentifier] ?? [];
+} 
+
 const document = await QtiDocument.create(xmlUrl, styleUrl);
 const SolutionViewer = getSolutionViewer(document);
+const CorrectionViewer = (
+  <div>
+    Answer: {getCorrectResponse(0)}
+  </div>
+)
 ```
 
 ## Basic Samples

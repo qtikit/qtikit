@@ -19,7 +19,13 @@ export const ModalFeedback = ({document, inputState, onChange, onFetchStart, opt
           const modal = document.modalFeedbacks[identifier];
           if (modal) {
             return (
-              <QtiBody name="qtikit-modalfeedback" document={document} root={modal} renderOptions={renderOption} />
+              <QtiBody
+                key={identifier}
+                name="qtikit-modalfeedback"
+                document={document}
+                root={modal}
+                renderOptions={renderOption}
+              />
             );
           }
         })}

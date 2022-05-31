@@ -1,4 +1,4 @@
-import {QtiElements} from '../views/Document';
+import {QtiElements} from '../views/QtiDocument';
 
 export function trimXml(xml: string) {
   return xml.replace(/\n(?=)(^\s+<)/gm, '<');

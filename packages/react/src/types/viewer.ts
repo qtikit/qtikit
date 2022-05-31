@@ -1,6 +1,6 @@
 import {UserInput} from '@qtikit/model/lib/user-input';
 
-import {QtiDocument} from '../views/Document';
+import {QtiDocument} from '../views/QtiDocument';
 
 export type QtiViewerState = {
   inputState: UserInput;
