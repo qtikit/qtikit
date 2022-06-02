@@ -4,9 +4,15 @@ import responseProcessing from '@qtikit/scoring-engine/lib/responseProcessing';
 import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/getResponseProcessingConfigFromDocument';
 
 import {ItemBody, ModalFeedback, QtiDocument, QtiFetchEvent, QtiViewerOptions} from '../';
-import {getPathName, resolveBaseUrl} from '../utils/url';
+import {getBaseUrl, getPathName, resolveUrl} from '../utils/url';
 import {RubricBlock} from '../views/RubricBlock';
 import {QtiResponses} from '../views/document';
+import {fetchText} from '../utils/fetch';
+
+async function fetchImageUrl(url: string) {
+  const data = await fetch(url);
+  return URL.createObjectURL(await data.blob());
+}
 
 class ErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
   constructor(props: {children: any} | Readonly<{children: any}>) {
@@ -58,7 +64,7 @@ const Document = ({document}: {document: QtiDocument}) => (
   </div>
 );
 export type QtiViewerTemplateProps = {
-  xml: string;
+  xml: string | any;
   style: string;
   options?: QtiViewerOptions;
   viewType?: string;
@@ -68,6 +74,9 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
   const [inputState, setInputState] = useState<UserInput>({});
   const [document, setDocument] = useState<QtiDocument | null>(null);
   const [resourceCount, setResourceCount] = useState(0);
+
+  const xmlUrl =
+    typeof xml === 'string' ? (xml.match(/^(http|https):\/\//) ? xml : resolveUrl(xml)) : resolveUrl(xml.data);
 
   const assessmentItemDocument = useAssignmentItemDocument(xml);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
@@ -85,8 +94,8 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
 
   useEffect(() => {
     const create = async () => {
-      const xmlUrl = xml.match(/^(http|https):\/\//) ? xml : resolveBaseUrl(xml);
-      const document = await QtiDocument.create(xmlUrl, resolveBaseUrl(style ?? 'tests/styles/default.css'));
+      const xmlData = typeof xml === 'string' ? resolveUrl(xml) : await fetchText(resolveUrl(xml.data));
+      const document = await QtiDocument.create(xmlData, resolveUrl(style ?? 'tests/styles/default.css'));
       setDocument(document);
     };
 
@@ -98,7 +107,7 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
   return (
     <div>
       <h2>
-        QTI: <a href={xml}>{getPathName(xml)}</a>
+        QTI: <a href={xml}>{getPathName(xmlUrl)}</a>
       </h2>
       <ErrorBoundary key={xml}>
         {document && (
@@ -107,13 +116,17 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
               document={document}
               inputState={inputState}
               onChange={setInputState}
-              onResolveUrl={url => {
-                console.log('onResolveUrl', url);
-                return url;
-              }}
-              onFetchStart={(event: QtiFetchEvent) => {
-                console.log('onFetchStart', event);
+              onFetchStart={async (event: QtiFetchEvent) => {
                 setResourceCount(resourceCount => resourceCount + 1);
+
+                const baseUrl = getBaseUrl(resolveUrl(xml.data));
+                const url =
+                  typeof xml === 'string' || event.type === 'style'
+                    ? event.url
+                    : await fetchImageUrl(resolveUrl(event.url, baseUrl));
+
+                console.log('onFetchStart', url, baseUrl);
+                return url;
               }}
               onFetchEnd={(event: QtiFetchEvent) => {
                 console.log('onFetchEnd', event);
@@ -143,20 +156,21 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
   );
 };
 
-function useAssignmentItemDocument(assessmentItemSrc: string) {
+function useAssignmentItemDocument(xml: string | any) {
   const [assessmentItemDocument, setAssessmentItemDocument] = useState<Document>();
   useEffect(() => {
-    fetch(assessmentItemSrc)
-      .then(response => response.text())
-      .then(text => {
-        try {
-          const document = new DOMParser().parseFromString(text, 'text/xml');
-          setAssessmentItemDocument(document);
-        } catch (e) {
-          console.error(e);
-        }
-      });
-  }, [assessmentItemSrc]);
+    const init = async () => {
+      const xmlData = typeof xml === 'string' ? await fetchText(xml) : xml.data;
+      try {
+        const document = new DOMParser().parseFromString(xmlData, 'text/xml');
+        setAssessmentItemDocument(document);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    init();
+  }, [xml]);
   return assessmentItemDocument;
 }
 

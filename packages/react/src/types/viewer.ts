@@ -7,7 +7,7 @@ export type QtiViewerState = {
   onChange?: (newState: UserInput) => void;
 };
 
-export type QtiViewerEventType = 'fetch' | 'image' | 'math' | 'object' | 'style';
+export type QtiViewerEventType = 'xml' | 'image' | 'math' | 'object' | 'style';
 
 export type QtiViewerEvent = {
   type: QtiViewerEventType;
@@ -20,8 +20,7 @@ export type QtiFetchEvent = QtiViewerEvent & {
 };
 
 export type QtiViewerEvents = {
-  onResolveUrl?: (url: string) => string;
-  onFetchStart?: (event: QtiFetchEvent) => void;
+  onFetchStart?: (event: QtiFetchEvent) => Promise<string>;
   onFetchEnd?: (event: QtiFetchEvent) => void;
 };
 

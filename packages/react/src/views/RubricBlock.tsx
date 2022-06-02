@@ -7,7 +7,6 @@ export const RubricBlock = ({
   document,
   inputState,
   onChange,
-  onResolveUrl,
   onFetchStart,
   onFetchEnd,
   options,
@@ -27,7 +26,7 @@ export const RubricBlock = ({
   return (
     <QtiView
       state={{inputState, onChange}}
-      events={{onResolveUrl, onFetchStart, onFetchEnd}}
+      events={{onFetchStart, onFetchEnd}}
       document={document}
       options={options}
       {...props}>

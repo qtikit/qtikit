@@ -20,12 +20,10 @@ const viewerProps = {
   inputState: UserInput;
   // event called as user input a response
   onChange: (newState: UserInput) => void;
-  // event called before fetch starting to reolve url
-  onResolveUrl?: (event: QtiFetchEvent) => string;
   // event called as fetch starting
-  onFetchStart?: (event: QtiFetchEvent) => string;
+  onFetchStart?: (event: QtiFetchEvent) => Promise<string>
   // event called as fetch ended
-  onFetchEnd?: (event: QtiFetchEvent) => string;
+  onFetchEnd?: (event: QtiFetchEvent) => void;
   options?: ViewerOptions = {
     // display LaTeX syntax in text
     showLaTex?: boolean;
@@ -93,8 +91,7 @@ const QtiViewer = () => {
         document={document}
         inputState={inputState}
         onChange={setInputState}
-        onResolveUrl={url => url + '?sign=your-sign'}
-        onFetchStart={(event: QtiFetchEvent) => console.log('fetch event')}
+        onFetchStart={(event: QtiFetchEvent) => event.url}
         onFetchEnd={(event: QtiFetchEvent) => console.log('fetch event')}
         options: {
           showLaTex: true,

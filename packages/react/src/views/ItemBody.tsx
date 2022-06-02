@@ -7,7 +7,6 @@ export const ItemBody = ({
   document,
   inputState,
   onChange,
-  onResolveUrl,
   onFetchStart,
   onFetchEnd,
   options,
@@ -29,7 +28,6 @@ export const ItemBody = ({
       state={{inputState, onChange}}
       document={document}
       events={{
-        onResolveUrl,
         onFetchStart,
         onFetchEnd,
       }}

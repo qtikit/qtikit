@@ -16,9 +16,8 @@ import {
 } from '../interactions';
 import {isElementNode, isTextNode, isMathMLElement, isRootElement} from '../utils/node';
 import {fetchText} from '../utils/fetch';
-import {getBaseUrl, resolveBaseUrl} from '../utils/url';
-import {reduceElement, trimXml} from '../utils/xml';
-import {QtiViewerEvents, QtiViewerEventType} from '../types/viewer';
+import {getBaseUrl, isHttpUrl} from '../utils/url';
+import {isXml, reduceElement, trimXml} from '../utils/xml';
 
 export type QtiElements = Record<any, Element>;
 
@@ -41,6 +40,11 @@ class QtiComponentKey {
     };
   }
 }
+
+export type QtiXml = {
+  root: Document;
+  xml: string;
+};
 
 export type RenderOption = {
   parseLaTex?: boolean;
@@ -85,8 +89,8 @@ export function renderQtiBody(node: Node | Element | undefined, options?: Render
   }
 }
 
-function parseItemBody(root: Document) {
-  const [itemBody] = root.documentElement.getElementsByTagName('itemBody');
+function parseItemBody(xml: QtiXml) {
+  const [itemBody] = xml.root.documentElement.getElementsByTagName('itemBody');
 
   if (!itemBody) {
     throw new Error('QTI itemBody is not found');
@@ -95,8 +99,8 @@ function parseItemBody(root: Document) {
   return itemBody;
 }
 
-function parseResponseDeclaration(root: Document): QtiElements {
-  return reduceElement('responseDeclaration', root.documentElement, (correct, response) => {
+function parseResponseDeclaration(xml: QtiXml): QtiElements {
+  return reduceElement('responseDeclaration', xml.root.documentElement, (correct, response) => {
     const identifier = response.getAttribute('identifier');
     correct[identifier] = reduceElement('value', response, (values, value) => {
       values[value.textContent] = true;
@@ -107,8 +111,8 @@ function parseResponseDeclaration(root: Document): QtiElements {
   });
 }
 
-function parseModalFeedbacks(root: Document): QtiElements {
-  return reduceElement('modalFeedback', root.documentElement, (feedbacks, feedback) => {
+function parseModalFeedbacks(xml: QtiXml): QtiElements {
+  return reduceElement('modalFeedback', xml.root.documentElement, (feedbacks, feedback) => {
     const identifier = feedback.getAttribute('identifier');
     feedbacks[identifier] = feedback;
 
@@ -116,14 +120,14 @@ function parseModalFeedbacks(root: Document): QtiElements {
   });
 }
 
-function parseStylesheet(root: Document, onFetchStart: any): string[] {
-  return Array.from(root.getElementsByTagName('stylesheet')).map(stylesheet =>
-    onFetchStart(stylesheet.getAttribute('href'))
+function parseStylesheet(xml: QtiXml): string[] {
+  return Array.from(xml.root.getElementsByTagName('stylesheet')).map(
+    stylesheet => stylesheet.getAttribute('href') ?? ''
   );
 }
 
-function parseRubricBlock(root: Document) {
-  return reduceElement('rubricBlock', root.documentElement, (rubrics, rubric) => {
+function parseRubricBlock(xml: QtiXml) {
+  return reduceElement('rubricBlock', xml.root.documentElement, (rubrics, rubric) => {
     const id = rubric.getAttribute('id');
     rubrics[id] = rubric;
 
@@ -131,13 +135,26 @@ function parseRubricBlock(root: Document) {
   });
 }
 
-function removeRubricBlock(root: Document) {
-  for (const rubricBlock of root.getElementsByTagName('rubricBlock')) {
+function removeRubricBlock(xml: QtiXml) {
+  for (const rubricBlock of xml.root.getElementsByTagName('rubricBlock')) {
     rubricBlock?.parentNode?.removeChild(rubricBlock);
   }
 }
 
-function parseCorrectResponses(root: Document, interactions: QtiInteractions, responseDeclarations: QtiResponses) {
+async function getXml(data: string): Promise<QtiXml> {
+  const xml = isXml(data) ? trimXml(data) : isHttpUrl(data) ? await fetchText(data) : undefined;
+
+  if (!xml) {
+    throw new Error(`Invalid XML format, ${data}`);
+  }
+
+  return {
+    root: new DOMParser().parseFromString(xml, 'text/xml'),
+    xml: xml,
+  };
+}
+
+function parseCorrectResponses(interactions: QtiInteractions, responseDeclarations: QtiResponses) {
   const corrects: QtiResponses = {};
   const choiceInteractions = Object.entries(interactions).filter(([, {name}]) => name === 'choiceInteraction');
   for (const choice of choiceInteractions) {
@@ -157,19 +174,21 @@ function parseCorrectResponses(root: Document, interactions: QtiInteractions, re
   return corrects;
 }
 
-function parseInteractions(root: Document, xml: string): QtiInteractions {
-  const targets = [...xml.matchAll(/<([a-zA-Z]*Interaction) /g)].map(match => match[1]);
-  return [...root.querySelectorAll(targets.join(', '))].map(interaction => {
-    return {
-      name: interaction.nodeName,
-      responseIdentifier: interaction.getAttribute('responseIdentifier') ?? '',
-      element: interaction,
-    };
-  });
+function parseInteractions(xml: QtiXml): QtiInteractions {
+  const targets = [...xml.xml.matchAll(/<([a-zA-Z]*Interaction) /g)].map(match => match[1]);
+  return targets.length > 0
+    ? [...xml.root.querySelectorAll(targets.join(', '))].map(interaction => {
+        return {
+          name: interaction.nodeName,
+          responseIdentifier: interaction.getAttribute('responseIdentifier') ?? '',
+          element: interaction,
+        };
+      })
+    : [];
 }
 
 export class QtiDocument {
-  xml?: string;
+  xml?: QtiXml;
   styleUrls: string[] = [];
   baseUrl = '';
   itemBody?: Element;
@@ -194,60 +213,29 @@ export class QtiDocument {
     return Object.keys(this.rubricBlocks).length > 0;
   }
 
-  async fetchStyleSheets(events: QtiViewerEvents) {
-    this.stylesheets = await Promise.all(
-      this.styleUrls.map(url => QtiDocument.fetch('style', url, events, this.baseUrl))
-    );
-  }
-
   render(root?: Element, renderOptions?: RenderOption): React.ReactNode {
     return renderQtiBody(root, renderOptions);
   }
 
-  static async create(url: string, defaultStyleUrl?: string) {
-    const baseUrl = getBaseUrl(url);
+  static async create(xml: string, defaultStyleUrl?: string) {
     const doc = new QtiDocument();
-    const data = await fetchText(url);
-    const xml = trimXml(data);
-    const root = new DOMParser().parseFromString(xml, 'text/xml');
 
-    doc.xml = url;
-    doc.styleUrls = parseStylesheet(root, (href: any) => resolveBaseUrl(href || '', baseUrl));
-    doc.baseUrl = baseUrl;
+    doc.xml = await getXml(xml);
+    doc.baseUrl = isHttpUrl(xml) ? getBaseUrl(xml) : '';
+    doc.styleUrls = parseStylesheet(doc.xml);
 
     if (defaultStyleUrl) {
       doc.styleUrls.unshift(defaultStyleUrl);
     }
 
-    doc.rubricBlocks = parseRubricBlock(root);
-    removeRubricBlock(root);
-    doc.itemBody = parseItemBody(root);
-    doc.modalFeedbacks = parseModalFeedbacks(root);
-    doc.responseDeclarations = parseResponseDeclaration(root);
-    doc.interactions = parseInteractions(root, xml);
-    doc.correctResponses = parseCorrectResponses(root, doc.interactions, doc.responseDeclarations);
+    doc.rubricBlocks = parseRubricBlock(doc.xml);
+    removeRubricBlock(doc.xml);
+    doc.itemBody = parseItemBody(doc.xml);
+    doc.modalFeedbacks = parseModalFeedbacks(doc.xml);
+    doc.responseDeclarations = parseResponseDeclaration(doc.xml);
+    doc.interactions = parseInteractions(doc.xml);
+    doc.correctResponses = parseCorrectResponses(doc.interactions, doc.responseDeclarations);
 
     return doc;
-  }
-
-  static async fetch(type: QtiViewerEventType, url: string, events: QtiViewerEvents, baseUrl?: string) {
-    const resolvedUrl = events.onResolveUrl?.(url) ?? url;
-    const fetchOptions = {
-      type,
-      url: resolvedUrl,
-      baseUrl,
-    };
-
-    if (events.onFetchStart) {
-      events.onFetchStart(fetchOptions);
-    }
-
-    const res = await fetchText(resolvedUrl);
-
-    if (events.onFetchEnd) {
-      events.onFetchEnd(fetchOptions);
-    }
-
-    return res;
   }
 }

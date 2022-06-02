@@ -15,6 +15,20 @@ ItemBodyView.args = {
   },
 };
 
+export const ItemBodyViewWithXmlData = QtiViewerTemplate.bind({});
+
+ItemBodyViewWithXmlData.storyName = 'ItemBody with Xml Data';
+ItemBodyViewWithXmlData.args = {
+  xml: {
+    type: 'xml',
+    data: 'tests/items/choice.xml',
+  },
+  viewType: 'itemBody',
+  options: {
+    showLaTex: true,
+  },
+};
+
 export const ModalFeedbackView = QtiViewerTemplate.bind({});
 
 ModalFeedbackView.storyName = 'ModalFeedback';
