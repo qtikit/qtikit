@@ -55,7 +55,7 @@ export const useFetchData = (
   type: QtiViewerEventType,
   url: string,
   baseUrl: string
-): [string | null, (event: any) => any] => {
+): [string | null, (event?: any) => any] => {
   const {events} = useContext(ViewContext);
   const [data, setData] = React.useState<string | null>(null);
 
