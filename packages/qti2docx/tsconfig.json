@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "outDir": "lib",
+    "declaration": true,
+    "target": "es2018",
+    "module": "commonjs",
+    "strict": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["lib"]
+}

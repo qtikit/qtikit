@@ -9,6 +9,7 @@
   "workspaces": [
     "packages/model",
     "packages/model/test",
+    "packages/qti2docx",
     "packages/react",
     "packages/scoring-engine",
     "packages/mathjax-react",

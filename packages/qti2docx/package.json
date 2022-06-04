@@ -1,0 +1,20 @@
+{
+  "name": "@qtikit/qti2docx",
+  "packageManager": "yarn@3.1.0",
+  "version": "0.0.0",
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build": "tsc",
+    "prepublishOnly": "yarn clean && yarn build"
+  },
+  "dependencies": {
+    "@qtikit/model": "workspace:^"
+  },
+  "devDependencies": {
+    "docx": "^7.3.0",
+    "typescript": "^4.7.3"
+  },
+  "peerDependencies": {
+    "docx": "*"
+  }
+}
