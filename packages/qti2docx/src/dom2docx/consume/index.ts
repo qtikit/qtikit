@@ -1,11 +1,14 @@
 import {CreateParagraph, ParagraphsBuilder } from '../../docx/paragraphs';
 import {RunStyleContext, createTextRun} from '../../docx/text-run';
 import {elementNode, textNode} from '../../dom';
+import {Fetch} from '..';
 import div from './div';
 import span from './span';
 import heading from './heading';
 
 export interface ConsumeConfig {
+  currentUrl: string;
+  fetch: Fetch;
   el: Element;
   isBlock: boolean;
   paragraphsBuilder: ParagraphsBuilder;
