@@ -22,12 +22,12 @@ import {
   createParagraphsBuilder,
   ParagraphsBuilder,
   Paragraphs,
-} from './paragraphs';
+} from '../docx/paragraphs';
 import {
   RunStyleContext,
   createTextRun,
   CreateTextRun,
-} from './text-run';
+} from '../docx/text-run';
 
 export interface AssessmentItemToDocxParagraphsConfig {
   assessmentItem: AssessmentItem
