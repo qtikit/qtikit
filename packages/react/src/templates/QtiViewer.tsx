@@ -6,7 +6,7 @@ import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/
 import {ItemBody, ModalFeedback, QtiDocument, QtiFetchEvent, QtiViewerOptions} from '../';
 import {getBaseUrl, getPathName, resolveUrl} from '../utils/url';
 import {RubricBlock} from '../views/RubricBlock';
-import {QtiResponses} from '../views/document';
+import {QtiResponses} from '../views/QtiDocument';
 import {fetchText} from '../utils/fetch';
 
 async function fetchImageUrl(url: string) {
@@ -125,7 +125,7 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
                     ? event.url
                     : await fetchImageUrl(resolveUrl(event.url, baseUrl));
 
-                console.log('onFetchStart', url, baseUrl);
+                console.log('onFetchStart', event, url, baseUrl);
                 return url;
               }}
               onFetchEnd={(event: QtiFetchEvent) => {

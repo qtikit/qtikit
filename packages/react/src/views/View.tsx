@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {QtiStyles, StyleProp} from './Styles';
-import {QtiDocument, RenderOption} from './document';
+import {QtiDocument, RenderOption} from './QtiDocument';
 import {QtiViewerEvents, QtiViewerOptions, QtiViewerState} from '../types/viewer';
 import {fetchStyles} from '../utils/fetch';
 
