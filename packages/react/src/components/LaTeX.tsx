@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {extractMath} from 'extract-math';
 
 import {classNameForComponent} from '../utils/style';
 
@@ -15,13 +16,12 @@ const LazyMathComponent: React.FC<LaTeXProps> = ({tex, ...props}) => {
   }
 
   const {LaTex} = mathjaxReact;
-
-  const matches = tex.split(/(\$\$.*\$\$)/g).filter(match => match.trim().length > 0);
+  const matches = extractMath(tex);
 
   return (
     <span {...props}>
       {matches.map((match, index) =>
-        match.startsWith('$$') ? <LaTex key={index} tex={match.replaceAll('$', '')} /> : match
+        match.type === 'display' ? <LaTex key={index} tex={match.value} /> : <span>{match.value}</span>
       )}
     </span>
   );

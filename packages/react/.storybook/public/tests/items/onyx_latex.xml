@@ -42,6 +42,7 @@
     <p>1. $$a = 4, b=6$$.</p>
     <p>2. $$a^2+b^2 - 2ab + 4$$</p>
     <p>3. $$c = \pm\sqrt{a^2 + b^2}$$</p>
+    <p>4. $$x^{2} =-4 $$ implies that $$x=±\sqrt{-4}=±\sqrt{-1×4}=±\sqrt{-1}×\sqrt{4}=±2\sqrt{-1}. $$ We know $$i^{2} =-1 $$ and $$i=\sqrt{-1}, $$ so, $$x=±2i. $$</p>
     <p>
        
       <textEntryInteraction responseIdentifier="RESPONSE_1" class="ctest_l ctest_r" />
