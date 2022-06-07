@@ -27,14 +27,6 @@ const LazyMathComponent: React.FC<MathMLProps> = props => {
 };
 
 const MathML: React.FC<MathMLProps> = ({mathML, display, ...props}) => {
-  const [, onFetchEnd] = useFetchData('math', encodeURIComponent(mathML), '');
-
-  useEffect(() => {
-    onFetchEnd();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mathML]);
-
   return (
     <span className={classNameForComponent('mathjax')}>
       <LazyMathComponent {...props} mathML={mathML} />
