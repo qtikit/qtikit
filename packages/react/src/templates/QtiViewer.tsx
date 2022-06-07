@@ -9,7 +9,7 @@ import {RubricBlock} from '../views/RubricBlock';
 import {QtiResponses} from '../views/QtiDocument';
 import {fetchText} from '../utils/fetch';
 
-async function fetchImageUrl(url: string) {
+async function createBlobUrl(url: string) {
   const data = await fetch(url);
   return URL.createObjectURL(await data.blob());
 }
@@ -119,11 +119,8 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
               onFetchStart={async (event: QtiFetchEvent) => {
                 setResourceCount(resourceCount => resourceCount + 1);
 
-                const baseUrl = getBaseUrl(resolveUrl(xml.data));
-                const url =
-                  typeof xml === 'string' || event.type === 'style'
-                    ? event.url
-                    : await fetchImageUrl(resolveUrl(event.url, baseUrl));
+                const baseUrl = getBaseUrl(resolveUrl(xml.data ? xml.data : xml));
+                const url = await createBlobUrl(resolveUrl(event.url, baseUrl));
 
                 console.log('onFetchStart', event, url, baseUrl);
                 return url;

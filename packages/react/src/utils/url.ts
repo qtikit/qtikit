@@ -10,6 +10,14 @@ export function isBlobUrl(url: string): boolean {
   return /^blob:/.test(url);
 }
 
+export function isSupportedUri(url: string): boolean {
+  return isHttpUrl(url) || isBlobUrl(url);
+}
+
+export function resolveUriType(uri: string) {
+  return uri.split(':')[0];
+}
+
 export function getPathName(url: string): string {
   return (url && url.split('/').pop()) ?? '';
 }

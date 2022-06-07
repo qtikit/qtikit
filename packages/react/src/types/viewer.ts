@@ -19,8 +19,10 @@ export type QtiFetchEvent = QtiViewerEvent & {
   baseUrl?: string;
 };
 
+export type QtiUri = string; // starts with 'http' | 'https' | 'blob';
+
 export type QtiViewerEvents = {
-  onFetchStart?: (event: QtiFetchEvent) => Promise<string>;
+  onFetchStart?: (event: QtiFetchEvent) => Promise<QtiUri>;
   onFetchEnd?: (event: QtiFetchEvent) => void;
 };
 

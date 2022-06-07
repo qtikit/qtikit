@@ -2,16 +2,14 @@ import React, {useContext, useEffect} from 'react';
 
 import {QtiViewerEvents, QtiViewerEventType} from '../types/viewer';
 import {ViewContext} from '../views/View';
-import {isBlobUrl, resolveUrl} from './url';
+import {isBlobUrl, isSupportedUri, resolveUriType, resolveUrl} from './url';
 
 export async function fetchText(src: string): Promise<string> {
   return await fetch(src).then(response => response.text());
 }
 
-export type FetchResponseTypes = 'url' | 'text' | 'blob' | 'arrayBuffer' | 'json';
-
 export type FetchResponse = {
-  type: FetchResponseTypes;
+  type: string;
   data: string;
 };
 
@@ -25,13 +23,16 @@ export async function fetchData(
   baseUrl: string,
   events: QtiViewerEvents
 ): Promise<FetchResponse> {
-  const retrievedUrl = events.onFetchStart ? await events.onFetchStart({type, url, baseUrl}) : url;
-  const response = {
-    type: (isBlobUrl(retrievedUrl) ? 'blob' : 'url') as FetchResponseTypes,
-    data: isBlobUrl(retrievedUrl) ? retrievedUrl : resolveUrl(url || '', baseUrl),
-  };
+  const uri = events.onFetchStart ? await events.onFetchStart({type, url, baseUrl}) : url;
 
-  return response;
+  if (!isSupportedUri(uri)) {
+    throw new Error(`Unsupported URI: ${uri}`);
+  }
+
+  return {
+    type: resolveUriType(uri),
+    data: isBlobUrl(uri) ? uri : resolveUrl(url || '', baseUrl),
+  };
 }
 
 export async function fetchStyles(styleUrls: string[], baseUrl: string, events: QtiViewerEvents) {
@@ -39,14 +40,10 @@ export async function fetchStyles(styleUrls: string[], baseUrl: string, events: 
   return await Promise.all(
     styleUrls.map(async url => {
       const response = await fetchData('style', url, baseUrl, events);
-      if (response.type === 'url') {
-        const style = fetchText(response.data);
-        endFetch(url);
-        return style;
-      }
+      const styles = await fetchText(response.data);
 
       endFetch(url);
-      return Promise.resolve(response.data);
+      return Promise.resolve(styles);
     })
   );
 }
