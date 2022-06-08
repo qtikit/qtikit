@@ -142,16 +142,17 @@ function removeRubricBlock(xml: QtiXml) {
 }
 
 async function getXml(data: string): Promise<QtiXml> {
-  const xml = isXml(data) ? trimXml(data) : isHttpUrl(data) ? await fetchText(data) : undefined;
+  const xml = trimXml(isXml(data) ? data : await fetchText(data));
 
-  if (!xml) {
-    throw new Error(`Invalid XML format, ${data}`);
+  try {
+    const root = new DOMParser().parseFromString(xml, 'text/xml');
+    return {
+      root,
+      xml
+    };
+  } catch (e) {
+    throw new Error(`Invalid XML format, ${xml}`);
   }
-
-  return {
-    root: new DOMParser().parseFromString(xml, 'text/xml'),
-    xml: xml,
-  };
 }
 
 function parseCorrectResponses(interactions: QtiInteractions, responseDeclarations: QtiResponses) {
