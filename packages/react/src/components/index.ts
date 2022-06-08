@@ -15,6 +15,7 @@ import ImageHtml from './ImageHtml';
 import ObjectHtml from './ObjectHtml';
 import MathML from './MathML';
 import {LaTeX} from './LaTeX';
+import BrHtml from './BrHtml';
 
 export const htmlElementNames = [
   'pre',
@@ -79,7 +80,7 @@ export function isHTMLElement(node: Node): boolean {
   return htmlElementNames.includes(node.nodeName as any);
 }
 
-export const htmlComponetNames = ['img', 'object'] as const;
+export const htmlComponetNames = ['img', 'object', 'br'] as const;
 
 export type HtmlComponetName = typeof htmlComponetNames[number];
 
@@ -134,6 +135,7 @@ export function createHTMLComponent(
   const HtmlComponentMap: Record<HtmlComponetName, React.FC> = {
     img: ImageHtml,
     object: ObjectHtml,
+    br: BrHtml
   };
 
   return React.createElement(
