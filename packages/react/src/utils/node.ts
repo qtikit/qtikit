@@ -36,7 +36,7 @@ export function isMathMLElement(node: Node): boolean {
   return node.nodeName === MATH_ELEMENT_NAME;
 }
 
-export function getPropsByElement(element: Element, callbackfn?: Function): Props {
+export function getPropsByElement(element: Element, callbackfn?: (value: any) => any): Props {
   return element.attributes
     ? Object.fromEntries(
         Array.from(element.attributes).map(({name, value}) => (callbackfn ? callbackfn({name, value}) : [name, value]))
