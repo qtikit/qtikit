@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Props} from '../types/component';
-import {getOuterXmlWithoutNs, getPropsByElement} from '../utils/node';
+import {getOuterXmlWithoutNs, getPropsByElement, mapStyleProp} from '../utils/node';
 import AssociableHotspot from './AssociableHotspot';
 import Gap from './Gap';
 import GapImg from './GapImg';
@@ -129,17 +129,18 @@ export function createHTMLComponent(
   defaultProps: Props,
   children: React.ReactNode[]
 ): React.ReactElement {
-  const props = {...defaultProps, ...getPropsByElement(element)};
+  const props = {...defaultProps, ...getPropsByElement(element, mapStyleProp)};
 
   const HtmlComponentMap: Record<HtmlComponetName, React.FC> = {
     img: ImageHtml,
     object: ObjectHtml,
   };
 
-  const htmlComponent = HtmlComponentMap[element.nodeName as HtmlComponetName];
-  return htmlComponent
-    ? React.createElement(htmlComponent, props, children)
-    : React.createElement(element.nodeName, props, ...children);
+  return React.createElement(
+    HtmlComponentMap[element.nodeName as HtmlComponetName] ?? element.nodeName,
+    props,
+    children
+  );
 }
 
 export function createMathMLComponent(element: Element, defaultProps: Props): React.ReactNode {

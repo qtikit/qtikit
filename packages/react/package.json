@@ -12,6 +12,7 @@
   "dependencies": {
     "@qtikit/mathjax-react": "workspace:^",
     "@qtikit/model": "workspace:^",
+    "css-to-style": "^1.4.0",
     "extract-math": "^1.2.3",
     "ts-xor": "^1.0.8"
   },
@@ -25,6 +26,7 @@
     "@storybook/addon-links": "^6.4.0-beta.29",
     "@storybook/react": "^6.4.0-beta.29",
     "@types/babel__core": "^7",
+    "@types/css-to-style": "^1",
     "@types/mdx-js__react": "^1",
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.34",
