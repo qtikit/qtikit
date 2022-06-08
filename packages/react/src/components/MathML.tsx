@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 
-import {useFetchData} from '../utils/fetch';
 import {classNameForComponent} from '../utils/style';
 
 export interface MathMLProps {
