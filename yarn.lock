@@ -2746,11 +2746,13 @@ __metadata:
     "@storybook/addon-links": ^6.4.0-beta.29
     "@storybook/react": ^6.4.0-beta.29
     "@types/babel__core": ^7
+    "@types/css-to-style": ^1
     "@types/mdx-js__react": ^1
     "@types/node": ^16.11.6
     "@types/react": ^17.0.34
     "@types/react-dom": ^17.0.11
     babel-loader: ^8.2.3
+    css-to-style: ^1.4.0
     extract-math: ^1.2.3
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -4261,6 +4263,13 @@ __metadata:
   version: 0.3.3
   resolution: "@types/cookie@npm:0.3.3"
   checksum: 450c930d792a4fd5a93645b4123f02596368f904dbb1fe6fbb5043bce8f6ecf877a08511c6ba11c8e28168f62bc278e68d214f002fab927c9056c0bc69f21370
+  languageName: node
+  linkType: hard
+
+"@types/css-to-style@npm:^1":
+  version: 1.2.0
+  resolution: "@types/css-to-style@npm:1.2.0"
+  checksum: 69183481f459a6b654039bd28ea185a5ee9310746d5f5cfcc2a7a5d9ad40f608855de758be690074218d3a8dfed8c4ed2fd6141247081a46ac32eab103a8c65a
   languageName: node
   linkType: hard
 
@@ -7464,6 +7473,13 @@ __metadata:
     domutils: ^2.8.0
     nth-check: ^2.0.1
   checksum: d6202736839194dd7f910320032e7cfc40372f025e4bf21ca5bf6eb0a33264f322f50ba9c0adc35dadd342d3d6fae5ca244779a4873afbfa76561e343f2058e0
+  languageName: node
+  linkType: hard
+
+"css-to-style@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "css-to-style@npm:1.4.0"
+  checksum: b6ca9fa122861330ef6c5636f48d992550a005ddfcbf7e6f27fab834c89a43b7332013762379d471d871718609a6e2031d1013cce4a2fe9fa28f2ca64d5e2dab
   languageName: node
   linkType: hard
 
