@@ -94,7 +94,7 @@ function convert(context: MathJaxContext, tex: string, node: HTMLElement) {
   return outerHTML;
 }
 
-export const LaTex = ({tex}: {tex: string}) => {
+export const LaTeX = ({tex}: {tex: string}) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [element, setElement] = useState('<svg></svg>');
   const [context] = useMathJax();

@@ -15,13 +15,13 @@ const LazyMathComponent: React.FC<LaTeXProps> = ({tex, ...props}) => {
     return null;
   }
 
-  const {LaTex} = mathjaxReact;
+  const {LaTeX} = mathjaxReact;
   const matches = extractMath(tex);
 
   return (
     <span {...props}>
       {matches.map((match, index) =>
-        match.type === 'display' ? <LaTex key={index} tex={match.value} /> : <span>{match.value}</span>
+        match.type === 'display' ? <LaTeX key={index} tex={match.value} /> : <span>{match.value}</span>
       )}
     </span>
   );
