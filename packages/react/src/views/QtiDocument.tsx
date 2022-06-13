@@ -148,7 +148,7 @@ async function getXml(data: string): Promise<QtiXml> {
     const root = new DOMParser().parseFromString(xml, 'text/xml');
     return {
       root,
-      xml
+      xml,
     };
   } catch (e) {
     throw new Error(`Invalid XML format, ${xml}`);
@@ -218,11 +218,18 @@ export class QtiDocument {
     return renderQtiBody(root, renderOptions);
   }
 
-  static async create(xml: string, defaultStyleUrl?: string) {
+  static async create(xml: string | Document, defaultStyleUrl?: string) {
     const doc = new QtiDocument();
 
-    doc.xml = await getXml(xml);
-    doc.baseUrl = isHttpUrl(xml) ? getBaseUrl(xml) : '';
+    if (typeof xml === 'string') {
+      doc.xml = await getXml(xml);
+      doc.baseUrl = isHttpUrl(xml) ? getBaseUrl(xml) : '';
+    } else {
+      doc.xml = {
+        root: xml,
+        xml: xml.documentElement.outerHTML,
+      };
+    }
     doc.styleUrls = parseStylesheet(doc.xml);
 
     if (defaultStyleUrl) {
