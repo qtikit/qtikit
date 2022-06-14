@@ -218,11 +218,25 @@ export class QtiDocument {
     return renderQtiBody(root, renderOptions);
   }
 
+  static async parseFromString(str: string): Promise<QtiXml> {
+    const xml = trimXml(isXml(str) ? str : await fetchText(str));
+
+    try {
+      const root = new DOMParser().parseFromString(xml, 'text/xml');
+      return {
+        root,
+        xml,
+      };
+    } catch (e) {
+      throw new Error(`Invalid XML format, ${xml}`);
+    }
+  }
+
   static async create(xml: string | Document, defaultStyleUrl?: string) {
     const doc = new QtiDocument();
 
     if (typeof xml === 'string') {
-      doc.xml = await getXml(xml);
+      doc.xml = await QtiDocument.parseFromString(xml);
       doc.baseUrl = isHttpUrl(xml) ? getBaseUrl(xml) : '';
     } else {
       doc.xml = {
