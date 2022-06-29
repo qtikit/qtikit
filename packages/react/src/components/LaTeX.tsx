@@ -21,7 +21,7 @@ const LazyMathComponent: React.FC<LaTeXProps> = ({tex, ...props}) => {
   return (
     <span {...props}>
       {matches.map((match, index) =>
-        match.type === 'display' ? <LaTeX key={index} tex={match.value} /> : <span>{match.value}</span>
+        match.type === 'display' ? <LaTeX key={index} tex={match.value} /> : <span key={index}>{match.value}</span>
       )}
     </span>
   );
