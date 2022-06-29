@@ -1,7 +1,7 @@
 import {QtiElements} from '../views/QtiDocument';
 
 export function trimXml(xml: string) {
-  return xml.replace(/\n(?=)(^\s+<)/gm, '<');
+  return xml.replace(/\r?\n(?=)(^\s+<)/gm, '<');
 }
 
 export function isXml(xml: string): boolean {
