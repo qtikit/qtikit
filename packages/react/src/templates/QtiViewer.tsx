@@ -78,7 +78,7 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
   const xmlUrl =
     typeof xml === 'string' ? (xml.match(/^(http|https):\/\//) ? xml : resolveUrl(xml)) : resolveUrl(xml.data);
 
-  const assessmentItemDocument = useAssignmentItemDocument(xml);
+  const assessmentItemDocument = useAssignmentItemDocument(xmlUrl);
   const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
 
   const Viewer = (() => {
