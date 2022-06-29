@@ -141,19 +141,6 @@ function removeRubricBlock(xml: QtiXml) {
   }
 }
 
-async function getXml(data: string): Promise<QtiXml> {
-  const xml = isXml(data) ? trimXml(data) : isHttpUrl(data) ? await fetchText(data) : undefined;
-
-  if (!xml) {
-    throw new Error(`Invalid XML format, ${data}`);
-  }
-
-  return {
-    root: new DOMParser().parseFromString(xml, 'text/xml'),
-    xml: xml,
-  };
-}
-
 function parseCorrectResponses(interactions: QtiInteractions, responseDeclarations: QtiResponses) {
   const corrects: QtiResponses = {};
   const choiceInteractions = Object.entries(interactions).filter(([, {name}]) => name === 'choiceInteraction');
@@ -237,12 +224,16 @@ export class QtiDocument {
     if (typeof xml === 'string') {
       doc.xml = await QtiDocument.parseFromString(xml);
       doc.baseUrl = isHttpUrl(xml) ? getBaseUrl(xml) : '';
-    } else {
+    } else if (xml instanceof Document) {
       doc.xml = {
         root: xml,
         xml: xml.documentElement.outerHTML,
       };
+    } else {
+      console.error('Invalid XML format', xml);
+      throw new Error(`Invalid XML format`);
     }
+
     doc.styleUrls = parseStylesheet(doc.xml);
 
     if (defaultStyleUrl) {

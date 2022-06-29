@@ -19,14 +19,24 @@ export const ItemBodyViewWithXmlData = QtiViewerTemplate.bind({});
 
 ItemBodyViewWithXmlData.storyName = 'ItemBody with Xml Data';
 ItemBodyViewWithXmlData.args = {
-  xml: {
-    type: 'xml',
-    data: 'tests/items/choice.xml',
-  },
+  xml: 'tests/items/choice.xml',
   viewType: 'itemBody',
   options: {
     showLaTex: true,
   },
+  fetchXml: true,
+};
+
+export const ItemBodyViewWithXmlRawData = QtiViewerTemplate.bind({});
+
+ItemBodyViewWithXmlRawData.storyName = 'ItemBody with Xml Raw Data';
+ItemBodyViewWithXmlRawData.args = {
+  xml: '',
+  viewType: 'itemBody',
+  options: {
+    showLaTex: true,
+  },
+  fetchXml: false,
 };
 
 export const ModalFeedbackView = QtiViewerTemplate.bind({});

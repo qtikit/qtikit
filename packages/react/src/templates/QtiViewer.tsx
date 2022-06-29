@@ -1,10 +1,10 @@
 import {UserInput} from '@qtikit/model/lib/user-input';
 import React, {useEffect, useMemo, useState} from 'react';
-import responseProcessing from '@qtikit/scoring-engine/lib/responseProcessing';
+import responseProcessing, {ResponseProcessingResult} from '@qtikit/scoring-engine/lib/responseProcessing';
 import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/getResponseProcessingConfigFromDocument';
 
 import {ItemBody, ModalFeedback, QtiDocument, QtiFetchEvent, QtiViewerOptions} from '../';
-import {getBaseUrl, getPathName, resolveUrl} from '../utils/url';
+import {getBaseUrl, getPathName, isHttpUrl, resolveUrl} from '../utils/url';
 import {RubricBlock} from '../views/RubricBlock';
 <<<<<<< HEAD
 import {QtiResponses} from '../views/document';
@@ -14,6 +14,7 @@ import {QtiResponses} from '../views/QtiDocument';
 =======
 >>>>>>> f001c4d (feat: add fetch events)
 import {fetchText} from '../utils/fetch';
+import {isXml, trimXml} from '../utils/xml';
 
 async function createBlobUrl(url: string) {
   const data = await fetch(url);
@@ -23,6 +24,21 @@ async function createBlobUrl(url: string) {
 >>>>>>> a8ec254 (fix: rename document to QtiDocument)
 =======
 >>>>>>> f001c4d (feat: add fetch events)
+
+async function getXmlData(xml: string, fetchXml: boolean) {
+  if (fetchXml) {
+    return await fetchText(resolveUrl(xml));
+  } else if (isXml(xml)) {
+    return trimXml(xml);
+  } else {
+    const url = resolveUrl(xml);
+    if (!isHttpUrl(url)) {
+      throw new Error(`Invalid XML format, ${xml}`);
+    }
+
+    return url;
+  }
+}
 
 class ErrorBoundary extends React.Component<{children: any}, {hasError: false; error: Error | null}> {
   constructor(props: {children: any} | Readonly<{children: any}>) {
@@ -78,18 +94,16 @@ export type QtiViewerTemplateProps = {
   style: string;
   options?: QtiViewerOptions;
   viewType?: string;
+  fetchXml?: false;
 };
 
-export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemplateProps) => {
+export const QtiViewerTemplate = ({xml, style, options, viewType, fetchXml}: QtiViewerTemplateProps) => {
   const [inputState, setInputState] = useState<UserInput>({});
   const [document, setDocument] = useState<QtiDocument | null>(null);
   const [resourceCount, setResourceCount] = useState(0);
+  const [responseProcessingResult, setAssessmentDocument] = useResponseProcessingResult(inputState);
 
-  const xmlUrl =
-    typeof xml === 'string' ? (xml.match(/^(http|https):\/\//) ? xml : resolveUrl(xml)) : resolveUrl(xml.data);
-
-  const assessmentItemDocument = useAssignmentItemDocument(xml);
-  const responseProcessingResult = useResponseProcessingResult(assessmentItemDocument, inputState);
+  const xmlUrl = xml.match(/^(http|https):\/\//) ? xml : resolveUrl(xml);
 
   const Viewer = (() => {
     switch (viewType) {
@@ -104,15 +118,17 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
 
   useEffect(() => {
     const create = async () => {
-      const xmlData = typeof xml === 'string' ? resolveUrl(xml) : await fetchText(resolveUrl(xml.data));
+      const xmlData = await getXmlData(xml, fetchXml ?? false);
       const document = await QtiDocument.create(xmlData, resolveUrl(style ?? 'tests/styles/default.css'));
+
       setDocument(document);
+      setAssessmentDocument(document.xml?.root);
     };
 
     if (xml) {
       create();
     }
-  }, [xml, style]);
+  }, [xml, style, setAssessmentDocument, fetchXml]);
 
   return (
     <div>
@@ -151,7 +167,7 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
           {resourceCount}, {resourceCount === 0 ? 'completed' : 'incompleted'}
         </div>
       </div>
-      {viewType === 'itemBay' && (
+      {viewType === 'itemBody' && (
         <div style={{flex: '1', padding: 10}}>
           <h3>Input State</h3>
           <pre>{JSON.stringify(inputState, null, 2)}</pre>
@@ -163,33 +179,21 @@ export const QtiViewerTemplate = ({xml, style, options, viewType}: QtiViewerTemp
   );
 };
 
-function useAssignmentItemDocument(xml: string | any) {
-  const [assessmentItemDocument, setAssessmentItemDocument] = useState<Document>();
-  useEffect(() => {
-    const init = async () => {
-      const xmlData = typeof xml === 'string' ? await fetchText(xml) : xml.data;
-      try {
-        const document = new DOMParser().parseFromString(xmlData, 'text/xml');
-        setAssessmentItemDocument(document);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    init();
-  }, [xml]);
-  return assessmentItemDocument;
-}
-
-function useResponseProcessingResult(assessmentItemDocument?: Document, inputState: UserInput = {}) {
+function useResponseProcessingResult(
+  inputState: UserInput = {}
+): [ResponseProcessingResult | undefined, (document: Document | undefined) => void] {
+  const [assessmentDocument, setAssessmentDocument] = useState<Document | undefined>();
   const responseProcessingResult = useMemo(() => {
     try {
-      if (!assessmentItemDocument) return;
-      return responseProcessing(getResponseProcessingConfigFromDocument(assessmentItemDocument), inputState);
+      if (!assessmentDocument) {
+        return;
+      }
+
+      return responseProcessing(getResponseProcessingConfigFromDocument(assessmentDocument), inputState);
     } catch (e) {
-      console.error(e);
-      console.log(assessmentItemDocument?.documentElement?.outerHTML);
+      console.error('Error on processing response', e);
     }
-  }, [assessmentItemDocument, inputState]);
-  return responseProcessingResult;
+  }, [assessmentDocument, inputState]);
+
+  return [responseProcessingResult, setAssessmentDocument];
 }
