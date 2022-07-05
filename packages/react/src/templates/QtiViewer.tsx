@@ -6,13 +6,7 @@ import getResponseProcessingConfigFromDocument from '@qtikit/scoring-engine/lib/
 import {ItemBody, ModalFeedback, QtiDocument, QtiFetchEvent, QtiViewerOptions} from '../';
 import {getBaseUrl, getPathName, isHttpUrl, resolveUrl} from '../utils/url';
 import {RubricBlock} from '../views/RubricBlock';
-<<<<<<< HEAD
-import {QtiResponses} from '../views/document';
-<<<<<<< HEAD
-=======
 import {QtiResponses} from '../views/QtiDocument';
-=======
->>>>>>> f001c4d (feat: add fetch events)
 import {fetchText} from '../utils/fetch';
 import {isXml, trimXml} from '../utils/xml';
 
@@ -20,10 +14,6 @@ async function createBlobUrl(url: string) {
   const data = await fetch(url);
   return URL.createObjectURL(await data.blob());
 }
-<<<<<<< HEAD
->>>>>>> a8ec254 (fix: rename document to QtiDocument)
-=======
->>>>>>> f001c4d (feat: add fetch events)
 
 async function getXmlData(xml: string, fetchXml: boolean) {
   if (fetchXml) {

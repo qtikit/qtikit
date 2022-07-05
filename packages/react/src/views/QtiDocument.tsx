@@ -62,7 +62,7 @@ export function renderQtiBody(node: Node | Element | undefined, options?: Render
 
   if (isTextNode(node)) {
     if (options?.parseLaTex && node.nodeValue) {
-      return createKaTeXComponent(node.nodeValue, defaultProps);
+      return createLaTeXComponent(node.nodeValue, defaultProps);
     }
 
     return node.nodeValue;
